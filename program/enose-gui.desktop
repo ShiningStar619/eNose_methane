@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=eNose Hardware Control
+Comment=GUI สำหรับควบคุม Relay และอุปกรณ์ต่างๆ บน Raspberry Pi
+Exec=/home/pi/eNose-/program/run_gui.sh
+Icon=application-x-executable
+Terminal=false
+Categories=Utility;System;
+StartupNotify=true
+X-GNOME-Autostart-enabled=true

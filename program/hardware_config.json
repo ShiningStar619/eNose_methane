@@ -1,0 +1,25 @@
+{
+    "operation_times": {
+        "heating": 10,
+        "baseline": 10,
+        "vacuum": 10,
+        "mix_air": 10,
+        "measure": 20,
+        "vacuum_return": 10,
+        "recovery": 10,
+        "break_time": 10
+    },
+    "gpio_pins": {
+        "s_valve1": 5,
+        "s_valve2": 6,
+        "s_valve3": 13,
+        "s_valve4": 19,
+        "pump": 26,
+        "fan": 20,
+        "heater": 21
+    },
+    "auto_settings": {
+        "loop_count": 0,
+        "infinite_loop": true
+    }
+}
