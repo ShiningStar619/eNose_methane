@@ -8,42 +8,46 @@
 
 ### ขั้นตอนการติดตั้ง:
 
-1. **แก้ไข path ในไฟล์ `enose-gui.desktop` ให้ตรงกับตำแหน่งโปรเจกต์ของคุณ:**
-   ```bash
-   nano /home/pi/eNose-/program/enose-gui.desktop
-   ```
-   
-   แก้ไขบรรทัด `Exec=` ให้ชี้ไปที่ path ที่ถูกต้อง:
+1. **แก้ไข path ในไฟล์ `enose-gui.desktop` ให้ตรงกับตำแหน่งโปรเจกต์บน Pi:**
+   - เปิดไฟล์แล้วแก้บรรทัด `Exec=` ให้ชี้ไปที่ path จริง เช่น:
    ```ini
-   Exec=/home/pi/eNose-/program/run_gui.sh
+   Exec=/home/pi/eNose_Methane/program/run_gui.sh
    ```
-   (เปลี่ยน `/home/pi/eNose-` เป็น path จริงของโปรเจกต์บน Raspberry Pi)
+   (เปลี่ยน `/home/pi/eNose_Methane` เป็น path โปรเจกต์จริงบน Raspberry Pi)
 
-2. **ให้สิทธิ์ execute แก่ shell script:**
+2. **แก้ line ending ของ `run_gui.sh` (ถ้าแก้ไขไฟล์บน Windows):**
    ```bash
-   chmod +x /home/pi/eNose-/program/run_gui.sh
+   sed -i 's/\r$//' /home/pi/eNose_Methane/program/run_gui.sh
+   ```
+   หรือถ้าติดตั้ง dos2unix: `dos2unix /home/pi/eNose_Methane/program/run_gui.sh`
+
+3. **ให้สิทธิ์ execute แก่ shell script:**
+   ```bash
+   chmod +x /home/pi/eNose_Methane/program/run_gui.sh
    ```
 
-3. **สร้างโฟลเดอร์ autostart (ถ้ายังไม่มี):**
+4. **สร้างโฟลเดอร์ autostart (ถ้ายังไม่มี):**
    ```bash
    mkdir -p ~/.config/autostart
    ```
 
-4. **คัดลอกไฟล์ .desktop ไปยัง autostart directory:**
+5. **คัดลอกไฟล์ .desktop ไปยัง autostart:**
    ```bash
-   cp /home/pi/eNose-/program/enose-gui.desktop ~/.config/autostart/
+   cp /home/pi/eNose_Methane/program/enose-gui.desktop ~/.config/autostart/
    ```
+   (ใช้ path โปรเจกต์จริงของคุณ)
 
-5. **ทดสอบการรัน script:**
+6. **ทดสอบการรัน script:**
    ```bash
-   /home/pi/eNose-/program/run_gui.sh
+   bash /home/pi/eNose_Methane/program/run_gui.sh
    ```
-   ถ้า GUI เปิดขึ้นมา แสดงว่าทำงานถูกต้อง
+   ถ้า GUI เปิดขึ้นมา แสดงว่าพร้อมใช้
 
-6. **รีสตาร์ท Raspberry Pi เพื่อทดสอบ autostart:**
+7. **รีสตาร์ท Raspberry Pi เพื่อทดสอบ autostart:**
    ```bash
    sudo reboot
    ```
+   หลัง boot และล็อกอินเข้า Desktop แล้ว GUI ควรเปิดขึ้นอัตโนมัติ
 
 ## การตรวจสอบ:
 
@@ -82,13 +86,14 @@
 - ใช้ `ls -la` เพื่อตรวจสอบว่าไฟล์อยู่ที่ไหน
 
 ### Script ไม่ทำงาน:
-- ทดสอบรัน script โดยตรง: `bash /home/pi/eNose-/program/run_gui.sh`
+- ทดสอบรัน script โดยตรง: `bash /home/pi/eNose_Methane/program/run_gui.sh`
+- ถ้าเห็น error `$'\r': command not found` แสดงว่า line ending เป็น CRLF ให้รัน: `sed -i 's/\r$//' /home/pi/eNose_Methane/program/run_gui.sh`
 - ตรวจสอบว่า Python3 ติดตั้งอยู่: `python3 --version`
-- ตรวจสอบว่า GUI program ทำงานได้: `python3 /home/pi/eNose-/program/gui.py`
+- ตรวจสอบว่า GUI ทำงานได้: `python3 /home/pi/eNose_Methane/program/gui.py`
 
 ## หมายเหตุสำคัญ:
 
-- **Path:** ต้องแก้ไข path ในไฟล์ `enose-gui.desktop` ให้ตรงกับตำแหน่งโปรเจกต์ของคุณบน Raspberry Pi
+- **Path:** ต้องแก้ path ใน `enose-gui.desktop` (และในคำสั่งด้านบน) ให้ตรงกับโปรเจกต์บน Pi (เช่น `/home/pi/eNose_Methane`)
 - **Username:** ถ้า username ไม่ใช่ `pi` ต้องแก้ไข path ในไฟล์ `.desktop`
 - **Display:** GUI ต้องการ display environment ถ้าใช้ headless อาจต้องใช้ X11 forwarding หรือ VNC
 - **Permissions:** ต้องให้สิทธิ์ execute แก่ shell script (`chmod +x`)

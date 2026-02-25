@@ -22,7 +22,6 @@ _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(_project_root)
 sys.path.append(str(Path(_project_root) / "reading"))
 sys.path.append(str(Path(_project_root) / "acquisition"))
-sys.path.append(str(Path(_project_root) / "humid record"))
 
 # Import Hardware Controller
 from hardware_control.hardware import HardwareController, is_raspberry_pi, DEFAULT_GPIO_PINS
@@ -44,14 +43,24 @@ except ImportError as e:
     DATA_PROCESSING_AVAILABLE = False
     process_data = None
 
-# Import Humidity Logger
+# Matplotlib สำหรับกราฟการแสดงผล (Process Data)
 try:
-    from humid_logger import run_humidity_collection
-    HUMIDITY_COLLECTION_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: Could not import humid_logger: {e}")
-    HUMIDITY_COLLECTION_AVAILABLE = False
-    run_humidity_collection = None
+    import matplotlib
+    matplotlib.use('TkAgg')
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+    from matplotlib.figure import Figure
+    from matplotlib.colors import to_hex
+    MATPLOTLIB_AVAILABLE = True
+except ImportError:
+    MATPLOTLIB_AVAILABLE = False
+    to_hex = None
+
+# Pandas สำหรับโหลดข้อมูล processed (ใช้ในหน้าจอการแสดงผล)
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError:
+    PANDAS_AVAILABLE = False
 
 
 # ==================== CONFIG FILE ====================
@@ -113,34 +122,37 @@ class HardwareControlGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("eNose Hardware Control")
-        self.root.geometry("1024x600")
         self.root.configure(bg='#f0f0f0')
         self.root.resizable(True, True)
         
-        # Fullscreen mode
-        self.is_fullscreen = False
+        # Maximized window (เต็มจอ แต่ยังมีปุ่ม minimize/maximize/close)
+        self.is_maximized = True
+        self._maximize()
+        self.root.update_idletasks()
+        screen_w = self.root.winfo_width()
+        screen_h = self.root.winfo_height()
         
         # Bind window resize event
         self.root.bind('<Configure>', self.on_window_resize)
-        self.root.bind('<F11>', self.toggle_fullscreen)
-        self.root.bind('<Escape>', lambda e: self.exit_fullscreen() if self.is_fullscreen else None)
+        self.root.bind('<F11>', self.toggle_maximized)
+        self.root.bind('<Escape>', lambda e: self.exit_maximized() if self.is_maximized else None)
         
         # Store initial window size for scaling
-        self.initial_width = 1024
-        self.initial_height = 600
+        self.initial_width = screen_w
+        self.initial_height = screen_h
         
         # Store font sizes and widget sizes for scaling
         self.base_fonts = {
-            'title': 18,
-            'mode_indicator': 10,
-            'section_title': 11,
-            'label_frame': 9,
-            'button': 10,
-            'label': 9,
-            'entry': 9,
-            'timer': 18,
-            'status': 9,
-            'small': 8
+            'title': 16,
+            'mode_indicator': 14,
+            'section_title': 13,
+            'label_frame': 12,
+            'button': 13,
+            'label': 12,
+            'entry': 12,
+            'timer': 24,
+            'status': 10,
+            'small': 10
         }
         
         # Store widget references for scaling
@@ -186,9 +198,10 @@ class HardwareControlGUI:
         self.data_collection_thread = None
         self.data_collection_file_path = None  # เก็บ path ของไฟล์ที่เก็บข้อมูล ADC
         
-        # Humidity collection thread
-        self.humidity_collection_thread = None
-        self.humidity_collection_file_path = None  # เก็บ path ของไฟล์ที่เก็บข้อมูลอุณหภูมิและความชื้น
+        # Page navigation
+        self.current_page = tk.StringVar(value="control")
+        self.pages = {}
+        self.nav_buttons = {}
         
         # Create UI
         self.create_main_layout()
@@ -196,18 +209,34 @@ class HardwareControlGUI:
         # Update window after creating UI
         self.root.update_idletasks()
         
-    # ==================== FULLSCREEN & RESIZE HANDLERS ====================
-    def toggle_fullscreen(self, event=None):
-        """Toggle fullscreen mode"""
-        self.is_fullscreen = not self.is_fullscreen
-        self.root.attributes('-fullscreen', self.is_fullscreen)
-        if not self.is_fullscreen:
+    # ==================== MAXIMIZE & RESIZE HANDLERS ====================
+    def _maximize(self):
+        """Maximize window (cross-platform)"""
+        try:
+            self.root.state('zoomed')
+        except tk.TclError:
+            self.root.attributes('-zoomed', True)
+
+    def _unmaximize(self):
+        """Restore window from maximized (cross-platform)"""
+        try:
+            self.root.state('normal')
+        except tk.TclError:
+            self.root.attributes('-zoomed', False)
+
+    def toggle_maximized(self, event=None):
+        """Toggle maximized window"""
+        self.is_maximized = not self.is_maximized
+        if self.is_maximized:
+            self._maximize()
+        else:
+            self._unmaximize()
             self.root.geometry("1024x600")
     
-    def exit_fullscreen(self, event=None):
-        """Exit fullscreen mode"""
-        self.is_fullscreen = False
-        self.root.attributes('-fullscreen', False)
+    def exit_maximized(self, event=None):
+        """Exit maximized mode"""
+        self.is_maximized = False
+        self._unmaximize()
         self.root.geometry("1024x600")
     
     def on_window_resize(self, event):
@@ -257,70 +286,16 @@ class HardwareControlGUI:
     # ==================== MAIN LAYOUT ====================
     def create_main_layout(self):
         """สร้าง Layout หลัก"""
-        # Main container (ลด padding สำหรับหน้าจอเล็ก)
+        # Main container
         main_frame = tk.Frame(self.root, bg='#f0f0f0')
-        main_frame.pack(fill='both', expand=True, padx=8, pady=5)
+        main_frame.pack(fill='both', expand=True, padx=5, pady=2)
         self.main_frame = main_frame
         
-        # Title
-        title_frame = tk.Frame(main_frame, bg='#f0f0f0')
-        title_frame.pack(fill='x', pady=(0, 5))
-        
-        title = tk.Label(
-            title_frame, 
-            text="eNose Hardware Control",
-            font=('Helvetica', 18, 'bold'),  # ลดจาก 26 เป็น 18
-            bg='#f0f0f0',
-            fg='#2c3e50'
-        )
-        title.pack(side='left')
-        
-        # Store for scaling
-        if 'title' not in self.scalable_widgets:
-            self.scalable_widgets['title'] = []
-        self.scalable_widgets['title'].append(title)
-        
-        # Mode indicator
-        self.mode_indicator = tk.Label(
-            title_frame,
-            text="[ MANUAL MODE ]",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 14 เป็น 10
-            bg='#f0f0f0',
-            fg='#e67e22'
-        )
-        self.mode_indicator.pack(side='right', padx=5)
-        if 'mode_indicator' not in self.scalable_widgets:
-            self.scalable_widgets['mode_indicator'] = []
-        self.scalable_widgets['mode_indicator'].append(self.mode_indicator)
-        
-        # Fullscreen hint (ซ่อนหรือลดขนาด)
-        fullscreen_hint = tk.Label(
-            title_frame,
-            text="F11: Fullscreen",
-            font=('Helvetica', 7),  # ลดจาก 9 เป็น 7
-            bg='#f0f0f0',
-            fg='#7f8c8d'
-        )
-        fullscreen_hint.pack(side='right', padx=5)
-        if 'small' not in self.scalable_widgets:
-            self.scalable_widgets['small'] = []
-        self.scalable_widgets['small'].append(fullscreen_hint)
-        
-        # Simulation mode indicator
-        if self.hardware.is_simulation_mode:
-            sim_label = tk.Label(
-                title_frame,
-                text="⚠️ SIMULATION",
-                font=('Helvetica', 8, 'bold'),  # ลดขนาดและข้อความ
-                bg='#fff3cd',
-                fg='#856404',
-                padx=5,
-                pady=1
-            )
-            sim_label.pack(side='right', padx=5)
+        # ==================== NAVIGATION BAR (ล่างซ้าย) ====================
+        # pack ก่อน canvas เพื่อจองพื้นที่ด้านล่าง
+        self.create_navigation_bar(main_frame)
         
         # Content area with Scrollbar
-        # สร้าง Canvas และ Scrollbar สำหรับ scroll
         canvas_container = tk.Frame(main_frame, bg='#f0f0f0')
         canvas_container.pack(fill='both', expand=True)
         
@@ -337,118 +312,172 @@ class HardwareControlGUI:
         content_frame = tk.Frame(self.content_canvas, bg='#f0f0f0')
         self.content_canvas_window = self.content_canvas.create_window(0, 0, anchor='nw', window=content_frame)
         
-        # Update scroll region เมื่อ content เปลี่ยน
         def configure_scroll_region(event=None):
             self.content_canvas.update_idletasks()
-            # ตั้งค่า scroll region ให้ครอบคลุมเนื้อหาทั้งหมด
             bbox = self.content_canvas.bbox('all')
             if bbox:
                 self.content_canvas.configure(scrollregion=bbox)
         
-        # ปรับความกว้างของ content_frame ให้เท่ากับ canvas
         def configure_canvas_width(event=None):
             canvas_width = self.content_canvas.winfo_width()
             if canvas_width > 1:
                 self.content_canvas.itemconfig(self.content_canvas_window, width=canvas_width)
         
-        # Bind events
         content_frame.bind('<Configure>', configure_scroll_region)
         self.content_canvas.bind('<Configure>', configure_canvas_width)
         
-        # Mouse wheel scrolling (Windows/Linux)
         def on_mousewheel(event):
-            # Windows: event.delta, Linux: event.delta หรือ event.num
             if event.num == 4 or event.delta > 0:
                 self.content_canvas.yview_scroll(-1, "units")
             elif event.num == 5 or event.delta < 0:
                 self.content_canvas.yview_scroll(1, "units")
         
-        # Bind mouse wheel สำหรับ Windows และ Linux
         self.content_canvas.bind_all("<MouseWheel>", on_mousewheel)
-        self.content_canvas.bind_all("<Button-4>", on_mousewheel)  # Linux scroll up
-        self.content_canvas.bind_all("<Button-5>", on_mousewheel)  # Linux scroll down
+        self.content_canvas.bind_all("<Button-4>", on_mousewheel)
+        self.content_canvas.bind_all("<Button-5>", on_mousewheel)
         
-        # เก็บ reference
         self.content_frame = content_frame
         
-        # Left Panel - Mode Selection & Controls (ใช้ weight แทน fixed width)
-        left_panel = tk.Frame(content_frame, bg='#f0f0f0')
-        left_panel.pack(side='left', fill='both', expand=True, padx=(0, 10))
+        # ==================== PAGE CONTAINER ====================
+        self.page_container = tk.Frame(content_frame, bg='#f0f0f0')
+        self.page_container.pack(fill='both', expand=False, anchor='n')
         
-        # Middle Panel - Operation Parameters (Auto Mode) (ใช้ weight แทน fixed width)
-        self.middle_panel = tk.Frame(content_frame, bg='#f0f0f0')
-        self.middle_panel.pack(side='left', fill='both', expand=True, padx=(0, 10))
+        # --- Page 1: Control (single-column layout) ---
+        page_control = tk.Frame(self.page_container, bg='#f0f0f0')
+        self.pages["control"] = page_control
         
-        # Create sections
-        self.create_mode_selection(left_panel)
-        self.create_manual_controls(left_panel)
-        self.create_operation_sequence(left_panel)  # ย้าย Operation Sequence ไปฝั่งซ้าย
-        self.create_action_buttons(left_panel)
-        self.create_auto_parameters(self.middle_panel)
+        self.create_mode_selection(page_control)
+        self.create_operation_sequence(page_control)
+        self.create_action_buttons(page_control)
+        self.create_manual_controls(page_control)
+        
+        # --- Page 2: Settings (Auto Mode Parameters) ---
+        page_settings = tk.Frame(self.page_container, bg='#f0f0f0')
+        self.pages["settings"] = page_settings
+        
+        self.create_auto_parameters(page_settings)
+        
+        # --- Page 3: Display (Process Data) ---
+        page_display = tk.Frame(self.page_container, bg='#f0f0f0')
+        self.pages["display"] = page_display
+        
+        self.create_display_page(page_display)
+        
+        # แสดงหน้าแรก
+        self.show_page("control")
         
         # Initial mode update
         self.update_mode_ui()
+    
+    # ==================== NAVIGATION BAR ====================
+    def create_navigation_bar(self, parent):
+        nav_frame = tk.Frame(parent, bg='#2c3e50', pady=8)
+        nav_frame.pack(side='bottom', fill='x')
         
+        btn_container = tk.Frame(nav_frame, bg='#2c3e50')
+        btn_container.pack(side='right', padx=15)
+        
+        pages_config = [
+            ("control", "Control", '#e67e22'),
+            ("display", "Display", '#3498db'),
+            ("settings", "Settings", '#27ae60'),
+        ]
+        
+        for page_key, label_text, active_color in pages_config:
+            btn = tk.Button(
+                btn_container,
+                text=label_text,
+                font=('Helvetica', 12, 'bold'),
+                bg='#4a4a4a',
+                fg='white',
+                activebackground='#666',
+                width=12,
+                height=1,
+                relief='flat',
+                cursor='hand2',
+                command=lambda key=page_key: self.show_page(key)
+            )
+            btn.pack(side='left', padx=5)
+            self.nav_buttons[page_key] = (btn, active_color)
+    
+    # ==================== PAGE SWITCHING ====================
+    def show_page(self, page_key):
+        """สลับไปหน้าที่เลือก"""
+        for key, frame in self.pages.items():
+            frame.pack_forget()
+        
+        if page_key in self.pages:
+            self.pages[page_key].pack(fill='both', expand=False, anchor='n')
+            self.current_page.set(page_key)
+        
+        for key, (btn, active_color) in self.nav_buttons.items():
+            if key == page_key:
+                btn.configure(bg=active_color, relief='sunken')
+            else:
+                btn.configure(bg='#4a4a4a', relief='flat')
     # ==================== MODE SELECTION ====================
     def create_mode_selection(self, parent):
         """สร้างส่วนเลือกโหมด"""
         mode_frame = tk.LabelFrame(
             parent, 
             text="Control Mode", 
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            font=('Helvetica', 15, 'bold'), 
             bg='#f0f0f0',
-            fg='#2c3e50',
-            padx=8,
-            pady=5
+            fg='#2c3e50',  
+            padx=12,
+            pady=8
         )
-        mode_frame.pack(fill='x', pady=(0, 5))
+        mode_frame.pack(fill='x', pady=(0, 10))
         
-        # Mode buttons container
+        # Mode buttons: fixed size, centered in Control Mode
         btn_container = tk.Frame(mode_frame, bg='#f0f0f0')
         btn_container.pack(fill='x')
-        
-        # Manual Mode Button
+        btn_center = tk.Frame(btn_container, bg='#f0f0f0')
+        btn_center.pack(expand=True, anchor='center')
+        btn_px_w, btn_px_h = 160, 44
+        manual_frame = tk.Frame(btn_center, width=btn_px_w, height=btn_px_h, bg='#f0f0f0')
+        manual_frame.pack_propagate(0)
+        manual_frame.pack(side='left', padx=(0, 8))
         self.manual_btn = tk.Button(
-            btn_container,
-            text="🔧 Manual",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            manual_frame,
+            text="Manual",
+            font=('Helvetica', 13, 'bold'),
             bg='#e67e22',
             fg='white',
-            width=12,  # ลดจาก 15
-            height=1,  # ลดจาก 2
             relief='raised',
+            cursor='hand2',
             command=lambda: self.set_mode("manual")
         )
-        self.manual_btn.pack(side='left', padx=(0, 5))
-        
-        # Auto Mode Button
+        self.manual_btn.pack(fill='both', expand=True)
+        auto_frame = tk.Frame(btn_center, width=btn_px_w, height=btn_px_h, bg='#f0f0f0')
+        auto_frame.pack_propagate(0)
+        auto_frame.pack(side='left')
         self.auto_btn = tk.Button(
-            btn_container,
-            text="⚡ Auto",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            auto_frame,
+            text="Auto",
+            font=('Helvetica', 13, 'bold'),
             bg='#95a5a6',
             fg='white',
-            width=12,  # ลดจาก 15
-            height=1,  # ลดจาก 2
             relief='raised',
+            cursor='hand2',
             command=lambda: self.set_mode("auto")
         )
-        self.auto_btn.pack(side='left')
+        self.auto_btn.pack(fill='both', expand=True)
         
         # Store for scaling
         if 'button' not in self.scalable_widgets:
             self.scalable_widgets['button'] = []
         self.scalable_widgets['button'].extend([self.manual_btn, self.auto_btn])
         
-        # Mode description (ซ่อนหรือลดขนาด)
+        # Mode description
         self.mode_desc = tk.Label(
             mode_frame,
             text="กดปุ่มเพื่อควบคุม hardware",
-            font=('Helvetica', 8),  # ลดจาก 10 เป็น 8
+            font=('Helvetica', 11),
             bg='#f0f0f0',
             fg='#7f8c8d'
         )
-        self.mode_desc.pack(pady=(5, 0))
+        self.mode_desc.pack(pady=(8, 0))
         
     def set_mode(self, mode):
         """เปลี่ยนโหมดการทำงาน"""
@@ -464,153 +493,154 @@ class HardwareControlGUI:
         mode = self.current_mode.get()
         
         if mode == "manual":
-            # Update buttons
             self.manual_btn.configure(bg='#e67e22', relief='sunken')
             self.auto_btn.configure(bg='#95a5a6', relief='raised')
-            
-            # Update indicator
-            self.mode_indicator.configure(text="[ MANUAL MODE ]", fg='#e67e22')
             self.mode_desc.configure(text="กดปุ่มเพื่อควบคุม hardware โดยตรง")
-            
-            # Show manual controls
             self.manual_frame.pack(fill='x', pady=(0, 10))
-            
-            # Update start button
-            self.start_btn.configure(text="▶ Start Collection", state='normal', bg='#27ae60')
+            self.start_btn.configure(text="Start Collection", state='normal', bg='#27ae60')
             
         else:  # auto mode
-            # Update buttons
             self.manual_btn.configure(bg='#95a5a6', relief='raised')
             self.auto_btn.configure(bg='#9b59b6', relief='sunken')
-            
-            # Update indicator
-            self.mode_indicator.configure(text="[ AUTO MODE ]", fg='#9b59b6')
             self.mode_desc.configure(text="ตั้งค่าเวลาแล้วกด Start เพื่อรันอัตโนมัติ")
-            
-            # Show manual controls (for monitoring)
             self.manual_frame.pack(fill='x', pady=(0, 10))
-            
-            # Update start button
-            self.start_btn.configure(text="▶ Start Auto Sequence", state='normal', bg='#27ae60')
+            self.start_btn.configure(text="Start Auto Sequence", state='normal', bg='#27ae60')
             
     # ==================== MANUAL CONTROLS ====================
     def create_manual_controls(self, parent):
-        """สร้างส่วนควบคุม Manual"""
+        """Hardware Controls: two columns — left Value 1–4, right Pump/Fan/Heater (rounded boxes)."""
         self.manual_frame = tk.LabelFrame(
             parent,
             text="Hardware Controls",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            font=('Helvetica', 15, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=8,
-            pady=5
+            padx=16,
+            pady=12
         )
         
-        devices = [
-            ('S_Valve1', 's_valve1', '#3498db'),
-            ('S_Valve2', 's_valve2', '#3498db'),
-            ('S_Valve3', 's_valve3', '#3498db'),
-            ('S_Valve4', 's_valve4', '#3498db'),
-            ('Pump', 'pump', '#27ae60'),
-            ('Fan', 'fan', '#f39c12'),
-            ('Heater', 'heater', '#e74c3c')
+        left_devices = [
+            ('Value 1', 's_valve1'),
+            ('Value 2', 's_valve2'),
+            ('Value 3', 's_valve3'),
+            ('Value 4', 's_valve4'),
+        ]
+        right_devices = [
+            ('Pump', 'pump'),
+            ('Fan', 'fan'),
+            ('Heater', 'heater'),
         ]
         
-        self.toggle_buttons = {}
-        self.status_indicators = {}
+        self.switch_indicators = {}
+        self.device_display_names = {}
+        self.device_states = {}
+        for label_text, dk in left_devices + right_devices:
+            self.device_display_names[dk] = label_text
+            self.device_states[dk] = False
         
-        for label_text, device_key, color in devices:
-            frame = tk.Frame(self.manual_frame, bg='#f0f0f0')
-            frame.pack(fill='x', pady=3)
-            
-            # Device name
-            label = tk.Label(
-                frame,
-                text=label_text,
-                font=('Helvetica', 9, 'bold'),  # ลดจาก 11 เป็น 9
-                bg='#f0f0f0',
-                fg='#2c3e50',
-                width=8,  # ลดจาก 10
-                anchor='e'
-            )
-            label.pack(side='left')
-            
-            # Activate button
-            btn = tk.Button(
-                frame,
-                text="ACTIVATE",
-                font=('Helvetica', 8, 'bold'),  # ลดจาก 9 เป็น 8
-                bg='#4a4a4a',
-                fg='white',
-                width=10,  # ลดจาก 12
-                activebackground='#666',
-                command=lambda k=device_key: self.toggle_device(k)
-            )
-            btn.pack(side='left', padx=5)  # ลดจาก 10
-            self.toggle_buttons[device_key] = btn
-            
-            # Status indicator
-            indicator = tk.Canvas(frame, width=55, height=26, bg='#f0f0f0', highlightthickness=0)
-            indicator.pack(side='left')
-            indicator.bind('<Button-1>', lambda e, k=device_key: self.toggle_device(k))
-            self.status_indicators[device_key] = indicator
-            self.draw_toggle_switch(indicator, False)
-            
-    def draw_toggle_switch(self, canvas, is_on):
-        """วาด toggle switch"""
+        self.device_names = {dk: label for label, dk in left_devices + right_devices}
+        
+        self.box_w, self.box_h = 170, 52
+        pad_between = 14
+        box_pady = 8
+        
+        two_cols = tk.Frame(self.manual_frame, bg='#f0f0f0')
+        two_cols.pack(fill='x', pady=8)
+        
+        left_col = tk.Frame(two_cols, bg='#f0f0f0')
+        left_col.pack(side='left', expand=True, fill='both', padx=(0, pad_between))
+        for label_text, device_key in left_devices:
+            c = tk.Canvas(left_col, width=self.box_w, height=self.box_h, bg='#f0f0f0', highlightthickness=0)
+            c.pack(pady=box_pady)
+            c.bind('<Button-1>', lambda e, k=device_key: self.toggle_device(k))
+            c.bind('<Enter>', lambda e, c=c: c.configure(cursor='hand2'))
+            self.switch_indicators[device_key] = c
+            self._draw_device_box(c, label_text, False)
+        
+        right_col = tk.Frame(two_cols, bg='#f0f0f0')
+        right_col.pack(side='left', expand=True, fill='both', padx=(pad_between, 0))
+        for label_text, device_key in right_devices:
+            c = tk.Canvas(right_col, width=self.box_w, height=self.box_h, bg='#f0f0f0', highlightthickness=0)
+            c.pack(pady=box_pady)
+            c.bind('<Button-1>', lambda e, k=device_key: self.toggle_device(k))
+            c.bind('<Enter>', lambda e, c=c: c.configure(cursor='hand2'))
+            self.switch_indicators[device_key] = c
+            self._draw_device_box(c, label_text, False)
+        
+        self.name_labels = {}
+
+    def _draw_device_box(self, canvas, text, is_on):
+        """Draw rounded-rectangle box: light grey or green, black outline."""
         canvas.delete('all')
-        
-        if is_on:
-            canvas.create_oval(3, 3, 52, 23, fill='#27ae60', outline='#1e8449', width=2)
-            canvas.create_oval(30, 1, 54, 25, fill='white', outline='#1e8449', width=2)
-        else:
-            canvas.create_oval(3, 3, 52, 23, fill='#bdc3c7', outline='#95a5a6', width=2)
-            canvas.create_oval(1, 1, 25, 25, fill='white', outline='#95a5a6', width=2)
+        w = getattr(self, 'box_w', 170)
+        h = getattr(self, 'box_h', 52)
+        r = min(10, w // 16, (h - 2) // 2)
+        fill = '#27ae60' if is_on else '#e0e0e0'
+        outline = '#1a1a1a'
+        canvas.create_arc(0, 0, 2*r, 2*r, start=90, extent=90, fill=fill, outline=outline, width=1)
+        canvas.create_arc(w-2*r, 0, w, 2*r, start=0, extent=90, fill=fill, outline=outline, width=1)
+        canvas.create_arc(w-2*r, h-2*r, w, h, start=270, extent=90, fill=fill, outline=outline, width=1)
+        canvas.create_arc(0, h-2*r, 2*r, h, start=180, extent=90, fill=fill, outline=outline, width=1)
+        canvas.create_rectangle(r, 0, w-r, h, fill=fill, outline=fill)
+        canvas.create_rectangle(0, r, w, h-r, fill=fill, outline=fill)
+        canvas.create_line(r, 0, w-r, 0, fill=outline, width=1)
+        canvas.create_line(r, h, w-r, h, fill=outline, width=1)
+        canvas.create_line(0, r, 0, h-r, fill=outline, width=1)
+        canvas.create_line(w, r, w, h-r, fill=outline, width=1)
+        canvas.create_text(w//2, h//2, text=text, font=('Helvetica', 12, 'bold'),
+                          fill='#1a1a1a' if is_on else '#2c3e50')
+
+    def draw_toggle_switch(self, canvas, is_on):
+        """Legacy: now each device is a box; redraw using device_display_names."""
+        pass
+
+    def update_switch_button(self, device_key, is_on):
+        """Update device box to match ON/OFF state."""
+        self.device_states[device_key] = is_on
+        c = self.switch_indicators[device_key]
+        text = self.device_display_names.get(device_key, device_key)
+        self._draw_device_box(c, text, is_on)
     
     # ==================== OPERATION SEQUENCE ====================
     def create_operation_sequence(self, parent):
-        """สร้างส่วน Operation Sequence (ย้ายไปฝั่งซ้าย)"""
-        # Operation sequence display
+        """สร้างส่วน Operation Sequence (ขนาดกระทัดรัด)"""
         seq_frame = tk.LabelFrame(
             parent,
             text="Operation Sequence",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 10
+            font=('Helvetica', 15, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=8,
-            pady=5
+            padx=12,
+            pady=8
         )
-        seq_frame.pack(fill='x', pady=(0, 5))
+        seq_frame.pack(fill='x', pady=(0, 6))
         
-        # Flow diagram (ลดข้อความ)
-        flow_text = "Heat→BL→Vac→Mix→Meas→VR→Rec"
+        flow_text = "Heat → BL → Vac → Mix → Meas → VR → Rec"
         tk.Label(
             seq_frame,
             text=flow_text,
-            font=('Helvetica', 8),  # ลดจาก 10
+            font=('Helvetica', 9),
             bg='#f0f0f0',
             fg='#7f8c8d'
-        ).pack()
+        ).pack(pady=(3, 0))
         
-        # Progress indicator
         self.progress_label = tk.Label(
             seq_frame,
             text="Ready to start",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 11
+            font=('Helvetica', 11, 'bold'),
             bg='#f0f0f0',
             fg='#27ae60'
         )
-        self.progress_label.pack(pady=(5, 0))  # ลดจาก 10
+        self.progress_label.pack(pady=(5, 0))
         
-        # Timer display
         self.timer_label = tk.Label(
             seq_frame,
             text="--:--",
-            font=('Helvetica', 18, 'bold'),  # ลดจาก 24 เป็น 18
+            font=('Helvetica', 24, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50'
         )
-        self.timer_label.pack(pady=3)  # ลดจาก 5
+        self.timer_label.pack(pady=5)
         
         # Store for scaling
         if 'timer' not in self.scalable_widgets:
@@ -624,198 +654,237 @@ class HardwareControlGUI:
         title = tk.Label(
             parent,
             text="Auto Mode Parameters",
-            font=('Helvetica', 11, 'bold'),  # ลดจาก 14 เป็น 11
+            font=('Helvetica', 16, 'bold'),
             bg='#f0f0f0',
             fg='#9b59b6'
         )
-        title.pack(pady=(0, 5))  # ลดจาก 10
+        title.pack(pady=(0, 5), anchor='w')
+        
+        # Two-column container for settings page
+        settings_cols = tk.Frame(parent, bg='#f0f0f0')
+        settings_cols.pack(fill='both', expand=False, anchor='n')
+        
+        settings_left = tk.Frame(settings_cols, bg='#f0f0f0')
+        settings_left.pack(side='left', fill='both', expand=True, padx=(0, 10))
+        
+        settings_right = tk.Frame(settings_cols, bg='#f0f0f0')
+        settings_right.pack(side='right', fill='both', expand=True, padx=(10, 0))
         
         # Parameter source selection
         source_frame = tk.LabelFrame(
-            parent,
+            settings_left,
             text="Parameter Source",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 10 เป็น 9
+            font=('Helvetica', 12, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=8,
-            pady=3
+            padx=12,
+            pady=8
         )
-        source_frame.pack(fill='x', pady=(0, 5))  # ลดจาก 10
+        source_frame.pack(fill='x', pady=(0, 10))
         
         self.param_source = tk.StringVar(value="ui")
         
-        tk.Radiobutton(
-            source_frame,
-            text="📝 Input from UI",
+        # Row: box-style buttons (no radio circle, full rectangle)
+        source_row = tk.Frame(source_frame, bg='#f0f0f0')
+        source_row.pack(fill='x', pady=4)
+        
+        rb_ui = tk.Radiobutton(
+            source_row,
+            text="  Input from UI  ",
             variable=self.param_source,
             value="ui",
-            font=('Helvetica', 10),
-            bg='#f0f0f0',
-            command=self.update_param_source
-        ).pack(anchor='w')
+            font=('Helvetica', 12, 'bold'),
+            indicatoron=False,
+            bg='#e0e0e0',
+            selectcolor='#3498db',
+            activebackground='#d0d0d0',
+            activeforeground='#1a1a1a',
+            fg='#2c3e50',
+            padx=24,
+            pady=14,
+            bd=2,
+            relief='raised',
+            command=self.update_param_source,
+            cursor='hand2'
+        )
+        rb_ui.pack(side='left', padx=(0, 15))
         
-        tk.Radiobutton(
-            source_frame,
-            text="📁 Load from config.json",
+        rb_config = tk.Radiobutton(
+            source_row,
+            text="  Load from config.json  ",
             variable=self.param_source,
             value="config",
-            font=('Helvetica', 10),
-            bg='#f0f0f0',
-            command=self.update_param_source
-        ).pack(anchor='w')
+            font=('Helvetica', 12, 'bold'),
+            indicatoron=False,
+            bg='#e0e0e0',
+            selectcolor='#3498db',
+            activebackground='#d0d0d0',
+            activeforeground='#1a1a1a',
+            fg='#2c3e50',
+            padx=24,
+            pady=14,
+            bd=2,
+            relief='raised',
+            command=self.update_param_source,
+            cursor='hand2'
+        )
+        rb_config.pack(side='left')
+        
+        self.param_source_buttons = (rb_ui, rb_config)
+        rb_ui.configure(relief='sunken')  # initial selection is "Input from UI"
         
         # Operation times
         ops_frame = tk.LabelFrame(
-            parent,
+            settings_left,
             text="Operation Duration (seconds)",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 10 เป็น 9
+            font=('Helvetica', 12, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=8,
-            pady=5
+            padx=12,
+            pady=8
         )
-        ops_frame.pack(fill='x', pady=(0, 5))  # ลดจาก 10
+        ops_frame.pack(fill='x', pady=(0, 10))
         
         operations = [
-            ("Heating (30m)", 'heating', '#fff59d', '🔥', "Heater ON"),
-            ("Baseline (30s)", 'baseline', '#81d4fa', '📊', "SV1+SV3+Pump"),
-            ("Vacuum (10s)", 'vacuum', '#b39ddb', '🌀', "SV3+Pump"),
-            ("Mix Air (10s)", 'mix_air', '#a5d6a7', '💨', "Fan ON"),
-            ("Measure (60s)", 'measure', '#ffcc80', '📏', "SV2+Pump [Data]"),
-            ("Vac Return (10s)", 'vacuum_return', '#f48fb1', '🔄', "Pump+SV4 [Process]"),
-            ("Recovery (60s)", 'recovery', '#80cbc4', '♻', "SV1+SV3+Pump")
+            ("Heating (30m)", 'heating', '#fff59d', "Heater ON"),
+            ("Baseline (30s)", 'baseline', '#81d4fa', "SV1+SV3+Pump"),
+            ("Vacuum (10s)", 'vacuum', '#b39ddb', "SV3+Pump"),
+            ("Mix Air (10s)", 'mix_air', '#a5d6a7', "Fan ON"),
+            ("Measure (60s)", 'measure', '#ffcc80', "SV2+Pump [Data]"),
+            ("Vac Return (10s)", 'vacuum_return', '#f48fb1', "Pump+SV4 [Process]"),
+            ("Recovery (60s)", 'recovery', '#80cbc4', "SV1+SV3+Pump")
         ]
         
         self.operation_entries = {}
         self.operation_frames = {}
         
-        for label_text, key, color, icon, desc in operations:
-            frame = tk.Frame(ops_frame, bg=color, padx=5, pady=5)
-            frame.pack(fill='x', pady=3)
+        for label_text, key, color, desc in operations:
+            frame = tk.Frame(ops_frame, bg=color, padx=8, pady=6)
+            frame.pack(fill='x', pady=4)
             self.operation_frames[key] = frame
             
-            # Icon + Label
+            # Label
             label = tk.Label(
                 frame,
-                text=f"{icon} {label_text}",
-                font=('Helvetica', 8, 'bold'),  # ลดจาก 10 เป็น 8
+                text=label_text,
+                font=('Helvetica', 11, 'bold'),
                 bg=color,
                 fg='#2c3e50',
-                width=18,  # ลดจาก 22
+                width=18,
                 anchor='w'
             )
             label.pack(side='left')
+            
+            # Description
+            desc_label = tk.Label(
+                frame,
+                text=desc,
+                font=('Helvetica', 10),
+                bg=color,
+                fg='#555'
+            )
+            desc_label.pack(side='left', padx=(5, 0))
             
             # Time entry
             entry = tk.Entry(
                 frame,
                 textvariable=self.operation_durations[key],
-                font=('Helvetica', 9),  # ลดจาก 11
-                width=6,  # ลดจาก 8
+                font=('Helvetica', 12),
+                width=8,
                 justify='center'
             )
-            entry.pack(side='right', padx=3)  # ลดจาก 5
+            entry.pack(side='right', padx=5)
             self.operation_entries[key] = entry
             
             # Seconds label
-            tk.Label(frame, text="sec", font=('Helvetica', 8), bg=color).pack(side='right')  # ลดจาก 9
-            
-            # Description tooltip (ซ่อนหรือลดขนาด)
-            desc_label = tk.Label(
-                frame,
-                text="",  # ซ่อน description เพื่อประหยัดพื้นที่
-                font=('Helvetica', 7),
-                bg=color,
-                fg='#666'
-            )
-            # desc_label.pack(side='right', padx=5)  # comment out
+            tk.Label(frame, text="sec", font=('Helvetica', 11), bg=color).pack(side='right')
         
-        # Break Time Section
+        # Break Time Section (below Operation Duration)
         break_frame = tk.LabelFrame(
-            parent,
+            settings_left,
             text="Break Time",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 10
+            font=('Helvetica', 12, 'bold'),
             bg='#f0f0f0',
             fg='#e74c3c',
-            padx=8,
-            pady=5
+            padx=12,
+            pady=8
         )
-        break_frame.pack(fill='x', pady=(0, 5))
+        break_frame.pack(fill='x', pady=(0, 10))
         
-        break_inner = tk.Frame(break_frame, bg='#ffcdd2', padx=3, pady=3)
+        break_inner = tk.Frame(break_frame, bg='#ffcdd2', padx=8, pady=6)
         break_inner.pack(fill='x')
         self.operation_frames['break_time'] = break_inner
         
         tk.Label(
             break_inner,
-            text="⏸ Break",
-            font=('Helvetica', 8, 'bold'),  # ลดจาก 10
+            text="Break",
+            font=('Helvetica', 11, 'bold'),
             bg='#ffcdd2',
             fg='#c62828',
-            width=18,  # ลดจาก 22
+            width=18,
             anchor='w'
         ).pack(side='left')
         
         break_entry = tk.Entry(
             break_inner,
             textvariable=self.operation_durations['break_time'],
-            font=('Helvetica', 9),  # ลดจาก 11
-            width=6,  # ลดจาก 8
+            font=('Helvetica', 12),
+            width=8,
             justify='center'
         )
-        break_entry.pack(side='right', padx=3)
+        break_entry.pack(side='right', padx=5)
         self.operation_entries['break_time'] = break_entry
         
-        tk.Label(break_inner, text="sec", font=('Helvetica', 8), bg='#ffcdd2').pack(side='right')  # ลดจาก 9
+        tk.Label(break_inner, text="sec", font=('Helvetica', 11), bg='#ffcdd2').pack(side='right')
         
-        # Loop Settings
+        # Loop Settings (below Break Time)
         loop_frame = tk.LabelFrame(
-            parent,
+            settings_left,
             text="Loop Settings",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 10
+            font=('Helvetica', 12, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=8,
-            pady=5
+            padx=12,
+            pady=8
         )
-        loop_frame.pack(fill='x', pady=(0, 5))
+        loop_frame.pack(fill='x', pady=(0, 10))
         
         # Infinite loop checkbox
         inf_check = tk.Checkbutton(
             loop_frame,
-            text="🔄 Infinite Loop",
+            text="Infinite Loop",
             variable=self.infinite_loop,
-            font=('Helvetica', 8),  # ลดจาก 10
+            font=('Helvetica', 12),
             bg='#f0f0f0',
             command=self.toggle_loop_settings
         )
-        inf_check.pack(anchor='w')
+        inf_check.pack(anchor='w', pady=5)
         
-        # Loop count (if not infinite)
+        # Loop count
         loop_count_frame = tk.Frame(loop_frame, bg='#f0f0f0')
-        loop_count_frame.pack(fill='x', pady=3)
+        loop_count_frame.pack(fill='x', pady=5)
         
         tk.Label(
             loop_count_frame,
             text="Cycles:",
-            font=('Helvetica', 8),  # ลดจาก 10 และลดข้อความ
+            font=('Helvetica', 12),
             bg='#f0f0f0'
         ).pack(side='left')
         
         self.loop_count_entry = tk.Entry(
             loop_count_frame,
             textvariable=self.loop_count,
-            font=('Helvetica', 9),  # ลดจาก 11
-            width=6,  # ลดจาก 8
+            font=('Helvetica', 12),
+            width=8,
             justify='center',
             state='disabled'
         )
-        self.loop_count_entry.pack(side='left', padx=5)
+        self.loop_count_entry.pack(side='left', padx=10)
         
         tk.Label(
             loop_count_frame,
-            text="(0=∞)",
-            font=('Helvetica', 8),  # ลดจาก 9 และลดข้อความ
+            text="(0 = infinite)",
+            font=('Helvetica', 10),
             bg='#f0f0f0',
             fg='#7f8c8d'
         ).pack(side='left')
@@ -824,22 +893,24 @@ class HardwareControlGUI:
         self.cycle_label = tk.Label(
             loop_frame,
             text="Current Cycle: 0",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 11
+            font=('Helvetica', 14, 'bold'),
             bg='#f0f0f0',
             fg='#9b59b6'
         )
-        self.cycle_label.pack(pady=3)
+        self.cycle_label.pack(pady=8)
         
-        # Save config button
+        # Save config button (below Loop Settings)
         save_btn = tk.Button(
-            parent,
-            text="💾 Save Config",
-            font=('Helvetica', 9),  # ลดจาก 10
+            settings_left,
+            text="Save Config",
+            font=('Helvetica', 13, 'bold'),
             bg='#3498db',
             fg='white',
+            height=2,
+            cursor='hand2',
             command=self.save_current_config
         )
-        save_btn.pack(pady=5)  # ลดจาก 10
+        save_btn.pack(fill='x', pady=10)
         
     def toggle_loop_settings(self):
         """Toggle loop count entry based on infinite loop checkbox"""
@@ -849,8 +920,13 @@ class HardwareControlGUI:
             self.loop_count_entry.configure(state='normal')
             
     def update_param_source(self):
-        """อัพเดทตาม parameter source"""
-        if self.param_source.get() == "config":
+        """อัพเดทตาม parameter source และแสดง box ปุ่มที่เลือกเป็น sunken"""
+        src = self.param_source.get()
+        if hasattr(self, 'param_source_buttons'):
+            rb_ui, rb_config = self.param_source_buttons
+            rb_ui.configure(relief='sunken' if src == 'ui' else 'raised')
+            rb_config.configure(relief='sunken' if src == 'config' else 'raised')
+        if src == "config":
             # Load from config file
             config = load_config()
             op_times = config.get("operation_times", DEFAULT_CONFIG["operation_times"])
@@ -895,48 +971,198 @@ class HardwareControlGUI:
             messagebox.showinfo("Success", "บันทึก config เรียบร้อยแล้ว!")
         except ValueError:
             messagebox.showerror("Error", "กรุณาใส่ตัวเลขที่ถูกต้อง")
+    
+    # ==================== DISPLAY PAGE (Process Data Graph) ====================
+    def create_display_page(self, parent):
+        """Create display page with Process Data graph in the center."""
+        parent.configure(bg='#f0f0f0')
+        
+        title_label = tk.Label(
+            parent,
+            text="Display (Process Data)",
+            font=('Helvetica', 14, 'bold'),
+            bg='#f0f0f0',
+            fg='#2c3e50'
+        )
+        title_label.pack(pady=(10, 6))
+        
+        graph_frame = tk.Frame(parent, bg='#ffffff', relief='sunken', bd=2)
+        graph_frame.pack(fill='both', expand=True, padx=20, pady=(0, 10))
+        
+        if MATPLOTLIB_AVAILABLE and PANDAS_AVAILABLE:
+            self.display_figure = Figure(figsize=(6, 4), dpi=100, facecolor='#ffffff')
+            self.display_canvas = FigureCanvasTkAgg(self.display_figure, master=graph_frame)
+            self.display_canvas_widget = self.display_canvas.get_tk_widget()
+            self.display_canvas_widget.pack(fill='both', expand=True)
+            self.display_canvas_widget.bind('<Configure>', self._on_display_canvas_configure)
+            self.display_legend_frame = tk.Frame(parent, bg='#f5f5f5', relief='flat', bd=1, padx=20, pady=8)
+            self.display_legend_frame.pack(fill='x', pady=(0, 4))
+            self._plot_process_data()
+        else:
+            self.display_legend_frame = None
+            msg = "Install matplotlib and pandas to show the Process Data graph."
+            if not MATPLOTLIB_AVAILABLE:
+                msg = "Install matplotlib to show the graph: pip install matplotlib"
+            tk.Label(
+                graph_frame,
+                text=msg,
+                font=('Helvetica', 11),
+                bg='#ffffff',
+                fg='#7f8c8d'
+            ).pack(expand=True)
+        
+        if MATPLOTLIB_AVAILABLE and PANDAS_AVAILABLE:
+            btn_frame = tk.Frame(parent, bg='#f0f0f0')
+            btn_frame.pack(pady=(0, 10))
+            refresh_btn = tk.Button(
+                btn_frame,
+                text="Refresh Graph",
+                font=('Helvetica', 10),
+                bg='#3498db',
+                fg='white',
+                command=self._plot_process_data
+            )
+            refresh_btn.pack()
+    
+    def _on_display_canvas_configure(self, event):
+        """Resize figure to match canvas so graph scales with display."""
+        if not MATPLOTLIB_AVAILABLE or not hasattr(self, 'display_figure') or not hasattr(self, 'display_canvas'):
+            return
+        w, h = event.width, event.height
+        if w < 20 or h < 20:
+            return
+        dpi = self.display_figure.get_dpi()
+        self.display_figure.set_size_inches(w / dpi, h / dpi)
+        self.display_canvas.draw_idle()
+    
+    def _refresh_display_graph_if_visible(self):
+        """Schedule graph refresh on main thread when Display page is visible (after new data)."""
+        if self.current_page.get() != "display":
+            return
+        if not hasattr(self, 'display_figure') or not hasattr(self, 'display_canvas'):
+            return
+        self.root.after(0, self._plot_process_data)
+    
+    def _plot_process_data(self):
+        """Load latest Process Data file and plot (thread-safe when called via root.after)."""
+        if not MATPLOTLIB_AVAILABLE or not PANDAS_AVAILABLE:
+            return
+        if not hasattr(self, 'display_figure') or not hasattr(self, 'display_canvas'):
+            return
+        processed_dir = Path(_project_root) / "acquisition" / "processed_data"
+        if not processed_dir.exists():
+            self._draw_placeholder_graph("Folder processed_data not found")
+            return
+        csv_files = list(processed_dir.glob("*.csv"))
+        if not csv_files:
+            self._draw_placeholder_graph("No Process Data yet. Run a measurement and process first.")
+            return
+        latest = max(csv_files, key=os.path.getmtime)
+        try:
+            df = pd.read_csv(latest)
+        except Exception as e:
+            self._draw_placeholder_graph(f"Failed to read file: {e}")
+            return
+        plot_cols = [c for c in df.columns if c.endswith('_lp_ma')]
+        time_col = 'elapsed_time_sec' if 'elapsed_time_sec' in df.columns else df.columns[0]
+        if not plot_cols:
+            self._draw_placeholder_graph("No plot columns found (_lp_ma)")
+            return
+        def _channel_to_sensor_name(col_base):
+            """Map ch0_voltage .. ch3_voltage to sensor_1 .. sensor_4 for display."""
+            for i in range(4):
+                if col_base == f'ch{i}_voltage':
+                    return f'sensor_{i+1}'
+            return col_base
+        
+        self.display_figure.clear()
+        ax = self.display_figure.add_subplot(111)
+        lines = []
+        for col in plot_cols:
+            col_base = col.replace('_lp_ma', '')
+            lbl = _channel_to_sensor_name(col_base)
+            line, = ax.plot(df[time_col].values, df[col].values, label=lbl, alpha=0.8)
+            lines.append(line)
+        ax.set_xlabel('Time (s)', fontsize=10)
+        ax.set_ylabel('Voltage (V)', fontsize=10)
+        ax.set_title(f'Process Data - {latest.name}', fontsize=11)
+        ax.grid(True, alpha=0.3)
+        self.display_figure.tight_layout()
+        self._update_display_legend(lines)
+        self.display_canvas.draw()
+    
+    def _update_display_legend(self, lines):
+        """Fill the legend frame below the graph with color patch + label for each line."""
+        if not getattr(self, 'display_legend_frame', None) or not lines or to_hex is None:
+            return
+        for w in self.display_legend_frame.winfo_children():
+            w.destroy()
+        for line in lines:
+            try:
+                color = to_hex(line.get_color())
+            except Exception:
+                color = '#333333'
+            label_text = line.get_label()
+            row = tk.Frame(self.display_legend_frame, bg='#f5f5f5')
+            row.pack(side='left', padx=(0, 16), pady=2)
+            patch = tk.Frame(row, width=14, height=14, bg=color, relief='solid', bd=1)
+            patch.pack(side='left', padx=(0, 6))
+            patch.pack_propagate(0)
+            tk.Label(row, text=label_text, font=('Helvetica', 9), bg='#f5f5f5', fg='#2c3e50').pack(side='left')
+
+    def _draw_placeholder_graph(self, message):
+        """Draw placeholder when no data or error."""
+        if not MATPLOTLIB_AVAILABLE:
+            return
+        self.display_figure.clear()
+        ax = self.display_figure.add_subplot(111)
+        ax.text(0.5, 0.5, message, ha='center', va='center', fontsize=11)
+        ax.axis('off')
+        if getattr(self, 'display_legend_frame', None):
+            for w in self.display_legend_frame.winfo_children():
+                w.destroy()
+        self.display_canvas.draw()
             
     # ==================== ACTION BUTTONS ====================
     def create_action_buttons(self, parent):
-        """สร้างปุ่ม Start/Stop"""
+        """สร้างปุ่ม Start/Stop (ขนาดกระทัดรัด)"""
         btn_frame = tk.Frame(parent, bg='#f0f0f0')
-        btn_frame.pack(fill='x', pady=10)
+        btn_frame.pack(fill='x', pady=8)
         
-        # Stop button
+        action_btn_width, action_btn_height = 18, 1
         self.stop_btn = tk.Button(
             btn_frame,
-            text="⏹ Stop",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            text="Stop",
+            font=('Helvetica', 11, 'bold'),
             bg='#e74c3c',
             fg='white',
-            width=10,  # ลดจาก 12
-            height=1,  # ลดจาก 2
+            width=action_btn_width,
+            height=action_btn_height,
+            cursor='hand2',
             command=self.stop_operation
         )
-        self.stop_btn.pack(side='left', padx=3)
-        
-        # Start button
+        self.stop_btn.pack(side='left', padx=(0, 8), expand=True, fill='x')
         self.start_btn = tk.Button(
             btn_frame,
-            text="▶ Start",
-            font=('Helvetica', 10, 'bold'),  # ลดจาก 12 เป็น 10
+            text="Start Collection",
+            font=('Helvetica', 11, 'bold'),
             bg='#95a5a6',
             fg='white',
-            width=15,  # ลดจาก 18
-            height=1,  # ลดจาก 2
+            width=action_btn_width,
+            height=action_btn_height,
             state='disabled',
+            cursor='hand2',
             command=self.start_operation
         )
-        self.start_btn.pack(side='left', padx=3)
+        self.start_btn.pack(side='left', expand=True, fill='x')
         
-        # Status display
         status_frame = tk.Frame(parent, bg='#f0f0f0')
         status_frame.pack(fill='x', pady=5)
         
         self.status_label = tk.Label(
             status_frame,
             text="Status: Ready",
-            font=('Helvetica', 9, 'bold'),  # ลดจาก 11 เป็น 9
+            font=('Helvetica', 10, 'bold'),
             bg='#f0f0f0',
             fg='#27ae60'
         )
@@ -966,14 +1192,8 @@ class HardwareControlGUI:
         # ใช้ Hardware Controller toggle
         is_on = self.hardware.toggle_device(device_key)
         
-        # Update UI
-        self.draw_toggle_switch(self.status_indicators[device_key], is_on)
-        
-        btn = self.toggle_buttons[device_key]
-        if is_on:
-            btn.configure(bg='#27ae60', text="DEACTIVATE")
-        else:
-            btn.configure(bg='#4a4a4a', text="ACTIVATE")
+        # Update UI (switch button)
+        self.update_switch_button(device_key, is_on)
         
         # Update diagram
         self.draw_circuit_diagram()
@@ -989,14 +1209,8 @@ class HardwareControlGUI:
             # ใช้ Hardware Controller control
             self.hardware.control_device(device_key, state)
             
-            # Update UI
-            self.draw_toggle_switch(self.status_indicators[device_key], state)
-            
-            btn = self.toggle_buttons[device_key]
-            if state:
-                btn.configure(bg='#27ae60', text="DEACTIVATE")
-            else:
-                btn.configure(bg='#4a4a4a', text="ACTIVATE")
+            # Update UI (switch button)
+            self.update_switch_button(device_key, state)
             
             # Update diagram
             self.draw_circuit_diagram()
@@ -1005,11 +1219,7 @@ class HardwareControlGUI:
     def _update_device_ui_threadsafe(self, device_key, state):
         """Thread-safe update of device UI"""
         def update():
-            self.draw_toggle_switch(self.status_indicators[device_key], state)
-            if state:
-                self.toggle_buttons[device_key].configure(bg='#27ae60', text="DEACTIVATE")
-            else:
-                self.toggle_buttons[device_key].configure(bg='#4a4a4a', text="ACTIVATE")
+            self.update_switch_button(device_key, state)
         self.root.after(0, update)
     
     def _set_devices(self, on=None, off=None):
@@ -1066,7 +1276,7 @@ class HardwareControlGUI:
         return True
     
     def _start_data_collection(self):
-        """Start ADC and humidity data collection threads"""
+        """Start ADC data collection thread"""
         self.stop_collection_event = threading.Event()
         
         if DATA_COLLECTION_AVAILABLE:
@@ -1090,28 +1300,6 @@ class HardwareControlGUI:
             self.data_collection_thread = threading.Thread(target=adc_wrapper, daemon=True)
             self.data_collection_thread.start()
             print(f"Cycle {self.current_cycle}: ADC collection thread started")
-        
-        if HUMIDITY_COLLECTION_AVAILABLE:
-            def humidity_wrapper():
-                try:
-                    print(f"Cycle {self.current_cycle}: Starting humidity collection...")
-                    file_path = run_humidity_collection(
-                        stop_event=self.stop_collection_event,
-                        sampling_rate=0.5,
-                        silent=False
-                    )
-                    self.humidity_collection_file_path = file_path
-                    if file_path:
-                        print(f"Cycle {self.current_cycle}: Humidity data saved: {file_path}")
-                    else:
-                        print(f"Cycle {self.current_cycle}: Humidity collection returned None")
-                except Exception as e:
-                    print(f"Cycle {self.current_cycle}: Humidity error: {e}")
-                    traceback.print_exc()
-            
-            self.humidity_collection_thread = threading.Thread(target=humidity_wrapper, daemon=True)
-            self.humidity_collection_thread.start()
-            print(f"Cycle {self.current_cycle}: Humidity collection thread started")
     
     def _stop_data_collection(self):
         """Stop data collection threads and wait for them to finish"""
@@ -1125,14 +1313,6 @@ class HardwareControlGUI:
                 print(f"Cycle {self.current_cycle}: Warning: ADC thread did not stop in time")
             else:
                 print(f"Cycle {self.current_cycle}: ADC collection stopped successfully")
-        
-        if self.humidity_collection_thread is not None and self.humidity_collection_thread.is_alive():
-            print(f"Cycle {self.current_cycle}: Stopping humidity collection...")
-            self.humidity_collection_thread.join(timeout=10)
-            if self.humidity_collection_thread.is_alive():
-                print(f"Cycle {self.current_cycle}: Warning: Humidity thread did not stop in time")
-            else:
-                print(f"Cycle {self.current_cycle}: Humidity collection stopped successfully")
     
     def _start_data_processing(self):
         """Start data processing in a separate thread, returns the thread"""
@@ -1165,11 +1345,6 @@ class HardwareControlGUI:
                 self.stop_collection_event.set()
             self.data_collection_thread.join(timeout=2)
         
-        if self.humidity_collection_thread is not None and self.humidity_collection_thread.is_alive():
-            if self.stop_collection_event is not None:
-                self.stop_collection_event.set()
-            self.humidity_collection_thread.join(timeout=2)
-        
         self._reset_collection_vars()
     
     def _reset_collection_vars(self):
@@ -1177,8 +1352,6 @@ class HardwareControlGUI:
         self.stop_collection_event = None
         self.data_collection_thread = None
         self.data_collection_file_path = None
-        self.humidity_collection_thread = None
-        self.humidity_collection_file_path = None
     
     # ==================== OPERATION CONTROL ====================
     def start_operation(self):
@@ -1190,12 +1363,12 @@ class HardwareControlGUI:
         
         if mode == "manual":
             # Manual mode: เริ่มการเก็บข้อมูลทันที
-            if not DATA_COLLECTION_AVAILABLE and not HUMIDITY_COLLECTION_AVAILABLE:
+            if not DATA_COLLECTION_AVAILABLE:
                 messagebox.showerror("Error", "Data collection modules not available")
                 return
             
             self.running = True
-            self.start_btn.configure(bg='#3498db', text="⏸ Collecting...", state='disabled')
+            self.start_btn.configure(bg='#3498db', text="Collecting...", state='disabled')
             self.stop_btn.configure(bg='#c0392b')
             self.status_label.configure(text="Status: Collecting data...", fg='#3498db')
             
@@ -1222,43 +1395,14 @@ class HardwareControlGUI:
                 else:
                     print("ADC data collection not available")
             
-            # เริ่มการเก็บข้อมูลอุณหภูมิและความชื้นใน thread แยก
-            def humidity_collection_wrapper():
-                if HUMIDITY_COLLECTION_AVAILABLE:
-                    try:
-                        print("Starting humidity/temperature collection in manual mode...")
-                        self.humidity_collection_file_path = run_humidity_collection(
-                            stop_event=self.stop_collection_event,
-                            sampling_rate=0.5,  # 0.5 Hz (อ่านทุก 2 วินาที)
-                            silent=False
-                        )
-                        if self.humidity_collection_file_path:
-                            print(f"Humidity collection completed: {self.humidity_collection_file_path}")
-                            self.root.after(0, lambda: self.status_label.configure(
-                                text=f"Status: Humidity data saved to {self.humidity_collection_file_path.name}", 
-                                fg='#27ae60'))
-                    except Exception as e:
-                        error_msg = f"Humidity Collection error: {str(e)}"
-                        print(error_msg)
-                        traceback.print_exc()
-                        self.root.after(0, lambda: self.status_label.configure(
-                            text=f"Status: {error_msg}", fg='#e74c3c'))
-                else:
-                    print("Humidity collection not available")
-            
-            # เริ่มทั้งสอง threads พร้อมกัน
             if DATA_COLLECTION_AVAILABLE:
                 self.data_collection_thread = threading.Thread(target=adc_collection_wrapper, daemon=True)
                 self.data_collection_thread.start()
             
-            if HUMIDITY_COLLECTION_AVAILABLE:
-                self.humidity_collection_thread = threading.Thread(target=humidity_collection_wrapper, daemon=True)
-                self.humidity_collection_thread.start()
-            
         elif mode == "auto":
             # Auto mode: เริ่ม auto sequence
             self.running = True
-            self.start_btn.configure(bg='#3498db', text="⏸ Running...", state='disabled')
+            self.start_btn.configure(bg='#3498db', text="Running...", state='disabled')
             self.stop_btn.configure(bg='#c0392b')
             self.progress_label.configure(text="Starting sequence...", fg='#3498db')
             
@@ -1269,15 +1413,15 @@ class HardwareControlGUI:
     def run_auto_sequence(self):
         """รันลำดับ Auto 7 Operations พร้อม Loop และ Break Time
         
-        Operation Plan:
-        1. Heating:       heater ON (1800s) → ปิด heater เมื่อครบ
-        2. Baseline:      s_valve1 + s_valve3 + pump ON (30s)
-        3. Vacuum:        s_valve3 + pump ON (10s) [seamless จาก Op2]
-        4. Mix Air:       fan ON (10s)
-        5. Measure:       s_valve2 + pump ON (60s) → เริ่มเก็บข้อมูล
-        6. Vacuum Return: pump + s_valve4 ON (10s) → หยุดเก็บข้อมูล + process_data
-        7. Recovery:      s_valve1 + s_valve3 + pump ON (60s)
-        Break:            ทั้งหมด OFF (1620s) → วน loop
+        Operation Plan (heater ON ตลอด Op1-Op7):
+        1. Heating:       heater ON (1800s)
+        2. Baseline:      heater + s_valve1 + s_valve3 + pump ON (30s)
+        3. Vacuum:        heater + s_valve3 + pump ON (10s) [seamless จาก Op2]
+        4. Mix Air:       heater + fan ON (10s)
+        5. Measure:       heater + s_valve2 + pump ON (60s) → เริ่มเก็บข้อมูล
+        6. Vacuum Return: heater + pump + s_valve4 ON (10s) → หยุดเก็บข้อมูล + process_data
+        7. Recovery:      heater + s_valve1 + s_valve3 + pump ON (60s)
+        Break:            ทั้งหมด OFF รวม heater (1620s) → วน loop
         """
         
         # Get loop settings
@@ -1331,8 +1475,7 @@ class HardwareControlGUI:
             if not self._countdown(durations['heating'], "Op1: Heating"):
                 break
             
-            # ปิด heater เมื่อครบเวลา
-            self._set_devices(off=['heater'])
+            # heater ยังคง ON ต่อเนื่องตลอด Op1-Op7
             self._mark_operation_complete('heating')
             
             # ========== Op2: Baseline ==========
@@ -1394,8 +1537,8 @@ class HardwareControlGUI:
             # ปิด fan, เปิด s_valve2 + pump
             self._set_devices(on=['s_valve2', 'pump'], off=['fan'])
             
-            # เริ่มเก็บข้อมูล ADC + Humidity
-            if (DATA_COLLECTION_AVAILABLE or HUMIDITY_COLLECTION_AVAILABLE) and self.running:
+            # เริ่มเก็บข้อมูล ADC
+            if DATA_COLLECTION_AVAILABLE and self.running:
                 self._start_data_collection()
             
             if not self._countdown(durations['measure'], "Op5: Measure [Recording]"):
@@ -1446,12 +1589,15 @@ class HardwareControlGUI:
             for dev in ALL_DEVICES:
                 self._update_device_ui_threadsafe(dev, False)
             
-            # รอ process_data ถ้ายังทำงานอยู่
+            # Wait for process_data to finish
             if process_thread is not None and process_thread.is_alive():
                 print(f"Cycle {self.current_cycle}: Waiting for data processing to finish...")
                 process_thread.join(timeout=30)
                 if process_thread.is_alive():
                     print(f"Cycle {self.current_cycle}: Warning: Data processing did not finish in time")
+            
+            # Auto-update Display graph when new processed data is available
+            self.root.after(0, self._refresh_display_graph_if_visible)
             
             # Reset collection variables
             self._reset_collection_vars()
@@ -1502,9 +1648,9 @@ class HardwareControlGUI:
         
     def operation_complete(self):
         """เมื่อ operation เสร็จสิ้น"""
-        self.start_btn.configure(bg='#27ae60', text="▶ Start Auto Sequence", state='normal')
+        self.start_btn.configure(bg='#27ae60', text="Start Auto Sequence", state='normal')
         self.stop_btn.configure(bg='#e74c3c')
-        self.progress_label.configure(text="✓ Sequence Complete!", fg='#27ae60')
+        self.progress_label.configure(text="Sequence Complete!", fg='#27ae60')
         self.timer_label.configure(text="00:00")
         self.status_label.configure(text="Status: All operations completed!", fg='#27ae60')
         
@@ -1542,10 +1688,6 @@ class HardwareControlGUI:
                 self.data_collection_thread.join(timeout=5)
                 if self.data_collection_thread is not None and self.data_collection_thread.is_alive():
                     print("Warning: ADC data collection thread did not stop in time")
-            if self.humidity_collection_thread is not None:
-                self.humidity_collection_thread.join(timeout=5)
-                if self.humidity_collection_thread is not None and self.humidity_collection_thread.is_alive():
-                    print("Warning: Humidity collection thread did not stop in time")
         
         # ใน manual mode: รัน process_data() ก่อนหยุดการทำงาน
         if mode == "manual" and was_running and DATA_PROCESSING_AVAILABLE:
@@ -1559,6 +1701,7 @@ class HardwareControlGUI:
                     process_data()
                     self.root.after(0, lambda: self.status_label.configure(
                         text="Status: Data processing completed!", fg='#27ae60'))
+                    self.root.after(0, self._refresh_display_graph_if_visible)
                     print("Manual mode: Data processing completed successfully")
                 except Exception as e:
                     error_msg = f"Processing error: {str(e)}"
@@ -1571,23 +1714,20 @@ class HardwareControlGUI:
                     self.stop_collection_event = None
                     self.data_collection_thread = None
                     self.data_collection_file_path = None
-                    self.humidity_collection_thread = None
-                    self.humidity_collection_file_path = None
                     
                     # ใช้ Hardware Controller ปิดอุปกรณ์ทั้งหมด
                     self.hardware.all_off()
                     
                     # Update UI for all devices
                     for device_key in self.hardware.available_devices:
-                        self.draw_toggle_switch(self.status_indicators[device_key], False)
-                        self.toggle_buttons[device_key].configure(bg='#4a4a4a', text="ACTIVATE")
+                        self.update_switch_button(device_key, False)
                     
                     # Reset UI
                     self.current_operation = None
                     self.current_operation_index = -1
                     
                     self.start_btn.configure(
-                        text="▶ Start Collection",
+                        text="Start Collection",
                         state='normal',
                         bg='#27ae60'
                     )
@@ -1607,24 +1747,19 @@ class HardwareControlGUI:
                 self.stop_collection_event = None
                 self.data_collection_thread = None
                 self.data_collection_file_path = None
-                self.humidity_collection_thread = None
-                self.humidity_collection_file_path = None
         else:
             # Auto mode หรือไม่มี data processing: reset ทันที
             # Reset collection variables
             self.stop_collection_event = None
             self.data_collection_thread = None
             self.data_collection_file_path = None
-            self.humidity_collection_thread = None
-            self.humidity_collection_file_path = None
             
             # ใช้ Hardware Controller ปิดอุปกรณ์ทั้งหมด
             self.hardware.all_off()
             
             # Update UI for all devices
             for device_key in self.hardware.available_devices:
-                self.draw_toggle_switch(self.status_indicators[device_key], False)
-                self.toggle_buttons[device_key].configure(bg='#4a4a4a', text="ACTIVATE")
+                self.update_switch_button(device_key, False)
             
             # Reset UI
             self.current_operation = None
@@ -1632,7 +1767,7 @@ class HardwareControlGUI:
             
             self.start_btn.configure(
                 bg='#27ae60' if mode == 'auto' else '#27ae60',
-                text="▶ Start Auto Sequence" if mode == 'auto' else "▶ Start Collection",
+                text="Start Auto Sequence" if mode == 'auto' else "Start Collection",
                 state='normal'
             )
             self.progress_label.configure(text="Stopped", fg='#e74c3c')

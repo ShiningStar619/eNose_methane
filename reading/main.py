@@ -17,7 +17,7 @@ import math
 import threading
 from datetime import datetime
 from pathlib import Path
-
+from typing import Optional
 # ตรวจสอบว่ารันบน Raspberry Pi หรือไม่
 try:
     import ADS1263
@@ -29,7 +29,7 @@ except ImportError:
 
 # ==================== CONFIGURATION ====================
 REF = 5.08  
-CHANNEL_LIST = [1, 2, 3, 4, 5, 6, 7, 8]
+CHANNEL_LIST = [0, 1, 2, 3]
 SAMPLE_INTERVAL_SEC = 0.01  # 1/0.01 = 100 Hz
 ADC_SAMPLE_RATE = 'ADS1263_14400SPS'
 INITIAL_BUFFER_SIZE = 1000  # Pre-allocate buffer for ~100 seconds of data
@@ -52,7 +52,7 @@ class SensorDataCollector:
         # ใช้รูปแบบ adc1263_date_time
         date_time = datetime.now().strftime('%Y%m%d_%H%M%S')
         self.output_path = output_dir / f"adc1263_{date_time}.npz"
-        self.columns = ['elapsed_time_sec'] + [f"ch{ch}_voltage" for ch in channel_list]
+        self.columns = ['elapsed_time_sec'] + [f"ss{i+1}" for i in range(len(channel_list))]
         return self.output_path
     
     def append(self, elapsed_time, voltages):
@@ -107,7 +107,7 @@ def raw_to_voltage(raw_value):
     return raw_value * REF / 0x7FFFFFFF
 
 
-def run_collection(stop_event: threading.Event, simulate: bool | None = None):
+def run_collection(stop_event: threading.Event, simulate: Optional[bool] = None):
     """
     รันการเก็บข้อมูลจนกว่า stop_event จะถูก set
     Args:
