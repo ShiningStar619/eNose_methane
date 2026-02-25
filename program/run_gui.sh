@@ -18,34 +18,14 @@ cd "$PROJECT_DIR" || {
     exit 1
 }
 
-# รอให้ระบบ boot เสร็จ (รอ 15 วินาที)
-echo "$(date): Waiting for system to boot..." >> "$LOG_FILE"
-sleep 15
+# รอให้ระบบ boot เสร็จ (รอ 10 วินาที แล้วเริ่ม GUI)
+echo "$(date): Waiting 10 seconds after boot..." >> "$LOG_FILE"
+sleep 10
 
 # ตั้งค่า DISPLAY สำหรับ GUI
 export DISPLAY=:0
 export XAUTHORITY="$HOME/.Xauthority"
 echo "$(date): DISPLAY set to: $DISPLAY" >> "$LOG_FILE"
-
-# รอให้ desktop environment พร้อม (รอ Xorg หรือ Wayland)
-echo "$(date): Waiting for desktop environment..." >> "$LOG_FILE"
-MAX_WAIT=60
-WAITED=0
-while [ $WAITED -lt $MAX_WAIT ]; do
-    if pgrep -x "Xorg" > /dev/null || pgrep -x "wayland" > /dev/null || pgrep -x "xfce4-session" > /dev/null || pgrep -x "lxpanel" > /dev/null; then
-        echo "$(date): Desktop environment detected" >> "$LOG_FILE"
-        break
-    fi
-    sleep 1
-    WAITED=$((WAITED + 1))
-done
-
-if [ $WAITED -eq $MAX_WAIT ]; then
-    echo "$(date): WARNING: Desktop environment not detected after $MAX_WAIT seconds" >> "$LOG_FILE"
-fi
-
-# รออีกสักครู่เพื่อให้ desktop environment พร้อม
-sleep 10
 
 # ตรวจสอบว่า Python3 พร้อม
 if ! command -v python3 &> /dev/null; then

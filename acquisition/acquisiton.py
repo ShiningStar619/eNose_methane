@@ -37,8 +37,8 @@ def load_npz_to_dataframe(npz_path):
     Load NPZ file and convert to DataFrame
     
     NPZ format from reading/main.py:
-    - data: shape (n_samples, 1 + num_channels) = [elapsed_time, ch0, ch1, ...]
-    - columns: ['elapsed_time_sec', 'ch0_voltage', 'ch1_voltage', ...]
+    - data: shape (n_samples, 1 + num_channels) = [elapsed_time, sensor_1, sensor_2, ...]
+    - columns: ['elapsed_time_sec', 'sensor_1', 'sensor_2', ...]
     - sample_rate: float (Hz)
     - num_channels: int
     
@@ -120,11 +120,11 @@ def process_data():
         print(f"Error reading NPZ: {e}")
         return
 
-    # Identify channel columns (assuming they start with 'ch' and end with '_voltage')
-    channel_cols = [col for col in df.columns if col.startswith('ch') and col.endswith('_voltage')]
+    # Identify sensor columns (sensor_1, sensor_2, sensor_3, sensor_4)
+    channel_cols = [col for col in df.columns if col.startswith('sensor_')]
     
     if not channel_cols:
-        print("No voltage data columns found.")
+        print("No sensor data columns found.")
         return
 
     # Create a copy for processed data
