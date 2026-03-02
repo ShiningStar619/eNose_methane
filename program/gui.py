@@ -1413,15 +1413,17 @@ class HardwareControlGUI:
     def run_auto_sequence(self):
         """รันลำดับ Auto 7 Operations พร้อม Loop และ Break Time
         
-        Operation Plan (heater ON ตลอด Op1-Op7):
+        Operation Plan (heater ON ตลอด Op1-Op7, ADC recording ตลอด Op2-Op7):
         1. Heating:       heater ON (1800s)
+        [เริ่มเก็บข้อมูล ADC]
         2. Baseline:      heater + s_valve1 + s_valve3 + pump ON (30s)
         3. Vacuum:        heater + s_valve3 + pump ON (10s) [seamless จาก Op2]
         4. Mix Air:       heater + fan ON (10s)
-        5. Measure:       heater + s_valve2 + pump ON (60s) → เริ่มเก็บข้อมูล
-        6. Vacuum Return: heater + pump + s_valve4 ON (10s) → หยุดเก็บข้อมูล + process_data
+        5. Measure:       heater + s_valve2 + pump ON (60s)
+        6. Vacuum Return: heater + pump + s_valve4 ON (10s)
         7. Recovery:      heater + s_valve1 + s_valve3 + pump ON (60s)
-        Break:            ทั้งหมด OFF รวม heater (1620s) → วน loop
+        [หยุดเก็บข้อมูล ADC → ปิดอุปกรณ์ทั้งหมด → process_data]
+        Break:            ทั้งหมด OFF (1620s) → วน loop
         """
         
         # Get loop settings
@@ -1482,9 +1484,13 @@ class HardwareControlGUI:
             if not self.running:
                 break
             
+            # เริ่มเก็บข้อมูล ADC ตลอด Op2-Op7
+            if DATA_COLLECTION_AVAILABLE and self.running:
+                self._start_data_collection()
+            
             self.current_operation = 'baseline'
             self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op2: Baseline", '#f39c12', 'baseline')
+                f"Cycle {self.current_cycle} - Op2: Baseline [Recording]", '#f39c12', 'baseline')
             
             # s_valve1 + s_valve3 + pump ON
             self._set_devices(on=['s_valve1', 's_valve3', 'pump'])
@@ -1532,38 +1538,28 @@ class HardwareControlGUI:
             
             self.current_operation = 'measure'
             self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op5: Measure [Recording]", '#f39c12', 'measure')
+                f"Cycle {self.current_cycle} - Op5: Measure", '#f39c12', 'measure')
             
             # ปิด fan, เปิด s_valve2 + pump
             self._set_devices(on=['s_valve2', 'pump'], off=['fan'])
             
-            # เริ่มเก็บข้อมูล ADC
-            if DATA_COLLECTION_AVAILABLE and self.running:
-                self._start_data_collection()
-            
             if not self._countdown(durations['measure'], "Op5: Measure [Recording]"):
                 break
             
-            # หยุดเก็บข้อมูลก่อนเข้า Op6
-            self._stop_data_collection()
             self._mark_operation_complete('measure')
             
-            # ========== Op6: Vacuum Return (process_data ขนานกับ hardware) ==========
+            # ========== Op6: Vacuum Return ==========
             if not self.running:
                 break
             
             self.current_operation = 'vacuum_return'
             self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op6: Vacuum Return [Processing]", '#f39c12', 'vacuum_return')
+                f"Cycle {self.current_cycle} - Op6: Vacuum Return", '#f39c12', 'vacuum_return')
             
             # ปิด s_valve2, เปิด s_valve4 (pump ยังทำงานต่อ - seamless)
             self._set_devices(on=['s_valve4'], off=['s_valve2'])
             
-            # เริ่ม process_data ขนานกับ Op6 hardware
-            if self.running and DATA_PROCESSING_AVAILABLE:
-                process_thread = self._start_data_processing()
-            
-            if not self._countdown(durations['vacuum_return'], "Op6: Vacuum Return [Processing]"):
+            if not self._countdown(durations['vacuum_return'], "Op6: Vacuum Return"):
                 break
             
             self._mark_operation_complete('vacuum_return')
@@ -1584,12 +1580,18 @@ class HardwareControlGUI:
             
             self._mark_operation_complete('recovery')
             
+            # ========== หยุดเก็บข้อมูล ADC หลัง Op7 จบ ==========
+            self._stop_data_collection()
+            
             # ========== ปิดอุปกรณ์ทั้งหมด ==========
             self.hardware.all_off()
             for dev in ALL_DEVICES:
                 self._update_device_ui_threadsafe(dev, False)
             
-            # Wait for process_data to finish
+            # ========== Process Data หลังเก็บข้อมูลเสร็จ ==========
+            if self.running and DATA_PROCESSING_AVAILABLE:
+                process_thread = self._start_data_processing()
+            
             if process_thread is not None and process_thread.is_alive():
                 print(f"Cycle {self.current_cycle}: Waiting for data processing to finish...")
                 process_thread.join(timeout=30)
