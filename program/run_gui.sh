@@ -1,64 +1,119 @@
 #!/bin/bash
-# สคริปต์สำหรับรัน eNose GUI เมื่อ Raspberry Pi boot เสร็จ
+# run_gui.sh - Launcher script สำหรับ eNose GUI บน Raspberry Pi
+# ใช้กับ XDG Autostart (~/.config/autostart/enose-gui.desktop)
+#
+# หน้าที่:
+#   1. ตั้งค่า DISPLAY/XAUTHORITY สำหรับ Tkinter GUI (รองรับทั้ง X11 และ Wayland/Xwayland)
+#   2. รอ X server :0 พร้อมจริง (max 60s)
+#   3. หา Python interpreter (เลือก venv ก่อน, fallback เป็น python3 ระบบ)
+#   4. รัน gui.py พร้อม retry ถ้า crash 1 ครั้ง
+#   5. เก็บ log ไปที่ ~/enose_gui_autostart.log
 
-# สร้าง log file สำหรับ debug
+set -u  # error เมื่อใช้ตัวแปรที่ไม่ได้กำหนดค่า
+
 LOG_FILE="$HOME/enose_gui_autostart.log"
-echo "$(date): Starting eNose GUI autostart script" >> "$LOG_FILE"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S'): $*" >> "$LOG_FILE"
+}
 
-# หา path ของโปรเจกต์ (parent directory ของ script นี้)
+log "==================== Starting eNose GUI launcher ===================="
+
+# หา path โปรเจกต์จากตำแหน่งของ script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+log "SCRIPT_DIR=$SCRIPT_DIR"
+log "PROJECT_DIR=$PROJECT_DIR"
 
-echo "$(date): Script directory: $SCRIPT_DIR" >> "$LOG_FILE"
-echo "$(date): Project directory: $PROJECT_DIR" >> "$LOG_FILE"
-
-# เปลี่ยนไปที่ directory ของโปรเจกต์
 cd "$PROJECT_DIR" || {
-    echo "$(date): ERROR: Cannot change to project directory: $PROJECT_DIR" >> "$LOG_FILE"
+    log "ERROR: เข้า PROJECT_DIR ไม่ได้: $PROJECT_DIR"
     exit 1
 }
 
-# รอให้ระบบ boot เสร็จ (รอ 10 วินาที แล้วเริ่ม GUI)
-echo "$(date): Waiting 10 seconds after boot..." >> "$LOG_FILE"
-sleep 10
+# ตั้งค่า environment สำหรับ GUI
+# ในกรณี Wayland (labwc) ที่ Pi OS Bookworm Tkinter จะใช้ Xwayland ผ่าน DISPLAY=:0
+export DISPLAY="${DISPLAY:-:0}"
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+log "DISPLAY=$DISPLAY"
+log "XAUTHORITY=$XAUTHORITY"
 
-# ตั้งค่า DISPLAY สำหรับ GUI
-export DISPLAY=:0
-export XAUTHORITY="$HOME/.Xauthority"
-echo "$(date): DISPLAY set to: $DISPLAY" >> "$LOG_FILE"
+# รอ X server :0 พร้อมจริง (สำคัญสำหรับ autostart หลัง boot)
+# พยายาม xset query ทุก 1 วินาที สูงสุด 60 ครั้ง
+log "รอ X server $DISPLAY พร้อม..."
+X_READY=0
+for i in $(seq 1 60); do
+    if command -v xset &> /dev/null; then
+        if xset q &> /dev/null; then
+            log "X server $DISPLAY พร้อมที่วินาทีที่ $i"
+            X_READY=1
+            break
+        fi
+    else
+        # ถ้าไม่มี xset ให้ใช้ sleep 10 แบบเดิม
+        sleep 10
+        log "ไม่มี xset, ใช้ sleep 10 แทน"
+        X_READY=1
+        break
+    fi
+    sleep 1
+done
 
-# ตรวจสอบว่า Python3 พร้อม
-if ! command -v python3 &> /dev/null; then
-    echo "$(date): ERROR: python3 not found" >> "$LOG_FILE"
+if [ "$X_READY" -ne 1 ]; then
+    log "WARNING: รอ X server $DISPLAY ครบ 60 วินาทีแล้วยังไม่พร้อม - ลองรัน GUI ต่อไป"
+fi
+
+# ค้นหา Python interpreter (เลือก venv ก่อน, fallback ระบบ)
+VENV_CANDIDATES=(
+    "$PROJECT_DIR/.venv/bin/python"
+    "$SCRIPT_DIR/.venv/bin/python"
+    "$HOME/.venv/bin/python"
+)
+
+PYTHON_BIN=""
+for candidate in "${VENV_CANDIDATES[@]}"; do
+    if [ -x "$candidate" ]; then
+        PYTHON_BIN="$candidate"
+        log "ใช้ venv Python: $PYTHON_BIN"
+        break
+    fi
+done
+
+if [ -z "$PYTHON_BIN" ]; then
+    if command -v python3 &> /dev/null; then
+        PYTHON_BIN="$(command -v python3)"
+        log "WARNING: ไม่พบ venv, fallback ไปใช้ python3 ระบบ: $PYTHON_BIN"
+    else
+        log "ERROR: ไม่พบ venv และไม่มี python3 ในระบบ"
+        exit 1
+    fi
+fi
+
+# ตรวจสอบไฟล์ GUI
+GUI_FILE="$SCRIPT_DIR/gui.py"
+if [ ! -f "$GUI_FILE" ]; then
+    log "ERROR: ไม่พบไฟล์ GUI: $GUI_FILE"
     exit 1
 fi
 
-echo "$(date): Python3 found: $(which python3)" >> "$LOG_FILE"
+run_gui() {
+    log "เริ่มรัน GUI: $PYTHON_BIN $GUI_FILE"
+    "$PYTHON_BIN" "$GUI_FILE" >> "$LOG_FILE" 2>&1
+    return $?
+}
 
-# ตรวจสอบว่าไฟล์ GUI มีอยู่
-if [ ! -f "$SCRIPT_DIR/gui.py" ]; then
-    echo "$(date): ERROR: GUI file not found: $SCRIPT_DIR/gui.py" >> "$LOG_FILE"
-    exit 1
-fi
-
-echo "$(date): Starting GUI program..." >> "$LOG_FILE"
-
-# รัน GUI program
-python3 "$SCRIPT_DIR/gui.py" >> "$LOG_FILE" 2>&1
+run_gui
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
-    echo "$(date): ERROR: GUI program exited with code $EXIT_CODE" >> "$LOG_FILE"
-    echo "$(date): Waiting 5 seconds before retry..." >> "$LOG_FILE"
+    log "ERROR: GUI exit ด้วย code $EXIT_CODE - รอ 5 วินาทีแล้ว retry"
     sleep 5
-    echo "$(date): Retrying GUI program..." >> "$LOG_FILE"
-    python3 "$SCRIPT_DIR/gui.py" >> "$LOG_FILE" 2>&1
-    RETRY_EXIT_CODE=$?
-    if [ $RETRY_EXIT_CODE -ne 0 ]; then
-        echo "$(date): ERROR: GUI program failed again with code $RETRY_EXIT_CODE" >> "$LOG_FILE"
+    run_gui
+    EXIT_CODE=$?
+    if [ $EXIT_CODE -ne 0 ]; then
+        log "ERROR: GUI ล้มเหลวซ้ำ exit code $EXIT_CODE"
+        exit $EXIT_CODE
     else
-        echo "$(date): GUI program started successfully on retry" >> "$LOG_FILE"
+        log "GUI เริ่มสำเร็จในครั้งที่ 2"
     fi
 else
-    echo "$(date): GUI program started successfully" >> "$LOG_FILE"
+    log "GUI exit ปกติ (code 0)"
 fi

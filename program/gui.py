@@ -36,12 +36,20 @@ except ImportError as e:
     run_collection = None
 
 try:
-    from acquisition.acquisiton import process_data
+    from reading.bme280 import run_bme_collection
+    BME_COLLECTION_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import reading.bme280: {e}")
+    BME_COLLECTION_AVAILABLE = False
+    run_bme_collection = None
+
+try:
+    from acquisition.acquisiton import process_all_data
     DATA_PROCESSING_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: Could not import acquisition.acquisiton: {e}")
     DATA_PROCESSING_AVAILABLE = False
-    process_data = None
+    process_all_data = None
 
 # Matplotlib สำหรับกราฟการแสดงผล (Process Data)
 try:
@@ -83,6 +91,89 @@ DEFAULT_CONFIG = {
         "infinite_loop": True
     }
 }
+
+STATUS_COLORS = {
+    "idle": "#e74c3c",
+    "running": "#3498db",
+    "success": "#27ae60",
+    "warning": "#f39c12",
+    "processing": "#9b59b6",
+}
+
+# Max wait time (seconds) when stopping collection threads from Stop button.
+# Prevents UI from feeling stuck if a sensor read blocks longer than expected.
+STOP_THREAD_JOIN_TIMEOUT_SEC = 5
+
+OPERATION_FRAME_COLORS = {
+    'heating': '#fff59d',
+    'baseline': '#81d4fa',
+    'vacuum': '#b39ddb',
+    'mix_air': '#a5d6a7',
+    'measure': '#ffcc80',
+    'vacuum_return': '#f48fb1',
+    'recovery': '#80cbc4',
+    'break_time': '#ffcdd2'
+}
+
+AUTO_OPERATION_STEPS = [
+    {
+        "op_key": "heating",
+        "ui_title": "Op1: Heating",
+        "duration_key": "heating",
+        "countdown_title": "Op1: Heating",
+        "on": ["heater"],
+        "off": ['s_valve1', 's_valve2', 's_valve3', 's_valve4', 'pump', 'fan']
+    },
+    {
+        "op_key": "baseline",
+        "ui_title": "Op2: Baseline [Recording]",
+        "duration_key": "baseline",
+        "countdown_title": "Op2: Baseline",
+        "on": ['s_valve1', 's_valve3', 'pump'],
+        "off": None,
+        "start_collection": True
+    },
+    {
+        "op_key": "vacuum",
+        "ui_title": "Op3: Vacuum",
+        "duration_key": "vacuum",
+        "countdown_title": "Op3: Vacuum",
+        "on": None,
+        "off": ['s_valve1']
+    },
+    {
+        "op_key": "mix_air",
+        "ui_title": "Op4: Mix Air",
+        "duration_key": "mix_air",
+        "countdown_title": "Op4: Mix Air",
+        "on": ['fan'],
+        "off": ['s_valve3', 'pump']
+    },
+    {
+        "op_key": "measure",
+        "ui_title": "Op5: Measure",
+        "duration_key": "measure",
+        "countdown_title": "Op5: Measure [Recording]",
+        "on": ['s_valve2', 'pump'],
+        "off": ['fan']
+    },
+    {
+        "op_key": "vacuum_return",
+        "ui_title": "Op6: Vacuum Return",
+        "duration_key": "vacuum_return",
+        "countdown_title": "Op6: Vacuum Return",
+        "on": ['s_valve4'],
+        "off": ['s_valve2']
+    },
+    {
+        "op_key": "recovery",
+        "ui_title": "Op7: Recovery",
+        "duration_key": "recovery",
+        "countdown_title": "Op7: Recovery",
+        "on": ['s_valve1', 's_valve3'],
+        "off": ['s_valve4']
+    },
+]
 
 
 def load_config():
@@ -196,7 +287,15 @@ class HardwareControlGUI:
         # Data collection and processing threads
         self.stop_collection_event = None
         self.data_collection_thread = None
+        self.bme_collection_thread = None  # thread สำหรับ BME280 (คู่ขนานกับ ADC)
         self.data_collection_file_path = None  # เก็บ path ของไฟล์ที่เก็บข้อมูล ADC
+        self.bme_collection_file_path = None   # เก็บ path ของไฟล์ที่เก็บข้อมูล BME280
+        self._stop_worker_thread = None        # worker ที่ทำงานหลังกด Stop (manual)
+        self._stopping_in_progress = False     # กันการกด Stop ซ้ำ
+
+        # Manual timer state
+        self.manual_timer_thread = None
+        self.manual_timer_stop_event = None
         
         # Page navigation
         self.current_page = tk.StringVar(value="control")
@@ -540,6 +639,49 @@ class HardwareControlGUI:
         
         self.device_names = {dk: label for label, dk in left_devices + right_devices}
         
+        # --- Timer row ---
+        timer_row = tk.Frame(self.manual_frame, bg='#f0f0f0')
+        timer_row.pack(fill='x', pady=(0, 8))
+
+        self.manual_timer_enabled = tk.BooleanVar(value=False)
+        tk.Checkbutton(
+            timer_row,
+            text="Use Timer",
+            variable=self.manual_timer_enabled,
+            font=('Helvetica', 12),
+            bg='#f0f0f0',
+            activebackground='#f0f0f0',
+            command=self._on_manual_timer_toggle
+        ).pack(side='left')
+
+        self.manual_timer_duration = tk.StringVar(value="05:00")
+        self.manual_timer_entry = tk.Entry(
+            timer_row,
+            textvariable=self.manual_timer_duration,
+            font=('Helvetica', 12),
+            width=8,
+            justify='center',
+            state='disabled'
+        )
+        self.manual_timer_entry.pack(side='left', padx=8)
+
+        tk.Label(
+            timer_row,
+            text="(mm:ss)",
+            font=('Helvetica', 10),
+            bg='#f0f0f0',
+            fg='#7f8c8d'
+        ).pack(side='left')
+
+        self.manual_timer_remaining_label = tk.Label(
+            timer_row,
+            text="",
+            font=('Helvetica', 12, 'bold'),
+            bg='#f0f0f0',
+            fg='#2c3e50'
+        )
+        self.manual_timer_remaining_label.pack(side='right')
+
         self.box_w, self.box_h = 170, 52
         pad_between = 14
         box_pady = 8
@@ -1167,7 +1309,13 @@ class HardwareControlGUI:
             fg='#27ae60'
         )
         self.status_label.pack()
-        
+
+        # Indeterminate progress bar — แสดงเฉพาะตอนกำลัง save / process
+        self.status_progressbar = ttk.Progressbar(
+            status_frame, mode='indeterminate', length=240
+        )
+        # ไม่ pack ตอนเริ่มต้น (ซ่อนไว้)
+
         # Store for scaling
         if 'status' not in self.scalable_widgets:
             self.scalable_widgets['status'] = []
@@ -1216,11 +1364,35 @@ class HardwareControlGUI:
             self.draw_circuit_diagram()
             
     # ==================== AUTO SEQUENCE HELPERS ====================
+    def _run_on_ui_thread(self, callback):
+        """Run callback on Tk UI thread."""
+        self.root.after(0, callback)
+
+    def _set_status_text(self, text, color):
+        """Update status label in thread-safe way."""
+        self._run_on_ui_thread(lambda: self.status_label.configure(text=text, fg=color))
+
+    def _show_progress(self, visible):
+        """Show/hide and start/stop the indeterminate progress bar (thread-safe)."""
+        def update():
+            bar = getattr(self, 'status_progressbar', None)
+            if bar is None:
+                return
+            try:
+                if visible:
+                    if not bar.winfo_ismapped():
+                        bar.pack(pady=(4, 0))
+                    bar.start(12)
+                else:
+                    bar.stop()
+                    bar.pack_forget()
+            except tk.TclError:
+                pass
+        self._run_on_ui_thread(update)
+
     def _update_device_ui_threadsafe(self, device_key, state):
         """Thread-safe update of device UI"""
-        def update():
-            self.update_switch_button(device_key, state)
-        self.root.after(0, update)
+        self._run_on_ui_thread(lambda: self.update_switch_button(device_key, state))
     
     def _set_devices(self, on=None, off=None):
         """Set multiple devices and update UI (thread-safe)"""
@@ -1239,13 +1411,13 @@ class HardwareControlGUI:
         def update():
             self.progress_label.configure(text=text, fg=color)
             if op_key and op_key in self.operation_frames:
-                self.operation_frames[op_key].configure(bg='#f39c12')
-        self.root.after(0, update)
+                self.operation_frames[op_key].configure(bg=STATUS_COLORS["warning"])
+        self._run_on_ui_thread(update)
     
     def _mark_operation_complete(self, op_key):
         """Mark an operation frame as complete (green)"""
         if op_key in self.operation_frames:
-            self.root.after(0, lambda k=op_key: self.operation_frames[k].configure(bg='#81c784'))
+            self._run_on_ui_thread(lambda k=op_key: self.operation_frames[k].configure(bg='#81c784'))
     
     def _countdown(self, duration, operation_name):
         """Run countdown timer, returns False if stopped"""
@@ -1256,8 +1428,8 @@ class HardwareControlGUI:
             def update_timer(m=mins, s=secs, r=remaining, op=operation_name, c=self.current_cycle):
                 self.timer_label.configure(text=f"{m:02d}:{s:02d}")
                 self.status_label.configure(
-                    text=f"Cycle {c} | {op} - {r}s remaining", fg='#f39c12')
-            self.root.after(0, update_timer)
+                    text=f"Cycle {c} | {op} - {r}s remaining", fg=STATUS_COLORS["warning"])
+            self._run_on_ui_thread(update_timer)
             time.sleep(1)
         return True
     
@@ -1270,13 +1442,13 @@ class HardwareControlGUI:
             def update_timer(m=mins, s=secs, r=remaining):
                 self.timer_label.configure(text=f"{m:02d}:{s:02d}")
                 self.status_label.configure(
-                    text=f"Break Time - Next cycle in {r}s", fg='#e74c3c')
-            self.root.after(0, update_timer)
+                    text=f"Break Time - Next cycle in {r}s", fg=STATUS_COLORS["idle"])
+            self._run_on_ui_thread(update_timer)
             time.sleep(1)
         return True
     
     def _start_data_collection(self):
-        """Start ADC data collection thread"""
+        """Start ADC + BME280 data collection threads (ใช้ stop_event ตัวเดียวกัน)"""
         self.stop_collection_event = threading.Event()
         
         if DATA_COLLECTION_AVAILABLE:
@@ -1289,8 +1461,10 @@ class HardwareControlGUI:
                         print(f"Cycle {self.current_cycle}: ADC data saved: {file_path}")
                         cycle_num = self.current_cycle
                         file_name = file_path.name
-                        self.root.after(0, lambda: self.status_label.configure(
-                            text=f"Cycle {cycle_num} | ADC data saved to {file_name}", fg='#27ae60'))
+                        self._set_status_text(
+                            f"Cycle {cycle_num} | ADC data saved to {file_name}",
+                            STATUS_COLORS["success"]
+                        )
                     else:
                         print(f"Cycle {self.current_cycle}: ADC data collection returned None")
                 except Exception as e:
@@ -1300,50 +1474,87 @@ class HardwareControlGUI:
             self.data_collection_thread = threading.Thread(target=adc_wrapper, daemon=True)
             self.data_collection_thread.start()
             print(f"Cycle {self.current_cycle}: ADC collection thread started")
+        
+        if BME_COLLECTION_AVAILABLE:
+            def bme_wrapper():
+                try:
+                    print(f"Cycle {self.current_cycle}: Starting BME280 data collection...")
+                    file_path = run_bme_collection(self.stop_collection_event)
+                    self.bme_collection_file_path = file_path
+                    if file_path:
+                        print(f"Cycle {self.current_cycle}: BME280 data saved: {file_path}")
+                    else:
+                        print(f"Cycle {self.current_cycle}: BME280 data collection returned None")
+                except Exception as e:
+                    print(f"Cycle {self.current_cycle}: BME280 error: {e}")
+                    traceback.print_exc()
+            
+            self.bme_collection_thread = threading.Thread(target=bme_wrapper, daemon=True)
+            self.bme_collection_thread.start()
+            print(f"Cycle {self.current_cycle}: BME280 collection thread started")
     
     def _stop_data_collection(self):
-        """Stop data collection threads and wait for them to finish"""
+        """Stop data collection threads (ADC + BME280) and wait for save to finish.
+
+        เรียกจาก auto-sequence thread ดังนั้น join() ไม่บล็อก UI
+        ใช้ timeout ยาว (60s) เพื่อให้แน่ใจว่า np.savez() เสร็จสมบูรณ์ก่อนประมวลผล
+        """
         if self.stop_collection_event is not None:
             self.stop_collection_event.set()
-        
+
         if self.data_collection_thread is not None and self.data_collection_thread.is_alive():
             print(f"Cycle {self.current_cycle}: Stopping ADC collection...")
-            self.data_collection_thread.join(timeout=10)
+            self.data_collection_thread.join(timeout=60)
             if self.data_collection_thread.is_alive():
                 print(f"Cycle {self.current_cycle}: Warning: ADC thread did not stop in time")
             else:
                 print(f"Cycle {self.current_cycle}: ADC collection stopped successfully")
+
+        if self.bme_collection_thread is not None and self.bme_collection_thread.is_alive():
+            print(f"Cycle {self.current_cycle}: Stopping BME280 collection...")
+            self.bme_collection_thread.join(timeout=60)
+            if self.bme_collection_thread.is_alive():
+                print(f"Cycle {self.current_cycle}: Warning: BME280 thread did not stop in time")
+            else:
+                print(f"Cycle {self.current_cycle}: BME280 collection stopped successfully")
     
-    def _start_data_processing(self):
-        """Start data processing in a separate thread, returns the thread"""
+    def _run_data_processing(self):
+        """Process latest collected data using stored input paths.
+
+        เรียกได้เฉพาะใน background thread (เช่น auto-sequence thread หรือ stop worker)
+        เพราะ process_all_data เป็นงานที่ใช้ CPU/IO หนัก
+        """
         if not DATA_PROCESSING_AVAILABLE:
-            return None
-        
-        def process_wrapper():
-            try:
-                print(f"Cycle {self.current_cycle}: Starting data processing...")
-                process_data()
-                print(f"Cycle {self.current_cycle}: Data processing completed")
-                cycle_num = self.current_cycle
-                self.root.after(0, lambda: self.status_label.configure(
-                    text=f"Cycle {cycle_num} | Data processed!", fg='#27ae60'))
-            except Exception as e:
-                print(f"Cycle {self.current_cycle}: Processing error: {e}")
-                traceback.print_exc()
-                cycle_num = self.current_cycle
-                self.root.after(0, lambda: self.status_label.configure(
-                    text=f"Cycle {cycle_num} | Processing error", fg='#e74c3c'))
-        
-        thread = threading.Thread(target=process_wrapper, daemon=True)
-        thread.start()
-        return thread
+            return False
+
+        cycle_num = self.current_cycle
+        try:
+            print(f"Cycle {cycle_num}: Starting data processing...")
+            input_paths = {
+                'adc1263': self.data_collection_file_path,
+                'bme280': self.bme_collection_file_path,
+            }
+            process_all_data(input_paths=input_paths)
+            print(f"Cycle {cycle_num}: Data processing completed")
+            return True
+        except Exception as e:
+            print(f"Cycle {cycle_num}: Processing error: {e}")
+            traceback.print_exc()
+            return False
     
     def _cleanup_collection_threads(self):
-        """Clean up any running collection threads from previous cycle"""
-        if self.data_collection_thread is not None and self.data_collection_thread.is_alive():
+        """Clean up any running collection threads from previous cycle (ADC + BME280)"""
+        adc_alive = self.data_collection_thread is not None and self.data_collection_thread.is_alive()
+        bme_alive = self.bme_collection_thread is not None and self.bme_collection_thread.is_alive()
+        
+        if adc_alive or bme_alive:
             if self.stop_collection_event is not None:
                 self.stop_collection_event.set()
-            self.data_collection_thread.join(timeout=2)
+            
+            if adc_alive:
+                self.data_collection_thread.join(timeout=2)
+            if bme_alive:
+                self.bme_collection_thread.join(timeout=2)
         
         self._reset_collection_vars()
     
@@ -1351,9 +1562,283 @@ class HardwareControlGUI:
         """Reset collection variables"""
         self.stop_collection_event = None
         self.data_collection_thread = None
+        self.bme_collection_thread = None
         self.data_collection_file_path = None
+        self.bme_collection_file_path = None
+
+    def _get_operation_durations(self):
+        """อ่านค่า duration จาก UI พร้อม fallback ค่า default"""
+        defaults = {
+            'heating': 1800,
+            'baseline': 30,
+            'vacuum': 10,
+            'mix_air': 10,
+            'measure': 60,
+            'vacuum_return': 10,
+            'recovery': 60,
+            'break_time': 1620
+        }
+        durations = {}
+        for key, default_value in defaults.items():
+            try:
+                durations[key] = int(self.operation_durations[key].get())
+            except (ValueError, KeyError):
+                durations[key] = default_value
+        return durations
+
+    def _sync_all_devices_off(self, preserve=None):
+        """ปิดอุปกรณ์ทั้งหมดและซิงก์ UI ให้เป็นสถานะ OFF
+        
+        Args:
+            preserve: list of device keys ที่จะไม่ปิด (เช่น ['heater'])
+        """
+        preserve = preserve or []
+        for device_key in self.hardware.available_devices:
+            if device_key not in preserve:
+                self.hardware.control_device(device_key, False)
+                self.update_switch_button(device_key, False)
+
+    def _reset_ui_after_stop(self, mode, status_text="Status: Stopped", status_color='#e74c3c', preserve_devices=None):
+        """รีเซ็ต UI หลังหยุดการทำงาน (ใช้ร่วมกันทั้ง manual/auto)"""
+        self._reset_collection_vars()
+        self._sync_all_devices_off(preserve=preserve_devices)
+
+        self.current_operation = None
+        self.current_operation_index = -1
+
+        self.start_btn.configure(
+            text="Start Auto Sequence" if mode == 'auto' else "Start Collection",
+            state='normal',
+            bg='#27ae60'
+        )
+        self.stop_btn.configure(bg=STATUS_COLORS["idle"], state='normal')
+        self.progress_label.configure(text="Stopped", fg='#e74c3c')
+        self.timer_label.configure(text="--:--")
+        if status_text is not None:
+            self.status_label.configure(text=status_text, fg=status_color)
+
+        if mode == 'auto':
+            self.reset_operation_colors()
+
+        self.draw_circuit_diagram()
+
+    def _run_auto_step(
+        self,
+        op_key,
+        ui_title,
+        duration,
+        countdown_title,
+        on=None,
+        off=None,
+        start_collection=False
+    ):
+        """รันหนึ่ง operation step ใน auto sequence"""
+        if not self.running:
+            return False
+
+        if start_collection and DATA_COLLECTION_AVAILABLE and self.running:
+            self._start_data_collection()
+
+        self.current_operation = op_key
+        self._update_operation_ui(
+            f"Cycle {self.current_cycle} - {ui_title}",
+            STATUS_COLORS["warning"],
+            op_key
+        )
+        self._set_devices(on=on, off=off)
+
+        if not self._countdown(duration, countdown_title):
+            return False
+
+        self._mark_operation_complete(op_key)
+        return True
+
+    def _finalize_cycle_devices_and_processing(self):
+        """หยุด collection, ปิดอุปกรณ์ทั้งหมด, และประมวลผลข้อมูล (รันใน auto-thread)"""
+        cycle_num = self.current_cycle
+        self._set_status_text(
+            f"Cycle {cycle_num} | Saving data...", STATUS_COLORS["processing"]
+        )
+        self._show_progress(True)
+
+        self._stop_data_collection()
+
+        self.hardware.all_off()
+        for dev in self.hardware.available_devices:
+            self._update_device_ui_threadsafe(dev, False)
+
+        if self.running and DATA_PROCESSING_AVAILABLE:
+            self._set_status_text(
+                f"Cycle {cycle_num} | Processing...", STATUS_COLORS["processing"]
+            )
+            ok = self._run_data_processing()
+            if ok:
+                self._set_status_text(
+                    f"Cycle {cycle_num} | Data processed!", STATUS_COLORS["success"]
+                )
+            else:
+                self._set_status_text(
+                    f"Cycle {cycle_num} | Processing error", STATUS_COLORS["idle"]
+                )
+
+        self._show_progress(False)
+        self._run_on_ui_thread(self._refresh_display_graph_if_visible)
+        self._reset_collection_vars()
+
+    def _run_break_time_if_needed(self, break_duration):
+        """รัน break time ระหว่าง cycle ถ้าตั้งเวลาไว้"""
+        if break_duration <= 0 or not self.running:
+            return
+
+        self.current_operation = 'break_time'
+        self.current_operation_index = -1
+
+        def update_break_ui(c=self.current_cycle):
+            self.progress_label.configure(
+                text=f"Cycle {c} Complete - Break Time", fg=STATUS_COLORS["idle"])
+            if 'break_time' in self.operation_frames:
+                self.operation_frames['break_time'].configure(bg='#e57373')
+
+        self._run_on_ui_thread(update_break_ui)
+        self._countdown_break(break_duration)
+        self._run_on_ui_thread(lambda: self.operation_frames['break_time'].configure(bg=OPERATION_FRAME_COLORS['break_time']))
+        self._run_on_ui_thread(self.reset_operation_colors)
     
+    # ==================== MANUAL TIMER HELPERS ====================
+    def _on_manual_timer_toggle(self):
+        """เปิด/ปิด entry ตาม checkbox 'Use Timer'"""
+        if self.manual_timer_enabled.get():
+            self.manual_timer_entry.configure(state='normal')
+        else:
+            self.manual_timer_entry.configure(state='disabled')
+            self.manual_timer_remaining_label.configure(text="")
+
+    def _parse_mmss(self, text):
+        """แปลง mm:ss หรือตัวเลขล้วนเป็นวินาที คืน int หรือ None ถ้า invalid
+        
+        รองรับ: "5", "05", "5:30", "05:30", "1:05:30"
+        """
+        text = text.strip()
+        parts = text.split(':')
+        try:
+            if len(parts) == 1:
+                total = int(parts[0])
+            elif len(parts) == 2:
+                total = int(parts[0]) * 60 + int(parts[1])
+            elif len(parts) == 3:
+                total = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+            else:
+                return None
+            return total if total > 0 else None
+        except ValueError:
+            return None
+
+    def _run_manual_timer(self, total_seconds):
+        """รัน countdown timer ใน background thread สำหรับ Manual mode
+        
+        อัพเดท remaining label ทุก 1 วินาที เมื่อหมดเวลาเรียก stop_operation อัตโนมัติ
+        ออกเงียบเมื่อ manual_timer_stop_event ถูก set (ผู้ใช้กด Stop ก่อนครบเวลา)
+        """
+        stop_evt = self.manual_timer_stop_event
+        for remaining in range(total_seconds, 0, -1):
+            if stop_evt.is_set() or not self.running:
+                return
+            mins, secs = divmod(remaining, 60)
+            display = f"{mins:02d}:{secs:02d}"
+            self._run_on_ui_thread(
+                lambda t=display: self.manual_timer_remaining_label.configure(
+                    text=f"เหลือ {t}"
+                )
+            )
+            stop_evt.wait(timeout=1)
+
+        if not stop_evt.is_set() and self.running:
+            self._run_on_ui_thread(
+                lambda: self.manual_timer_remaining_label.configure(text="หมดเวลา")
+            )
+            self.root.after(0, self.stop_operation)
+
     # ==================== OPERATION CONTROL ====================
+    def _start_manual_mode(self):
+        """Start manual collection mode (เก็บ ADC + BME280 พร้อมกัน)"""
+        if not DATA_COLLECTION_AVAILABLE:
+            messagebox.showerror("Error", "Data collection modules not available")
+            return
+
+        # ตรวจสอบ timer ก่อนเริ่ม
+        timer_seconds = None
+        if self.manual_timer_enabled.get():
+            timer_seconds = self._parse_mmss(self.manual_timer_duration.get())
+            if timer_seconds is None:
+                messagebox.showerror(
+                    "Timer Error",
+                    "รูปแบบเวลาไม่ถูกต้อง\nกรุณาใส่ในรูปแบบ mm:ss เช่น 05:30 หรือ 10:00"
+                )
+                return
+
+        self.running = True
+        self.start_btn.configure(bg=STATUS_COLORS["running"], text="Collecting...", state='disabled')
+        self.stop_btn.configure(bg='#c0392b', state='normal')
+        self.status_label.configure(text="Status: Collecting data...", fg=STATUS_COLORS["running"])
+        self.stop_collection_event = threading.Event()
+
+        def adc_collection_wrapper():
+            if DATA_COLLECTION_AVAILABLE:
+                try:
+                    print("Starting ADC data collection in manual mode...")
+                    self.data_collection_file_path = run_collection(self.stop_collection_event)
+                    if self.data_collection_file_path:
+                        print(f"ADC data collection completed: {self.data_collection_file_path}")
+                        self._set_status_text(
+                            f"Status: ADC data saved to {self.data_collection_file_path.name}",
+                            STATUS_COLORS["success"]
+                        )
+                except Exception as e:
+                    error_msg = f"ADC Collection error: {str(e)}"
+                    print(error_msg)
+                    traceback.print_exc()
+                    self._set_status_text(f"Status: {error_msg}", STATUS_COLORS["idle"])
+            else:
+                print("ADC data collection not available")
+
+        self.data_collection_thread = threading.Thread(target=adc_collection_wrapper, daemon=True)
+        self.data_collection_thread.start()
+
+        if BME_COLLECTION_AVAILABLE:
+            def bme_collection_wrapper():
+                try:
+                    print("Starting BME280 data collection in manual mode...")
+                    bme_path = run_bme_collection(self.stop_collection_event)
+                    self.bme_collection_file_path = bme_path
+                    if bme_path:
+                        print(f"BME280 data collection completed: {bme_path}")
+                except Exception as e:
+                    error_msg = f"BME280 Collection error: {str(e)}"
+                    print(error_msg)
+                    traceback.print_exc()
+
+            self.bme_collection_thread = threading.Thread(target=bme_collection_wrapper, daemon=True)
+            self.bme_collection_thread.start()
+
+        # เริ่ม timer thread ถ้าผู้ใช้เปิดใช้งาน
+        if timer_seconds is not None:
+            self.manual_timer_stop_event = threading.Event()
+            self.manual_timer_thread = threading.Thread(
+                target=self._run_manual_timer,
+                args=(timer_seconds,),
+                daemon=True
+            )
+            self.manual_timer_thread.start()
+
+    def _start_auto_mode(self):
+        """Start auto sequence mode."""
+        self.running = True
+        self.start_btn.configure(bg=STATUS_COLORS["running"], text="Running...", state='disabled')
+        self.stop_btn.configure(bg='#c0392b', state='normal')
+        self.progress_label.configure(text="Starting sequence...", fg=STATUS_COLORS["running"])
+        thread = threading.Thread(target=self.run_auto_sequence, daemon=True)
+        thread.start()
+
     def start_operation(self):
         """เริ่มการทำงาน"""
         if self.running:
@@ -1362,53 +1847,9 @@ class HardwareControlGUI:
         mode = self.current_mode.get()
         
         if mode == "manual":
-            # Manual mode: เริ่มการเก็บข้อมูลทันที
-            if not DATA_COLLECTION_AVAILABLE:
-                messagebox.showerror("Error", "Data collection modules not available")
-                return
-            
-            self.running = True
-            self.start_btn.configure(bg='#3498db', text="Collecting...", state='disabled')
-            self.stop_btn.configure(bg='#c0392b')
-            self.status_label.configure(text="Status: Collecting data...", fg='#3498db')
-            
-            # สร้าง stop event สำหรับการเก็บข้อมูล
-            self.stop_collection_event = threading.Event()
-            
-            # เริ่มการเก็บข้อมูล ADC ใน thread แยก
-            def adc_collection_wrapper():
-                if DATA_COLLECTION_AVAILABLE:
-                    try:
-                        print("Starting ADC data collection in manual mode...")
-                        self.data_collection_file_path = run_collection(self.stop_collection_event)
-                        if self.data_collection_file_path:
-                            print(f"ADC data collection completed: {self.data_collection_file_path}")
-                            self.root.after(0, lambda: self.status_label.configure(
-                                text=f"Status: ADC data saved to {self.data_collection_file_path.name}", 
-                                fg='#27ae60'))
-                    except Exception as e:
-                        error_msg = f"ADC Collection error: {str(e)}"
-                        print(error_msg)
-                        traceback.print_exc()
-                        self.root.after(0, lambda: self.status_label.configure(
-                            text=f"Status: {error_msg}", fg='#e74c3c'))
-                else:
-                    print("ADC data collection not available")
-            
-            if DATA_COLLECTION_AVAILABLE:
-                self.data_collection_thread = threading.Thread(target=adc_collection_wrapper, daemon=True)
-                self.data_collection_thread.start()
-            
+            self._start_manual_mode()
         elif mode == "auto":
-            # Auto mode: เริ่ม auto sequence
-            self.running = True
-            self.start_btn.configure(bg='#3498db', text="Running...", state='disabled')
-            self.stop_btn.configure(bg='#c0392b')
-            self.progress_label.configure(text="Starting sequence...", fg='#3498db')
-            
-            # Start thread
-            thread = threading.Thread(target=self.run_auto_sequence, daemon=True)
-            thread.start()
+            self._start_auto_mode()
             
     def run_auto_sequence(self):
         """รันลำดับ Auto 7 Operations พร้อม Loop และ Break Time
@@ -1434,7 +1875,6 @@ class HardwareControlGUI:
             max_cycles = 0
         
         self.current_cycle = 0
-        ALL_DEVICES = ['s_valve1', 's_valve2', 's_valve3', 's_valve4', 'pump', 'fan', 'heater']
         
         # Main loop
         while self.running:
@@ -1448,189 +1888,33 @@ class HardwareControlGUI:
             self._cleanup_collection_threads()
             
             # Get durations from UI
-            durations = {}
-            dur_defaults = {
-                'heating': 1800, 'baseline': 30, 'vacuum': 10, 'mix_air': 10,
-                'measure': 60, 'vacuum_return': 10, 'recovery': 60, 'break_time': 1620
-            }
-            for key in dur_defaults:
-                try:
-                    durations[key] = int(self.operation_durations[key].get())
-                except (ValueError, KeyError):
-                    durations[key] = dur_defaults[key]
+            durations = self._get_operation_durations()
             
-            process_thread = None  # สำหรับ process_data ใน Op6
-            
-            # ========== Op1: Heating ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'heating'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op1: Heating", '#f39c12', 'heating')
-            
-            # Heater ON, all others OFF
-            self._set_devices(
-                on=['heater'],
-                off=['s_valve1', 's_valve2', 's_valve3', 's_valve4', 'pump', 'fan'])
-            
-            if not self._countdown(durations['heating'], "Op1: Heating"):
-                break
-            
-            # heater ยังคง ON ต่อเนื่องตลอด Op1-Op7
-            self._mark_operation_complete('heating')
-            
-            # ========== Op2: Baseline ==========
-            if not self.running:
-                break
-            
-            # เริ่มเก็บข้อมูล ADC ตลอด Op2-Op7
-            if DATA_COLLECTION_AVAILABLE and self.running:
-                self._start_data_collection()
-            
-            self.current_operation = 'baseline'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op2: Baseline [Recording]", '#f39c12', 'baseline')
-            
-            # s_valve1 + s_valve3 + pump ON
-            self._set_devices(on=['s_valve1', 's_valve3', 'pump'])
-            
-            if not self._countdown(durations['baseline'], "Op2: Baseline"):
-                break
-            
-            self._mark_operation_complete('baseline')
-            
-            # ========== Op3: Vacuum (seamless จาก Op2 - แค่ปิด s_valve1) ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'vacuum'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op3: Vacuum", '#f39c12', 'vacuum')
-            
-            # s_valve3 + pump ยังทำงานต่อ, ปิด s_valve1
-            self._set_devices(off=['s_valve1'])
-            
-            if not self._countdown(durations['vacuum'], "Op3: Vacuum"):
-                break
-            
-            self._mark_operation_complete('vacuum')
-            
-            # ========== Op4: Mix Air ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'mix_air'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op4: Mix Air", '#f39c12', 'mix_air')
-            
-            # ปิด s_valve3 + pump, เปิด fan
-            self._set_devices(on=['fan'], off=['s_valve3', 'pump'])
-            
-            if not self._countdown(durations['mix_air'], "Op4: Mix Air"):
-                break
-            
-            self._mark_operation_complete('mix_air')
-            
-            # ========== Op5: Measure (เริ่มเก็บข้อมูล) ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'measure'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op5: Measure", '#f39c12', 'measure')
-            
-            # ปิด fan, เปิด s_valve2 + pump
-            self._set_devices(on=['s_valve2', 'pump'], off=['fan'])
-            
-            if not self._countdown(durations['measure'], "Op5: Measure [Recording]"):
-                break
-            
-            self._mark_operation_complete('measure')
-            
-            # ========== Op6: Vacuum Return ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'vacuum_return'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op6: Vacuum Return", '#f39c12', 'vacuum_return')
-            
-            # ปิด s_valve2, เปิด s_valve4 (pump ยังทำงานต่อ - seamless)
-            self._set_devices(on=['s_valve4'], off=['s_valve2'])
-            
-            if not self._countdown(durations['vacuum_return'], "Op6: Vacuum Return"):
-                break
-            
-            self._mark_operation_complete('vacuum_return')
-            
-            # ========== Op7: Recovery ==========
-            if not self.running:
-                break
-            
-            self.current_operation = 'recovery'
-            self._update_operation_ui(
-                f"Cycle {self.current_cycle} - Op7: Recovery", '#f39c12', 'recovery')
-            
-            # ปิด s_valve4, เปิด s_valve1 + s_valve3 (pump ยังทำงานต่อ - seamless)
-            self._set_devices(on=['s_valve1', 's_valve3'], off=['s_valve4'])
-            
-            if not self._countdown(durations['recovery'], "Op7: Recovery"):
-                break
-            
-            self._mark_operation_complete('recovery')
-            
-            # ========== หยุดเก็บข้อมูล ADC หลัง Op7 จบ ==========
-            self._stop_data_collection()
-            
-            # ========== ปิดอุปกรณ์ทั้งหมด ==========
-            self.hardware.all_off()
-            for dev in ALL_DEVICES:
-                self._update_device_ui_threadsafe(dev, False)
-            
-            # ========== Process Data หลังเก็บข้อมูลเสร็จ ==========
-            if self.running and DATA_PROCESSING_AVAILABLE:
-                process_thread = self._start_data_processing()
-            
-            if process_thread is not None and process_thread.is_alive():
-                print(f"Cycle {self.current_cycle}: Waiting for data processing to finish...")
-                process_thread.join(timeout=30)
-                if process_thread.is_alive():
-                    print(f"Cycle {self.current_cycle}: Warning: Data processing did not finish in time")
-            
-            # Auto-update Display graph when new processed data is available
-            self.root.after(0, self._refresh_display_graph_if_visible)
-            
-            # Reset collection variables
-            self._reset_collection_vars()
-            
-            # Check if should continue looping
-            if not self.running:
-                break
-            
-            if not is_infinite and self.current_cycle >= max_cycles:
-                break
-            
-            # ========== Break Time ==========
-            if durations['break_time'] > 0 and self.running:
-                self.current_operation = 'break_time'
-                self.current_operation_index = -1
+            for step in AUTO_OPERATION_STEPS:
+                if not self._run_auto_step(
+                    step["op_key"],
+                    step["ui_title"],
+                    durations[step["duration_key"]],
+                    step["countdown_title"],
+                    on=step.get("on"),
+                    off=step.get("off"),
+                    start_collection=step.get("start_collection", False)
+                ):
+                    break
+            else:
+                self._finalize_cycle_devices_and_processing()
                 
-                def update_break_ui(c=self.current_cycle):
-                    self.progress_label.configure(
-                        text=f"Cycle {c} Complete - Break Time", fg='#e74c3c')
-                    if 'break_time' in self.operation_frames:
-                        self.operation_frames['break_time'].configure(bg='#e57373')
+                # Check if should continue looping
+                if not self.running:
+                    break
                 
-                self.root.after(0, update_break_ui)
+                if not is_infinite and self.current_cycle >= max_cycles:
+                    break
                 
-                self._countdown_break(durations['break_time'])
-                
-                # Reset break time frame color
-                self.root.after(0, lambda: self.operation_frames['break_time'].configure(bg='#ffcdd2'))
-                
-                # Reset operation colors for next cycle
-                self.root.after(0, self.reset_operation_colors)
+                self._run_break_time_if_needed(durations['break_time'])
+                continue
+
+            break
         
         # Complete
         self.current_operation = None
@@ -1649,138 +1933,139 @@ class HardwareControlGUI:
             self.set_device_state(dev, True)
         
     def operation_complete(self):
-        """เมื่อ operation เสร็จสิ้น"""
-        self.start_btn.configure(bg='#27ae60', text="Start Auto Sequence", state='normal')
-        self.stop_btn.configure(bg='#e74c3c')
-        self.progress_label.configure(text="Sequence Complete!", fg='#27ae60')
-        self.timer_label.configure(text="00:00")
-        self.status_label.configure(text="Status: All operations completed!", fg='#27ae60')
-        
-        # Keep completed colors for a moment, then reset
-        self.root.after(3000, self.reset_operation_colors)
+        """เมื่อ operation เสร็จสิ้น (auto sequence จบ หรือถูกผู้ใช้หยุด)"""
+        self.start_btn.configure(bg=STATUS_COLORS["success"], text="Start Auto Sequence", state='normal')
+        self.stop_btn.configure(bg=STATUS_COLORS["idle"], state='normal')
+
+        # ถ้าผู้ใช้กด Stop เอง ให้คงข้อความที่ stop worker ตั้งไว้ ไม่ทับด้วย "completed"
+        if self._stopping_in_progress:
+            self.progress_label.configure(text="Stopped", fg=STATUS_COLORS["idle"])
+        else:
+            self.progress_label.configure(text="Sequence Complete!", fg=STATUS_COLORS["success"])
+            self.timer_label.configure(text="00:00")
+            self.status_label.configure(
+                text="Status: All operations completed!", fg=STATUS_COLORS["success"]
+            )
+
+        self._run_on_ui_thread(lambda: self.root.after(3000, self.reset_operation_colors))
         self.draw_circuit_diagram()
         
     def reset_operation_colors(self):
         """รีเซ็ตสี operation frames กลับเป็นปกติ"""
-        colors = {
-            'heating': '#fff59d',
-            'baseline': '#81d4fa',
-            'vacuum': '#b39ddb',
-            'mix_air': '#a5d6a7',
-            'measure': '#ffcc80',
-            'vacuum_return': '#f48fb1',
-            'recovery': '#80cbc4',
-            'break_time': '#ffcdd2'
-        }
-        for key, color in colors.items():
+        for key, color in OPERATION_FRAME_COLORS.items():
             if key in self.operation_frames:
                 self.operation_frames[key].configure(bg=color)
-        
+
+    def _wait_for_collection_threads(self, timeout=STOP_THREAD_JOIN_TIMEOUT_SEC):
+        """รอให้ ADC + BME280 collection threads จบงาน save (เรียกหลัง set stop_event แล้ว)"""
+        if self.data_collection_thread is not None and self.data_collection_thread.is_alive():
+            self.data_collection_thread.join(timeout=timeout)
+            if self.data_collection_thread.is_alive():
+                print("Warning: ADC data collection thread did not stop in time")
+        if self.bme_collection_thread is not None and self.bme_collection_thread.is_alive():
+            self.bme_collection_thread.join(timeout=timeout)
+            if self.bme_collection_thread.is_alive():
+                print("Warning: BME280 data collection thread did not stop in time")
+
+    def _stop_and_process_worker(self, mode):
+        """Background worker หลังกด Stop:
+        1) รอ collection threads save NPZ ให้เสร็จ
+        2) ประมวลผลข้อมูล (manual mode เท่านั้น)
+        3) คืน UI ผ่าน root.after เพื่อไม่บล็อก main thread
+        """
+        try:
+            self._set_status_text("Status: Saving data...", STATUS_COLORS["processing"])
+            self._wait_for_collection_threads(timeout=STOP_THREAD_JOIN_TIMEOUT_SEC)
+
+            if mode == "manual" and DATA_PROCESSING_AVAILABLE:
+                self._set_status_text("Status: Processing data...", STATUS_COLORS["processing"])
+                ok = self._run_data_processing()
+                if ok:
+                    self._set_status_text(
+                        "Status: Data processing completed!", STATUS_COLORS["success"]
+                    )
+                    self._run_on_ui_thread(self._refresh_display_graph_if_visible)
+                else:
+                    self._set_status_text(
+                        "Status: Processing error (see console)", STATUS_COLORS["idle"]
+                    )
+            else:
+                self._set_status_text("Status: Stopped", STATUS_COLORS["idle"])
+        except Exception as e:
+            traceback.print_exc()
+            self._set_status_text(
+                f"Status: Stop error: {e}", STATUS_COLORS["idle"]
+            )
+        finally:
+            self._show_progress(False)
+            self._run_on_ui_thread(lambda: self._finish_stop(mode))
+
+    def _finish_stop(self, mode):
+        """รันบน UI thread หลัง stop worker จบ — รีเซ็ตสถานะปุ่มและตัวแปร"""
+        self._stopping_in_progress = False
+        self._stop_worker_thread = None
+
+        # เคลียร์ manual timer refs
+        self.manual_timer_thread = None
+        self.manual_timer_stop_event = None
+        if hasattr(self, 'manual_timer_remaining_label'):
+            try:
+                self.manual_timer_remaining_label.configure(text="")
+            except tk.TclError:
+                pass
+
+        # ใน manual mode คงสถานะ Heater ตามที่ผู้ใช้ตั้งไว้
+        preserve = []
+        if mode == "manual" and self.hardware.get_device_state('heater'):
+            preserve = ['heater']
+
+        # รักษาข้อความ status ที่ worker ตั้งล่าสุดไว้ (ส่ง None)
+        self._reset_ui_after_stop(mode, status_text=None, preserve_devices=preserve)
+
     def stop_operation(self):
-        """หยุดการทำงาน"""
+        """หยุดการทำงาน — ไม่บล็อก main thread; ใช้ worker thread เพื่อรอ save + process"""
+        if self._stopping_in_progress:
+            return
+
         mode = self.current_mode.get()
         was_running = self.running
         self.running = False
-        
-        # หยุดการเก็บข้อมูลถ้ากำลังรันอยู่
+
+        # ส่งสัญญาณให้ collection threads หยุดทันที (ไม่ join บน main thread)
         if self.stop_collection_event is not None:
             print("Stopping data collection...")
             self.stop_collection_event.set()
-            if self.data_collection_thread is not None:
-                self.data_collection_thread.join(timeout=5)
-                if self.data_collection_thread is not None and self.data_collection_thread.is_alive():
-                    print("Warning: ADC data collection thread did not stop in time")
-        
-        # ใน manual mode: รัน process_data() ก่อนหยุดการทำงาน
-        if mode == "manual" and was_running and DATA_PROCESSING_AVAILABLE:
-            self.status_label.configure(text="Status: Processing data...", fg='#9b59b6')
-            self.root.update()
-            
-            def process_and_finish():
-                """Wrapper function สำหรับ error handling"""
-                try:
-                    print("Manual mode: Starting data processing...")
-                    process_data()
-                    self.root.after(0, lambda: self.status_label.configure(
-                        text="Status: Data processing completed!", fg='#27ae60'))
-                    self.root.after(0, self._refresh_display_graph_if_visible)
-                    print("Manual mode: Data processing completed successfully")
-                except Exception as e:
-                    error_msg = f"Processing error: {str(e)}"
-                    print(f"Processing error: {error_msg}")
-                    traceback.print_exc()
-                    self.root.after(0, lambda: self.status_label.configure(
-                        text=f"Status: {error_msg}", fg='#e74c3c'))
-                finally:
-                    # Reset collection variables หลังจากประมวลผลเสร็จ
-                    self.stop_collection_event = None
-                    self.data_collection_thread = None
-                    self.data_collection_file_path = None
-                    
-                    # ใช้ Hardware Controller ปิดอุปกรณ์ทั้งหมด
-                    self.hardware.all_off()
-                    
-                    # Update UI for all devices
-                    for device_key in self.hardware.available_devices:
-                        self.update_switch_button(device_key, False)
-                    
-                    # Reset UI
-                    self.current_operation = None
-                    self.current_operation_index = -1
-                    
-                    self.start_btn.configure(
-                        text="Start Collection",
-                        state='normal',
-                        bg='#27ae60'
-                    )
-                    self.progress_label.configure(text="Stopped", fg='#e74c3c')
-                    self.timer_label.configure(text="--:--")
-                    self.draw_circuit_diagram()
-            
-            # รัน process_data ใน thread แยก (ไม่ block UI)
-            process_thread = threading.Thread(target=process_and_finish, daemon=True)
-            process_thread.start()
-            
-            # รอให้ประมวลผลเสร็จ (timeout 60 วินาที)
-            process_thread.join(timeout=60)
-            if process_thread.is_alive():
-                print("Warning: Data processing thread did not finish in time")
-                # แม้จะ timeout ก็ยังต้อง reset UI
-                self.stop_collection_event = None
-                self.data_collection_thread = None
-                self.data_collection_file_path = None
-        else:
-            # Auto mode หรือไม่มี data processing: reset ทันที
-            # Reset collection variables
-            self.stop_collection_event = None
-            self.data_collection_thread = None
-            self.data_collection_file_path = None
-            
-            # ใช้ Hardware Controller ปิดอุปกรณ์ทั้งหมด
-            self.hardware.all_off()
-            
-            # Update UI for all devices
-            for device_key in self.hardware.available_devices:
-                self.update_switch_button(device_key, False)
-            
-            # Reset UI
-            self.current_operation = None
-            self.current_operation_index = -1
-            
-            self.start_btn.configure(
-                bg='#27ae60' if mode == 'auto' else '#27ae60',
-                text="Start Auto Sequence" if mode == 'auto' else "Start Collection",
-                state='normal'
+
+        # หยุด manual timer thread (ถ้ามี) ก่อนที่มันจะเรียก stop_operation ซ้ำ
+        if self.manual_timer_stop_event is not None:
+            self.manual_timer_stop_event.set()
+
+        if not was_running:
+            preserve = []
+            if mode == "manual" and self.hardware.get_device_state('heater'):
+                preserve = ['heater']
+            self._reset_ui_after_stop(
+                mode, status_text="Status: Stopped",
+                status_color=STATUS_COLORS["idle"],
+                preserve_devices=preserve
             )
-            self.progress_label.configure(text="Stopped", fg='#e74c3c')
-            self.timer_label.configure(text="--:--")
-            self.status_label.configure(text="Status: Stopped", fg='#e74c3c')
-            
-            # Reset operation frame colors (สำหรับ auto mode)
-            if mode == 'auto':
-                self.reset_operation_colors()
-            
-            self.draw_circuit_diagram()
+            return
+
+        # ปิดปุ่มกันกดซ้ำ และแสดงสถานะ "กำลังบันทึก..."
+        self._stopping_in_progress = True
+        self.start_btn.configure(state='disabled')
+        self.stop_btn.configure(state='disabled', bg=STATUS_COLORS["idle"])
+        self._set_status_text("Status: Saving data...", STATUS_COLORS["processing"])
+        self._show_progress(True)
+
+        # Auto mode: auto-sequence thread จะ finalize เอง — worker นี้แค่รอ save จบ
+        # Manual mode: worker รับผิดชอบทั้งรอ save + process + รีเซ็ต UI
+        self._stop_worker_thread = threading.Thread(
+            target=self._stop_and_process_worker,
+            args=(mode,),
+            daemon=True,
+        )
+        self._stop_worker_thread.start()
         
     def on_closing(self):
         """Cleanup"""

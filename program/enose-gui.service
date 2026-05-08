@@ -1,0 +1,16 @@
+[Unit]
+Description=eNose Methane Hardware Control GUI
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/eNose_methane/program
+ExecStart=/home/pi/eNose_methane/program/run_gui.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:/home/pi/enose_gui_systemd.log
+StandardError=append:/home/pi/enose_gui_systemd.log
+
+[Install]
+WantedBy=graphical-session.target
