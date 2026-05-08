@@ -1,223 +1,262 @@
-import pandas as pd
-import numpy as np
-from pathlib import Path
 import os
+import traceback
 from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+try:
+    from scipy.signal import lfilter, lfilter_zi
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
 
 # --- Configuration ---
-# Path settings
 CURRENT_DIR = Path(__file__).parent
 READING_DATA_DIR = CURRENT_DIR.parent / "reading" / "data"
 OUTPUT_DIR = CURRENT_DIR / "processed_data"
 
-# Filter settings (SAMPLE_RATE จะอ่านจากไฟล์ NPZ)
-CUTOFF_FREQ = 50           # Hz (Cutoff frequency for Low-pass)
-MOVING_AVG_WINDOW = 1000       # Window size for Moving Average
+# Filter settings (sample_rate อ่านจากไฟล์ NPZ)
+CUTOFF_FREQ = 50            # Hz
+MOVING_AVG_WINDOW = 1000    # samples
 
 
-def get_latest_npz_file(directory):
-    """Finds the latest NPZ file in the specified directory."""
+def get_latest_npz_file(directory, prefix=None):
+    """หาไฟล์ NPZ ล่าสุดในโฟลเดอร์ (กรองตาม prefix ได้)"""
     if not directory.exists():
         print(f"Directory not found: {directory}")
         return None
-    
-    # Get list of npz files
-    npz_files = list(directory.glob("*.npz"))
+
+    pattern = f"{prefix}_*.npz" if prefix else "*.npz"
+    npz_files = list(directory.glob(pattern))
     if not npz_files:
-        print(f"No NPZ files found in {directory}")
+        scope = f" with prefix '{prefix}'" if prefix else ""
+        print(f"No NPZ files found in {directory}{scope}")
         return None
-    
-    # Sort by modification time, latest first
-    latest_file = max(npz_files, key=os.path.getmtime)
-    return latest_file
+
+    return max(npz_files, key=os.path.getmtime)
 
 
-def load_npz_to_dataframe(npz_path):
-    """
-    Load NPZ file and convert to DataFrame
-    
-    NPZ format from reading/main.py:
-    - data: shape (n_samples, 1 + num_channels) = [elapsed_time, sensor_1, sensor_2, ...]
-    - columns: ['elapsed_time_sec', 'sensor_1', 'sensor_2', ...]
-    - sample_rate: float (Hz)
-    - num_channels: int
-    
-    Returns:
-    --------
-    df : DataFrame
-        ข้อมูลในรูปแบบ DataFrame
-    sample_rate : float
-        Sample rate (Hz) จากไฟล์
-    """
+def load_npz_arrays(npz_path):
+    """Load NPZ → (data ndarray, columns list, sample_rate float)"""
     npz_data = np.load(npz_path, allow_pickle=True)
-    
     data = npz_data['data']
-    columns = npz_data['columns']
+    columns = list(npz_data['columns'])
     sample_rate = float(npz_data['sample_rate'])
-    
-    # Convert to DataFrame
-    df = pd.DataFrame(data, columns=columns)
-    
-    print(f"  Loaded {len(df)} samples at {sample_rate} Hz")
-    print(f"  Columns: {list(columns)}")
-    
-    return df, sample_rate
+    return data, columns, sample_rate
 
 
 def lowpass_filter(data, cutoff_freq, sample_rate):
+    """First-order IIR low-pass filter — vectorized via scipy when available.
+
+    สูตร: y[n] = α·x[n] + (1-α)·y[n-1] โดย y[-1] = data[0]
     """
-    Simple first-order IIR Low-pass Filter (Exponential Smoothing)
-    
-    สูตร: y[n] = alpha * x[n] + (1 - alpha) * y[n-1]
-    โดย alpha = dt / (RC + dt), RC = 1 / (2 * pi * cutoff_freq)
-    
-    Parameters:
-    -----------
-    data : array-like
-        ข้อมูลดิบจากเซ็นเซอร์
-    cutoff_freq : float
-        ความถี่ตัด (Hz) - ความถี่ที่สูงกว่านี้จะถูกกรองออก
-    sample_rate : float
-        Sample rate (Hz)
-    
-    Returns:
-    --------
-    filtered : array
-        ข้อมูลที่ผ่าน low-pass filter แล้ว
+    arr = np.ascontiguousarray(data, dtype=np.float64)
+    if arr.size == 0:
+        return arr.astype(np.float32)
+
+    dt = 1.0 / sample_rate
+    rc = 1.0 / (2 * np.pi * cutoff_freq)
+    alpha = dt / (rc + dt)
+
+    if SCIPY_AVAILABLE:
+        b = np.array([alpha], dtype=np.float64)
+        a = np.array([1.0, -(1.0 - alpha)], dtype=np.float64)
+        # zi ที่ทำให้ output[0] = data[0] (แทน initial condition y[-1] = data[0])
+        zi = lfilter_zi(b, a) * arr[0]
+        filtered, _ = lfilter(b, a, arr, zi=zi)
+        return filtered.astype(np.float32)
+
+    # Fallback: pure-numpy loop (จัดการเร็วกว่าเดิมเพราะ allocate ครั้งเดียว)
+    filtered = np.empty_like(arr)
+    filtered[0] = arr[0]
+    one_minus_alpha = 1.0 - alpha
+    for i in range(1, arr.size):
+        filtered[i] = alpha * arr[i] + one_minus_alpha * filtered[i - 1]
+    return filtered.astype(np.float32)
+
+
+def centered_moving_average(data, window):
+    """Centered moving average ผ่าน cumulative sum — O(n) ไม่ขึ้นกับขนาด window
+
+    เลียนแบบพฤติกรรม pandas.Series.rolling(window, center=True, min_periods=1).mean()
+    (ขอบใช้จำนวน sample ที่มีจริง ไม่เติม NaN)
     """
-    data = np.array(data)
-    
-    # คำนวณ alpha สำหรับ first-order low-pass
-    dt = 1.0 / sample_rate                    # ช่วงเวลาระหว่าง sample
-    rc = 1.0 / (2 * np.pi * cutoff_freq)      # Time constant
-    alpha = dt / (rc + dt)                     # Smoothing factor (0-1)
-    
-    # Apply filter
-    filtered = np.zeros_like(data, dtype=float)
-    filtered[0] = data[0]
-    
-    for i in range(1, len(data)):
-        filtered[i] = alpha * data[i] + (1 - alpha) * filtered[i-1]
-    
-    return filtered
+    arr = np.asarray(data, dtype=np.float64)
+    n = arr.size
+    if n == 0 or window <= 1:
+        return arr.astype(np.float32)
+
+    half_lo = (window - 1) // 2
+    half_hi = window - 1 - half_lo
+
+    csum = np.empty(n + 1, dtype=np.float64)
+    csum[0] = 0.0
+    np.cumsum(arr, out=csum[1:])
+
+    idx = np.arange(n)
+    starts = np.clip(idx - half_lo, 0, n)
+    ends = np.clip(idx + half_hi + 1, 0, n)
+    sums = csum[ends] - csum[starts]
+    counts = (ends - starts).astype(np.float64)
+    np.maximum(counts, 1, out=counts)
+    return (sums / counts).astype(np.float32)
 
 
-def process_data():
-    # 1. Setup output directory
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-    # 2. Get the latest input file (NPZ)
-    input_file = get_latest_npz_file(READING_DATA_DIR)
-    if input_file is None:
-        return
-
-    print(f"Processing file: {input_file.name}")
-    
-    # 3. Load NPZ data
-    try:
-        df, sample_rate = load_npz_to_dataframe(input_file)
-    except Exception as e:
-        print(f"Error reading NPZ: {e}")
-        return
-
-    # Identify sensor columns (sensor_1, sensor_2, sensor_3, sensor_4)
-    channel_cols = [col for col in df.columns if col.startswith('sensor_')]
-    
-    if not channel_cols:
-        print("No sensor data columns found.")
-        return
-
-    # Create a copy for processed data
-    df_processed = df.copy()
-
-    # 4. Apply Filters: Low-pass -> Moving Average
-    print(f"\n--- Applying Filters (Low-pass {CUTOFF_FREQ}Hz -> Moving Avg window={MOVING_AVG_WINDOW}) ---")
-    for col in channel_cols:
-        # Fill NaNs if any (forward fill then backward fill) to avoid filter errors
-        clean_data = df[col].ffill().bfill() 
-        
-        # Debug: ตรวจสอบข้อมูลดิบ
-        print(f"  {col}: Original data - min={clean_data.min():.4f}, max={clean_data.max():.4f}, mean={clean_data.mean():.4f}, NaN count={clean_data.isna().sum()}")
-        
-        # Check if we have enough data points for filtering
-        if len(clean_data) > 15:
-            # Step 1: Low-pass Filter (ใช้ sample_rate จากไฟล์ NPZ)
-            df_processed[f'{col}_lp'] = lowpass_filter(clean_data.values, CUTOFF_FREQ, sample_rate)
-            
-            # Step 2: Moving Average (on top of Low-pass)
-            # ใช้ min_periods=1 เพื่อให้ใช้ข้อมูลที่มีได้แม้ไม่ครบ window (ลด NaN)
-            df_processed[f'{col}_lp_ma'] = df_processed[f'{col}_lp'].rolling(
-                window=MOVING_AVG_WINDOW, 
-                center=True, 
-                min_periods=1
-            ).mean()
-            
-            # Debug: ตรวจสอบข้อมูลหลัง filter
-            lp_ma_col = f'{col}_lp_ma'
-            if lp_ma_col in df_processed.columns:
-                lp_ma_data = df_processed[lp_ma_col]
-                valid_count = lp_ma_data.notna().sum()
-                print(f"  {col}: After filtering - valid samples={valid_count}/{len(lp_ma_data)}, min={lp_ma_data.min():.4f}, max={lp_ma_data.max():.4f}, mean={lp_ma_data.mean():.4f}")
-        else:
-            print(f"  {col}: Not enough data points to filter (only {len(clean_data)} samples)")
-
-    # 5. Save to CSV - ใช้รูปแบบ adc1263_date_time
-    # ดึง date_time จากชื่อไฟล์ input (รองรับทั้งรูปแบบเก่าและใหม่)
-    input_stem = input_file.stem  # เช่น "adc1263_20251217_150155" หรือ "ads1263_voltage_20251217_150155"
-    
-    # แยกด้วย underscore และหาส่วนที่เป็น date_time (รูปแบบ YYYYMMDD_HHMMSS)
+def _resolve_output_path(prefix, input_stem):
+    """กำหนด path ของ CSV ที่จะบันทึก (ดึง date_time จากชื่อไฟล์ input)"""
     parts = input_stem.split('_')
     date_time = None
-    
-    # หาส่วนที่มีรูปแบบ YYYYMMDD_HHMMSS (8 หลัก_6 หลัก)
     for i in range(len(parts) - 1):
-        if len(parts[i]) == 8 and parts[i].isdigit() and len(parts[i+1]) == 6 and parts[i+1].isdigit():
-            date_time = f"{parts[i]}_{parts[i+1]}"
+        if (
+            len(parts[i]) == 8 and parts[i].isdigit()
+            and len(parts[i + 1]) == 6 and parts[i + 1].isdigit()
+        ):
+            date_time = f"{parts[i]}_{parts[i + 1]}"
             break
-    
-    if date_time:
-        output_filename = f"adc1263_{date_time}.csv"
-    else:
-        # ถ้าไม่พบ date_time ให้ใช้ timestamp ใหม่
-        date_time = datetime.now().strftime('%Y%m%d_%H%M%S')
-        output_filename = f"adc1263_{date_time}.csv"
-    
-    output_path = OUTPUT_DIR / output_filename
-    cols_to_keep = ['elapsed_time_sec'] + [col for col in df_processed.columns if col.endswith('_lp_ma')]
-    df_final = df_processed[cols_to_keep]
-    
-    # บันทึกไฟล์ - เพิ่ม error handling สำหรับ permission issues
-    try:
-        # ตรวจสอบว่าไฟล์มีอยู่แล้วและถูก lock หรือไม่
-        if output_path.exists():
-            # ถ้าไฟล์มีอยู่แล้ว ให้เพิ่ม timestamp เพื่อหลีกเลี่ยง conflict
-            timestamp = datetime.now().strftime('%H%M%S_%f')[:-3]  # เพิ่ม milliseconds
-            output_filename = f"adc1263_{date_time}_{timestamp}.csv"
-            output_path = OUTPUT_DIR / output_filename
-            print(f"  Warning: Original filename exists, using: {output_filename}")
-        
-        # ตรวจสอบสิทธิ์การเขียนใน directory
-        if not os.access(OUTPUT_DIR, os.W_OK):
-            raise PermissionError(f"No write permission for directory: {OUTPUT_DIR}")
-        
-        # บันทึกไฟล์
-        df_final.to_csv(output_path, index=False)
-        print(f"\nSaved processed data to: {output_path}")
-        
-    except PermissionError as e:
-        print(f"\n✗ Permission Error: {e}")
-        print(f"  Please check file permissions for: {output_path}")
-        print(f"  Try running: sudo chmod 755 {OUTPUT_DIR}")
-        return
-    except Exception as e:
-        print(f"\n✗ Error saving file: {e}")
-        print(f"  File path: {output_path}")
-        return
 
-    print("-" * 30)
-    # แสดงผลตัวอย่างจาก df_final
-    print(df_final.head())
+    if date_time is None:
+        date_time = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    output_path = OUTPUT_DIR / f"{prefix}_{date_time}.csv"
+    if output_path.exists():
+        ts = datetime.now().strftime('%H%M%S_%f')[:-3]
+        output_path = OUTPUT_DIR / f"{prefix}_{date_time}_{ts}.csv"
+    return output_path
+
+
+def process_data(prefix="adc1263", input_path=None, verbose=False):
+    """ประมวลผล NPZ → CSV (low-pass + moving average ที่ vectorized)
+
+    Parameters
+    ----------
+    prefix : str
+        คำนำหน้าชื่อไฟล์ (เช่น "adc1263", "bme280")
+    input_path : pathlib.Path | None
+        ระบุไฟล์ตรงๆ; ถ้าเป็น None จะค้นหาไฟล์ล่าสุดของ prefix นั้น
+    verbose : bool
+        พิมพ์รายละเอียดเพิ่มเติม (ใช้ตอน debug)
+
+    Returns
+    -------
+    pathlib.Path | None
+        path ของ CSV ที่บันทึก หรือ None ถ้าไม่มีข้อมูล/บันทึกไม่สำเร็จ
+    """
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    if input_path is None:
+        input_path = get_latest_npz_file(READING_DATA_DIR, prefix=prefix)
+    if input_path is None:
+        return None
+    input_path = Path(input_path)
+
+    if verbose:
+        print(f"Processing ({prefix}): {input_path.name}")
+
+    try:
+        data_arr, columns, sample_rate = load_npz_arrays(input_path)
+    except Exception as e:
+        print(f"Error reading NPZ {input_path.name}: {e}")
+        return None
+
+    n_rows = data_arr.shape[0]
+    if n_rows == 0:
+        print(f"Empty NPZ {input_path.name}")
+        return None
+
+    time_idx = columns.index('elapsed_time_sec') if 'elapsed_time_sec' in columns else 0
+    sensor_indices = [
+        i for i, col in enumerate(columns)
+        if i != time_idx
+        and not str(col).endswith('_lp')
+        and not str(col).endswith('_lp_ma')
+    ]
+    if not sensor_indices:
+        print(f"No sensor columns in {input_path.name}")
+        return None
+
+    # ประมวลผลเป็นอาร์เรย์โดยตรง — ไม่สร้าง DataFrame.copy()
+    out_data = {'elapsed_time_sec': data_arr[:, time_idx].astype(np.float32)}
+
+    if n_rows > 15:
+        if verbose:
+            print(
+                f"Filters: lowpass {CUTOFF_FREQ}Hz @ fs={sample_rate}Hz "
+                f"-> moving avg window={MOVING_AVG_WINDOW}"
+            )
+        for i in sensor_indices:
+            col_name = columns[i]
+            raw = data_arr[:, i]
+            # จัดการ NaN เฉพาะกรณีที่จำเป็น (โดยทั่วไปไม่มี)
+            if not np.all(np.isfinite(raw)):
+                clean = pd.Series(raw).ffill().bfill().to_numpy()
+            else:
+                clean = raw
+            lp = lowpass_filter(clean, CUTOFF_FREQ, sample_rate)
+            out_data[f'{col_name}_lp_ma'] = centered_moving_average(lp, MOVING_AVG_WINDOW)
+    else:
+        if verbose:
+            print(f"Not enough samples ({n_rows}) — skipping filter")
+        for i in sensor_indices:
+            col_name = columns[i]
+            out_data[f'{col_name}_lp_ma'] = data_arr[:, i].astype(np.float32)
+
+    df_final = pd.DataFrame(out_data)
+    output_path = _resolve_output_path(prefix, input_path.stem)
+
+    try:
+        if not os.access(OUTPUT_DIR, os.W_OK):
+            raise PermissionError(f"No write permission for: {OUTPUT_DIR}")
+        df_final.to_csv(output_path, index=False, float_format='%.6g')
+        if verbose:
+            print(f"Saved processed data to: {output_path}")
+    except PermissionError as e:
+        print(f"Permission error: {e}")
+        print(f"  Try: sudo chmod 755 {OUTPUT_DIR}")
+        return None
+    except Exception as e:
+        print(f"Error saving {output_path}: {e}")
+        return None
+
+    return output_path
+
+
+# ลำดับ prefix ที่ process_all_data() จะประมวลผล
+DEFAULT_PREFIXES = ("adc1263", "bme280")
+
+
+def process_all_data(prefixes=DEFAULT_PREFIXES, input_paths=None, verbose=False):
+    """ประมวลผลไฟล์ล่าสุดของทุก prefix
+
+    Parameters
+    ----------
+    prefixes : tuple[str, ...]
+        ลำดับ prefix ที่จะประมวลผล
+    input_paths : dict[str, pathlib.Path] | None
+        ระบุ path ตรงๆ ต่อ prefix (เช่น {'adc1263': Path(...), 'bme280': Path(...)})
+        เพื่อข้ามขั้นตอนค้นหาไฟล์ล่าสุด — ลด race และ ทำงานเร็วขึ้น
+    verbose : bool
+        พิมพ์รายละเอียดเพิ่ม
+
+    Returns
+    -------
+    dict[str, pathlib.Path | None]
+        path ของ CSV ที่บันทึกได้ของแต่ละ prefix (หรือ None ถ้าล้มเหลว)
+    """
+    results = {}
+    for prefix in prefixes:
+        path = input_paths.get(prefix) if input_paths else None
+        try:
+            if verbose:
+                print(f"\n=== Processing prefix: {prefix} ===")
+            results[prefix] = process_data(prefix=prefix, input_path=path, verbose=verbose)
+        except Exception as e:
+            print(f"Error processing prefix '{prefix}': {e}")
+            traceback.print_exc()
+            results[prefix] = None
+    return results
 
 
 if __name__ == "__main__":
-    process_data()
+    process_all_data(verbose=True)

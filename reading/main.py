@@ -69,22 +69,23 @@ class SensorDataCollector:
         self.index += 1
     
     def save(self):
-        """Save collected data to .npz file"""
+        """Save collected data to .npz file (uncompressed สำหรับความเร็วในการ stop)"""
         if self.output_path is None or self.index == 0:
             print("No data to save")
             return None
-        
-        # Trim unused buffer space
+
         final_data = self.data[:self.index]
-        
-        np.savez_compressed(
+
+        # ใช้ np.savez (ไม่บีบอัด) เพื่อให้การหยุดเก็บข้อมูลเร็วที่สุด
+        # — บีบอัดทำให้ใช้ CPU มากบน Raspberry Pi ส่งผลให้กดหยุดแล้วรู้สึกค้างนาน
+        np.savez(
             self.output_path,
             data=final_data,
             columns=self.columns,
             sample_rate=1.0 / SAMPLE_INTERVAL_SEC,
             num_channels=self.num_channels
         )
-        
+
         print(f"\nSaved {self.index} samples to {self.output_path}")
         print(f"  File size: {self.output_path.stat().st_size / 1024:.2f} KB")
         return self.output_path

@@ -1,116 +1,339 @@
-# คู่มือการตั้งค่า Autostart สำหรับ eNose GUI
+# eNose GUI Autostart Setup (Raspberry Pi)
 
-วิธีนี้จะทำให้โปรแกรม GUI รันอัตโนมัติเมื่อ Raspberry Pi boot เสร็จ
+ตั้งค่าให้ `gui.py` รันอัตโนมัติทันทีเมื่อ Raspberry Pi เปิดเครื่อง
 
-## วิธีที่ 1: ใช้ Desktop Autostart (แนะนำ)
+---
 
-วิธีนี้เหมาะสำหรับ Raspberry Pi ที่มี Desktop Environment
+## วิธีหลัก: XDG Autostart (แนะนำ)
 
-### ขั้นตอนการติดตั้ง:
+เหมาะกับ Raspberry Pi OS Bookworm + labwc/Wayland — เป็นทางที่ Pi OS รองรับโดยตรง
 
-1. **แก้ไข path ในไฟล์ `enose-gui.desktop` ให้ตรงกับตำแหน่งโปรเจกต์บน Pi:**
-   - เปิดไฟล์แล้วแก้บรรทัด `Exec=` ให้ชี้ไปที่ path จริง เช่น:
-   ```ini
-   Exec=/home/pi/eNose_Methane/program/run_gui.sh
-   ```
-   (เปลี่ยน `/home/pi/eNose_Methane` เป็น path โปรเจกต์จริงบน Raspberry Pi)
+### ภาพรวม
 
-2. **แก้ line ending ของ `run_gui.sh` (ถ้าแก้ไขไฟล์บน Windows):**
-   ```bash
-   sed -i 's/\r$//' /home/pi/eNose_Methane/program/run_gui.sh
-   ```
-   หรือถ้าติดตั้ง dos2unix: `dos2unix /home/pi/eNose_Methane/program/run_gui.sh`
-
-3. **ให้สิทธิ์ execute แก่ shell script:**
-   ```bash
-   chmod +x /home/pi/eNose_Methane/program/run_gui.sh
-   ```
-
-4. **สร้างโฟลเดอร์ autostart (ถ้ายังไม่มี):**
-   ```bash
-   mkdir -p ~/.config/autostart
-   ```
-
-5. **คัดลอกไฟล์ .desktop ไปยัง autostart:**
-   ```bash
-   cp /home/pi/eNose_Methane/program/enose-gui.desktop ~/.config/autostart/
-   ```
-   (ใช้ path โปรเจกต์จริงของคุณ)
-
-6. **ทดสอบการรัน script:**
-   ```bash
-   bash /home/pi/eNose_Methane/program/run_gui.sh
-   ```
-   ถ้า GUI เปิดขึ้นมา แสดงว่าพร้อมใช้
-
-7. **รีสตาร์ท Raspberry Pi เพื่อทดสอบ autostart:**
-   ```bash
-   sudo reboot
-   ```
-   หลัง boot และล็อกอินเข้า Desktop แล้ว GUI ควรเปิดขึ้นอัตโนมัติ
-
-## การตรวจสอบ:
-
-- **ตรวจสอบว่าไฟล์อยู่ใน autostart:**
-  ```bash
-  ls -la ~/.config/autostart/
-  ```
-
-- **ดู logs (ถ้ามีปัญหา):**
-  ```bash
-  journalctl -f
-  ```
-
-- **ตรวจสอบว่า Desktop Environment ทำงานอยู่:**
-  ```bash
-  pgrep -x Xorg
-  # หรือ
-  pgrep -x wayland
-  ```
-
-## การแก้ปัญหา:
-
-### GUI ไม่เปิดขึ้นมา:
-- ตรวจสอบว่า Desktop Environment ทำงานอยู่
-- ตรวจสอบ DISPLAY environment variable: `echo $DISPLAY`
-- ตรวจสอบ path ในไฟล์ `.desktop` ว่าถูกต้องหรือไม่
-- ดู logs: `journalctl -f`
-
-### Permission denied:
-- ให้สิทธิ์ execute: `chmod +x program/run_gui.sh`
-- ตรวจสอบว่าไฟล์ `.desktop` มีสิทธิ์อ่าน: `chmod 644 ~/.config/autostart/enose-gui.desktop`
-
-### Path ไม่ถูกต้อง:
-- ตรวจสอบ path ทั้งหมดในไฟล์ config
-- ใช้ `pwd` เพื่อดู path ปัจจุบัน
-- ใช้ `ls -la` เพื่อตรวจสอบว่าไฟล์อยู่ที่ไหน
-
-### Script ไม่ทำงาน:
-- ทดสอบรัน script โดยตรง: `bash /home/pi/eNose_Methane/program/run_gui.sh`
-- ถ้าเห็น error `$'\r': command not found` แสดงว่า line ending เป็น CRLF ให้รัน: `sed -i 's/\r$//' /home/pi/eNose_Methane/program/run_gui.sh`
-- ตรวจสอบว่า Python3 ติดตั้งอยู่: `python3 --version`
-- ตรวจสอบว่า GUI ทำงานได้: `python3 /home/pi/eNose_Methane/program/gui.py`
-
-## หมายเหตุสำคัญ:
-
-- **Path:** ต้องแก้ path ใน `enose-gui.desktop` (และในคำสั่งด้านบน) ให้ตรงกับโปรเจกต์บน Pi (เช่น `/home/pi/eNose_Methane`)
-- **Username:** ถ้า username ไม่ใช่ `pi` ต้องแก้ไข path ในไฟล์ `.desktop`
-- **Display:** GUI ต้องการ display environment ถ้าใช้ headless อาจต้องใช้ X11 forwarding หรือ VNC
-- **Permissions:** ต้องให้สิทธิ์ execute แก่ shell script (`chmod +x`)
-
-## การปิดการใช้งาน Autostart:
-
-ถ้าต้องการปิดการใช้งาน autostart ชั่วคราว:
-```bash
-mv ~/.config/autostart/enose-gui.desktop ~/.config/autostart/enose-gui.desktop.disabled
+```
+Boot Pi
+  -> Auto-Login as user pi
+    -> labwc (Wayland compositor) start
+      -> Desktop session ready
+        -> XDG autostart scan ~/.config/autostart/
+          -> เรียก enose-gui.desktop -> run_gui.sh
+            -> รอ X server :0 / Xwayland พร้อม
+              -> หา .venv/bin/python
+                -> รัน gui.py
 ```
 
-ถ้าต้องการเปิดใช้งานอีกครั้ง:
-```bash
-mv ~/.config/autostart/enose-gui.desktop.disabled ~/.config/autostart/enose-gui.desktop
+ข้อดี:
+- เสถียรกับ labwc/Wayland (Pi OS Bookworm)
+- Compatible ทั้ง X11 และ Wayland sessions
+- ตั้งค่าง่าย — ไฟล์เดียวใน `~/.config/autostart/`
+- ไม่มีปัญหา timing race condition กับ systemd target
+
+---
+
+## ไฟล์ที่เกี่ยวข้อง
+
+| ไฟล์ | หน้าที่ |
+|---|---|
+| `program/gui.py` | ตัว GUI หลัก (ไม่ต้องแก้) |
+| `program/run_gui.sh` | Launcher: รอ X พร้อม + หา venv + ตั้ง DISPLAY + รัน gui.py + retry |
+| `program/enose-gui.desktop` | XDG autostart entry (จะถูก copy ไป `~/.config/autostart/`) |
+| `program/install_xdg_autostart.sh` | สคริปต์ deploy ครบจบในขั้นตอนเดียว (วิธีหลัก) |
+| `program/enose-gui.service` | systemd unit template (วิธีสำรอง — ดูส่วนล่าง) |
+| `program/install_autostart.sh` | สคริปต์ deploy แบบ systemd (วิธีสำรอง) |
+
+---
+
+## Prerequisites
+
+ก่อนติดตั้ง autostart ต้องเตรียมให้พร้อมก่อน
+
+### 1. โครงสร้างโปรเจกต์บน Pi
+
+วางโปรเจกต์ที่ `/home/pi/eNose_methane/` (path นี้ถูกระบุใน `enose-gui.desktop`)
+
+```
+/home/pi/eNose_methane/
+├── .venv/                       <- virtual environment
+├── program/
+│   ├── gui.py
+│   ├── run_gui.sh
+│   ├── enose-gui.desktop
+│   ├── enose-gui.service
+│   ├── install_xdg_autostart.sh
+│   ├── install_autostart.sh
+│   └── ...
+├── hardware_control/
+├── reading/
+└── acquisition/
 ```
 
-หรือลบไฟล์ออก:
+> ถ้าใช้ path อื่น ต้องแก้ `Exec=` ใน `program/enose-gui.desktop` ก่อนติดตั้ง
+
+### 2. เปิด Auto-Login เข้า Desktop
+
 ```bash
-rm ~/.config/autostart/enose-gui.desktop
+sudo raspi-config
+```
+ไป **System Options** -> **Boot / Auto Login** -> **Desktop Autologin**
+
+### 3. เปิด I2C (สำหรับ BME280)
+
+```bash
+sudo raspi-config
+```
+ไป **Interface Options** -> **I2C** -> **Enable**
+
+### 4. ติดตั้ง dependencies และสร้าง venv
+
+```bash
+cd /home/pi/eNose_methane
+
+sudo apt update
+sudo apt install -y python3-full python3-venv i2c-tools x11-xserver-utils
+
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+
+pip install RPi.GPIO matplotlib pandas numpy adafruit-circuitpython-bme280
+
+deactivate
+```
+
+> `x11-xserver-utils` ให้คำสั่ง `xset` ที่ `run_gui.sh` ใช้รอ X server พร้อม
+
+ตรวจว่าครบ:
+```bash
+.venv/bin/python -c "import RPi.GPIO, matplotlib, pandas, adafruit_bme280; print('OK')"
+```
+
+### 5. แก้ปัญหา CRLF (ถ้า edit ไฟล์ .sh จาก Windows)
+
+```bash
+file program/*.sh program/*.service program/*.desktop
+```
+ถ้าขึ้น "with CRLF line terminators" ให้แก้:
+```bash
+sed -i 's/\r$//' program/*.sh program/*.service program/*.desktop
+```
+
+---
+
+## ติดตั้ง Autostart
+
+### วิธีอัตโนมัติ (แนะนำ)
+
+```bash
+cd /home/pi/eNose_methane
+chmod +x program/install_xdg_autostart.sh
+./program/install_xdg_autostart.sh
+```
+
+สคริปต์จะ:
+1. ตรวจไฟล์ครบไหม
+2. หยุด + disable systemd service เดิม (ถ้ามี) เพื่อกันรันซ้อน
+3. `chmod +x run_gui.sh`
+4. Copy `enose-gui.desktop` ไป `~/.config/autostart/`
+
+จากนั้น:
+```bash
+sudo reboot
+```
+GUI จะเด้งเองหลังเข้า Desktop ภายใน ~5–15 วินาที
+
+### วิธีทำมือทีละขั้น
+
+```bash
+cd /home/pi/eNose_methane
+
+# 1) chmod
+chmod +x program/run_gui.sh
+
+# 2) หยุด systemd เก่า (ถ้ามี)
+systemctl --user stop enose-gui.service 2>/dev/null
+systemctl --user disable enose-gui.service 2>/dev/null
+
+# 3) Copy desktop file
+mkdir -p ~/.config/autostart
+cp program/enose-gui.desktop ~/.config/autostart/
+
+# 4) ตรวจ
+ls -la ~/.config/autostart/enose-gui.desktop
+
+# 5) Reboot
+sudo reboot
+```
+
+---
+
+## ตรวจสอบและ Debug
+
+### ดู log
+```bash
+tail -f ~/enose_gui_autostart.log
+```
+
+ที่ควรเห็นหลัง reboot:
+```
+==================== Starting eNose GUI launcher ====================
+SCRIPT_DIR=/home/pi/eNose_methane/program
+PROJECT_DIR=/home/pi/eNose_methane
+DISPLAY=:0
+XAUTHORITY=/home/pi/.Xauthority
+รอ X server :0 พร้อม...
+X server :0 พร้อมที่วินาทีที่ 3
+ใช้ venv Python: /home/pi/eNose_methane/.venv/bin/python
+เริ่มรัน GUI: /home/pi/eNose_methane/.venv/bin/python /home/pi/eNose_methane/program/gui.py
+```
+
+### ตรวจว่า gui.py process รันอยู่
+```bash
+ps aux | grep gui.py | grep -v grep
+```
+
+### ตรวจ X session
+```bash
+ps aux | grep -E "Xorg|Xwayland|labwc|wayfire" | grep -v grep
+loginctl
+echo "DISPLAY=$DISPLAY"
+```
+
+### รัน gui.py manual (ตรวจว่าโค้ดทำงานก่อนเข้า autostart)
+```bash
+cd /home/pi/eNose_methane
+.venv/bin/python program/gui.py
+```
+
+---
+
+## การจัดการ XDG Autostart
+
+| งาน | คำสั่ง |
+|---|---|
+| ปิด autostart | `rm ~/.config/autostart/enose-gui.desktop` |
+| เปิด autostart ใหม่ | รัน `./program/install_xdg_autostart.sh` |
+| รัน manual ตอนนี้ | `~/eNose_methane/program/run_gui.sh &` |
+| ปิด GUI ตอนนี้ | `pkill -f gui.py` |
+
+---
+
+## วิธีสำรอง: systemd User Service
+
+> ⚠️ **ไม่แนะนำสำหรับ Pi OS Bookworm + labwc** เพราะ `graphical-session.target` ไม่ active ตอน boot ทำให้ service ไม่เริ่มอัตโนมัติ — เก็บไว้เผื่อใช้บน Pi OS รุ่นเก่า (Bullseye, X11) เท่านั้น
+
+```bash
+chmod +x program/install_autostart.sh
+./program/install_autostart.sh
+```
+
+ดู `enose-gui.service` และ `install_autostart.sh` สำหรับรายละเอียด
+
+---
+
+## Troubleshooting
+
+### GUI ไม่ขึ้นหลัง reboot
+
+1. ตรวจไฟล์ desktop:
+   ```bash
+   cat ~/.config/autostart/enose-gui.desktop
+   ```
+
+2. ตรวจ permission:
+   ```bash
+   ls -la ~/.config/autostart/enose-gui.desktop
+   ls -la /home/pi/eNose_methane/program/run_gui.sh
+   ```
+   `run_gui.sh` ต้องมี `x` (executable)
+
+3. ตรวจ log:
+   ```bash
+   tail -100 ~/enose_gui_autostart.log
+   ```
+
+4. ทดสอบ run_gui.sh ตรงๆ บนหน้าจอ Pi:
+   ```bash
+   /home/pi/eNose_methane/program/run_gui.sh
+   ```
+
+### `ModuleNotFoundError`
+
+แสดงว่า venv ไม่ถูกใช้งาน หรือยังไม่ได้ติดตั้งแพ็กเกจ:
+```bash
+ls -la /home/pi/eNose_methane/.venv/bin/python
+.venv/bin/pip list | grep -i -E "rpi|adafruit|matplotlib|pandas"
+```
+
+ใน `~/enose_gui_autostart.log` ควรเห็นบรรทัด:
+```
+ใช้ venv Python: /home/pi/eNose_methane/.venv/bin/python
+```
+ถ้าเห็น `WARNING: ไม่พบ venv` แสดงว่ายังไม่ได้สร้าง venv ที่ path นี้
+
+### `cannot connect to display` หรือ "X connection broken"
+
+1. ตรวจว่า Auto-Login เปิดและ Pi เข้า Desktop จริง:
+   ```bash
+   ps aux | grep -E "Xorg|Xwayland|labwc" | grep -v grep
+   ```
+   ต้องเห็น process อย่างน้อย 1 ตัว
+
+2. ตรวจ DISPLAY:
+   ```bash
+   echo $DISPLAY
+   xset q
+   ```
+
+3. ถ้าทดสอบผ่าน SSH โดย Pi monitor ยังไม่ได้เข้า Desktop -> X server ไม่มีอยู่จริง -> ต้องไปดูที่หน้าจอก่อน
+
+### CRLF line endings (พบบ่อยถ้า edit จาก Windows)
+
+```bash
+file program/*.sh program/*.desktop
+```
+ถ้า "with CRLF line terminators" -> แก้:
+```bash
+sed -i 's/\r$//' program/*.sh program/*.desktop
+```
+
+### GUI ขึ้นแต่ GPIO ไม่ทำงาน
+
+ตรวจ user `pi` อยู่ใน group `gpio` และ `i2c`:
+```bash
+groups pi
+```
+ควรมี `gpio` และ `i2c` (ค่าเริ่มต้นของ Raspberry Pi OS มีอยู่แล้ว)
+
+ถ้าไม่มี:
+```bash
+sudo usermod -aG gpio,i2c pi
+sudo reboot
+```
+
+### มี autostart 2 ที่รันซ้อนกัน
+
+ถ้าเคยติดตั้งทั้ง systemd และ XDG พร้อมกัน:
+```bash
+# ปิด systemd
+systemctl --user stop enose-gui.service
+systemctl --user disable enose-gui.service
+
+# เก็บแค่ XDG
+ls -la ~/.config/autostart/enose-gui.desktop
+```
+
+---
+
+## ถอนการติดตั้ง autostart ทั้งหมด
+
+```bash
+# XDG
+rm -f ~/.config/autostart/enose-gui.desktop
+
+# systemd (ถ้าเคยติดตั้ง)
+systemctl --user stop enose-gui.service 2>/dev/null
+systemctl --user disable enose-gui.service 2>/dev/null
+rm -f ~/.config/systemd/user/enose-gui.service
+systemctl --user daemon-reload
+sudo loginctl disable-linger pi
 ```

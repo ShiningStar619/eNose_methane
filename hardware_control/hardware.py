@@ -61,7 +61,7 @@ DEFAULT_GPIO_PINS = load_gpio_config()
 class HardwareController:
     """
     Class สำหรับควบคุม Hardware ผ่าน GPIO
-    รองรับ Relay control แบบ Active LOW
+    รองรับ Relay control แบบ Active HIGH
     """
     
     def __init__(self, gpio_pins=None):
@@ -89,7 +89,7 @@ class HardwareController:
             
             for pin in self.gpio_pins.values():
                 GPIO.setup(pin, GPIO.OUT)
-                GPIO.output(pin, GPIO.HIGH)  # Relay ปิดเริ่มต้น (Active LOW)
+                GPIO.output(pin, GPIO.LOW)  # Relay ปิดเริ่มต้น (Active HIGH)
                 
             self.is_initialized = True
             print("[OK] GPIO initialized successfully")
@@ -163,9 +163,9 @@ class HardwareController:
         if ON_RASPBERRY_PI:
             try:
                 if state:
-                    GPIO.output(pin, GPIO.LOW)   # ON (Active LOW)
+                    GPIO.output(pin, GPIO.HIGH)  # ON (Active HIGH)
                 else:
-                    GPIO.output(pin, GPIO.HIGH)  # OFF
+                    GPIO.output(pin, GPIO.LOW)   # OFF
             except (RuntimeError, ValueError) as e:
                 # GPIO ถูก cleanup แล้ว ลอง setup ใหม่และลองอีกครั้ง
                 error_msg = str(e)
@@ -177,9 +177,9 @@ class HardwareController:
                 self.setup()
                 try:
                     if state:
-                        GPIO.output(pin, GPIO.LOW)
-                    else:
                         GPIO.output(pin, GPIO.HIGH)
+                    else:
+                        GPIO.output(pin, GPIO.LOW)
                 except Exception as retry_error:
                     print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")
                     return False
@@ -192,9 +192,9 @@ class HardwareController:
                     try:
                         self.setup()
                         if state:
-                            GPIO.output(pin, GPIO.LOW)
-                        else:
                             GPIO.output(pin, GPIO.HIGH)
+                        else:
+                            GPIO.output(pin, GPIO.LOW)
                     except Exception as retry_error:
                         print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")
                         return False
