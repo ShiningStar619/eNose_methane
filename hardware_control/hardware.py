@@ -25,13 +25,13 @@ CONFIG_FILE = os.path.join(_PROJECT_ROOT, "program", "hardware_config.json")
 
 # Default GPIO Pin Configuration (fallback) - 7 Relays
 _DEFAULT_GPIO_PINS = {
-    "s_valve1": 5,
-    "s_valve2": 6,
-    "s_valve3": 13,
-    "s_valve4": 19,
+    "s_valve1": 21,
+    "s_valve2": 20,
+    "s_valve3": 16,
+    "s_valve4": 12,
     "pump": 26,
-    "fan": 20,
-    "heater": 21
+    "fan": 19,
+    "heater": 13
 }
 
 

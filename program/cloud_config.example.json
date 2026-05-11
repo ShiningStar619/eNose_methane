@@ -1,0 +1,13 @@
+{
+  "enabled": false,
+  "provider": "gdrive",
+  "credentials_path": "~/.enose/gdrive_service_account.json",
+  "remote_root_folder_id": "PUT_DRIVE_FOLDER_ID_HERE",
+  "device_id": "enose-pi01",
+  "include_raw_npz": true,
+  "include_processed_csv": true,
+  "retry_attempts": 3,
+  "retry_delay_sec": 5,
+  "max_queue_size": 200,
+  "queue_retry_budget_sec": 30
+}

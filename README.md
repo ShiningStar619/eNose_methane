@@ -2,6 +2,10 @@
 
 ระบบควบคุมและเก็บข้อมูลจาก eNose (Electronic Nose) สำหรับตรวจจับก๊าซมีเทน บน Raspberry Pi
 
+**ผู้อ่านเป้าหมาย:** ผู้พัฒนาและผู้ติดตั้งบน Raspberry Pi ที่ต้องการรัน GUI เก็บข้อมูลเซ็นเซอร์ ประมวลผลเป็น CSV และ (ถ้าต้องการ) อัปโหลด Google Drive
+
+**สิ่งที่เอกสารนี้ครอบคลุม:** ภาพรวมระบบ โครงสร้างไฟล์ การติดตั้ง การตั้งค่า การใช้งาน GUI รูปแบบข้อมูล การประมวลผล อัปโหลดคลาวด์แบบเลือกได้ และแก้ปัญหาเบื้องต้น — ไม่ลงรายละเอียดอัลกอริทึม ML หรือการวิเคราะห์ข้อมูลหลัง CSV
+
 ## ภาพรวมโปรเจกต์
 
 โปรเจกต์นี้เป็นระบบควบคุม hardware และเก็บข้อมูลจากเซ็นเซอร์ eNose โดยใช้:
@@ -23,23 +27,41 @@
   - ทั้งสองเซ็นเซอร์เริ่ม/หยุดพร้อมกัน (ใช้ `stop_event` ตัวเดียวกัน) และเก็บลงไฟล์ `.npz` แยกกัน
 - **Data Processing** — กรองข้อมูลด้วย Low-pass IIR และ Moving Average แล้วบันทึกเป็น CSV (`acquisition/acquisiton.py`) — `process_all_data()` ประมวลผลทั้งไฟล์ ADC และ BME280 ของรอบล่าสุดในคำสั่งเดียว
 - **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active LOW): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
-- **Simulation Mode** — ทดสอบบนเครื่องที่ไม่มี ADC/BME280 จริง (ตรวจจับจากการ import `ADS1263` และ `adafruit_bme280`)
+- **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ใน GUI
 - **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` (รายละเอียดใน `program/AUTOSTART_SETUP.md`)
 
-สคริปต์ทดสอบเซ็นเซอร์แยก เช่น `reading/testing BME280.py` ใช้สำหรับทดลองฮาร์ดแวร์เพียงไฟล์เดียว — เวอร์ชันที่ใช้จริงในระบบคือ `reading/bme280.py`
+โค้ดที่ใช้งานจริงกับ BME280 และ ADS1263 อยู่ที่ `reading/bme280.py` และ `reading/main.py` / `reading/ADS1263.py` — หากต้องการสคริปต์ทดสอบแยกให้สร้างในเครื่องหรือเรียกคลาส collector จากโมดูลเหล่านี้โดยตรง
 
 ## โครงสร้างโปรเจกต์
 
 ```
 eNose_methane/
+├── README.md
+├── .gitignore                  # ยกเว้นไฟล์ที่กำหนดใน repo (เช่น secret คลาวด์, คิวอัปโหลด) — ปรับเพิ่มได้ตามทีม
+├── requirements-cloud.txt      # แพ็กเกจ Google API สำหรับอัปโหลด (ไม่บังคับ)
+│
 ├── program/                    # GUI และการตั้งค่า
 │   ├── gui.py                  # หน้าจอควบคุมหลัก (HardwareControlGUI)
 │   ├── hardware_config.json    # เวลาแต่ละ operation, GPIO, การวน loop
+│   ├── cloud_config.example.json  # ตัวอย่างการตั้งค่าอัปโหลด Cloud (คัดลอกเป็น cloud_config.json)
 │   ├── run_gui.sh              # รัน GUI (รองรับ autostart)
+│   ├── install_autostart.sh    # ช่วยติดตั้ง autostart (สคริปต์ใน repo)
+│   ├── install_xdg_autostart.sh
 │   ├── enose-gui.desktop       # ตัวอย่างไฟล์ autostart สำหรับ Desktop
 │   └── AUTOSTART_SETUP.md      # คู่มือตั้งค่าเปิดอัตโนมัติบน Raspberry Pi
 │
+├── cloud/                      # อัปโหลดไฟล์ NPZ/CSV ไป Google Drive (ไม่บังคับ)
+│   ├── __init__.py
+│   ├── uploader.py             # คิวอัปโหลด + ThreadPool ตัวเดียว
+│   ├── config.py               # โหลด program/cloud_config.json
+│   ├── queue.py                # คิว retry เมื่อเน็ตล่ม
+│   └── providers/              # provider ต่อคลาวด์
+│       ├── __init__.py
+│       ├── base.py             # สัญญา (interface) ของ provider
+│       └── gdrive.py           # Google Drive (Service Account)
+│
 ├── reading/                    # อ่านค่าเซ็นเซอร์และบันทึก NPZ
+│   ├── __init__.py
 │   ├── main.py                 # SensorDataCollector / run_collection (ADS1263)
 │   ├── bme280.py               # BMESensorDataCollector / run_bme_collection (BME280, I2C)
 │   ├── ADS1263.py              # ไดรเวอร์ ADS1263 (SPI)
@@ -48,14 +70,17 @@ eNose_methane/
 │   └── data/                   # ไฟล์ดิบ .npz (`adc1263_*.npz`, `bme280_*.npz`)
 │
 ├── acquisition/                # ประมวลผลหลังเก็บข้อมูล
-│   ├── acquisiton.py           # Low-pass + Moving Average → CSV รองรับหลาย prefix (`process_all_data`)
+│   ├── acquisiton.py           # Low-pass + Moving Average → CSV (`process_all_data`)
 │   └── processed_data/         # ไฟล์ .csv หลังประมวลผล (`adc1263_*.csv`, `bme280_*.csv`)
 │
 ├── hardware_control/           # ชั้นควบคุม Relay
 │   ├── hardware.py             # HardwareController
 │   └── __init__.py
 │
-└── README.md
+└── tests/                      # ทดสอบอัตโนมัติ (คลาวด์ / คิว)
+    ├── test_cloud_queue.py
+    ├── test_cloud_uploader.py
+    └── test_cloud_gdrive_smoke.py   # ต้องมี credential + folder id (ดูหัวข้อ Cloud)
 ```
 
 ## การติดตั้ง
@@ -88,6 +113,8 @@ pip install adafruit-circuitpython-bme280 adafruit-blinka
 ```bash
 pip install numpy pandas matplotlib
 ```
+
+หากใช้งานอัปโหลด Google Drive ให้ติดตั้งแพ็กเกจเพิ่มจากไฟล์ [`requirements-cloud.txt`](requirements-cloud.txt) (ดูหัวข้อ **อัปโหลดข้อมูลไป Cloud**)
 
 ## การตั้งค่า
 
@@ -261,6 +288,62 @@ python3 acquisition/acquisiton.py
 ```python
 from acquisition.acquisiton import process_data
 process_data(prefix="adc1263")  # หรือ "bme280"
+```
+
+## อัปโหลดข้อมูลไป Cloud (Google Drive)
+
+หลังประมวลผลแต่ละรอบ (Auto Mode จบ 7 ขั้น หรือ Manual กด Stop) ระบบสามารถอัปโหลดไฟล์ **ดิบ `.npz`** (`reading/data/`) และ **CSV หลังประมวลผล** (`acquisition/processed_data/`) ขึ้น Google Drive แบบไม่บล็อก GUI โดยใช้ **Service Account**
+
+### การติดตั้งแพ็กเกจ (บน Raspberry Pi)
+
+```bash
+pip install -r requirements-cloud.txt
+```
+
+### การตั้งค่า
+
+1. ใน Google Cloud Console: สร้างโปรเจกต์ → เปิดใช้ **Google Drive API** → สร้าง **Service Account** → ดาวน์โหลด JSON key  
+2. คัดลอกไฟล์ key ไปที่เครื่อง Pi เช่น `~/.enose/gdrive_service_account.json` และตั้งสิทธิ์แฟ้มให้เหมาะสม (`chmod 600`)  
+3. บน Google Drive สร้างโฟลเดอร์ปลายทาง → แชร์โฟลเดอร์นั้นให้ **อีเมลของ Service Account** (จากไฟล์ JSON ฟิลด์ `client_email`) สิทธิ์ **Editor**  
+4. คัดลอก **Folder ID** จาก URL ของโฟลเดอร์บน Drive  
+5. คัดลอก [`program/cloud_config.example.json`](program/cloud_config.example.json) เป็น `program/cloud_config.json` แล้วแก้:
+   - `remote_root_folder_id` = Folder ID  
+   - `credentials_path` = path ถึง JSON key  
+   - `device_id` = ชื่ออุปกรณ์ (ใช้เป็นชื่อโฟลเดอร์ย่อยบน Drive)  
+6. ใน GUI ติ๊ก **Auto-upload to Cloud** (จะบันทึก `enabled: true` ลง `cloud_config.json`) หรือตั้ง `enabled: true` ด้วยมือ
+
+**โครงสร้างบน Drive:** `root_folder / {device_id} / raw / *.npz` และ `... / processed / *.csv`
+
+### คิว retry
+
+ถ้าอัปโหลดล้มเหลว ไฟล์จะถูกใส่ใน `cloud/upload_queue.json` (ไม่ commit ลง git) แล้วลองใหม่ในรอบถัดไปก่อนอัปโหลดไฟล์ใหม่ จำกัดเวลา `queue_retry_budget_sec` ต่อรอบ หากเกิน `retry_attempts` จะถูกทำเครื่องหมาย dead letter ในไฟล์คิว
+
+### ตัวแปรสภาพแวดล้อม
+
+- `ENOSE_CLOUD_ENABLED` = `1` / `true` / `yes` — บังคับเปิดอัปโหลดแม้ใน `cloud_config.json` จะปิด (มีประโยชน์ตอนทดสอบ)
+
+### ทดสอบ
+
+```bash
+python3 -m unittest tests.test_cloud_queue tests.test_cloud_uploader -v
+```
+
+ทดสอบต่อ Drive จริง (รันต่อเมื่อตั้งค่า credential และโฟลเดอร์ปลายทางแล้ว):
+
+**Linux / Raspberry Pi (bash):**
+
+```bash
+export ENOSE_GDRIVE_SERVICE_ACCOUNT_JSON=/home/pi/.enose/gdrive_service_account.json
+export ENOSE_GDRIVE_FOLDER_ID=your_folder_id
+python3 -m unittest tests.test_cloud_gdrive_smoke -v
+```
+
+**Windows (cmd):**
+
+```bat
+set ENOSE_GDRIVE_SERVICE_ACCOUNT_JSON=C:\path\to\key.json
+set ENOSE_GDRIVE_FOLDER_ID=your_folder_id
+python -m unittest tests.test_cloud_gdrive_smoke -v
 ```
 
 ## คีย์บอร์ด Shortcuts

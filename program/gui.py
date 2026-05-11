@@ -70,6 +70,23 @@ try:
 except ImportError:
     PANDAS_AVAILABLE = False
 
+try:
+    from cloud.uploader import is_enabled as cloud_upload_is_enabled, upload_cycle_files
+    CLOUD_UPLOAD_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import cloud.uploader: {e}")
+    CLOUD_UPLOAD_AVAILABLE = False
+    cloud_upload_is_enabled = lambda: False  # noqa: E731
+    upload_cycle_files = None
+
+try:
+    from cloud.config import load_cloud_config, save_cloud_config
+    CLOUD_CONFIG_AVAILABLE = True
+except ImportError:
+    CLOUD_CONFIG_AVAILABLE = False
+    load_cloud_config = None
+    save_cloud_config = None
+
 
 # ==================== CONFIG FILE ====================
 # ใช้ absolute path เพื่อให้ทำงานได้บน Raspberry Pi ไม่ว่าจะรันจาก directory ไหน
@@ -296,6 +313,12 @@ class HardwareControlGUI:
         # Manual timer state
         self.manual_timer_thread = None
         self.manual_timer_stop_event = None
+
+        # Virtual numpad (ช่องตัวเลขที่โฟกัสล่าสุด)
+        self._numpad_target_entry = None
+        self._numpad_mode = 'int'  # 'int' | 'mmss'
+        self._numpad_suppress_focus_until = 0.0
+        self.numpad_colon_btn = None
         
         # Page navigation
         self.current_page = tk.StringVar(value="control")
@@ -461,6 +484,10 @@ class HardwareControlGUI:
         self.pages["display"] = page_display
         
         self.create_display_page(page_display)
+
+        # แป้นตัวเลข — popup window (สร้างครั้งเดียว ใช้ซ้ำ)
+        self.numpad_window = None
+        self.numpad_colon_btn = None
         
         # แสดงหน้าแรก
         self.show_page("control")
@@ -508,12 +535,223 @@ class HardwareControlGUI:
         if page_key in self.pages:
             self.pages[page_key].pack(fill='both', expand=False, anchor='n')
             self.current_page.set(page_key)
+
+        if page_key == 'display':
+            self._hide_numpad()
         
         for key, (btn, active_color) in self.nav_buttons.items():
             if key == page_key:
                 btn.configure(bg=active_color, relief='sunken')
             else:
                 btn.configure(bg='#4a4a4a', relief='flat')
+
+    # ==================== VIRTUAL NUMPAD (POPUP) ====================
+    def _build_numpad_window(self):
+        """สร้าง popup numpad (Toplevel) — เรียกครั้งเดียว แล้ว show/hide ทีหลัง"""
+        win = tk.Toplevel(self.root)
+        win.title("แป้นตัวเลข")
+        win.transient(self.root)
+        win.resizable(False, False)
+        win.protocol("WM_DELETE_WINDOW", self._hide_numpad)
+        win.withdraw()
+
+        outer = tk.Frame(win, bg='#ecf0f1', padx=10, pady=8)
+        outer.pack(fill='both', expand=True)
+
+        header = tk.Frame(outer, bg='#ecf0f1')
+        header.pack(fill='x', pady=(0, 6))
+        tk.Label(
+            header, text="แป้นตัวเลข",
+            font=('Helvetica', 12, 'bold'),
+            bg='#ecf0f1', fg='#2c3e50'
+        ).pack(side='left')
+
+        inner = tk.Frame(outer, bg='#ecf0f1')
+        inner.pack()
+
+        def mk_btn(text, cmd, r, c, **extra):
+            b = tk.Button(
+                inner,
+                text=text,
+                font=('Helvetica', 16, 'bold'),
+                width=5,
+                height=2,
+                cursor='hand2',
+                bg='#bdc3c7',
+                activebackground='#95a5a6',
+                fg='#2c3e50',
+                command=cmd,
+                **extra
+            )
+            b.grid(row=r, column=c, padx=4, pady=4, sticky='ew')
+            return b
+
+        digits = [
+            ('7', 0, 0), ('8', 0, 1), ('9', 0, 2),
+            ('4', 1, 0), ('5', 1, 1), ('6', 1, 2),
+            ('1', 2, 0), ('2', 2, 1), ('3', 2, 2),
+        ]
+        for d, r, c in digits:
+            mk_btn(d, lambda x=d: self._numpad_insert_char(x), r, c)
+
+        mk_btn('⌫', self._numpad_backspace, 3, 0)
+        mk_btn('0', lambda: self._numpad_insert_char('0'), 3, 1)
+        mk_btn('C', self._numpad_clear, 3, 2)
+
+        tk.Button(
+            outer, text='Enter',
+            font=('Helvetica', 12, 'bold'),
+            bg='#27ae60', fg='white',
+            activebackground='#1e8449',
+            relief='raised', cursor='hand2',
+            command=self._on_numpad_enter
+        ).pack(fill='x', pady=(8, 0))
+
+        for col in range(3):
+            inner.grid_columnconfigure(col, weight=1)
+
+        win.bind('<Return>', self._on_numpad_enter)
+        win.bind('<KP_Enter>', self._on_numpad_enter)
+        self.numpad_window = win
+
+    def _show_numpad(self, entry_widget):
+        """แสดง popup numpad ใกล้ ๆ entry"""
+        if self.numpad_window is None:
+            self._build_numpad_window()
+
+        self.numpad_window.deiconify()
+        self.numpad_window.lift()
+        self.numpad_window.update_idletasks()
+
+        try:
+            ex = entry_widget.winfo_rootx()
+            ey = entry_widget.winfo_rooty()
+            eh = entry_widget.winfo_height()
+            ew = entry_widget.winfo_width()
+        except tk.TclError:
+            ex, ey, eh, ew = 0, 0, 0, 0
+
+        nw = self.numpad_window.winfo_width()
+        nh = self.numpad_window.winfo_height()
+        sw = self.root.winfo_screenwidth()
+        sh = self.root.winfo_screenheight()
+
+        x = ex + ew + 10
+        if x + nw > sw:
+            x = max(0, ex - nw - 10)
+        y = ey
+        if y + nh > sh:
+            y = max(0, sh - nh - 20)
+
+        self.numpad_window.geometry(f"+{x}+{y}")
+
+    def _hide_numpad(self):
+        # กัน popup เด้งกลับทันทีหลังสั่งปิด (เช่นกดปุ่ม X บน title bar)
+        self._numpad_suppress_focus_until = time.monotonic() + 0.3
+        try:
+            self.root.focus_set()
+        except tk.TclError:
+            pass
+        self._numpad_target_entry = None
+        if self.numpad_window is not None:
+            try:
+                self.numpad_window.withdraw()
+            except tk.TclError:
+                pass
+
+    def _register_numpad_entry(self, entry_widget, mode='int'):
+        """ผูก Entry: คลิก/โฟกัส → popup numpad"""
+        entry_widget.bind(
+            '<FocusIn>',
+            lambda e, w=entry_widget, m=mode: self._on_numpad_focus(w, m)
+        )
+        entry_widget.bind(
+            '<Button-1>',
+            lambda e, w=entry_widget, m=mode: self._on_numpad_focus(w, m)
+        )
+        entry_widget.bind('<Return>', self._on_numpad_enter)
+        entry_widget.bind('<KP_Enter>', self._on_numpad_enter)
+
+    def _on_numpad_focus(self, entry_widget, mode):
+        if time.monotonic() < self._numpad_suppress_focus_until:
+            return
+        try:
+            if str(entry_widget.cget('state')) == 'disabled':
+                self._hide_numpad()
+                return
+        except tk.TclError:
+            return
+
+        self._numpad_target_entry = entry_widget
+        self._numpad_mode = mode
+
+        if self.numpad_window is None:
+            self._build_numpad_window()
+        if self.numpad_colon_btn is not None:
+            self.numpad_colon_btn.configure(
+                state='normal' if mode == 'mmss' else 'disabled'
+            )
+
+        self._show_numpad(entry_widget)
+
+    def _numpad_target_ok(self):
+        e = self._numpad_target_entry
+        if e is None:
+            return False
+        try:
+            if not e.winfo_exists():
+                return False
+            if str(e.cget('state')) == 'disabled':
+                return False
+        except tk.TclError:
+            return False
+        return True
+
+    def _numpad_insert_char(self, ch):
+        if not self._numpad_target_ok():
+            return
+        if self._numpad_mode != 'mmss' and ch == ':':
+            return
+        e = self._numpad_target_entry
+        try:
+            e.focus_set()
+            pos = e.index(tk.INSERT)
+            e.insert(pos, ch)
+        except tk.TclError:
+            pass
+
+    def _numpad_backspace(self):
+        if not self._numpad_target_ok():
+            return
+        e = self._numpad_target_entry
+        try:
+            e.focus_set()
+            pos = e.index(tk.INSERT)
+            if pos > 0:
+                e.delete(pos - 1, pos)
+        except tk.TclError:
+            pass
+
+    def _numpad_clear(self):
+        if not self._numpad_target_ok():
+            return
+        e = self._numpad_target_entry
+        try:
+            e.focus_set()
+            e.delete(0, tk.END)
+        except tk.TclError:
+            pass
+
+    def _on_numpad_enter(self, event=None):
+        """เมื่อกด Enter ให้ปิดแป้นตัวเลข และคงค่าที่กรอกไว้"""
+        # กัน popup เด้งกลับทันทีจาก FocusIn ที่เกิดหลังแตะปุ่ม Enter บนหน้าจอสัมผัส
+        self._numpad_suppress_focus_until = time.monotonic() + 0.3
+        try:
+            self.root.focus_set()
+        except tk.TclError:
+            pass
+        self._hide_numpad()
+        return "break"
     # ==================== MODE SELECTION ====================
     def create_mode_selection(self, parent):
         """สร้างส่วนเลือกโหมด"""
@@ -654,7 +892,7 @@ class HardwareControlGUI:
             command=self._on_manual_timer_toggle
         ).pack(side='left')
 
-        self.manual_timer_duration = tk.StringVar(value="05:00")
+        self.manual_timer_duration = tk.StringVar(value="300")
         self.manual_timer_entry = tk.Entry(
             timer_row,
             textvariable=self.manual_timer_duration,
@@ -665,9 +903,11 @@ class HardwareControlGUI:
         )
         self.manual_timer_entry.pack(side='left', padx=8)
 
+        self._register_numpad_entry(self.manual_timer_entry, mode='int')
+
         tk.Label(
             timer_row,
-            text="(mm:ss)",
+            text="(ss)",
             font=('Helvetica', 10),
             bg='#f0f0f0',
             fg='#7f8c8d'
@@ -937,6 +1177,7 @@ class HardwareControlGUI:
             )
             entry.pack(side='right', padx=5)
             self.operation_entries[key] = entry
+            self._register_numpad_entry(entry, mode='int')
             
             # Seconds label
             tk.Label(frame, text="sec", font=('Helvetica', 11), bg=color).pack(side='right')
@@ -976,6 +1217,7 @@ class HardwareControlGUI:
         )
         break_entry.pack(side='right', padx=5)
         self.operation_entries['break_time'] = break_entry
+        self._register_numpad_entry(break_entry, mode='int')
         
         tk.Label(break_inner, text="sec", font=('Helvetica', 11), bg='#ffcdd2').pack(side='right')
         
@@ -1022,6 +1264,7 @@ class HardwareControlGUI:
             state='disabled'
         )
         self.loop_count_entry.pack(side='left', padx=10)
+        self._register_numpad_entry(self.loop_count_entry, mode='int')
         
         tk.Label(
             loop_count_frame,
@@ -1195,9 +1438,9 @@ class HardwareControlGUI:
         if not processed_dir.exists():
             self._draw_placeholder_graph("Folder processed_data not found")
             return
-        csv_files = list(processed_dir.glob("*.csv"))
+        csv_files = list(processed_dir.glob("adc1263_*.csv"))
         if not csv_files:
-            self._draw_placeholder_graph("No Process Data yet. Run a measurement and process first.")
+            self._draw_placeholder_graph("No ADC Process Data yet. Run a measurement and process first.")
             return
         latest = max(csv_files, key=os.path.getmtime)
         try:
@@ -1227,7 +1470,7 @@ class HardwareControlGUI:
             lines.append(line)
         ax.set_xlabel('Time (s)', fontsize=10)
         ax.set_ylabel('Voltage (V)', fontsize=10)
-        ax.set_title(f'Process Data - {latest.name}', fontsize=11)
+        ax.set_title(f'ADC Process Data - {latest.name}', fontsize=11)
         ax.grid(True, alpha=0.3)
         self.display_figure.tight_layout()
         self._update_display_legend(lines)
@@ -1310,6 +1553,37 @@ class HardwareControlGUI:
         )
         self.status_label.pack()
 
+        # Cloud upload (optional)
+        cloud_row = tk.Frame(status_frame, bg='#f0f0f0')
+        cloud_row.pack(fill='x', pady=(6, 0))
+        cloud_enabled_init = False
+        if CLOUD_CONFIG_AVAILABLE and load_cloud_config is not None:
+            try:
+                cloud_enabled_init = bool(load_cloud_config().get("enabled"))
+            except Exception:
+                cloud_enabled_init = False
+        self.cloud_upload_enabled = tk.BooleanVar(value=cloud_enabled_init)
+        self.cloud_upload_checkbox = tk.Checkbutton(
+            cloud_row,
+            text="Auto-upload to Cloud",
+            variable=self.cloud_upload_enabled,
+            font=('Helvetica', 9),
+            bg='#f0f0f0',
+            fg='#2c3e50',
+            command=self._on_cloud_upload_toggle,
+            state='normal' if CLOUD_CONFIG_AVAILABLE else 'disabled',
+            cursor='hand2',
+        )
+        self.cloud_upload_checkbox.pack(side='left')
+        self.cloud_status_label = tk.Label(
+            cloud_row,
+            text="Cloud: —",
+            font=('Helvetica', 9),
+            bg='#f0f0f0',
+            fg='#7f8c8d',
+        )
+        self.cloud_status_label.pack(side='right', padx=(8, 0))
+
         # Indeterminate progress bar — แสดงเฉพาะตอนกำลัง save / process
         self.status_progressbar = ttk.Progressbar(
             status_frame, mode='indeterminate', length=240
@@ -1320,6 +1594,8 @@ class HardwareControlGUI:
         if 'status' not in self.scalable_widgets:
             self.scalable_widgets['status'] = []
         self.scalable_widgets['status'].append(self.status_label)
+        self.scalable_widgets['status'].append(self.cloud_status_label)
+        self.scalable_widgets['status'].append(self.cloud_upload_checkbox)
         
     def draw_circuit_diagram(self):
         """Placeholder - Hardware diagram removed"""
@@ -1523,9 +1799,14 @@ class HardwareControlGUI:
 
         เรียกได้เฉพาะใน background thread (เช่น auto-sequence thread หรือ stop worker)
         เพราะ process_all_data เป็นงานที่ใช้ CPU/IO หนัก
+
+        Returns
+        -------
+        tuple[bool, dict | None]
+            (success, process_all_data results) — results keys: adc1263, bme280 → Path | None
         """
         if not DATA_PROCESSING_AVAILABLE:
-            return False
+            return False, None
 
         cycle_num = self.current_cycle
         try:
@@ -1534,13 +1815,71 @@ class HardwareControlGUI:
                 'adc1263': self.data_collection_file_path,
                 'bme280': self.bme_collection_file_path,
             }
-            process_all_data(input_paths=input_paths)
+            results = process_all_data(input_paths=input_paths)
             print(f"Cycle {cycle_num}: Data processing completed")
-            return True
+            return True, results
         except Exception as e:
             print(f"Cycle {cycle_num}: Processing error: {e}")
             traceback.print_exc()
-            return False
+            return False, None
+
+    def _on_cloud_upload_toggle(self):
+        """Persist Auto-upload checkbox to program/cloud_config.json."""
+        if not CLOUD_CONFIG_AVAILABLE or save_cloud_config is None:
+            return
+        try:
+            save_cloud_config({"enabled": bool(self.cloud_upload_enabled.get())})
+        except Exception as e:
+            print(f"[cloud] Could not save cloud_config: {e}")
+
+    def _update_cloud_status(self, phase: str, message: str):
+        """Update cloud status label (must run on UI thread)."""
+        colors = {
+            "uploading": STATUS_COLORS["processing"],
+            "ok": STATUS_COLORS["success"],
+            "warning": STATUS_COLORS["warning"],
+            "error": STATUS_COLORS["idle"],
+            "idle": "#7f8c8d",
+        }
+        fg = colors.get(phase, "#2c3e50")
+        if hasattr(self, "cloud_status_label"):
+            try:
+                self.cloud_status_label.configure(text=message, fg=fg)
+            except tk.TclError:
+                pass
+
+    def _maybe_cloud_upload(
+        self,
+        adc_npz,
+        bme_npz,
+        proc_paths,
+    ):
+        """Schedule Drive upload if module enabled and config enabled."""
+        if not CLOUD_UPLOAD_AVAILABLE or upload_cycle_files is None:
+            return
+        if not cloud_upload_is_enabled():
+            self._run_on_ui_thread(
+                lambda: self._update_cloud_status("idle", "Cloud: off")
+            )
+            return
+        adc_csv = None
+        bme_csv = None
+        if proc_paths:
+            adc_csv = proc_paths.get("adc1263")
+            bme_csv = proc_paths.get("bme280")
+        if adc_npz is None and bme_npz is None and adc_csv is None and bme_csv is None:
+            return
+
+        def on_status(phase, msg):
+            self.root.after(0, lambda p=phase, m=msg: self._update_cloud_status(p, m))
+
+        try:
+            upload_cycle_files(adc_npz, bme_npz, adc_csv, bme_csv, on_status=on_status)
+        except Exception as e:
+            print(f"[cloud] upload_cycle_files: {e}")
+            self._run_on_ui_thread(
+                lambda m=str(e): self._update_cloud_status("error", f"Cloud: {m[:80]}")
+            )
     
     def _cleanup_collection_threads(self):
         """Clean up any running collection threads from previous cycle (ADC + BME280)"""
@@ -1671,11 +2010,14 @@ class HardwareControlGUI:
             self._set_status_text(
                 f"Cycle {cycle_num} | Processing...", STATUS_COLORS["processing"]
             )
-            ok = self._run_data_processing()
+            adc_npz = self.data_collection_file_path
+            bme_npz = self.bme_collection_file_path
+            ok, proc_paths = self._run_data_processing()
             if ok:
                 self._set_status_text(
                     f"Cycle {cycle_num} | Data processed!", STATUS_COLORS["success"]
                 )
+                self._maybe_cloud_upload(adc_npz, bme_npz, proc_paths)
             else:
                 self._set_status_text(
                     f"Cycle {cycle_num} | Processing error", STATUS_COLORS["idle"]
@@ -1713,22 +2055,11 @@ class HardwareControlGUI:
             self.manual_timer_entry.configure(state='disabled')
             self.manual_timer_remaining_label.configure(text="")
 
-    def _parse_mmss(self, text):
-        """แปลง mm:ss หรือตัวเลขล้วนเป็นวินาที คืน int หรือ None ถ้า invalid
-        
-        รองรับ: "5", "05", "5:30", "05:30", "1:05:30"
-        """
+    def _parse_seconds(self, text):
+        """แปลงค่า seconds จากข้อความ คืน int หรือ None ถ้า invalid"""
         text = text.strip()
-        parts = text.split(':')
         try:
-            if len(parts) == 1:
-                total = int(parts[0])
-            elif len(parts) == 2:
-                total = int(parts[0]) * 60 + int(parts[1])
-            elif len(parts) == 3:
-                total = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
-            else:
-                return None
+            total = int(text)
             return total if total > 0 else None
         except ValueError:
             return None
@@ -1768,11 +2099,11 @@ class HardwareControlGUI:
         # ตรวจสอบ timer ก่อนเริ่ม
         timer_seconds = None
         if self.manual_timer_enabled.get():
-            timer_seconds = self._parse_mmss(self.manual_timer_duration.get())
+            timer_seconds = self._parse_seconds(self.manual_timer_duration.get())
             if timer_seconds is None:
                 messagebox.showerror(
                     "Timer Error",
-                    "รูปแบบเวลาไม่ถูกต้อง\nกรุณาใส่ในรูปแบบ mm:ss เช่น 05:30 หรือ 10:00"
+                    "รูปแบบเวลาไม่ถูกต้อง\nกรุณาใส่เป็นวินาที (ss) เช่น 300 หรือ 60"
                 )
                 return
 
@@ -1979,11 +2310,14 @@ class HardwareControlGUI:
 
             if mode == "manual" and DATA_PROCESSING_AVAILABLE:
                 self._set_status_text("Status: Processing data...", STATUS_COLORS["processing"])
-                ok = self._run_data_processing()
+                adc_npz = self.data_collection_file_path
+                bme_npz = self.bme_collection_file_path
+                ok, proc_paths = self._run_data_processing()
                 if ok:
                     self._set_status_text(
                         "Status: Data processing completed!", STATUS_COLORS["success"]
                     )
+                    self._maybe_cloud_upload(adc_npz, bme_npz, proc_paths)
                     self._run_on_ui_thread(self._refresh_display_graph_if_visible)
                 else:
                     self._set_status_text(

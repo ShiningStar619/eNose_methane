@@ -4,7 +4,7 @@
 eNose Sensor Data Collection
 =============================
 Script สำหรับเก็บข้อมูลจาก ADS1263 ADC
-รองรับทั้ง Raspberry Pi (hardware จริง) และ Simulation Mode
+รองรับเฉพาะการอ่านจาก hardware จริง
 
 Author: eNose Project
 """
@@ -13,7 +13,6 @@ import numpy as np
 import time
 import signal
 import sys
-import math
 import threading
 from datetime import datetime
 from pathlib import Path
@@ -25,7 +24,7 @@ try:
 except ImportError:
     ON_RASPBERRY_PI = False
     ADS1263 = None
-    print("ADS1263 not found - Running in simulation mode")
+    print("ADS1263 not found - ADC collection disabled")
 
 # ==================== CONFIGURATION ====================
 REF = 5.08  
@@ -91,16 +90,6 @@ class SensorDataCollector:
         return self.output_path
 
 
-def _simulate_voltages(t):
-    """สร้างข้อมูลจำลองสำหรับทดสอบบนเครื่องที่ไม่มี ADC"""
-    voltages = []
-    for ch in CHANNEL_LIST:
-        freq = 0.1 + ch * 0.05
-        noise = np.random.normal(0, 0.01)
-        voltages.append(2.5 + 0.5 * math.sin(t * 2 * math.pi * freq) + noise)
-    return voltages
-
-
 def raw_to_voltage(raw_value):
     """Convert raw ADC value to voltage"""
     if raw_value & 0x80000000:
@@ -113,25 +102,26 @@ def run_collection(stop_event: threading.Event, simulate: Optional[bool] = None)
     รันการเก็บข้อมูลจนกว่า stop_event จะถูก set
     Args:
         stop_event (threading.Event): ใช้สั่งหยุด loop จากภายนอก
-        simulate (bool | None): True = บังคับ simulation, False = บังคับใช้ ADC,
-                                None = auto (ใช้ ADC ถ้ามี ไม่งั้น simulation)
+        simulate (bool | None): ไม่ได้ใช้งานแล้ว (เก็บไว้เพื่อ backward compatibility)
     Returns:
         pathlib.Path หรือ None: path ไฟล์ .npz ที่บันทึกได้
     """
     adc = None
     collector = None
     try:
-        use_sim = simulate if simulate is not None else (not ON_RASPBERRY_PI)
+        if simulate:
+            print("Simulation mode is disabled. ADC collection aborted.")
+            return None
+        if not ON_RASPBERRY_PI or ADS1263 is None:
+            print("ADC hardware/library unavailable. ADC collection aborted.")
+            return None
 
-        if not use_sim:
-            adc = ADS1263.ADS1263()
-            if adc.ADS1263_init_ADC1(ADC_SAMPLE_RATE) == -1:
-                print("Failed to initialize ADC")
-                return None
-            adc.ADS1263_SetMode(0)
-            print("ADC initialized successfully")
-        else:
-            print("Running in SIMULATION mode (no real ADC)")
+        adc = ADS1263.ADS1263()
+        if adc.ADS1263_init_ADC1(ADC_SAMPLE_RATE) == -1:
+            print("Failed to initialize ADC")
+            return None
+        adc.ADS1263_SetMode(0)
+        print("ADC initialized successfully")
 
         collector = SensorDataCollector(num_channels=len(CHANNEL_LIST))
         output_path = collector.prepare(CHANNEL_LIST)
@@ -144,15 +134,12 @@ def run_collection(stop_event: threading.Event, simulate: Optional[bool] = None)
         while not stop_event.is_set():
             loop_start = time.perf_counter()
 
-            if use_sim:
-                voltages = _simulate_voltages(loop_start - start_time)
-            else:
-                raw_values = adc.ADS1263_GetAll(CHANNEL_LIST)
-                voltages = []
-                for index, channel in enumerate(CHANNEL_LIST):
-                    raw_value = raw_values[index]
-                    voltage = raw_to_voltage(raw_value)
-                    voltages.append(voltage)
+            raw_values = adc.ADS1263_GetAll(CHANNEL_LIST)
+            voltages = []
+            for index, channel in enumerate(CHANNEL_LIST):
+                raw_value = raw_values[index]
+                voltage = raw_to_voltage(raw_value)
+                voltages.append(voltage)
 
             elapsed_time = loop_start - start_time
 
