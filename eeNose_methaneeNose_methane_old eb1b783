@@ -1,0 +1,183 @@
+[1mdiff --git a/hardware_control/hardware.py b/hardware_control/hardware.py[m
+[1mindex 8fc2aeb..3c9e830 100644[m
+[1m--- a/hardware_control/hardware.py[m
+[1m+++ b/hardware_control/hardware.py[m
+[36m@@ -27,11 +27,11 @@[m [mCONFIG_FILE = os.path.join(_PROJECT_ROOT, "program", "hardware_config.json")[m
+ _DEFAULT_GPIO_PINS = {[m
+     "s_valve1": 5,[m
+     "s_valve2": 6,[m
+[31m-    "s_valve3": 13,[m
+[32m+[m[32m    "s_valve3": 21,[m
+     "s_valve4": 19,[m
+     "pump": 26,[m
+     "fan": 20,[m
+[31m-    "heater": 21[m
+[32m+[m[32m    "heater": 13[m
+ }[m
+ [m
+ [m
+[36m@@ -47,10 +47,10 @@[m [mdef load_gpio_config():[m
+             with open(CONFIG_FILE, 'r') as f:[m
+                 config = json.load(f)[m
+                 gpio_pins = config.get("gpio_pins", _DEFAULT_GPIO_PINS)[m
+[31m-                print(f"✓ Loaded GPIO config from {CONFIG_FILE}")[m
+[32m+[m[32m                print(f"[OK] Loaded GPIO config from {CONFIG_FILE}")[m
+                 return gpio_pins[m
+         except Exception as e:[m
+[31m-            print(f"⚠️ Error loading config: {e}, using defaults")[m
+[32m+[m[32m            print(f"[WARN] Error loading config: {e}, using defaults")[m
+     return _DEFAULT_GPIO_PINS.copy()[m
+ [m
+ [m
+[36m@@ -61,7 +61,7 @@[m [mDEFAULT_GPIO_PINS = load_gpio_config()[m
+ class HardwareController:[m
+     """[m
+     Class สำหรับควบคุม Hardware ผ่าน GPIO[m
+[31m-    รองรับ Relay control แบบ Active LOW[m
+[32m+[m[32m    รองรับ Relay control แบบ Active HIGH[m
+     """[m
+     [m
+     def __init__(self, gpio_pins=None):[m
+[36m@@ -89,13 +89,13 @@[m [mclass HardwareController:[m
+             [m
+             for pin in self.gpio_pins.values():[m
+                 GPIO.setup(pin, GPIO.OUT)[m
+[31m-                GPIO.output(pin, GPIO.HIGH)  # Relay ปิดเริ่มต้น (Active LOW)[m
+[32m+[m[32m                GPIO.output(pin, GPIO.LOW)  # Relay ปิดเริ่มต้น (Active HIGH)[m
+                 [m
+             self.is_initialized = True[m
+[31m-            print("✓ GPIO initialized successfully")[m
+[32m+[m[32m            print("[OK] GPIO initialized successfully")[m
+         else:[m
+             self.is_initialized = True[m
+[31m-            print("✓ Hardware Controller initialized")[m
+[32m+[m[32m            print("[OK] Hardware Controller initialized")[m
+     [m
+     def _ensure_gpio_setup(self):[m
+         """[m
+[36m@@ -117,22 +117,22 @@[m [mclass HardwareController:[m
+             GPIO.output(test_pin, GPIO.HIGH)[m
+         except (RuntimeError, ValueError) as e:[m
+             # GPIO ถูก cleanup แล้ว ต้อง setup ใหม่[m
+[31m-            print(f"⚠️ GPIO was cleaned up by another module, re-initializing... ({e})")[m
+[32m+[m[32m            print(f"[WARN] GPIO was cleaned up by another module, re-initializing... ({e})")[m
+             self.is_initialized = False[m
+             self.setup()[m
+         except Exception as e:[m
+             # อาจมี error อื่นๆ (เช่น lgpio.error) แต่ลอง setup ใหม่ดู[m
+             error_msg = str(e)[m
+             if 'unknown handle' in error_msg.lower() or 'lgpio' in error_msg.lower():[m
+[31m-                print(f"⚠️ GPIO handle error detected, re-initializing... ({e})")[m
+[32m+[m[32m                print(f"[WARN] GPIO handle error detected, re-initializing... ({e})")[m
+                 self.is_initialized = False[m
+                 try:[m
+                     self.setup()[m
+                 except Exception as setup_error:[m
+[31m-                    print(f"⚠️ Failed to re-initialize GPIO: {setup_error}")[m
+[32m+[m[32m                    print(f"[WARN] Failed to re-initialize GPIO: {setup_error}")[m
+                     # ยังคงให้ is_initialized = False เพื่อให้ลองใหม่ครั้งหน้า[m
+             else:[m
+[31m-                print(f"⚠️ GPIO error detected, re-initializing... ({e})")[m
+[32m+[m[32m                print(f"[WARN] GPIO error detected, re-initializing... ({e})")[m
+                 self.is_initialized = False[m
+                 try:[m
+                     self.setup()[m
+[36m@@ -151,7 +151,7 @@[m [mclass HardwareController:[m
+             bool: True ถ้าสำเร็จ, False ถ้าล้มเหลว[m
+         """[m
+         if device_key not in self.gpio_pins:[m
+[31m-            print(f"⚠️ Unknown device: {device_key}")[m
+[32m+[m[32m            print(f"[WARN] Unknown device: {device_key}")[m
+             return False[m
+         [m
+         # ตรวจสอบและ setup GPIO ใหม่ถ้าจำเป็น[m
+[36m@@ -163,43 +163,43 @@[m [mclass HardwareController:[m
+         if ON_RASPBERRY_PI:[m
+             try:[m
+                 if state:[m
+[31m-                    GPIO.output(pin, GPIO.LOW)   # ON (Active LOW)[m
+[32m+[m[32m                    GPIO.output(pin, GPIO.HIGH)  # ON (Active HIGH)[m
+                 else:[m
+[31m-                    GPIO.output(pin, GPIO.HIGH)  # OFF[m
+[32m+[m[32m                    GPIO.output(pin, GPIO.LOW)   # OFF[m
+             except (RuntimeError, ValueError) as e:[m
+                 # GPIO ถูก cleanup แล้ว ลอง setup ใหม่และลองอีกครั้ง[m
+                 error_msg = str(e)[m
+                 if 'unknown handle' in error_msg.lower() or 'lgpio' in error_msg.lower():[m
+[31m-                    print(f"⚠️ GPIO handle error when controlling {device_key}, re-initializing... ({e})")[m
+[32m+[m[32m                    print(f"[WARN] GPIO handle error when controlling {device_key}, re-initializing... ({e})")[m
+                 else:[m
+[31m-                    print(f"⚠️ GPIO error when controlling {device_key}, re-initializing... ({e})")[m
+[32m+[m[32m                    print(f"[WARN] GPIO error when controlling {device_key}, re-initializing... ({e})")[m
+                 self.is_initialized = False[m
+                 self.setup()[m
+                 try:[m
+                     if state:[m
+[31m-                        GPIO.output(pin, GPIO.LOW)[m
+[31m-                    else:[m
+                         GPIO.output(pin, GPIO.HIGH)[m
+[32m+[m[32m                    else:[m
+[32m+[m[32m                        GPIO.output(pin, GPIO.LOW)[m
+                 except Exception as retry_error:[m
+[31m-                    print(f"⚠️ Failed to control {device_key} after re-initialization: {retry_error}")[m
+[32m+[m[32m                    print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")[m
+                     return False[m
+             except Exception as e:[m
+                 # จัดการ error อื่นๆ (เช่น lgpio.error)[m
+                 error_msg = str(e)[m
+                 if 'unknown handle' in error_msg.lower() or 'lgpio' in error_msg.lower():[m
+[31m-                    print(f"⚠️ GPIO handle error when controlling {device_key}, re-initializing... ({e})")[m
+[32m+[m[32m                    print(f"[WARN] GPIO handle error when controlling {device_key}, re-initializing... ({e})")[m
+                     self.is_initialized = False[m
+                     try:[m
+                         self.setup()[m
+                         if state:[m
+[31m-                            GPIO.output(pin, GPIO.LOW)[m
+[31m-                        else:[m
+                             GPIO.output(pin, GPIO.HIGH)[m
+[32m+[m[32m                        else:[m
+[32m+[m[32m                            GPIO.output(pin, GPIO.LOW)[m
+                     except Exception as retry_error:[m
+[31m-                        print(f"⚠️ Failed to control {device_key} after re-initialization: {retry_error}")[m
+[32m+[m[32m                        print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")[m
+                         return False[m
+                 else:[m
+[31m-                    print(f"⚠️ Unexpected GPIO error when controlling {device_key}: {e}")[m
+[32m+[m[32m                    print(f"[WARN] Unexpected GPIO error when controlling {device_key}: {e}")[m
+                     return False[m
+             [m
+         return True[m
+[36m@@ -290,7 +290,7 @@[m [mclass HardwareController:[m
+         """[m
+         for device_key in self.device_states.keys():[m
+             self.turn_off(device_key)[m
+[31m-        print("✓ All devices turned OFF")[m
+[32m+[m[32m        print("[OK] All devices turned OFF")[m
+         [m
+     def cleanup(self):[m
+         """[m
+[36m@@ -305,20 +305,20 @@[m [mclass HardwareController:[m
+         try:[m
+             self.all_off()[m
+         except Exception as e:[m
+[31m-            print(f"⚠️ Error turning off devices during cleanup: {e}")[m
+[32m+[m[32m            print(f"[WARN] Error turning off devices during cleanup: {e}")[m
+         [m
+         if ON_RASPBERRY_PI:[m
+             try:[m
+                 # ตรวจสอบว่า GPIO ยัง setup อยู่ก่อน cleanup[m
+                 if self.is_initialized:[m
+                     GPIO.cleanup()[m
+[31m-                    print("✓ GPIO cleanup completed")[m
+[32m+[m[32m                    print("[OK] GPIO cleanup completed")[m
+             except Exception as e:[m
+                 # ถ้า cleanup แล้วหรือมี error อื่นๆ ไม่ต้องทำอะไร[m
+[31m-                print(f"⚠️ GPIO cleanup warning: {e}")[m
+[32m+[m[32m                print(f"[WARN] GPIO cleanup warning: {e}")[m
+         [m
+         self.is_initialized = False[m
+[31m-        print("✓ Hardware Controller cleanup completed")[m
+[32m+[m[32m        print("[OK] Hardware Controller cleanup completed")[m
+         [m
+     def get_gpio_pin(self, device_key):[m
+         """[m

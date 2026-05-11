@@ -1,1 +1,7 @@
 reading/data/adc1263_20260225_164121.npz
+
+# Cloud upload (secrets / machine-local)
+program/cloud_config.json
+cloud/upload_queue.json
+**/gdrive_service_account.json
+**/*service_account*.json

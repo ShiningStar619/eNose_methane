@@ -4,7 +4,7 @@
 eNose BME280 Environmental Sensor Data Collection
 ==================================================
 Script สำหรับเก็บข้อมูลจากเซ็นเซอร์ BME280 (Temperature/Humidity/Pressure)
-ผ่าน I2C รองรับทั้ง Raspberry Pi (hardware จริง) และ Simulation Mode
+ผ่าน I2C รองรับเฉพาะ hardware จริง
 
 ออกแบบให้ทำงานคู่ขนานกับ ADS1263 ใน reading/main.py:
 - ใช้ stop_event ตัวเดียวกันในการสั่งหยุด
@@ -18,7 +18,6 @@ import numpy as np
 import time
 import signal
 import sys
-import math
 import threading
 from datetime import datetime
 from pathlib import Path
@@ -34,7 +33,7 @@ except ImportError:
     board = None
     busio = None
     adafruit_bme280 = None
-    print("BME280 libraries not found - Running in simulation mode")
+    print("BME280 libraries not found - BME280 collection disabled")
 
 # ==================== CONFIGURATION ====================
 BME_SAMPLE_INTERVAL_SEC = 0.1  # 1/0.1 = 10 Hz
@@ -98,43 +97,31 @@ class BMESensorDataCollector:
         return self.output_path
 
 
-def _simulate_bme_reading(t):
-    """สร้างข้อมูล BME280 จำลองสำหรับเครื่องที่ไม่มี hardware
-
-    ค่ารอบๆ 25°C / 50% / 1013 hPa พร้อม drift ช้าๆ และ noise เล็กน้อย
-    """
-    temperature = 25.0 + 0.5 * math.sin(t * 0.01) + np.random.normal(0, 0.05)
-    humidity = 50.0 + 2.0 * math.sin(t * 0.005) + np.random.normal(0, 0.2)
-    pressure = 1013.0 + 0.5 * math.sin(t * 0.002) + np.random.normal(0, 0.05)
-    return [float(temperature), float(humidity), float(pressure)]
-
-
 def run_bme_collection(stop_event: threading.Event, simulate: Optional[bool] = None):
     """รันการเก็บข้อมูล BME280 จนกว่า stop_event จะถูก set
 
     Args:
         stop_event (threading.Event): ใช้สั่งหยุด loop จากภายนอก
-        simulate (bool | None): True = บังคับ simulation, False = บังคับใช้ BME280,
-                                None = auto (ใช้ BME280 ถ้ามี ไม่งั้น simulation)
+        simulate (bool | None): ไม่ได้ใช้งานแล้ว (เก็บไว้เพื่อ backward compatibility)
     Returns:
         pathlib.Path หรือ None: path ไฟล์ .npz ที่บันทึกได้
     """
     sensor = None
     collector = None
     try:
-        use_sim = simulate if simulate is not None else (not BME280_AVAILABLE)
-
-        if not use_sim:
-            try:
-                i2c = busio.I2C(board.SCL, board.SDA)
-                sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c, address=BME_I2C_ADDRESS)
-                print(f"BME280 initialized at I2C address 0x{BME_I2C_ADDRESS:02X}")
-            except Exception as e:
-                print(f"Failed to initialize BME280: {e} - falling back to simulation")
-                use_sim = True
-                sensor = None
-        if use_sim:
-            print("BME280 running in SIMULATION mode (no real sensor)")
+        if simulate:
+            print("Simulation mode is disabled. BME280 collection aborted.")
+            return None
+        if not BME280_AVAILABLE or board is None or busio is None or adafruit_bme280 is None:
+            print("BME280 hardware/library unavailable. BME280 collection aborted.")
+            return None
+        try:
+            i2c = busio.I2C(board.SCL, board.SDA)
+            sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c, address=BME_I2C_ADDRESS)
+            print(f"BME280 initialized at I2C address 0x{BME_I2C_ADDRESS:02X}")
+        except Exception as e:
+            print(f"Failed to initialize BME280: {e}")
+            return None
 
         collector = BMESensorDataCollector()
         output_path = collector.prepare()
@@ -148,23 +135,20 @@ def run_bme_collection(stop_event: threading.Event, simulate: Optional[bool] = N
             loop_start = time.perf_counter()
             elapsed_time = loop_start - start_time
 
-            if use_sim:
-                values = _simulate_bme_reading(elapsed_time)
-            else:
-                try:
-                    values = [
-                        float(sensor.temperature),
-                        float(sensor.humidity),
-                        float(sensor.pressure),
-                    ]
-                except Exception as e:
-                    # ถ้าอ่านพลาด ใช้ค่าเดิมแทน 0 เพื่อไม่ให้กราฟกระโดด
-                    print(f"BME280 read error: {e}")
-                    if collector.index > 0:
-                        last = collector.data[collector.index - 1, 1:]
-                        values = [float(last[0]), float(last[1]), float(last[2])]
-                    else:
-                        values = [0.0, 0.0, 0.0]
+            try:
+                values = [
+                    float(sensor.temperature),
+                    float(sensor.humidity),
+                    float(sensor.pressure),
+                ]
+            except Exception as e:
+                # ถ้าอ่านพลาด ใช้ค่าเดิมแทน 0 เพื่อไม่ให้กราฟกระโดด
+                print(f"BME280 read error: {e}")
+                if collector.index > 0:
+                    last = collector.data[collector.index - 1, 1:]
+                    values = [float(last[0]), float(last[1]), float(last[2])]
+                else:
+                    values = [0.0, 0.0, 0.0]
 
             collector.append(elapsed_time, values)
             sample_count += 1

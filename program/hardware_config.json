@@ -10,13 +10,13 @@
         "break_time": 10
     },
     "gpio_pins": {
-        "s_valve1": 5,
-        "s_valve2": 6,
-        "s_valve3": 13,
-        "s_valve4": 19,
+        "s_valve1": 21,
+        "s_valve2": 20,
+        "s_valve3": 16,
+        "s_valve4": 12,
         "pump": 26,
-        "fan": 20,
-        "heater": 21
+        "fan": 19,
+        "heater": 13
     },
     "auto_settings": {
         "loop_count": 0,
