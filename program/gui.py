@@ -87,6 +87,14 @@ except ImportError:
     load_cloud_config = None
     save_cloud_config = None
 
+try:
+    from ml.predict import predict_cycle
+    ML_PREDICTION_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import ml.predict: {e}")
+    ML_PREDICTION_AVAILABLE = False
+    predict_cycle = None
+
 
 # ==================== CONFIG FILE ====================
 # ใช้ absolute path เพื่อให้ทำงานได้บน Raspberry Pi ไม่ว่าจะรันจาก directory ไหน
@@ -2086,6 +2094,7 @@ class HardwareControlGUI:
                 self._set_status_text(
                     f"Cycle {cycle_num} | Data processed!", STATUS_COLORS["success"]
                 )
+                self._maybe_predict_methane(proc_paths)
                 self._maybe_cloud_upload(adc_npz, bme_npz, proc_paths)
             else:
                 self._set_status_text(
@@ -2095,6 +2104,36 @@ class HardwareControlGUI:
         self._show_progress(False)
         self._run_on_ui_thread(self._refresh_display_graph_if_visible)
         self._reset_collection_vars()
+
+    def _maybe_predict_methane(self, proc_paths):
+        """Predict methane ppm from processed CSVs (Auto Mode cycle end only)."""
+        if not ML_PREDICTION_AVAILABLE or predict_cycle is None:
+            return
+        if not proc_paths:
+            return
+        adc_csv = proc_paths.get("adc1263")
+        bme_csv = proc_paths.get("bme280")
+        if adc_csv is None or bme_csv is None:
+            print("[WARN] ML predict skipped: missing processed CSV paths")
+            return
+        try:
+            durations = self._get_operation_durations()
+            op_times = {
+                key: float(durations[key])
+                for key in (
+                    "baseline",
+                    "vacuum",
+                    "mix_air",
+                    "measure",
+                    "vacuum_return",
+                    "recovery",
+                )
+                if key in durations
+            }
+            ppm = predict_cycle(adc_csv, bme_csv, op_times)
+            self._run_on_ui_thread(lambda p=ppm: self.update_methane_ppm(p))
+        except Exception as exc:
+            print(f"[WARN] ML predict skipped: {exc}")
 
     def _run_break_time_if_needed(self, break_duration):
         """รัน break time ระหว่าง cycle ถ้าตั้งเวลาไว้"""

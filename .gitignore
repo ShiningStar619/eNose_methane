@@ -12,6 +12,10 @@ reading/data/*.npz
 acquisition/processed_data/*
 !acquisition/processed_data/.gitkeep
 
+# ML training data / trained models (machine-local)
+ml/data/labels.csv
+ml/models/*.joblib
+
 # Cloud upload (secrets / machine-local)
 program/cloud_config.json
 cloud/upload_queue.json

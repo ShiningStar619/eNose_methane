@@ -1,0 +1,3 @@
+run_id,methane_ppm_ref,adc_csv,bme_csv,session_id,protocol_version,split,operation_times_json,notes
+20260512_182408,50.0,acquisition/processed_data/adc1263_20260512_182408.csv,acquisition/processed_data/bme280_20260512_182408.csv,2026-05-12_s1,v1,train,,"example row — copy to labels.csv and add real reference ppm"
+20260512_182409,120.0,acquisition/processed_data/adc1263_20260512_182409.csv,acquisition/processed_data/bme280_20260512_182409.csv,2026-05-12_s1,v1,train,,"second example concentration"
