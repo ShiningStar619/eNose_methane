@@ -1,7 +1,25 @@
-reading/data/adc1263_20260225_164121.npz
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Sensor / acquisition output (machine-local, regenerable)
+reading/data/*.csv
+reading/data/*.npz
+!reading/data/.gitkeep
+acquisition/processed_data/*
+!acquisition/processed_data/.gitkeep
 
 # Cloud upload (secrets / machine-local)
 program/cloud_config.json
 cloud/upload_queue.json
+credentials.json
+token.json
 **/gdrive_service_account.json
 **/*service_account*.json
+
+# OS
+.DS_Store
+Thumbs.db
