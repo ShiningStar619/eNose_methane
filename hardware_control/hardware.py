@@ -110,11 +110,12 @@ class HardwareController:
             self.setup()
             return
         
-        # ตรวจสอบว่า GPIO ยัง setup อยู่หรือไม่โดยลองใช้ pin แรก
+        # ตรวจสอบว่า GPIO ยัง setup อยู่หรือไม่ โดยอ่านโหมดขา (ไม่เปลี่ยนระดับ output —
+        # การทดสอบด้วย GPIO.output บน pin แรกเคยบังคับเปิดวาล์ว 1 โดยไม่ตั้ง device_states)
         try:
-            # ลองใช้ pin แรก (ถ้า setup แล้วจะไม่มี error)
             test_pin = list(self.gpio_pins.values())[0]
-            GPIO.output(test_pin, GPIO.HIGH)
+            if GPIO.gpio_function(test_pin) != GPIO.OUT:
+                raise RuntimeError(f"GPIO pin {test_pin} not in OUT mode")
         except (RuntimeError, ValueError) as e:
             # GPIO ถูก cleanup แล้ว ต้อง setup ใหม่
             print(f"[WARN] GPIO was cleaned up by another module, re-initializing... ({e})")

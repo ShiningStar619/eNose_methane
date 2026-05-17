@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import parse_qs, urlparse
 
 # Project root = parent of cloud/
 _CLOUD_DIR = Path(__file__).resolve().parent
@@ -24,6 +26,39 @@ DEFAULT_CLOUD_CONFIG: dict[str, Any] = {
     "max_queue_size": 200,
     "queue_retry_budget_sec": 30,
 }
+
+
+def normalize_drive_folder_id(raw: str | None) -> str:
+    """Return a bare Drive folder/file id from a pasted id or share URL.
+
+    Users often paste ``https://drive.google.com/...?usp=drive_link`` or
+    ``<id>?usp=drive_link`` into ``remote_root_folder_id``; the API expects
+    only the id string (no query string).
+    """
+    if raw is None:
+        return ""
+    s = str(raw).strip()
+    if not s:
+        return ""
+    if "#" in s:
+        s = s.split("#", 1)[0]
+    low = s.lower()
+    if "drive.google.com" in low:
+        parsed = urlparse(s)
+        path = parsed.path or ""
+        m = re.search(r"/folders/([-\w]+)", path)
+        if m:
+            return m.group(1)
+        m = re.search(r"/file/d/([-\w]+)", path)
+        if m:
+            return m.group(1)
+        qs = parse_qs(parsed.query)
+        ids = qs.get("id")
+        if ids:
+            return str(ids[0]).strip()
+    if "?" in s:
+        s = s.split("?", 1)[0]
+    return s.strip().strip("/")
 
 
 def _deep_merge(base: dict, override: dict) -> dict:
@@ -57,6 +92,10 @@ def load_cloud_config(path: Path | str | None = None) -> dict[str, Any]:
     if isinstance(cred, str):
         data["credentials_path"] = os.path.expanduser(cred)
 
+    rid = data.get("remote_root_folder_id", "")
+    if isinstance(rid, str):
+        data["remote_root_folder_id"] = normalize_drive_folder_id(rid)
+
     return data
 
 
@@ -77,6 +116,9 @@ def save_cloud_config(updates: dict[str, Any], path: Path | str | None = None) -
         if k in DEFAULT_CLOUD_CONFIG:
             merged[k] = v
     out = {k: merged[k] for k in DEFAULT_CLOUD_CONFIG}
+    rid = out.get("remote_root_folder_id", "")
+    if isinstance(rid, str):
+        out["remote_root_folder_id"] = normalize_drive_folder_id(rid)
     cfg_path.parent.mkdir(parents=True, exist_ok=True)
     tmp = cfg_path.with_suffix(".tmp")
     with open(tmp, "w", encoding="utf-8") as f:

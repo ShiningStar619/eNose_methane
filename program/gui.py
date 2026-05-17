@@ -469,8 +469,20 @@ class HardwareControlGUI:
         self.pages["control"] = page_control
         
         self.create_mode_selection(page_control)
-        self.create_operation_sequence(page_control)
-        self.create_action_buttons(page_control)
+
+        middle_row = tk.Frame(page_control, bg='#f0f0f0')
+        middle_row.pack(fill='x', pady=(0, 8))
+        middle_row.grid_columnconfigure(0, weight=1, uniform='mid')
+        middle_row.grid_columnconfigure(1, weight=1, uniform='mid')
+
+        mid_left = tk.Frame(middle_row, bg='#f0f0f0')
+        mid_left.grid(row=0, column=0, sticky='ew', padx=(0, 4))
+
+        mid_right = tk.Frame(middle_row, bg='#f0f0f0')
+        mid_right.grid(row=0, column=1, sticky='ew', padx=(4, 0))
+
+        self.create_operation_sequence(mid_left)
+        self.create_methane_display(mid_right)
         self.create_manual_controls(page_control)
         
         # --- Page 2: Settings (Auto Mode Parameters) ---
@@ -989,46 +1001,101 @@ class HardwareControlGUI:
         seq_frame = tk.LabelFrame(
             parent,
             text="Operation Sequence",
-            font=('Helvetica', 15, 'bold'),
+            font=('Helvetica', 12, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50',
-            padx=12,
-            pady=8
+            padx=8,
+            pady=6
         )
-        seq_frame.pack(fill='x', pady=(0, 6))
-        
+        seq_frame.pack(fill='x', anchor='n')
+
         flow_text = "Heat → BL → Vac → Mix → Meas → VR → Rec"
         tk.Label(
             seq_frame,
             text=flow_text,
-            font=('Helvetica', 9),
+            font=('Helvetica', 8),
             bg='#f0f0f0',
-            fg='#7f8c8d'
-        ).pack(pady=(3, 0))
-        
+            fg='#7f8c8d',
+            wraplength=200,
+            justify='center',
+        ).pack(pady=(2, 0))
+
         self.progress_label = tk.Label(
             seq_frame,
             text="Ready to start",
-            font=('Helvetica', 11, 'bold'),
+            font=('Helvetica', 10, 'bold'),
             bg='#f0f0f0',
             fg='#27ae60'
         )
-        self.progress_label.pack(pady=(5, 0))
-        
+        self.progress_label.pack(pady=(2, 0))
+
         self.timer_label = tk.Label(
             seq_frame,
             text="--:--",
-            font=('Helvetica', 24, 'bold'),
+            font=('Helvetica', 18, 'bold'),
             bg='#f0f0f0',
             fg='#2c3e50'
         )
-        self.timer_label.pack(pady=5)
-        
+        self.timer_label.pack(pady=(2, 4))
+
         # Store for scaling
         if 'timer' not in self.scalable_widgets:
             self.scalable_widgets['timer'] = []
         self.scalable_widgets['timer'].append(self.timer_label)
-            
+
+        self.create_action_buttons(seq_frame, compact=True)
+
+    def create_methane_display(self, parent):
+        """กล่องแสดงค่าทำนายปริมาณ Methane (เปล่าไว้รอเชื่อมโมเดลในอนาคต)."""
+        methane_frame = tk.LabelFrame(
+            parent,
+            text="Methane",
+            font=('Helvetica', 12, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22',
+            padx=8,
+            pady=6,
+            bd=2,
+            relief='groove',
+        )
+        methane_frame.pack(fill='x', anchor='n')
+
+        self.methane_ppm_value = tk.StringVar(value="----")
+
+        value_center = tk.Frame(methane_frame, bg='#f0f0f0')
+        value_center.pack(fill='x', pady=(4, 6))
+
+        self.methane_value_label = tk.Label(
+            value_center,
+            textvariable=self.methane_ppm_value,
+            font=('Helvetica', 22, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22',
+        )
+        self.methane_value_label.pack()
+
+        tk.Label(
+            value_center,
+            text="ppm",
+            font=('Helvetica', 12, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22',
+        ).pack()
+
+    def update_methane_ppm(self, value):
+        """Update displayed methane ppm value.
+
+        Args:
+            value: float | None — None = ไม่มีค่า แสดง '----'
+        """
+        if value is None:
+            self.methane_ppm_value.set("----")
+        else:
+            try:
+                self.methane_ppm_value.set(f"{float(value):.1f}")
+            except (TypeError, ValueError):
+                self.methane_ppm_value.set("----")
+
     # ==================== AUTO PARAMETERS ====================
     def create_auto_parameters(self, parent):
         """สร้างส่วน Auto Mode Parameters"""
@@ -1509,53 +1576,55 @@ class HardwareControlGUI:
         self.display_canvas.draw()
             
     # ==================== ACTION BUTTONS ====================
-    def create_action_buttons(self, parent):
+    def create_action_buttons(self, parent, compact=False):
         """สร้างปุ่ม Start/Stop (ขนาดกระทัดรัด)"""
         btn_frame = tk.Frame(parent, bg='#f0f0f0')
-        btn_frame.pack(fill='x', pady=8)
-        
-        action_btn_width, action_btn_height = 18, 1
+        btn_frame.pack(fill='x', pady=(4 if compact else 8, 2 if compact else 8))
+
+        btn_font = ('Helvetica', 10, 'bold') if compact else ('Helvetica', 11, 'bold')
+        action_btn_height = 1
         self.stop_btn = tk.Button(
             btn_frame,
             text="Stop",
-            font=('Helvetica', 11, 'bold'),
+            font=btn_font,
             bg='#e74c3c',
             fg='white',
-            width=action_btn_width,
             height=action_btn_height,
             cursor='hand2',
             command=self.stop_operation
         )
-        self.stop_btn.pack(side='left', padx=(0, 8), expand=True, fill='x')
+        self.stop_btn.pack(side='left', padx=(0, 4), expand=True, fill='x')
         self.start_btn = tk.Button(
             btn_frame,
             text="Start Collection",
-            font=('Helvetica', 11, 'bold'),
+            font=btn_font,
             bg='#95a5a6',
             fg='white',
-            width=action_btn_width,
             height=action_btn_height,
             state='disabled',
             cursor='hand2',
             command=self.start_operation
         )
         self.start_btn.pack(side='left', expand=True, fill='x')
-        
+
         status_frame = tk.Frame(parent, bg='#f0f0f0')
-        status_frame.pack(fill='x', pady=5)
+        status_frame.pack(fill='x', pady=(2 if compact else 5, 0))
         
+        status_font = ('Helvetica', 9, 'bold') if compact else ('Helvetica', 10, 'bold')
         self.status_label = tk.Label(
             status_frame,
             text="Status: Ready",
-            font=('Helvetica', 10, 'bold'),
+            font=status_font,
             bg='#f0f0f0',
-            fg='#27ae60'
+            fg='#27ae60',
+            wraplength=200 if compact else 0,
+            justify='center',
         )
         self.status_label.pack()
 
         # Cloud upload (optional)
         cloud_row = tk.Frame(status_frame, bg='#f0f0f0')
-        cloud_row.pack(fill='x', pady=(6, 0))
+        cloud_row.pack(fill='x', pady=(4 if compact else 6, 0))
         cloud_enabled_init = False
         if CLOUD_CONFIG_AVAILABLE and load_cloud_config is not None:
             try:
@@ -1586,7 +1655,7 @@ class HardwareControlGUI:
 
         # Indeterminate progress bar — แสดงเฉพาะตอนกำลัง save / process
         self.status_progressbar = ttk.Progressbar(
-            status_frame, mode='indeterminate', length=240
+            status_frame, mode='indeterminate', length=160 if compact else 240
         )
         # ไม่ pack ตอนเริ่มต้น (ซ่อนไว้)
 

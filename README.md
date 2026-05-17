@@ -38,7 +38,7 @@
 eNose_methane/
 ├── README.md
 ├── .gitignore                  # ยกเว้นไฟล์ที่กำหนดใน repo (เช่น secret คลาวด์, คิวอัปโหลด) — ปรับเพิ่มได้ตามทีม
-├── requirements-cloud.txt      # แพ็กเกจ Google API สำหรับอัปโหลด (ไม่บังคับ)
+├── requirements.txt            # รายการ Python dependencies ทั้งหมด (core + hardware + cloud)
 │
 ├── program/                    # GUI และการตั้งค่า
 │   ├── gui.py                  # หน้าจอควบคุมหลัก (HardwareControlGUI)
@@ -99,22 +99,31 @@ eNose_methane/
 
 ### การติดตั้ง Dependencies
 
-บน Raspberry Pi (ตัวอย่าง):
+ทุกแพ็กเกจ Python อยู่ใน [`requirements.txt`](requirements.txt) ไฟล์เดียว (core + hardware + cloud)
+แพ็กเกจฮาร์ดแวร์ (`RPi.GPIO`, `spidev`, `adafruit-*`) ถูกตั้ง marker ให้ติดตั้งเฉพาะบน Linux (Raspberry Pi)
+บน Windows/macOS จะข้ามอัตโนมัติและรันโหมดจำลอง
+
+บน Raspberry Pi (แนะนำให้ใช้ venv เพราะ Raspberry Pi OS ใหม่บังคับ PEP 668):
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y python3-tk python3-numpy python3-pandas python3-matplotlib
-sudo apt-get install -y python3-rpi.gpio python3-spidev
-pip install adafruit-circuitpython-bme280 adafruit-blinka
+sudo apt-get install -y python3-venv python3-full python3-tk
+cd ~/eNose_methane
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 บนเครื่องพัฒนา (โหมดจำลอง ไม่มี ADC/BME280 จริง):
 
 ```bash
-pip install numpy pandas matplotlib
+python -m venv .venv
+.venv\Scripts\activate            # Windows
+# source .venv/bin/activate       # macOS/Linux
+pip install -r requirements.txt
 ```
 
-หากใช้งานอัปโหลด Google Drive ให้ติดตั้งแพ็กเกจเพิ่มจากไฟล์ [`requirements-cloud.txt`](requirements-cloud.txt) (ดูหัวข้อ **อัปโหลดข้อมูลไป Cloud**)
+> หากใช้งานอัปโหลด Google Drive ดูขั้นตอนตั้งค่าเพิ่มในหัวข้อ **อัปโหลดข้อมูลไป Cloud** (แพ็กเกจ `google-api-python-client` ติดตั้งให้แล้วโดย `requirements.txt`)
 
 ## การตั้งค่า
 
@@ -122,6 +131,8 @@ pip install numpy pandas matplotlib
 
 ไฟล์นี้กำหนดระยะเวลาแต่ละขั้น (วินาที), แมป GPIO ของ relay และการตั้งค่า loop ใน Auto Mode  
 ค่าตัวเลขจริงใน repo อาจถูกปรับเพื่อทดสอบสั้นๆ — แก้ให้ตรงกับงานจริงของคุณ
+
+> ดูแผนผังการต่อสายและตำแหน่ง pin บน 40-pin header ได้ที่ [`docs/hardware/raspberry-pi-gpio-pinout.md`](docs/hardware/raspberry-pi-gpio-pinout.md)
 
 **โครงสร้างที่รองรับ:**
 
@@ -297,7 +308,7 @@ process_data(prefix="adc1263")  # หรือ "bme280"
 ### การติดตั้งแพ็กเกจ (บน Raspberry Pi)
 
 ```bash
-pip install -r requirements-cloud.txt
+pip install -r requirements.txt
 ```
 
 ### การตั้งค่า

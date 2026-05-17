@@ -76,10 +76,18 @@ class RaspberryPi:
         return 0;
 
     def module_exit(self):
+        """ปิด SPI และคืนค่าเฉพาะขา ADC — ห้าม GPIO.cleanup() ทั้งบอร์ด เพราะจะล้างขา relay ของ GUI (heater ฯลฯ)"""
         self.SPI.close()
-        self.GPIO.output(self.RST_PIN, 0)
-        self.GPIO.output(self.CS_PIN, 0)
-        self.GPIO.cleanup()
+        try:
+            self.GPIO.output(self.RST_PIN, 0)
+            self.GPIO.output(self.CS_PIN, 0)
+        except Exception:
+            pass
+        for pin in (self.RST_PIN, self.CS_PIN, self.DRDY_PIN):
+            try:
+                self.GPIO.cleanup(pin)
+            except Exception:
+                pass
         
         
 class JetsonNano:
@@ -127,9 +135,16 @@ class JetsonNano:
 
     def module_exit(self):
         self.SPI.close()
-        self.GPIO.output(self.RST_PIN, 0)
-
-        self.GPIO.cleanup()
+        try:
+            self.GPIO.output(self.RST_PIN, 0)
+            self.GPIO.output(self.CS_PIN, 0)
+        except Exception:
+            pass
+        for pin in (self.RST_PIN, self.CS_PIN, self.DRDY_PIN):
+            try:
+                self.GPIO.cleanup(pin)
+            except Exception:
+                pass
           
 
 implementation = RaspberryPi()

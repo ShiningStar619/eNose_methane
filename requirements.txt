@@ -1,0 +1,31 @@
+# eNose Methane — Python dependencies (all-in-one)
+# Install:
+#   pip install -r requirements.txt
+#
+# Notes:
+# - tkinter is part of CPython; on Raspberry Pi OS / Debian install via apt:
+#       sudo apt install -y python3-tk
+# - Hardware packages (RPi.GPIO / spidev / adafruit-*) only install on Linux
+#   (Raspberry Pi). On Windows/macOS dev machines they are skipped via markers.
+# - SciPy is optional — acquisition/acquisiton.py falls back to a pure-numpy
+#   low-pass filter when SciPy is absent. On 32-bit Raspberry Pi OS + Python
+#   3.13 there is no prebuilt SciPy wheel, so building it would require
+#   gfortran + a long compile. Skip it unless you really need the speed:
+#       sudo apt install -y gfortran libopenblas-dev liblapack-dev
+#       pip install scipy
+
+# ---- Core data + GUI ----
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+
+# ---- Hardware (Raspberry Pi only) ----
+RPi.GPIO>=0.7.1 ; platform_system == "Linux"
+spidev>=3.6 ; platform_system == "Linux"
+adafruit-circuitpython-bme280>=2.6 ; platform_system == "Linux"
+adafruit-blinka>=8.20 ; platform_system == "Linux"
+
+# ---- Cloud upload (Google Drive via Service Account or OAuth user) ----
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
+google-auth-oauthlib>=1.1.0
