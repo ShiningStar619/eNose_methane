@@ -259,6 +259,7 @@ class HardwareControlGUI:
             'label': 12,
             'entry': 12,
             'timer': 24,
+            'methane': 32,
             'status': 10,
             'small': 10
         }
@@ -470,7 +471,6 @@ class HardwareControlGUI:
         
         self.create_mode_selection(page_control)
         self.create_operation_sequence(page_control)
-        self.create_action_buttons(page_control)
         self.create_manual_controls(page_control)
         
         # --- Page 2: Settings (Auto Mode Parameters) ---
@@ -983,11 +983,17 @@ class HardwareControlGUI:
         text = self.device_display_names.get(device_key, device_key)
         self._draw_device_box(c, text, is_on)
     
-    # ==================== OPERATION SEQUENCE ====================
+    # ==================== OPERATION SEQUENCE & METHANE ====================
     def create_operation_sequence(self, parent):
-        """สร้างส่วน Operation Sequence (ขนาดกระทัดรัด)"""
+        """สร้างแถว Operation Sequence (ซ้าย) + Methane ppm (ขวา) สูงเท่ากัน"""
+        ops_row = tk.Frame(parent, bg='#f0f0f0')
+        ops_row.pack(fill='x', pady=(0, 6))
+        ops_row.columnconfigure(0, weight=3, uniform='ops_cols')
+        ops_row.columnconfigure(1, weight=2, uniform='ops_cols')
+        ops_row.rowconfigure(0, weight=1)
+
         seq_frame = tk.LabelFrame(
-            parent,
+            ops_row,
             text="Operation Sequence",
             font=('Helvetica', 15, 'bold'),
             bg='#f0f0f0',
@@ -995,8 +1001,8 @@ class HardwareControlGUI:
             padx=12,
             pady=8
         )
-        seq_frame.pack(fill='x', pady=(0, 6))
-        
+        seq_frame.grid(row=0, column=0, sticky='nsew', padx=(0, 6))
+
         flow_text = "Heat → BL → Vac → Mix → Meas → VR → Rec"
         tk.Label(
             seq_frame,
@@ -1005,7 +1011,7 @@ class HardwareControlGUI:
             bg='#f0f0f0',
             fg='#7f8c8d'
         ).pack(pady=(3, 0))
-        
+
         self.progress_label = tk.Label(
             seq_frame,
             text="Ready to start",
@@ -1014,7 +1020,7 @@ class HardwareControlGUI:
             fg='#27ae60'
         )
         self.progress_label.pack(pady=(5, 0))
-        
+
         self.timer_label = tk.Label(
             seq_frame,
             text="--:--",
@@ -1023,11 +1029,51 @@ class HardwareControlGUI:
             fg='#2c3e50'
         )
         self.timer_label.pack(pady=5)
-        
-        # Store for scaling
+
         if 'timer' not in self.scalable_widgets:
             self.scalable_widgets['timer'] = []
         self.scalable_widgets['timer'].append(self.timer_label)
+
+        self.create_action_buttons(seq_frame)
+        self.create_methane_display(ops_row)
+
+    def create_methane_display(self, parent):
+        """ช่องแสดง Methane (ppm) — สูงเท่ากับ Operation Sequence ในแถวเดียวกัน"""
+        methane_frame = tk.LabelFrame(
+            parent,
+            text="Methane",
+            font=('Helvetica', 15, 'bold'),
+            bg='#f0f0f0',
+            fg='#2c3e50',
+            padx=12,
+            pady=8
+        )
+        methane_frame.grid(row=0, column=1, sticky='nsew')
+
+        methane_inner = tk.Frame(methane_frame, bg='#f0f0f0')
+        methane_inner.pack(fill='both', expand=True)
+
+        self.methane_value_label = tk.Label(
+            methane_inner,
+            text="----",
+            font=('Helvetica', 32, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22'
+        )
+        self.methane_value_label.pack(expand=True)
+
+        self.methane_unit_label = tk.Label(
+            methane_inner,
+            text="ppm",
+            font=('Helvetica', 14, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22'
+        )
+        self.methane_unit_label.pack(pady=(0, 8))
+
+        if 'methane' not in self.scalable_widgets:
+            self.scalable_widgets['methane'] = []
+        self.scalable_widgets['methane'].append(self.methane_value_label)
             
     # ==================== AUTO PARAMETERS ====================
     def create_auto_parameters(self, parent):
@@ -1612,10 +1658,10 @@ class HardwareControlGUI:
                 "กรุณากด Stop ก่อน แล้วจึงใช้ Manual ได้"
             )
             return
-        
+
         # ใช้ Hardware Controller toggle
         is_on = self.hardware.toggle_device(device_key)
-        
+
         # Update UI (switch button)
         self.update_switch_button(device_key, is_on)
         

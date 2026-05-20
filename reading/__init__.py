@@ -1,7 +1,2 @@
-from .main import run_collection, SensorDataCollector, ON_RASPBERRY_PI
-
-__all__ = [
-    "run_collection",
-    "SensorDataCollector",
-    "ON_RASPBERRY_PI",
-]
+# Submodules: reading.main (ADC), reading.bme280 (environment sensor).
+# Import directly, e.g. `from reading.bme280 import run_bme_collection`.

@@ -20,6 +20,9 @@ token.json
 **/gdrive_service_account.json
 **/*service_account*.json
 
+# Cursor IDE (local only)
+.cursor/
+
 # OS
 .DS_Store
 Thumbs.db

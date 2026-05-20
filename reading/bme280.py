@@ -23,16 +23,41 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+
+def _ensure_circuitpython_typing():
+    """Adafruit bus device ใช้ WriteableBuffer จาก circuitpython_typing บน Linux/Pi."""
+    try:
+        import circuitpython_typing as cpt
+    except ImportError:
+        import sys
+        import types
+        cpt = types.ModuleType("circuitpython_typing")
+        sys.modules["circuitpython_typing"] = cpt
+    if hasattr(cpt, "WriteableBuffer"):
+        return
+    try:
+        from typing import WriteableBuffer
+    except ImportError:
+        from typing_extensions import WriteableBuffer
+    cpt.WriteableBuffer = WriteableBuffer
+
+
+_ensure_circuitpython_typing()
+
 try:
     import board
     import busio
-    import adafruit_bme280
+    try:
+        from adafruit_bme280.basic import Adafruit_BME280_I2C
+    except ImportError:
+        # ไลบรารีรุ่นเก่าที่ export คลาสที่ระดับ top-level
+        from adafruit_bme280 import Adafruit_BME280_I2C
     BME280_AVAILABLE = True
 except ImportError:
     BME280_AVAILABLE = False
     board = None
     busio = None
-    adafruit_bme280 = None
+    Adafruit_BME280_I2C = None
     print("BME280 libraries not found - BME280 collection disabled")
 
 # ==================== CONFIGURATION ====================
@@ -112,12 +137,12 @@ def run_bme_collection(stop_event: threading.Event, simulate: Optional[bool] = N
         if simulate:
             print("Simulation mode is disabled. BME280 collection aborted.")
             return None
-        if not BME280_AVAILABLE or board is None or busio is None or adafruit_bme280 is None:
+        if not BME280_AVAILABLE or board is None or busio is None or Adafruit_BME280_I2C is None:
             print("BME280 hardware/library unavailable. BME280 collection aborted.")
             return None
         try:
             i2c = busio.I2C(board.SCL, board.SDA)
-            sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c, address=BME_I2C_ADDRESS)
+            sensor = Adafruit_BME280_I2C(i2c, address=BME_I2C_ADDRESS)
             print(f"BME280 initialized at I2C address 0x{BME_I2C_ADDRESS:02X}")
         except Exception as e:
             print(f"Failed to initialize BME280: {e}")

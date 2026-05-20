@@ -1,0 +1,9 @@
+# Raspberry Pi — hardware + BME280 (minimal venv)
+#   .venv/bin/python -m pip install -r requirements-pi-core.txt
+RPi.GPIO
+spidev
+typing-extensions
+adafruit-blinka
+adafruit-circuitpython-typing
+adafruit-circuitpython-busdevice
+adafruit-circuitpython-bme280

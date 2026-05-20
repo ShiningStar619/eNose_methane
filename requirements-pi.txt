@@ -1,0 +1,8 @@
+# Raspberry Pi — full venv (core + visualization)
+#   .venv/bin/python -m ensurepip --upgrade
+#   .venv/bin/python -m pip install -r requirements-pi.txt
+#
+# Minimal install (no graphs): pip install -r requirements-pi-core.txt
+# Cloud upload (optional):     pip install -r requirements-cloud.txt
+-r requirements-pi-core.txt
+-r requirements-pi-viz.txt

@@ -61,7 +61,7 @@ DEFAULT_GPIO_PINS = load_gpio_config()
 class HardwareController:
     """
     Class สำหรับควบคุม Hardware ผ่าน GPIO
-    รองรับ Relay control แบบ Active HIGH
+    รองรับ Relay control แบบ Active HIGH (GPIO HIGH = ON, LOW = OFF)
     """
     
     def __init__(self, gpio_pins=None):
@@ -77,6 +77,11 @@ class HardwareController:
         self.is_initialized = False
         # True when running on a non-Raspberry Pi platform
         self.is_simulation_mode = not ON_RASPBERRY_PI
+
+    @staticmethod
+    def _gpio_level_for_state(state):
+        """แปลง logical ON/OFF เป็นระดับ GPIO สำหรับ relay Active HIGH."""
+        return GPIO.HIGH if state else GPIO.LOW
         
     def setup(self):
         """
@@ -90,54 +95,36 @@ class HardwareController:
             for pin in self.gpio_pins.values():
                 GPIO.setup(pin, GPIO.OUT)
                 GPIO.output(pin, GPIO.LOW)  # Relay ปิดเริ่มต้น (Active HIGH)
-                
+
+            self._apply_all_states_to_gpio()
             self.is_initialized = True
             print("[OK] GPIO initialized successfully")
         else:
             self.is_initialized = True
             print("[OK] Hardware Controller initialized")
-    
+
+    def _apply_all_states_to_gpio(self):
+        """ซิงก์สถานะ relay จริงให้ตรงกับ device_states ใน memory (หลัง setup/re-init)"""
+        if not ON_RASPBERRY_PI:
+            return
+        for device_key, state in self.device_states.items():
+            pin = self.gpio_pins[device_key]
+            GPIO.output(pin, self._gpio_level_for_state(state))
+
+    def _reinitialize_gpio(self):
+        """Re-init GPIO หลังถูก cleanup โดยโมดูลอื่น แล้วคืนสถานะ relay ตาม memory"""
+        self.is_initialized = False
+        self.setup()
+
     def _ensure_gpio_setup(self):
         """
-        ตรวจสอบและ setup GPIO ใหม่ถ้าถูก cleanup โดยโมดูลอื่น
-        เรียกใช้ก่อนควบคุม GPIO เพื่อป้องกันปัญหา GPIO ถูก cleanup
+        ตรวจสอบว่า GPIO ถูก setup แล้ว
+        ถ้าโมดูลอื่น (เช่น ADC) เรียก GPIO.cleanup() จะ re-init ตอน control_device ล้มเหลว
         """
         if not ON_RASPBERRY_PI:
             return
-        
-        # ถ้ายังไม่ได้ initialize ให้ setup เลย
         if not self.is_initialized:
             self.setup()
-            return
-        
-        # ตรวจสอบว่า GPIO ยัง setup อยู่หรือไม่โดยลองใช้ pin แรก
-        try:
-            # ลองใช้ pin แรก (ถ้า setup แล้วจะไม่มี error)
-            test_pin = list(self.gpio_pins.values())[0]
-            GPIO.output(test_pin, GPIO.HIGH)
-        except (RuntimeError, ValueError) as e:
-            # GPIO ถูก cleanup แล้ว ต้อง setup ใหม่
-            print(f"[WARN] GPIO was cleaned up by another module, re-initializing... ({e})")
-            self.is_initialized = False
-            self.setup()
-        except Exception as e:
-            # อาจมี error อื่นๆ (เช่น lgpio.error) แต่ลอง setup ใหม่ดู
-            error_msg = str(e)
-            if 'unknown handle' in error_msg.lower() or 'lgpio' in error_msg.lower():
-                print(f"[WARN] GPIO handle error detected, re-initializing... ({e})")
-                self.is_initialized = False
-                try:
-                    self.setup()
-                except Exception as setup_error:
-                    print(f"[WARN] Failed to re-initialize GPIO: {setup_error}")
-                    # ยังคงให้ is_initialized = False เพื่อให้ลองใหม่ครั้งหน้า
-            else:
-                print(f"[WARN] GPIO error detected, re-initializing... ({e})")
-                self.is_initialized = False
-                try:
-                    self.setup()
-                except:
-                    pass
             
     def control_device(self, device_key, state):
         """
@@ -159,13 +146,11 @@ class HardwareController:
         
         pin = self.gpio_pins[device_key]
         self.device_states[device_key] = state
-        
+
         if ON_RASPBERRY_PI:
+            level = self._gpio_level_for_state(state)
             try:
-                if state:
-                    GPIO.output(pin, GPIO.HIGH)  # ON (Active HIGH)
-                else:
-                    GPIO.output(pin, GPIO.LOW)   # OFF
+                GPIO.output(pin, level)
             except (RuntimeError, ValueError) as e:
                 # GPIO ถูก cleanup แล้ว ลอง setup ใหม่และลองอีกครั้ง
                 error_msg = str(e)
@@ -173,13 +158,9 @@ class HardwareController:
                     print(f"[WARN] GPIO handle error when controlling {device_key}, re-initializing... ({e})")
                 else:
                     print(f"[WARN] GPIO error when controlling {device_key}, re-initializing... ({e})")
-                self.is_initialized = False
-                self.setup()
+                self._reinitialize_gpio()
                 try:
-                    if state:
-                        GPIO.output(pin, GPIO.HIGH)
-                    else:
-                        GPIO.output(pin, GPIO.LOW)
+                    GPIO.output(pin, level)
                 except Exception as retry_error:
                     print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")
                     return False
@@ -188,13 +169,9 @@ class HardwareController:
                 error_msg = str(e)
                 if 'unknown handle' in error_msg.lower() or 'lgpio' in error_msg.lower():
                     print(f"[WARN] GPIO handle error when controlling {device_key}, re-initializing... ({e})")
-                    self.is_initialized = False
                     try:
-                        self.setup()
-                        if state:
-                            GPIO.output(pin, GPIO.HIGH)
-                        else:
-                            GPIO.output(pin, GPIO.LOW)
+                        self._reinitialize_gpio()
+                        GPIO.output(pin, level)
                     except Exception as retry_error:
                         print(f"[WARN] Failed to control {device_key} after re-initialization: {retry_error}")
                         return False

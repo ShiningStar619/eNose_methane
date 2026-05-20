@@ -95,19 +95,24 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 
-pip install RPi.GPIO matplotlib pandas numpy adafruit-circuitpython-bme280
+.venv/bin/python -m ensurepip --upgrade
+.venv/bin/python -m pip install -r requirements-pi.txt
 
 deactivate
 ```
+
+> ใช้ `.venv/bin/python -m pip` เสมอ (บาง venv ไม่มีไฟล์ `pip` แยก) — อย่าใช้ `pip` ระดับระบบ (จะโดน PEP 668)
 
 > `x11-xserver-utils` ให้คำสั่ง `xset` ที่ `run_gui.sh` ใช้รอ X server พร้อม
 
 ตรวจว่าครบ:
 ```bash
-.venv/bin/python -c "import RPi.GPIO, matplotlib, pandas, adafruit_bme280; print('OK')"
+.venv/bin/python -c "from adafruit_bme280.basic import Adafruit_BME280_I2C; import RPi.GPIO, matplotlib, pandas; print('OK')"
 ```
 
 ### 5. แก้ปัญหา CRLF (ถ้า edit ไฟล์ .sh จาก Windows)
+
+ถ้ารัน `bash program/run_gui.sh` แล้วเห็น `$'\r': command not found` แปลว่าไฟล์เป็น **CRLF** — bash ต้องการเฉพาะ **LF**
 
 ```bash
 file program/*.sh program/*.service program/*.desktop
@@ -116,6 +121,8 @@ file program/*.sh program/*.service program/*.desktop
 ```bash
 sed -i 's/\r$//' program/*.sh program/*.service program/*.desktop
 ```
+
+หรือซิงก์โค้ดจาก repo ที่มี `.gitattributes` แล้ว `git pull`
 
 ---
 
@@ -288,6 +295,8 @@ ls -la /home/pi/eNose_methane/.venv/bin/python
 
 ### CRLF line endings (พบบ่อยถ้า edit จาก Windows)
 
+อาการ: `run_gui.sh: line N: $'\r': command not found` หรือ `syntax error near unexpected token $'{\r''` — bash บน Linux อ่านไฟล์ **CRLF** ไม่ได้
+
 ```bash
 file program/*.sh program/*.desktop
 ```
@@ -296,7 +305,9 @@ file program/*.sh program/*.desktop
 sed -i 's/\r$//' program/*.sh program/*.desktop
 ```
 
-### GUI ขึ้นแต่ GPIO ไม่ทำงาน
+Repo มี `.gitattributes` (`*.sh text eol=lf`) เพื่อให้ Git checkout เป็น LF — หลัง `git pull` ควรไม่กลับมาเป็น CRLF ถ้า clone ใหม่บน Pi
+
+Relay ในโปรเจกต์นี้ใช้ **Active HIGH** (GPIO สูง = ON) ผ่าน `hardware_control/hardware.py` — ถ้า ON/OFF กลับด้าน ให้ตรวจบอร์ด relay ว่าเป็นโมดูล Active HIGH หรือไม่
 
 ตรวจ user `pi` อยู่ใน group `gpio` และ `i2c`:
 ```bash
@@ -308,6 +319,30 @@ groups pi
 ```bash
 sudo usermod -aG gpio,i2c pi
 sudo reboot
+```
+
+### Log แสดง pandas ล้ม (`_pandas_datetime_CAPI` / `partially initialized module 'pandas'`)
+
+ข้อความลักษณะนี้มักไม่ใช่ปัญหา autostart แต่เป็น **แพ็กเกจใน `.venv` เสียหรือ `numpy` กับ `pandas` ไม่เข้าคู่กัน** (รวมถึง Python 3.13 บน Pi ที่ต้องใช้ wheel ชุดใหม่)
+
+**สิ่งที่ไม่ควรทำ:** ติดตั้ง `python3-pandas` ผ่าน `apt` แล้วคาดหวังให้ venv ใช้ร่วมกัน — ให้ติดตั้งเฉพาะใน venv
+
+**แก้แบบสะอาด (บน Pi):**
+
+```bash
+cd ~/eNose_methane
+. .venv/bin/activate
+python -m pip install -U pip setuptools wheel
+python -m pip uninstall -y pandas numpy
+python -m pip install --no-cache-dir "numpy>=2.1.0" "pandas>=2.2.3" "matplotlib>=3.9.0"
+python -c "import pandas as pd; import numpy as np; print('OK', pd.__version__, np.__version__)"
+.venv/bin/python program/gui.py   # ทดสอบเปิด GUI ก่อน reboot
+```
+
+ถ้ายัง error ให้ลองติดตั้งชุดเต็มใหม่จาก repo:
+
+```bash
+.venv/bin/python -m pip install -r requirements-pi.txt
 ```
 
 ### มี autostart 2 ที่รันซ้อนกัน

@@ -26,7 +26,7 @@
   - **BME280** ตาม `BME_SAMPLE_INTERVAL_SEC` ใน `reading/bme280.py` (ค่าเริ่มต้น: 10 Hz, อ่าน T/H/P)
   - ทั้งสองเซ็นเซอร์เริ่ม/หยุดพร้อมกัน (ใช้ `stop_event` ตัวเดียวกัน) และเก็บลงไฟล์ `.npz` แยกกัน
 - **Data Processing** — กรองข้อมูลด้วย Low-pass IIR และ Moving Average แล้วบันทึกเป็น CSV (`acquisition/acquisiton.py`) — `process_all_data()` ประมวลผลทั้งไฟล์ ADC และ BME280 ของรอบล่าสุดในคำสั่งเดียว
-- **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active LOW): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
+- **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active HIGH): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
 - **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ใน GUI
 - **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` (รายละเอียดใน `program/AUTOSTART_SETUP.md`)
 
@@ -105,16 +105,51 @@ eNose_methane/
 sudo apt-get update
 sudo apt-get install -y python3-tk python3-numpy python3-pandas python3-matplotlib
 sudo apt-get install -y python3-rpi.gpio python3-spidev
-pip install adafruit-circuitpython-bme280 adafruit-blinka
+python3 -m venv .venv
+.venv/bin/python -m ensurepip --upgrade
+.venv/bin/python -m pip install -r requirements-pi.txt
+```
+
+> บน Pi ใช้ `.venv/bin/python -m pip` — ไม่ใช้ `pip` ระดับระบบ (PEP 668)
+
+**ติดตั้งแบบแยกชุด (ลดขนาด venv):**
+
+| ไฟล์ | ใช้เมื่อ |
+|------|---------|
+| [`requirements-pi-core.txt`](requirements-pi-core.txt) | GPIO, SPI, BME280 — จำเป็นสำหรับเก็บข้อมูล |
+| [`requirements-pi-viz.txt`](requirements-pi-viz.txt) | กราฟใน GUI (`matplotlib`, `pandas`, `numpy`) |
+| [`requirements-pi.txt`](requirements-pi.txt) | ติดตั้งครบ (core + viz) |
+| [`requirements-cloud.txt`](requirements-cloud.txt) | อัปโหลด Google Drive (ไม่บังคับ) |
+
+```bash
+# เฉพาะเก็บข้อมูล ไม่ใช้กราฟใน GUI
+.venv/bin/python -m pip install -r requirements-pi-core.txt
 ```
 
 บนเครื่องพัฒนา (โหมดจำลอง ไม่มี ADC/BME280 จริง):
 
 ```bash
-pip install numpy pandas matplotlib
+pip install -r requirements-pi-viz.txt
 ```
 
 หากใช้งานอัปโหลด Google Drive ให้ติดตั้งแพ็กเกจเพิ่มจากไฟล์ [`requirements-cloud.txt`](requirements-cloud.txt) (ดูหัวข้อ **อัปโหลดข้อมูลไป Cloud**)
+
+### ส่งโค้ดไป Raspberry Pi (ไม่รวม venv / ข้อมูลเซ็นเซอร์)
+
+จาก Linux/macOS หรือ Git Bash บน Windows:
+
+```bash
+chmod +x scripts/sync_to_pi.sh
+./scripts/sync_to_pi.sh pi@raspberrypi.local ~/eNose_methane
+```
+
+บน PowerShell (ต้องมี `rsync` ใน PATH):
+
+```powershell
+.\scripts\sync_to_pi.ps1 -Remote "pi@raspberrypi.local" -Dest "~/eNose_methane"
+```
+
+สคริปต์จะข้าม `.venv`, `.cursor`, `reading/data/*.npz`, `acquisition/processed_data/`, ไฟล์ลับคลาวด์ และ `__pycache__`
 
 ## การตั้งค่า
 
@@ -157,7 +192,7 @@ pip install numpy pandas matplotlib
 |---|---|
 | `heating` … `recovery` | ระยะเวลาแต่ละ Operation ใน Auto Mode (วินาที) |
 | `break_time` | เวลาพักระหว่างรอบ (วินาที) |
-| `gpio_pins` | หมายเลข BCM ของแต่ละ relay |
+| `gpio_pins` | หมายเลข BCM ของแต่ละ relay (โมดูลใช้ **Active HIGH**: GPIO สูง = ON) |
 | `loop_count` | จำนวนรอบเมื่อไม่ใช้ infinite (ใช้ร่วมกับ GUI) |
 | `infinite_loop` | วนไม่สิ้นสุดเมื่อเป็น `true` |
 
@@ -205,6 +240,41 @@ bash program/run_gui.sh
 ```
 
 คู่มือตั้ง autostart: [program/AUTOSTART_SETUP.md](program/AUTOSTART_SETUP.md)
+
+### รัน GUI ผ่าน SSH
+
+โปรแกรมใช้ **Tkinter** จึงต้องมี **X11 / desktop display** — ตัวแปรสภาพแวดล้อม **`$DISPLAY`** ต้องชี้ไปที่จอที่รองรับ GUI ได้ ถ้าเข้า Pi แบบ SSH อย่างเดียว (ไม่มีจอ / ไม่ forward กราฟิก) จะพบข้อความ `_tkinter.TclError: no display name and no $DISPLAY environment variable`
+
+**แนะนำที่เสถียรที่สุด:** เปิด **Terminal บน Raspberry Pi Desktop** (จอต่อกับ Pi, หรือ VNC ไปที่เดสก์ท็อปของ Pi) แล้ว activate venv และรัน `python program/gui.py` หรือ `bash program/run_gui.sh`
+
+**ถ้าต้องสั่งรันจาก SSH ขณะที่ Pi มีเซสชันกราฟิกล็อกอินอยู่แล้ว** (มักเป็น `:0`):
+
+```bash
+export DISPLAY=:0
+export XAUTHORITY=/home/pi/.Xauthority   # เปลี่ยน user/path ให้ตรงกับบัญชีที่ล็อกอินเดสก์ท็อป
+cd ~/eNose_methane                         # path โปรเจกต์จริงบน Pi
+. .venv/bin/activate
+python program/gui.py
+```
+
+ถ้ายังเปิดหน้าต่างไม่ได้ ให้เปิด **Terminal บนเดสก์ท็อปของ Pi** (ไม่ใช่ SSH) แล้วรันครั้งเดียวเพื่ออนุญาต client บนเครื่องเดียวกัน:
+
+```bash
+xhost +local:
+```
+
+จากนั้นลองรันคำสั่ง SSH ชุดด้านบนอีกครั้ง
+
+**X11 forwarding ผ่าน SSH** (กราฟิกมารีดเลย์ไปเครื่อง client — ช้ากว่า และต้องมี X server บนเครื่องคุณ):
+
+```bash
+ssh -X pi@raspberrypi
+cd ~/eNose_methane
+. .venv/bin/activate
+python program/gui.py
+```
+
+บน Windows การใช้ `-X` มักต้องติดตั้ง/เปิด X server (เช่น VcXsrv) หรือใช้ WSLg — **ทางลัดที่ใช้งานจริงบ่อยคือ VNC ไปที่ Pi แล้วรัน GUI บนเดสก์ท็อป Pi โดยตรง**
 
 ### Manual Mode
 
@@ -363,6 +433,8 @@ chmod 755 acquisition/processed_data
 
 ### GPIO
 
+Relay ต้องเป็นแบบ **Active HIGH** (หรือโมดูล relay ที่เปิดเมื่อสัญญาณ GPIO เป็น HIGH) ให้สอดคล้องกับ `HardwareController`
+
 ```bash
 sudo usermod -a -G gpio $USER
 # ออกจากระบบแล้วเข้าใหม่
@@ -379,9 +451,13 @@ sudo usermod -a -G dialout $USER
 - ติดตั้งแพ็กเกจตามหัวข้อ **การติดตั้ง**
 - บน PC ที่ไม่มี `RPi.GPIO` / `spidev` ระบบจะรันโหมดจำลอง ADC ได้ (ดูข้อความใน console)
 
+### GUI / SSH (`no $DISPLAY` / `TclError`)
+
+ถ้ารัน `python program/gui.py` ทาง SSH แล้วได้ `_tkinter.TclError: no display name and no $DISPLAY` ให้ดูหัวข้อ **รัน GUI ผ่าน SSH** ใน `README.md` (ส่วน **การใช้งาน**) — ต้องมีเซสชันกราฟิก (จอ Pi, VNC, หรือ `DISPLAY` + `XAUTHORITY` ที่ถูกต้อง)
+
 ## หมายเหตุ
 
-- Relay แบบ **Active LOW** (GPIO ต่ำ = ON)
+- Relay แบบ **Active HIGH** (GPIO สูง = ON, ต่ำ = OFF) — กำหนดใน `hardware_control/hardware.py`
 - GUI ปรับขนาดฟอนต์และเลย์เอาต์ตามขนาดหน้าต่าง
 - ถ้าชื่อไฟล์ผลลัพธ์ชนกัน ระบบจะเติม timestamp เพื่อไม่ทับของเดิม
 - ชื่อไฟล์ `acquisiton.py` เป็นการสะกดตามที่มีใน repo (ถ้าจะเปลี่ยนชื่อควรอัปเดต import ใน `gui.py` ด้วย)
