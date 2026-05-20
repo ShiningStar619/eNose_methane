@@ -146,7 +146,7 @@ AUTO_OPERATION_STEPS = [
         "ui_title": "Op2: Baseline [Recording]",
         "duration_key": "baseline",
         "countdown_title": "Op2: Baseline",
-        "on": ['s_valve1', 's_valve3', 'pump'],
+        "on": ['s_valve2', 's_valve3', 'pump'],
         "off": None,
         "start_collection": True
     },
@@ -156,7 +156,7 @@ AUTO_OPERATION_STEPS = [
         "duration_key": "vacuum",
         "countdown_title": "Op3: Vacuum",
         "on": None,
-        "off": ['s_valve1']
+        "off": ['s_valve2']
     },
     {
         "op_key": "mix_air",
@@ -171,7 +171,7 @@ AUTO_OPERATION_STEPS = [
         "ui_title": "Op5: Measure",
         "duration_key": "measure",
         "countdown_title": "Op5: Measure [Recording]",
-        "on": ['s_valve2', 'pump'],
+        "on": ['s_valve1', 's_valve4', 'pump'],
         "off": ['fan']
     },
     {
@@ -179,16 +179,16 @@ AUTO_OPERATION_STEPS = [
         "ui_title": "Op6: Vacuum Return",
         "duration_key": "vacuum_return",
         "countdown_title": "Op6: Vacuum Return",
-        "on": ['s_valve4'],
-        "off": ['s_valve2']
+        "on": None,
+        "off": ['s_valve1']
     },
     {
         "op_key": "recovery",
         "ui_title": "Op7: Recovery",
         "duration_key": "recovery",
         "countdown_title": "Op7: Recovery",
-        "on": ['s_valve1', 's_valve3'],
-        "off": ['s_valve4']
+        "on": ['s_valve2', 's_valve3'],
+        "off": ['s_valve1', 's_valve4']
     },
 ]
 
@@ -1074,7 +1074,59 @@ class HardwareControlGUI:
         if 'methane' not in self.scalable_widgets:
             self.scalable_widgets['methane'] = []
         self.scalable_widgets['methane'].append(self.methane_value_label)
-            
+
+    def _set_methane_ppm_readout(self, value_text: str):
+        """อัปเดตตัวเลข methane (ppm) ทั้งหน้า Control และหน้า Display (ถ้ามี)"""
+        for attr in ("methane_value_label", "display_methane_value_label"):
+            lbl = getattr(self, attr, None)
+            if lbl is None:
+                continue
+            try:
+                if lbl.winfo_exists():
+                    lbl.configure(text=value_text)
+            except tk.TclError:
+                pass
+
+    def _create_display_methane_section(self, parent):
+        """แถบแสดง Methane (ppm) ด้านล่างกราฟ — หน้า Display"""
+        mf = tk.LabelFrame(
+            parent,
+            text="Methane (ppm)",
+            font=('Helvetica', 12, 'bold'),
+            bg='#f0f0f0',
+            fg='#2c3e50',
+            padx=12,
+            pady=8,
+        )
+        mf.pack(fill='x', padx=20, pady=(0, 8))
+
+        inner = tk.Frame(mf, bg='#f0f0f0')
+        inner.pack(fill='x', pady=4)
+        row = tk.Frame(inner, bg='#f0f0f0')
+        row.pack(anchor='center')
+
+        self.display_methane_value_label = tk.Label(
+            row,
+            text="----",
+            font=('Helvetica', 28, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22',
+        )
+        self.display_methane_value_label.pack(side='left', padx=(0, 8))
+
+        self.display_methane_unit_label = tk.Label(
+            row,
+            text="ppm",
+            font=('Helvetica', 14, 'bold'),
+            bg='#f0f0f0',
+            fg='#e67e22',
+        )
+        self.display_methane_unit_label.pack(side='left')
+
+        if 'methane' not in self.scalable_widgets:
+            self.scalable_widgets['methane'] = []
+        self.scalable_widgets['methane'].append(self.display_methane_value_label)
+
     # ==================== AUTO PARAMETERS ====================
     def create_auto_parameters(self, parent):
         """สร้างส่วน Auto Mode Parameters"""
@@ -1088,16 +1140,13 @@ class HardwareControlGUI:
         )
         title.pack(pady=(0, 5), anchor='w')
         
-        # Two-column container for settings page
+        # Settings page (single column)
         settings_cols = tk.Frame(parent, bg='#f0f0f0')
         settings_cols.pack(fill='both', expand=False, anchor='n')
         
         settings_left = tk.Frame(settings_cols, bg='#f0f0f0')
-        settings_left.pack(side='left', fill='both', expand=True, padx=(0, 10))
-        
-        settings_right = tk.Frame(settings_cols, bg='#f0f0f0')
-        settings_right.pack(side='right', fill='both', expand=True, padx=(10, 0))
-        
+        settings_left.pack(fill='both', expand=True)
+
         # Parameter source selection
         source_frame = tk.LabelFrame(
             settings_left,
@@ -1267,7 +1316,52 @@ class HardwareControlGUI:
         
         tk.Label(break_inner, text="sec", font=('Helvetica', 11), bg='#ffcdd2').pack(side='right')
         
-        # Loop Settings (below Break Time)
+        # Cloud upload — ด้านล่าง Break Time (หน้า Settings)
+        cloud_frame = tk.LabelFrame(
+            settings_left,
+            text="Cloud Upload",
+            font=('Helvetica', 12, 'bold'),
+            bg='#f0f0f0',
+            fg='#2c3e50',
+            padx=12,
+            pady=8,
+        )
+        cloud_frame.pack(fill='x', pady=(0, 10))
+
+        cloud_enabled_init = False
+        if CLOUD_CONFIG_AVAILABLE and load_cloud_config is not None:
+            try:
+                cloud_enabled_init = bool(load_cloud_config().get("enabled"))
+            except Exception:
+                cloud_enabled_init = False
+        self.cloud_upload_enabled = tk.BooleanVar(value=cloud_enabled_init)
+        self.cloud_upload_checkbox = tk.Checkbutton(
+            cloud_frame,
+            text="Auto-upload to Cloud",
+            variable=self.cloud_upload_enabled,
+            font=('Helvetica', 12),
+            bg='#f0f0f0',
+            fg='#2c3e50',
+            command=self._on_cloud_upload_toggle,
+            state='normal' if CLOUD_CONFIG_AVAILABLE else 'disabled',
+            cursor='hand2',
+        )
+        self.cloud_upload_checkbox.pack(anchor='w', pady=(0, 8))
+        self.cloud_status_label = tk.Label(
+            cloud_frame,
+            text="Cloud: —",
+            font=('Helvetica', 10),
+            bg='#f0f0f0',
+            fg='#7f8c8d',
+        )
+        self.cloud_status_label.pack(anchor='w')
+
+        if 'status' not in self.scalable_widgets:
+            self.scalable_widgets['status'] = []
+        self.scalable_widgets['status'].append(self.cloud_status_label)
+        self.scalable_widgets['status'].append(self.cloud_upload_checkbox)
+
+        # Loop Settings (below Cloud Upload)
         loop_frame = tk.LabelFrame(
             settings_left,
             text="Loop Settings",
@@ -1427,7 +1521,6 @@ class HardwareControlGUI:
             self.display_canvas_widget.pack(fill='both', expand=True)
             self.display_canvas_widget.bind('<Configure>', self._on_display_canvas_configure)
             self.display_legend_frame = tk.Frame(parent, bg='#f5f5f5', relief='flat', bd=1, padx=20, pady=8)
-            self.display_legend_frame.pack(fill='x', pady=(0, 4))
             self._plot_process_data()
         else:
             self.display_legend_frame = None
@@ -1441,8 +1534,12 @@ class HardwareControlGUI:
                 bg='#ffffff',
                 fg='#7f8c8d'
             ).pack(expand=True)
-        
+
+        # Methane readout — ต่อจากกราฟทันที (ก่อนแถบ legend สี)
+        self._create_display_methane_section(parent)
+
         if MATPLOTLIB_AVAILABLE and PANDAS_AVAILABLE:
+            self.display_legend_frame.pack(fill='x', pady=(0, 4))
             btn_frame = tk.Frame(parent, bg='#f0f0f0')
             btn_frame.pack(pady=(0, 10))
             refresh_btn = tk.Button(
@@ -1556,36 +1653,41 @@ class HardwareControlGUI:
             
     # ==================== ACTION BUTTONS ====================
     def create_action_buttons(self, parent):
-        """สร้างปุ่ม Start/Stop (ขนาดกระทัดรัด)"""
+        """สร้างปุ่ม Start/Stop — กว้าง/สูงเท่ากัน (grid + uniform columns)"""
         btn_frame = tk.Frame(parent, bg='#f0f0f0')
         btn_frame.pack(fill='x', pady=8)
-        
-        action_btn_width, action_btn_height = 18, 1
+        btn_frame.columnconfigure(0, weight=1, uniform='action_btn')
+        btn_frame.columnconfigure(1, weight=1, uniform='action_btn')
+
+        stop_cell = tk.Frame(btn_frame, bg='#f0f0f0')
+        stop_cell.grid(row=0, column=0, sticky='nsew', padx=(0, 4))
+        start_cell = tk.Frame(btn_frame, bg='#f0f0f0')
+        start_cell.grid(row=0, column=1, sticky='nsew', padx=(4, 0))
+
+        action_btn_height = 2
         self.stop_btn = tk.Button(
-            btn_frame,
+            stop_cell,
             text="Stop",
             font=('Helvetica', 11, 'bold'),
             bg='#e74c3c',
             fg='white',
-            width=action_btn_width,
             height=action_btn_height,
             cursor='hand2',
-            command=self.stop_operation
+            command=self.stop_operation,
         )
-        self.stop_btn.pack(side='left', padx=(0, 8), expand=True, fill='x')
+        self.stop_btn.pack(fill='both', expand=True)
         self.start_btn = tk.Button(
-            btn_frame,
+            start_cell,
             text="Start Collection",
             font=('Helvetica', 11, 'bold'),
             bg='#95a5a6',
             fg='white',
-            width=action_btn_width,
             height=action_btn_height,
             state='disabled',
             cursor='hand2',
-            command=self.start_operation
+            command=self.start_operation,
         )
-        self.start_btn.pack(side='left', expand=True, fill='x')
+        self.start_btn.pack(fill='both', expand=True)
         
         status_frame = tk.Frame(parent, bg='#f0f0f0')
         status_frame.pack(fill='x', pady=5)
@@ -1599,37 +1701,6 @@ class HardwareControlGUI:
         )
         self.status_label.pack()
 
-        # Cloud upload (optional)
-        cloud_row = tk.Frame(status_frame, bg='#f0f0f0')
-        cloud_row.pack(fill='x', pady=(6, 0))
-        cloud_enabled_init = False
-        if CLOUD_CONFIG_AVAILABLE and load_cloud_config is not None:
-            try:
-                cloud_enabled_init = bool(load_cloud_config().get("enabled"))
-            except Exception:
-                cloud_enabled_init = False
-        self.cloud_upload_enabled = tk.BooleanVar(value=cloud_enabled_init)
-        self.cloud_upload_checkbox = tk.Checkbutton(
-            cloud_row,
-            text="Auto-upload to Cloud",
-            variable=self.cloud_upload_enabled,
-            font=('Helvetica', 9),
-            bg='#f0f0f0',
-            fg='#2c3e50',
-            command=self._on_cloud_upload_toggle,
-            state='normal' if CLOUD_CONFIG_AVAILABLE else 'disabled',
-            cursor='hand2',
-        )
-        self.cloud_upload_checkbox.pack(side='left')
-        self.cloud_status_label = tk.Label(
-            cloud_row,
-            text="Cloud: —",
-            font=('Helvetica', 9),
-            bg='#f0f0f0',
-            fg='#7f8c8d',
-        )
-        self.cloud_status_label.pack(side='right', padx=(8, 0))
-
         # Indeterminate progress bar — แสดงเฉพาะตอนกำลัง save / process
         self.status_progressbar = ttk.Progressbar(
             status_frame, mode='indeterminate', length=240
@@ -1640,8 +1711,6 @@ class HardwareControlGUI:
         if 'status' not in self.scalable_widgets:
             self.scalable_widgets['status'] = []
         self.scalable_widgets['status'].append(self.status_label)
-        self.scalable_widgets['status'].append(self.cloud_status_label)
-        self.scalable_widgets['status'].append(self.cloud_upload_checkbox)
         
     def draw_circuit_diagram(self):
         """Placeholder - Hardware diagram removed"""
@@ -2039,7 +2108,7 @@ class HardwareControlGUI:
         return True
 
     def _finalize_cycle_devices_and_processing(self):
-        """หยุด collection, ปิดอุปกรณ์ทั้งหมด, และประมวลผลข้อมูล (รันใน auto-thread)"""
+        """หยุด collection, ปิดอุปกรณ์ยกเว้น Heater (เหมือนหลัง Stop ใน Manual), และประมวลผลข้อมูล (รันใน auto-thread)"""
         cycle_num = self.current_cycle
         self._set_status_text(
             f"Cycle {cycle_num} | Saving data...", STATUS_COLORS["processing"]
@@ -2048,8 +2117,13 @@ class HardwareControlGUI:
 
         self._stop_data_collection()
 
-        self.hardware.all_off()
+        # คง Heater ไว้เปิดหลังจบรอบ (Auto sequence เปิด heater ตลอด Op1–Op7)
+        preserve = ['heater']
         for dev in self.hardware.available_devices:
+            if dev in preserve:
+                self._update_device_ui_threadsafe(dev, True)
+                continue
+            self.hardware.control_device(dev, False)
             self._update_device_ui_threadsafe(dev, False)
 
         if self.running and DATA_PROCESSING_AVAILABLE:
@@ -2240,8 +2314,8 @@ class HardwareControlGUI:
         5. Measure:       heater + s_valve2 + pump ON (60s)
         6. Vacuum Return: heater + pump + s_valve4 ON (10s)
         7. Recovery:      heater + s_valve1 + s_valve3 + pump ON (60s)
-        [หยุดเก็บข้อมูล ADC → ปิดอุปกรณ์ทั้งหมด → process_data]
-        Break:            ทั้งหมด OFF (1620s) → วน loop
+        [หยุดเก็บข้อมูล ADC → ปิดอุปกรณ์ยกเว้น Heater → process_data]
+        Break:            Heater คงไว้, อื่น OFF (1620s) → วน loop
         """
         
         # Get loop settings
@@ -2394,9 +2468,9 @@ class HardwareControlGUI:
             except tk.TclError:
                 pass
 
-        # ใน manual mode คงสถานะ Heater ตามที่ผู้ใช้ตั้งไว้
+        # คง Heater ไว้ถ้ายังเปิดอยู่ (Manual + Auto — สอดคล้องกับ _finalize_cycle_devices_and_processing)
         preserve = []
-        if mode == "manual" and self.hardware.get_device_state('heater'):
+        if self.hardware.get_device_state('heater'):
             preserve = ['heater']
 
         # รักษาข้อความ status ที่ worker ตั้งล่าสุดไว้ (ส่ง None)
@@ -2422,7 +2496,7 @@ class HardwareControlGUI:
 
         if not was_running:
             preserve = []
-            if mode == "manual" and self.hardware.get_device_state('heater'):
+            if self.hardware.get_device_state('heater'):
                 preserve = ['heater']
             self._reset_ui_after_stop(
                 mode, status_text="Status: Stopped",

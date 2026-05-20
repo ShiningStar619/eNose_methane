@@ -4,6 +4,42 @@
 
 ---
 
+## หลังอัปโหลดโค้ดใหม่ / ลบโปรเจกต์แล้วซิงก์ขึ้น Pi ใหม่
+
+**สิ่งที่ต้องรู้:**
+
+- Entry ของ autostart **ไม่ได้อยู่ในโฟลเดอร์โปรเจกต์** แต่อยู่ที่ `~/.config/autostart/enose-gui.desktop` บนเครื่อง Pi  
+  - ถ้าลบเฉพาะโฟลเดอร์โปรเจกต์ ไฟล์ใน `~/.config/autostart/` อาจ**ยังอยู่**และอาจชี้ path เก่าที่ไม่มีแล้ว  
+  - ถ้าเซ็ต Pi / home directory ใหม่ทั้งหมด โฟลเดอร์ autostart จะ**ว่าง** — ต้องติดตั้งใหม่
+- `program/enose-gui.desktop` ใน repo มี `Exec=` ชี้ไป **`/home/pi/eNose_methane/program/run_gui.sh`** — ถ้า user ไม่ใช่ `pi` หรือ path โปรเจกต์ไม่ใช่ค่านี้ **ต้องแก้ก่อน** รัน `install_xdg_autostart.sh`
+- โฟลเดอร์ `.venv` มักไม่อยู่ใน git — หลังซิงก์โค้ดใหม่ต้อง**สร้าง venv และติดตั้ง dependencies ใหม่** (ดู [Prerequisites](#prerequisites))
+
+**ขั้นตอนสั้นๆ (แนะนำ — ใช้ XDG เหมือนเดิม):**
+
+1. วางโปรเจกต์ให้ path ตรงกับ `Exec=` ใน `program/enose-gui.desktop` หรือแก้ `Exec=` ให้ตรง path จริงบน Pi  
+2. สร้าง/รีเฟรช venv และติดตั้งแพ็กเกจตามหัวข้อ **Prerequisites** ด้านล่าง (`requirements-pi.txt`, `x11-xserver-utils`, ฯลฯ)  
+3. (ถ้าแก้ไฟล์ `.sh` / `.desktop` บน Windows) ตรวจและแก้ **CRLF → LF** ตามหัวข้อ **แก้ปัญหา CRLF**  
+4. รันติดตั้ง autostart อีกครั้ง — จะคัดลอก `enose-gui.desktop` จาก repo ทับใน `~/.config/autostart/` และปิด systemd `enose-gui` เดิมถ้ามี (กันสองที่รันซ้อน):
+
+   ```bash
+   cd /home/pi/eNose_methane    # เปลี่ยนให้ตรง path จริง
+   chmod +x program/install_xdg_autostart.sh
+   ./program/install_xdg_autostart.sh
+   ```
+
+5. ทดสอบบนหน้าจอ Pi: `program/run_gui.sh` เปิด GUI ได้ก่อน แล้วค่อย `sudo reboot`  
+6. ดู log: `tail -f ~/enose_gui_autostart.log`
+
+**ถอน entry เก่าก่อนติดใหม่ (ถ้าต้องการเริ่มสะอาด):**
+
+```bash
+rm -f ~/.config/autostart/enose-gui.desktop
+```
+
+จากนั้นรัน `./program/install_xdg_autostart.sh` ตามข้อ 4
+
+---
+
 ## วิธีหลัก: XDG Autostart (แนะนำ)
 
 เหมาะกับ Raspberry Pi OS Bookworm + labwc/Wayland — เป็นทางที่ Pi OS รองรับโดยตรง
@@ -49,11 +85,11 @@ Boot Pi
 
 ### 1. โครงสร้างโปรเจกต์บน Pi
 
-วางโปรเจกต์ที่ `/home/pi/eNose_methane/` (path นี้ถูกระบุใน `enose-gui.desktop`)
+ค่าเริ่มต้นใน repo คาดหวังว่าโปรเจกต์อยู่ที่ **`/home/pi/eNose_methane/`** — path นี้ถูกใส่ใน `Exec=` ของ `program/enose-gui.desktop`
 
 ```
 /home/pi/eNose_methane/
-├── .venv/                       <- virtual environment
+├── .venv/                       <- virtual environment (สร้างบน Pi ไม่ commit)
 ├── program/
 │   ├── gui.py
 │   ├── run_gui.sh
@@ -67,7 +103,10 @@ Boot Pi
 └── acquisition/
 ```
 
-> ถ้าใช้ path อื่น ต้องแก้ `Exec=` ใน `program/enose-gui.desktop` ก่อนติดตั้ง
+| สถานการณ์ | สิ่งที่ต้องทำ |
+|---|---|
+| ใช้ path อื่น (เช่น `~/projects/eNose_methane`) | แก้บรรทัด `Exec=` ใน `program/enose-gui.desktop` ให้ชี้ไป `.../program/run_gui.sh` ที่ถูกต้อง **ก่อน** รัน `install_xdg_autostart.sh` |
+| user ไม่ใช่ `pi` | แก้ `Exec=` ให้ใช้ path ใต้ home ของ user นั้น (หรือ path แบบ absolute ที่ถูกต้อง) |
 
 ### 2. เปิด Auto-Login เข้า Desktop
 
@@ -131,7 +170,7 @@ sed -i 's/\r$//' program/*.sh program/*.service program/*.desktop
 ### วิธีอัตโนมัติ (แนะนำ)
 
 ```bash
-cd /home/pi/eNose_methane
+cd /home/pi/eNose_methane          # หรือ path โปรเจกต์จริงของคุณ
 chmod +x program/install_xdg_autostart.sh
 ./program/install_xdg_autostart.sh
 ```
@@ -140,18 +179,26 @@ chmod +x program/install_xdg_autostart.sh
 1. ตรวจไฟล์ครบไหม
 2. หยุด + disable systemd service เดิม (ถ้ามี) เพื่อกันรันซ้อน
 3. `chmod +x run_gui.sh`
-4. Copy `enose-gui.desktop` ไป `~/.config/autostart/`
+4. Copy `enose-gui.desktop` ไป `~/.config/autostart/` (ทับไฟล์ชื่อเดิมถ้ามี — เหมาะหลัง `git pull` หรืออัปโหลดโค้ดใหม่)
 
-จากนั้น:
+**ก่อน reboot:** เปิด Terminal บน Desktop ของ Pi แล้วรันทดสอบครั้งหนึ่ง:
+
+```bash
+/home/pi/eNose_methane/program/run_gui.sh
+```
+
+ถ้า GUI ขึ้นปกติ ค่อยรีบูต:
+
 ```bash
 sudo reboot
 ```
+
 GUI จะเด้งเองหลังเข้า Desktop ภายใน ~5–15 วินาที
 
 ### วิธีทำมือทีละขั้น
 
 ```bash
-cd /home/pi/eNose_methane
+cd /home/pi/eNose_methane   # หรือ path โปรเจกต์จริงของคุณ
 
 # 1) chmod
 chmod +x program/run_gui.sh
@@ -167,7 +214,10 @@ cp program/enose-gui.desktop ~/.config/autostart/
 # 4) ตรวจ
 ls -la ~/.config/autostart/enose-gui.desktop
 
-# 5) Reboot
+# 5) (แนะนำ) ทดสอบที่ Terminal บน Desktop ก่อน reboot
+# bash program/run_gui.sh
+
+# 6) Reboot
 sudo reboot
 ```
 
@@ -219,7 +269,8 @@ cd /home/pi/eNose_methane
 |---|---|
 | ปิด autostart | `rm ~/.config/autostart/enose-gui.desktop` |
 | เปิด autostart ใหม่ | รัน `./program/install_xdg_autostart.sh` |
-| รัน manual ตอนนี้ | `~/eNose_methane/program/run_gui.sh &` |
+| หลังอัปโหลด / `git pull` โปรเจกต์ใหม่ | ดูหัวข้อ **หลังอัปโหลดโค้ดใหม่** — สร้าง venv ใหม่ถ้าจำเป็น, แก้ `Exec=` ใน `program/enose-gui.desktop` ถ้า path เปลี่ยน, แล้วรัน `./program/install_xdg_autostart.sh` |
+| รัน manual ตอนนี้ | `bash /home/pi/eNose_methane/program/run_gui.sh &` — แก้ path ให้ตรงเครื่อง |
 | ปิด GUI ตอนนี้ | `pkill -f gui.py` |
 
 ---

@@ -27,8 +27,8 @@
   - ทั้งสองเซ็นเซอร์เริ่ม/หยุดพร้อมกัน (ใช้ `stop_event` ตัวเดียวกัน) และเก็บลงไฟล์ `.npz` แยกกัน
 - **Data Processing** — กรองข้อมูลด้วย Low-pass IIR และ Moving Average แล้วบันทึกเป็น CSV (`acquisition/acquisiton.py`) — `process_all_data()` ประมวลผลทั้งไฟล์ ADC และ BME280 ของรอบล่าสุดในคำสั่งเดียว
 - **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active HIGH): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
-- **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ใน GUI
-- **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` (รายละเอียดใน `program/AUTOSTART_SETUP.md`)
+- **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ในแท็บ **Settings** ของ GUI
+- **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` รวมขั้นตอนหลังซิงก์โค้ดใหม่ (รายละเอียดใน [`program/AUTOSTART_SETUP.md`](program/AUTOSTART_SETUP.md))
 
 โค้ดที่ใช้งานจริงกับ BME280 และ ADS1263 อยู่ที่ `reading/bme280.py` และ `reading/main.py` / `reading/ADS1263.py` — หากต้องการสคริปต์ทดสอบแยกให้สร้างในเครื่องหรือเรียกคลาส collector จากโมดูลเหล่านี้โดยตรง
 
@@ -239,7 +239,7 @@ python3 gui.py
 bash program/run_gui.sh
 ```
 
-คู่มือตั้ง autostart: [program/AUTOSTART_SETUP.md](program/AUTOSTART_SETUP.md)
+คู่มือตั้ง autostart (รวม checklist หลังอัปโหลดโค้ดใหม่หรือลบโปรเจกต์แล้วซิงก์ขึ้น Pi ใหม่): [program/AUTOSTART_SETUP.md](program/AUTOSTART_SETUP.md)
 
 ### รัน GUI ผ่าน SSH
 
@@ -380,7 +380,7 @@ pip install -r requirements-cloud.txt
    - `remote_root_folder_id` = Folder ID  
    - `credentials_path` = path ถึง JSON key  
    - `device_id` = ชื่ออุปกรณ์ (ใช้เป็นชื่อโฟลเดอร์ย่อยบน Drive)  
-6. ใน GUI ติ๊ก **Auto-upload to Cloud** (จะบันทึก `enabled: true` ลง `cloud_config.json`) หรือตั้ง `enabled: true` ด้วยมือ
+6. ใน GUI ไปที่แท็บ **Settings** แล้วติ๊ก **Auto-upload to Cloud** (จะบันทึก `enabled: true` ลง `cloud_config.json`) หรือตั้ง `enabled: true` ด้วยมือ
 
 **โครงสร้างบน Drive:** `root_folder / {device_id} / raw / *.npz` และ `... / processed / *.csv`
 
