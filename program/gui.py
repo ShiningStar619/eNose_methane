@@ -147,7 +147,7 @@ AUTO_OPERATION_STEPS = [
         "duration_key": "baseline",
         "countdown_title": "Op2: Baseline",
         "on": ['s_valve2', 's_valve3', 'pump'],
-        "off": None,
+        "off": ['s_valve1', 's_valve4'],
         "start_collection": True
     },
     {
@@ -155,8 +155,8 @@ AUTO_OPERATION_STEPS = [
         "ui_title": "Op3: Vacuum",
         "duration_key": "vacuum",
         "countdown_title": "Op3: Vacuum",
-        "on": None,
-        "off": ['s_valve2']
+        "on": ['s_valve3', 'pump'],
+        "off": ['s_valve1', 's_valve2', 's_valve4']
     },
     {
         "op_key": "mix_air",
@@ -164,7 +164,7 @@ AUTO_OPERATION_STEPS = [
         "duration_key": "mix_air",
         "countdown_title": "Op4: Mix Air",
         "on": ['fan'],
-        "off": ['s_valve3', 'pump']
+        "off": ['s_valve1', 's_valve2', 's_valve3', 's_valve4', 'pump']
     },
     {
         "op_key": "measure",
@@ -172,15 +172,15 @@ AUTO_OPERATION_STEPS = [
         "duration_key": "measure",
         "countdown_title": "Op5: Measure [Recording]",
         "on": ['s_valve1', 's_valve4', 'pump'],
-        "off": ['fan']
+        "off": ['fan', 's_valve2', 's_valve3']
     },
     {
         "op_key": "vacuum_return",
         "ui_title": "Op6: Vacuum Return",
         "duration_key": "vacuum_return",
         "countdown_title": "Op6: Vacuum Return",
-        "on": None,
-        "off": ['s_valve1']
+        "on": ['s_valve4', 'pump'],
+        "off": ['s_valve1', 's_valve2', 's_valve3']
     },
     {
         "op_key": "recovery",
@@ -191,6 +191,11 @@ AUTO_OPERATION_STEPS = [
         "off": ['s_valve1', 's_valve4']
     },
 ]
+
+# ขั้นตอนที่เก็บข้อมูล ADC (หลัง Heating) — ใช้เมื่อ Baseline ถูก bypass (duration=0)
+RECORDING_OP_KEYS = frozenset({
+    'baseline', 'vacuum', 'mix_air', 'measure', 'vacuum_return', 'recovery'
+})
 
 
 def load_config():
@@ -1809,6 +1814,23 @@ class HardwareControlGUI:
         """Mark an operation frame as complete (green)"""
         if op_key in self.operation_frames:
             self._run_on_ui_thread(lambda k=op_key: self.operation_frames[k].configure(bg='#81c784'))
+
+    def _mark_operation_bypassed(self, op_key):
+        """Mark operation as bypassed (duration=0 in Settings)"""
+        if op_key in self.operation_frames:
+            self._run_on_ui_thread(lambda k=op_key: self.operation_frames[k].configure(bg='#bdbdbd'))
+
+    def _should_start_collection_for_step(self, step, durations, collection_started):
+        """เริ่มเก็บข้อมูลที่ Baseline หรือขั้นแรกหลัง bypass Baseline"""
+        if collection_started:
+            return False
+        if durations[step["duration_key"]] <= 0:
+            return False
+        if step.get("start_collection"):
+            return True
+        if durations.get("baseline", 0) <= 0 and step["op_key"] in RECORDING_OP_KEYS:
+            return True
+        return False
     
     def _countdown(self, duration, operation_name):
         """Run countdown timer, returns False if stopped"""
@@ -2340,16 +2362,32 @@ class HardwareControlGUI:
             
             # Get durations from UI
             durations = self._get_operation_durations()
-            
+            collection_started = False
+
             for step in AUTO_OPERATION_STEPS:
+                duration = durations[step["duration_key"]]
+                if duration <= 0:
+                    print(
+                        f"Cycle {self.current_cycle}: Bypass {step['op_key']} "
+                        f"(duration=0)"
+                    )
+                    self._mark_operation_bypassed(step["op_key"])
+                    continue
+
+                start_coll = self._should_start_collection_for_step(
+                    step, durations, collection_started
+                )
+                if start_coll:
+                    collection_started = True
+
                 if not self._run_auto_step(
                     step["op_key"],
                     step["ui_title"],
-                    durations[step["duration_key"]],
+                    duration,
                     step["countdown_title"],
                     on=step.get("on"),
                     off=step.get("off"),
-                    start_collection=step.get("start_collection", False)
+                    start_collection=start_coll,
                 ):
                     break
             else:

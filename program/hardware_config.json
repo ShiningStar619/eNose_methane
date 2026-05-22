@@ -1,12 +1,12 @@
 {
     "operation_times": {
         "heating": 10,
-        "baseline": 10,
-        "vacuum": 10,
-        "mix_air": 10,
-        "measure": 20,
-        "vacuum_return": 10,
-        "recovery": 10,
+        "baseline": 300,
+        "vacuum": 5,
+        "mix_air": 0,
+        "measure": 60,
+        "vacuum_return": 0,
+        "recovery": 180,
         "break_time": 10
     },
     "gpio_pins": {
@@ -19,7 +19,7 @@
         "heater": 13
     },
     "auto_settings": {
-        "loop_count": 0,
-        "infinite_loop": true
+        "loop_count": 3,
+        "infinite_loop": false
     }
 }
