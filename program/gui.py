@@ -51,6 +51,14 @@ except ImportError as e:
     DATA_PROCESSING_AVAILABLE = False
     process_all_data = None
 
+try:
+    from predict_methane import predict_ppm
+    PREDICT_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import predict_methane: {e}")
+    PREDICT_AVAILABLE = False
+    predict_ppm = None
+
 # Matplotlib สำหรับกราฟการแสดงผล (Process Data)
 try:
     import matplotlib
@@ -1960,6 +1968,27 @@ class HardwareControlGUI:
             traceback.print_exc()
             return False, None
 
+    def _run_methane_prediction(self, proc_paths: dict | None):
+        """Extract features จาก proc_paths แล้วทำนาย ppm และแสดงผลบน UI."""
+        if not PREDICT_AVAILABLE or proc_paths is None:
+            return
+        adc_csv = proc_paths.get("adc1263")
+        bme_csv = proc_paths.get("bme280")
+        if adc_csv is None:
+            return
+
+        temp_set = None
+        try:
+            cfg = load_config()
+            temp_set = cfg.get("lab_temp_set")   # อุณหภูมิห้องทดลอง (30/40/50 °C)
+        except Exception:
+            pass
+
+        ppm = predict_ppm(adc_csv, bme_csv, temp_set)
+        if ppm is not None:
+            display_text = f"{ppm:.2f}"
+            self._run_on_ui_thread(lambda t=display_text: self._set_methane_ppm_readout(t))
+
     def _on_cloud_upload_toggle(self):
         """Persist Auto-upload checkbox to program/cloud_config.json."""
         if not CLOUD_CONFIG_AVAILABLE or save_cloud_config is None:
@@ -2160,6 +2189,7 @@ class HardwareControlGUI:
                     f"Cycle {cycle_num} | Data processed!", STATUS_COLORS["success"]
                 )
                 self._maybe_cloud_upload(adc_npz, bme_npz, proc_paths)
+                self._run_methane_prediction(proc_paths)
             else:
                 self._set_status_text(
                     f"Cycle {cycle_num} | Processing error", STATUS_COLORS["idle"]
@@ -2476,6 +2506,7 @@ class HardwareControlGUI:
                         "Status: Data processing completed!", STATUS_COLORS["success"]
                     )
                     self._maybe_cloud_upload(adc_npz, bme_npz, proc_paths)
+                    self._run_methane_prediction(proc_paths)
                     self._run_on_ui_thread(self._refresh_display_graph_if_visible)
                 else:
                     self._set_status_text(

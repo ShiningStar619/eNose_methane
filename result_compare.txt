@@ -1,0 +1,14 @@
+﻿--- TEMPERATURE (BME280) ---
+[NEW_20260608] mean=24.568C  std=0.053  min=24.509  max=24.662
+[TEST_30_1ppm_28.5] mean=33.032C  std=0.298  min=32.168  max=33.313
+diff_mean_temp = -8.464 C
+
+--- VOLTAGE (ADC1263, unit V) ---
+ss1_lp_ma:  NEW mean=0.3177  TEST mean=0.2080  diff=+0.1097V (+52.8%)
+       NEW [min=0.2609 max=0.6462]  TEST [min=0.1931 max=0.2384]
+ss2_lp_ma:  NEW mean=0.4107  TEST mean=0.2516  diff=+0.1591V (+63.2%)
+       NEW [min=0.3328 max=0.8888]  TEST [min=0.2282 max=0.3228]
+ss3_lp_ma:  NEW mean=0.3415  TEST mean=0.1855  diff=+0.1560V (+84.1%)
+       NEW [min=0.2971 max=0.3856]  TEST [min=0.1354 max=0.2014]
+ss4_lp_ma:  NEW mean=0.4895  TEST mean=0.2460  diff=+0.2436V (+99.0%)
+       NEW [min=0.4267 max=0.5602]  TEST [min=0.2243 max=0.2736]
