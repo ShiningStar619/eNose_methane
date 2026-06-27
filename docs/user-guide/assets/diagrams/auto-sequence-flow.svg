@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', Helvetica, sans-serif">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0d3d28"/>
+      <stop offset="100%" stop-color="#1b7a4e"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2c3e50"/>
+    </marker>
+    <filter id="sh" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="800" height="420" fill="#f4f6f8"/>
+  <rect x="0" y="0" width="800" height="52" fill="url(#hdr)"/>
+  <text x="400" y="34" text-anchor="middle" fill="#fff" font-size="17" font-weight="600">Auto Mode — 7 Operations + Break</text>
+
+  <!-- ops -->
+  <g filter="url(#sh)">
+    <rect x="16" y="72" width="88" height="40" rx="6" fill="#fff59d" stroke="#f9a825"/>
+    <text x="60" y="88" text-anchor="middle" font-size="10" font-weight="700">Op1</text>
+    <text x="60" y="102" text-anchor="middle" font-size="9">Heat</text>
+
+    <rect x="112" y="72" width="88" height="40" rx="6" fill="#81d4fa" stroke="#0288d1"/>
+    <text x="156" y="88" text-anchor="middle" font-size="10" font-weight="700">Op2</text>
+    <text x="156" y="102" text-anchor="middle" font-size="9">Baseline*</text>
+
+    <rect x="208" y="72" width="88" height="40" rx="6" fill="#b39ddb" stroke="#7e57c2"/>
+    <text x="252" y="88" text-anchor="middle" font-size="10" font-weight="700">Op3</text>
+    <text x="252" y="102" text-anchor="middle" font-size="9">Vacuum</text>
+
+    <rect x="304" y="72" width="88" height="40" rx="6" fill="#a5d6a7" stroke="#43a047"/>
+    <text x="348" y="88" text-anchor="middle" font-size="10" font-weight="700">Op4</text>
+    <text x="348" y="102" text-anchor="middle" font-size="9">Mix</text>
+
+    <rect x="400" y="72" width="88" height="40" rx="6" fill="#ffcc80" stroke="#ef6c00"/>
+    <text x="444" y="88" text-anchor="middle" font-size="10" font-weight="700">Op5</text>
+    <text x="444" y="102" text-anchor="middle" font-size="9">Measure</text>
+
+    <rect x="496" y="72" width="88" height="40" rx="6" fill="#f48fb1" stroke="#e91e63"/>
+    <text x="540" y="88" text-anchor="middle" font-size="10" font-weight="700">Op6</text>
+    <text x="540" y="102" text-anchor="middle" font-size="9">Vac Ret</text>
+
+    <rect x="592" y="72" width="88" height="40" rx="6" fill="#80cbc4" stroke="#00897b"/>
+    <text x="636" y="88" text-anchor="middle" font-size="10" font-weight="700">Op7</text>
+    <text x="636" y="102" text-anchor="middle" font-size="9">Recovery</text>
+  </g>
+
+  <g stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)">
+    <line x1="104" y1="92" x2="110" y2="92"/>
+    <line x1="200" y1="92" x2="206" y2="92"/>
+    <line x1="296" y1="92" x2="302" y2="92"/>
+    <line x1="392" y1="92" x2="398" y2="92"/>
+    <line x1="488" y1="92" x2="494" y2="92"/>
+    <line x1="584" y1="92" x2="590" y2="92"/>
+  </g>
+
+  <rect x="16" y="128" width="768" height="28" rx="4" fill="#e8f5ee" stroke="#1b7a4e" stroke-dasharray="4"/>
+  <text x="400" y="147" text-anchor="middle" font-size="11" fill="#0d3d28">* Op2 เริ่มบันทึก ADC + BME280 — ต่อเนื่องจน Op7</text>
+  <text x="696" y="88" font-size="10" fill="#c0392b" font-weight="600">Heater ON</text>
+  <text x="696" y="102" font-size="9" fill="#7f8c8d">ตลอด Op1–Op7</text>
+
+  <rect x="280" y="175" width="240" height="48" rx="8" fill="#fff" stroke="#1b7a4e" filter="url(#sh)"/>
+  <text x="400" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#0d3d28">ประมวลผล CSV + ppm</text>
+  <text x="400" y="212" text-anchor="middle" font-size="10" fill="#5c6b7a">predict_methane</text>
+  <line x1="400" y1="112" x2="400" y2="173" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="320" y="248" width="160" height="40" rx="6" fill="#ffcdd2" stroke="#c62828" filter="url(#sh)"/>
+  <text x="400" y="264" text-anchor="middle" font-size="11" font-weight="700">Break</text>
+  <text x="400" y="278" text-anchor="middle" font-size="9" fill="#555">Heater ON · อื่น OFF</text>
+  <line x1="400" y1="223" x2="400" y2="246" stroke="#2c3e50" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <path d="M 400 288 L 400 318 L 60 318 L 60 112" fill="none" stroke="#9b59b6" stroke-width="1.5" stroke-dasharray="5" marker-end="url(#arr)"/>
+  <text x="200" y="336" font-size="10" fill="#8e44ad">Loop (Infinite / Cycles)</text>
+
+  <rect x="560" y="248" width="72" height="36" rx="6" fill="#ffcdd2" stroke="#c0392b"/>
+  <text x="596" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Stop</text>
+
+  <text x="16" y="370" font-size="11" font-weight="600" fill="#2c3e50">Relay (นอกจาก Heater):</text>
+  <text x="16" y="388" font-size="9.5" fill="#5c6b7a">Op2 V2,V3,Pump · Op3 V3,Pump · Op4 Fan · Op5 V1,V4,Pump · Op6 V4,Pump · Op7 V2,V3</text>
+  <text x="16" y="404" font-size="9" fill="#95a5a6">อ้างอิง AUTO_OPERATION_STEPS ใน program/gui.py</text>
+</svg>
