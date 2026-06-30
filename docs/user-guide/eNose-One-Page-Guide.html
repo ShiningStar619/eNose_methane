@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>eNose Methane — One Page User Guide</title>
+<style>
+  :root {
+    --ink: #16242f;
+    --soft: #46586a;
+    --line: #d6e0db;
+    --navy: #0a2e3a;
+    --navy2: #134b5f;
+    --green: #1a8f55;
+    --green-d: #0d5c38;
+    --amber: #e3742a;
+    --amber-d: #c25a18;
+    --chip: #eef4f1;
+    --page-bg: #e9edeb;
+    --mono: Consolas, "Cascadia Code", monospace;
+    --font: "Segoe UI", "Leelawadee UI", "Tahoma", "Noto Sans Thai", sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--page-bg);
+    color: var(--ink);
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    line-height: 1.42;
+  }
+
+  /* A4 page */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    padding: 0 0 12mm;
+    position: relative;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    background:
+      radial-gradient(circle at 88% 20%, rgba(255,255,255,.10), transparent 45%),
+      linear-gradient(120deg, var(--navy) 0%, var(--navy2) 70%, #1a6b78 100%);
+    color: #fff;
+    padding: 9mm 10mm 8mm;
+    display: grid;
+    grid-template-columns: 1fr 38mm;
+    gap: 6mm;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.04;
+    text-shadow: 0 2px 6px rgba(0,0,0,.25);
+  }
+
+  .hero h1 span { color: #6fe0a6; }
+
+  .hero .tag {
+    margin-top: 5px;
+    font-size: 10.5px;
+    opacity: .9;
+    font-weight: 500;
+    max-width: 105mm;
+  }
+
+  .hero .badge {
+    border: 1.5px solid rgba(255,255,255,.45);
+    border-radius: 10px;
+    padding: 6px 8px;
+    text-align: center;
+    backdrop-filter: blur(2px);
+    background: rgba(255,255,255,.07);
+  }
+  .hero .badge .big { font-size: 22px; font-weight: 800; color: #6fe0a6; }
+  .hero .badge .sm { font-size: 8.5px; letter-spacing: .5px; opacity: .85; text-transform: uppercase; }
+
+  /* intro strip */
+  .intro {
+    background: var(--chip);
+    border-left: 4px solid var(--green);
+    margin: 0 10mm;
+    margin-top: 6mm;
+    padding: 6px 10px;
+    font-size: 10px;
+    color: var(--soft);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .section-title {
+    margin: 7mm 10mm 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .section-title::before {
+    content: "";
+    width: 14px; height: 14px;
+    background: var(--amber);
+    border-radius: 3px;
+    transform: rotate(45deg);
+  }
+
+  /* ===== Body grid ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+    padding: 5mm 10mm 0;
+  }
+
+  .card { break-inside: avoid; margin-bottom: 4mm; }
+
+  .head {
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .head .n {
+    background: rgba(255,255,255,.25);
+    border-radius: 50%;
+    width: 15px; height: 15px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 9px;
+  }
+  .head.green { background: linear-gradient(90deg, var(--green-d), var(--green)); }
+  .head.amber { background: linear-gradient(90deg, var(--amber-d), var(--amber)); }
+  .head.navy  { background: linear-gradient(90deg, var(--navy), var(--navy2)); }
+
+  .body {
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  /* key rows */
+  .krow { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  .key {
+    font-family: var(--mono);
+    font-weight: 700;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 9px;
+    min-width: 30px;
+    text-align: center;
+  }
+  .key.g { background: var(--green); }
+  .dash { color: var(--amber); font-weight: 800; }
+  .krow .lbl { color: var(--soft); }
+
+  ul.tick { list-style: none; }
+  ul.tick li { position: relative; padding-left: 15px; margin: 3px 0; }
+  ul.tick li::before {
+    content: "›";
+    position: absolute; left: 2px; top: -1px;
+    color: var(--green); font-weight: 800; font-size: 13px;
+  }
+
+  .steps { counter-reset: s; list-style: none; }
+  .steps li {
+    position: relative;
+    padding-left: 22px;
+    margin: 5px 0;
+  }
+  .steps li::before {
+    counter-increment: s;
+    content: counter(s);
+    position: absolute; left: 0; top: 0;
+    width: 15px; height: 15px;
+    background: var(--green);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 9px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9px; }
+  th {
+    background: var(--navy);
+    color: #fff;
+    text-align: left;
+    padding: 3px 5px;
+    font-weight: 700;
+  }
+  td { padding: 3px 5px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:nth-child(even) td { background: #f6f9f7; }
+  .op { font-weight: 800; color: var(--green-d); white-space: nowrap; }
+  .rec { color: var(--amber-d); font-weight: 700; }
+
+  .pill {
+    display: inline-block;
+    background: var(--chip);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1px 8px;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--green-d);
+    margin: 1px 2px 1px 0;
+  }
+
+  code, .cmd {
+    font-family: var(--mono);
+    background: #111b28;
+    color: #8be0b0;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 9px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ภาพหน้าจอ — แถบเต็มความกว้างหน้า (ไม่อยู่ในคอลัมน์แคบ) */
+  .shots-band {
+    grid-column: 1 / -1;
+    margin-top: 2mm;
+    padding-top: 4mm;
+    border-top: 1px dashed var(--line);
+  }
+
+  .shots-band .shots-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 4mm;
+    letter-spacing: .3px;
+  }
+
+  .shot {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    display: block;
+    object-fit: contain;
+    background: #f7faf9;
+  }
+
+  .shot + .shot { margin-top: 4mm; }
+
+  .shot figcaption {
+    margin-top: 3px;
+    font-size: 8.5px;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  figure.shot-wrap {
+    margin: 0;
+    break-inside: avoid;
+  }
+
+  b { color: var(--ink); }
+  .muted { color: var(--muted, #6b7c8d); }
+
+  .footer {
+    margin: 6mm 10mm 0;
+    border-top: 2px solid var(--navy);
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5px;
+    color: var(--soft);
+  }
+  .footer .brand { font-weight: 800; color: var(--navy); }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; width: 210mm; min-height: auto; }
+    .shot { max-height: none; }
+    figure.shot-wrap { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div>
+      <h1>One Page User Guide<br><span>eNose Methane</span> Manual</h1>
+      <p class="tag">คู่มือสรุปการใช้งานโปรแกรม <b style="color:#fff">eNose Hardware Control</b> บน Raspberry Pi — วัดความเข้มข้นก๊าซมีเทนและอ่านค่า ppm ในหน้าเดียว</p>
+    </div>
+    <div class="badge">
+      <div class="big">7</div>
+      <div class="sm">Auto Steps</div>
+    </div>
+  </div>
+
+  <div class="intro">
+    เอกสารหนึ่งหน้านี้ครอบคลุมหลักการทำงาน ขั้นตอนการวัดแบบ Auto โครงสร้างหน้าจอ การตั้งค่า และการแก้ปัญหาเบื้องต้น
+  </div>
+
+  <div class="section-title">eNose Hardware Control — User Guide</div>
+
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div class="col">
+
+      <div class="card">
+        <div class="head green"><span class="n">1</span> ระบบทำงานอย่างไร</div>
+        <div class="body">
+          <ol class="steps">
+            <li><b>ควบคุม hardware</b> — เปิด/ปิดวาล์ว ปั๊ม พัดลม ฮีตเตอร์ ตามลำดับ</li>
+            <li><b>บันทึกสัญญาณ</b> — อ่านค่าเซ็นเซอร์ผ่าน ADC ช่วง Baseline→Recovery</li>
+            <li><b>ประมวลผล</b> — แปลงข้อมูลดิบเป็น CSV และสกัด feature</li>
+            <li><b>ประเมินผล</b> — โมเดล ML คำนวณค่า ppm แล้วแสดงบนจอ</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head navy"><span class="n">2</span> เริ่มต้นใช้งาน</div>
+        <div class="body">
+          <ul class="tick">
+            <li>เปิด Raspberry Pi + ต่อจอ หรือเชื่อม <b>VNC</b> ไป Desktop</li>
+            <li>หน้าต่าง GUI ต้องเปิดอยู่ (รันบน Desktop ของ Pi เท่านั้น)</li>
+          </ul>
+          <div class="krow" style="margin-top:5px"><span class="lbl">เปิด GUI ด้วยคำสั่ง:</span></div>
+          <span class="cmd">cd ~/eNose_methane &amp;&amp; bash program/run_gui.sh</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head green"><span class="n">3</span> โครงสร้างหน้าจอ</div>
+        <div class="body">
+          <div class="krow"><span class="key g">Control</span><span class="lbl">เลือกโหมด เริ่ม/หยุด ดูสถานะ และค่า ppm</span></div>
+          <div class="krow"><span class="key g">Display</span><span class="lbl">กราฟ Process Data — กด Refresh หลังจบรอบ</span></div>
+          <div class="krow"><span class="key g">Settings</span><span class="lbl">ตั้งเวลา Op1–Op7, Break, Loop, Cloud</span></div>
+          <div class="krow" style="margin-top:4px">
+            <span class="key">F11</span><span class="dash">—</span><span class="lbl">เต็มจอ</span>
+            <span class="key">ESC</span><span class="dash">—</span><span class="lbl">ออกเต็มจอ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head amber"><span class="n">4</span> โหมด Manual</div>
+        <div class="body">
+          <span class="lbl">ใช้ทดสอบ hardware เท่านั้น (งานวัดทั่วไปใช้ Auto)</span>
+          <ol class="steps" style="margin-top:4px">
+            <li>หน้า <b>Control</b> → กด <b>Manual</b></li>
+            <li>คลิก Hardware Controls หรือติ๊ก Use Timer</li>
+            <li>กด <b>Start Collection</b> → กด <b>Stop</b> เมื่อเสร็จ</li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col">
+
+      <div class="card">
+        <div class="head amber"><span class="n">5</span> ขั้นตอนการวัด (Auto)</div>
+        <div class="body">
+          <ol class="steps">
+            <li>หน้า <b>Control</b> → เลือก <b>Auto</b></li>
+            <li>หน้า <b>Settings</b> → ตั้งเวลา → <b>Save Config</b></li>
+            <li>กลับ Control → <b>Start Auto Sequence</b></li>
+            <li>รอจน Op1–Op7 ครบ → อ่านค่า <b>Methane (ppm)</b></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head navy"><span class="n">6</span> ลำดับ Op1–Op7</div>
+        <div class="body" style="padding:0">
+          <table>
+            <tr><th>ขั้น</th><th>อุปกรณ์ที่เปิด (+Heater)</th><th>บันทึก</th></tr>
+            <tr><td class="op">Op1 Heat</td><td>—</td><td>—</td></tr>
+            <tr><td class="op">Op2 Baseline</td><td>V2, V3, Pump</td><td class="rec">เริ่ม</td></tr>
+            <tr><td class="op">Op3 Vacuum</td><td>V3, Pump</td><td>ต่อ</td></tr>
+            <tr><td class="op">Op4 Mix Air</td><td>Fan</td><td>ต่อ</td></tr>
+            <tr><td class="op">Op5 Measure</td><td>V1, V4, Pump</td><td>ต่อ</td></tr>
+            <tr><td class="op">Op6 Vac Ret</td><td>V4, Pump</td><td>ต่อ</td></tr>
+            <tr><td class="op">Op7 Recovery</td><td>V2, V3</td><td class="rec">→ ประมวลผล</td></tr>
+          </table>
+          <div style="padding:6px 9px;font-size:8.5px;color:var(--soft)">
+            <b>Heater</b> เปิดตลอด Op1–Op7 · หน่วยเวลา = วินาที · ใส่ <b>0</b> เพื่อข้ามขั้น
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head green"><span class="n">7</span> การตั้งค่าสำคัญ</div>
+        <div class="body">
+          <div class="krow"><span class="pill">Break</span><span class="lbl">พักหลังจบรอบ — Heater เปิด, วาล์ว/ปั๊ม/พัดลมปิด</span></div>
+          <div class="krow"><span class="pill">Loop</span><span class="lbl">Infinite = วนจนกด Stop · ปิด = ใช้ Cycles</span></div>
+          <div class="krow"><span class="pill">Cloud</span><span class="lbl">Auto-upload ไป Drive · <code style="display:inline;background:none;color:var(--amber-d);padding:0">Cloud: —</code> = ยังไม่ตั้งค่า</span></div>
+          <div style="margin-top:4px;font-size:8.5px;color:var(--soft)">ไฟล์ผล: <b>.npz</b> → <code style="display:inline;background:none;color:var(--green-d);padding:0">reading/data/</code> · <b>.csv</b> → <code style="display:inline;background:none;color:var(--green-d);padding:0">acquisition/processed_data/</code></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head amber"><span class="n">8</span> แก้ปัญหาเบื้องต้น</div>
+        <div class="body" style="padding:0">
+          <table>
+            <tr><th>อาการ</th><th>วิธีแก้</th></tr>
+            <tr><td>GUI ไม่เปิด</td><td>ใช้จอ Pi/VNC → รัน run_gui.sh</td></tr>
+            <tr><td>ppm = <b>----</b></td><td>รอครบ Op1–Op7 · เช็ก CSV</td></tr>
+            <tr><td>กราฟไม่ขึ้น</td><td>กด Refresh · ติดตั้ง matplotlib</td></tr>
+            <tr><td>ลำดับค้าง</td><td>Heating นาน — ดูตัวนับ · กด Stop</td></tr>
+            <tr><td>ไม่มีไฟล์</td><td>ต้องกด Start · อย่าปิด Pi ก่อน Stop</td></tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="shots-band">
+      <div class="shots-title">ภาพหน้าจอ (ขนาดเต็มความกว้าง — อ่านรายละเอียดได้ชัด)</div>
+      <figure class="shot-wrap">
+        <img class="shot" src="assets/screenshots/02-control-overview.png" alt="หน้า Control — โหมด Auto" />
+        <figcaption>หน้า Control — เลือกโหมด เริ่ม/หยุด และดูค่า ppm</figcaption>
+      </figure>
+      <figure class="shot-wrap">
+        <img class="shot" src="assets/screenshots/08-sequence-running.png" alt="ระหว่างวัด Auto Sequence" />
+        <figcaption>ระหว่างวัด — Operation Sequence และตัวนับเวลา</figcaption>
+      </figure>
+      <figure class="shot-wrap">
+        <img class="shot" src="assets/screenshots/10-display-graph.png" alt="หน้า Display — กราฟ Process Data" />
+        <figcaption>หน้า Display — กราฟ Process Data (กด Refresh หลังจบรอบ)</figcaption>
+      </figure>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="brand">eNose Methane</span>
+    <span>Electronic Nose · GUI บน Raspberry Pi</span>
+    <span>ppm = ค่าประมาณจากโมเดล ML (ไม่ใช่ค่าอ้างอิงความเข้มข้นมาตรฐานได้)</span>
+  </div>
+
+</div>
+</body>
+</html>

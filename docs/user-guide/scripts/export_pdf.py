@@ -7,6 +7,7 @@ Usage from repo root:
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -49,6 +50,8 @@ def export_html(pandoc: str) -> None:
     if not SOURCE.is_file():
         raise SystemExit(f"Missing {SOURCE}")
     css = GUIDE / "assets" / "style.css"
+    header = GUIDE / "assets" / "doc-header.html"
+    cover = GUIDE / "assets" / "doc-cover.html"
     cmd = [
         pandoc,
         str(SOURCE),
@@ -61,18 +64,50 @@ def export_html(pandoc: str) -> None:
         "--standalone",
         "--embed-resources",
         "--toc",
-        "--toc-depth=2",
+        "--toc-depth=2",  # sections are ## (h2); depth=1 omits them → empty TOC
         "-V",
         "lang=th",
         "--metadata",
         "title=eNose Methane — คู่มือผู้ใช้",
         "--metadata",
         "subtitle=Electronic Nose · GUI บน Raspberry Pi",
+        "--metadata",
+        "toc-title=สารบัญ",
     ]
+    if header.is_file():
+        cmd.extend(["--include-in-header", str(header)])
+    if cover.is_file():
+        cmd.extend(["--include-before-body", str(cover)])
     if css.exists():
         cmd.extend(["--css", str(css)])
     subprocess.run(cmd, check=True, cwd=GUIDE)
+    polish_html()
     print(f"HTML: {HTML_OUT}")
+
+
+def polish_html() -> None:
+    """Wrap TOC+body in one sheet; tag lead paragraph and callout variants."""
+    html = HTML_OUT.read_text(encoding="utf-8")
+    if 'class="doc-sheet"' not in html and '<nav id="TOC"' in html:
+        html = html.replace(
+            "<nav id=\"TOC\"",
+            "<div class=\"doc-sheet\">\n<nav id=\"TOC\"",
+            1,
+        )
+        html = html.replace("</body>", "</div>\n</body>", 1)
+    if 'class="doc-lead"' not in html:
+        html = html.replace("</nav>\n<p>", '</nav>\n<p class="doc-lead">', 1)
+    html = re.sub(
+        r"<blockquote>\s*<p><strong>สำคัญ:</strong>",
+        '<blockquote class="callout-important"><p><strong>สำคัญ:</strong>',
+        html,
+    )
+    html = re.sub(
+        r"<blockquote>\s*<p><strong>หมายเหตุ:</strong>",
+        '<blockquote class="callout-note"><p><strong>หมายเหตุ:</strong>',
+        html,
+    )
+    HTML_OUT.write_text(html, encoding="utf-8")
 
 
 def export_pdf_chromium() -> bool:

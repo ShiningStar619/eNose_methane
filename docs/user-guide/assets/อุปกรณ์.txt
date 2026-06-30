@@ -1,0 +1,14 @@
+Raspberry pi 5 *1
+ads1263 *1
+จอ touch screen 7 นิ้ว *1
+relay switch 8 channel *1
+Solenoid Valve *4 
+Pump 12V *1
+battery 3.7v 10000mA *1
+charger *1
+BME280 *1
+Gas sensor TGS2612 *2 *1
+Gas sensor TGS2612 (filter) *2 *1
+filter chamber (carbon) *1
+filter chamber (hepa) *1
+infineon system  *1
