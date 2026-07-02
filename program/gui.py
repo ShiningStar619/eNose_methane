@@ -246,9 +246,9 @@ class HardwareControlGUI:
         self.root.configure(bg='#f0f0f0')
         self.root.resizable(True, True)
         
-        # Maximized window (เต็มจอ แต่ยังมีปุ่ม minimize/maximize/close)
-        self.is_maximized = True
-        self._maximize()
+        # Fixed window size 480x800 (portrait)
+        self.is_maximized = False
+        self.root.geometry("480x800")
         self.root.update_idletasks()
         screen_w = self.root.winfo_width()
         screen_h = self.root.winfo_height()
@@ -367,13 +367,13 @@ class HardwareControlGUI:
             self._maximize()
         else:
             self._unmaximize()
-            self.root.geometry("1024x600")
+            self.root.geometry("480x800")
     
     def exit_maximized(self, event=None):
         """Exit maximized mode"""
         self.is_maximized = False
         self._unmaximize()
-        self.root.geometry("1024x600")
+        self.root.geometry("480x800")
     
     def on_window_resize(self, event):
         """Handle window resize event"""

@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "docs" / "user-guide" / "assets" / "screenshots"
 DEMO_CSV = ROOT / "acquisition" / "processed_data" / "adc1263_demo_capture.csv"
 
+# Native Pi touchscreen size (portrait) — matches HardwareControlGUI default geometry
+WIN_SIZE = "480x800"
+
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "program"))
 os.chdir(ROOT)
@@ -91,7 +94,7 @@ def main() -> None:
 
     root = tk.Tk()
     root.title("eNose Hardware Control")
-    root.geometry("1320x920")
+    root.geometry(WIN_SIZE)
 
     app = HardwareControlGUI(root)
     root.update_idletasks()
@@ -122,7 +125,7 @@ def main() -> None:
         ("01-pi-desktop-gui.png", lambda: (app.show_page("control"), app.set_mode("auto")), None),
         ("02-control-overview.png", lambda: (app.show_page("control"), app.set_mode("auto")), None),
         ("03-select-auto.png", lambda: (app.show_page("control"), app.set_mode("auto")), grab_mode_row),
-        ("04-settings-full.png", lambda: (root.geometry("1320x980"), app.show_page("settings")), None),
+        ("04-settings-full.png", lambda: (root.geometry(WIN_SIZE), app.show_page("settings")), None),
         ("05-operation-times.png", lambda: app.show_page("settings"), grab_op_times),
         ("06-save-config.png", lambda: app.show_page("settings"), grab_save_btn),
         ("07-start-auto.png", lambda: (app.show_page("control"), app.set_mode("auto")), lambda: _grab_widget(app.start_btn, 36)),
@@ -139,12 +142,12 @@ def main() -> None:
             app._set_methane_ppm_readout("12.45"),
         ), None),
         ("10-display-graph.png", lambda: (
-            root.geometry("1320x920"),
+            root.geometry(WIN_SIZE),
             app.show_page("display"),
             app._plot_process_data() if hasattr(app, "_plot_process_data") else None,
         ), None),
         ("11-loop-settings.png", lambda: (
-            root.geometry("1320x980"),
+            root.geometry(WIN_SIZE),
             app.show_page("settings"),
             app.infinite_loop.set(False),
             app.loop_count.set("3"),

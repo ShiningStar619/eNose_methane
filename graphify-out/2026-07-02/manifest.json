@@ -1,0 +1,322 @@
+{
+  "BuildML_PC/train/models/methane_linreg_metrics.json": {
+    "mtime": 1780862992.0,
+    "ast_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe",
+    "semantic_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe"
+  },
+  "acquisition/acquisiton.py": {
+    "mtime": 1778308917.888,
+    "ast_hash": "ab9dea411cca58eb4669ca52a5fbd56a",
+    "semantic_hash": "ab9dea411cca58eb4669ca52a5fbd56a"
+  },
+  "cloud/__init__.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "c26bd66d73b324a352c1a2ebc6845db5",
+    "semantic_hash": "c26bd66d73b324a352c1a2ebc6845db5"
+  },
+  "cloud/config.py": {
+    "mtime": 1779114804.605,
+    "ast_hash": "e141dbe6d528cdedf7c8478c74863607",
+    "semantic_hash": "e141dbe6d528cdedf7c8478c74863607"
+  },
+  "cloud/providers/__init__.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "7d8994301e419a2e91ec073c79902d20",
+    "semantic_hash": "7d8994301e419a2e91ec073c79902d20"
+  },
+  "cloud/providers/base.py": {
+    "mtime": 1778473916.22,
+    "ast_hash": "72a748670be21901a4d2f882ed301bc2",
+    "semantic_hash": "72a748670be21901a4d2f882ed301bc2"
+  },
+  "cloud/providers/gdrive.py": {
+    "mtime": 1779114804.619,
+    "ast_hash": "c3541ab9f9c4322b7ea680ed04b12661",
+    "semantic_hash": "c3541ab9f9c4322b7ea680ed04b12661"
+  },
+  "cloud/queue.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "fbac647d9407472ee75afc9bd937e638",
+    "semantic_hash": "fbac647d9407472ee75afc9bd937e638"
+  },
+  "cloud/uploader.py": {
+    "mtime": 1778473916.214,
+    "ast_hash": "1228da378dff9b7b677dd573d2fae9df",
+    "semantic_hash": "1228da378dff9b7b677dd573d2fae9df"
+  },
+  "docs/user-guide/scripts/capture_gui_screenshots.py": {
+    "mtime": 1782571235.165,
+    "ast_hash": "1cbeb58544f505b2efcb47195784c968",
+    "semantic_hash": "1cbeb58544f505b2efcb47195784c968"
+  },
+  "docs/user-guide/scripts/export_pdf.ps1": {
+    "mtime": 1782571234.721,
+    "ast_hash": "4abf19a1e65af2db7345a8f94531358c",
+    "semantic_hash": "4abf19a1e65af2db7345a8f94531358c"
+  },
+  "docs/user-guide/scripts/export_pdf.py": {
+    "mtime": 1782571234.62,
+    "ast_hash": "12dccddcdbf6178ca787ff45183adf21",
+    "semantic_hash": "12dccddcdbf6178ca787ff45183adf21"
+  },
+  "docs/user-guide/scripts/generate_placeholders.py": {
+    "mtime": 1782571235.17,
+    "ast_hash": "18f527a57e5efca5391b2da6dc90448c",
+    "semantic_hash": "18f527a57e5efca5391b2da6dc90448c"
+  },
+  "hardware_control/__init__.py": {
+    "mtime": 1771399278.558,
+    "ast_hash": "c71435604cde5e7b594d83b8fb6ede38",
+    "semantic_hash": "c71435604cde5e7b594d83b8fb6ede38"
+  },
+  "hardware_control/hardware.py": {
+    "mtime": 1779259166.923,
+    "ast_hash": "f6b1ea46c53f290c2469dba16e295615",
+    "semantic_hash": "f6b1ea46c53f290c2469dba16e295615"
+  },
+  "models/methane_linreg_metrics.json": {
+    "mtime": 1781164426.0,
+    "ast_hash": "9bc8bee1673c0fd9e4e5e18d1dbb8dc4",
+    "semantic_hash": "9bc8bee1673c0fd9e4e5e18d1dbb8dc4"
+  },
+  "predict_methane.py": {
+    "mtime": 1782574808.038,
+    "ast_hash": "795c4d7ac4722796da2f537c65b9ed42",
+    "semantic_hash": "795c4d7ac4722796da2f537c65b9ed42"
+  },
+  "program/cloud_config.example.json": {
+    "mtime": 1778473916.219,
+    "ast_hash": "2b16ac6d92afac7f90f2d2cee02c33d1",
+    "semantic_hash": "2b16ac6d92afac7f90f2d2cee02c33d1"
+  },
+  "program/gui.py": {
+    "mtime": 1781518216.482,
+    "ast_hash": "c2b0a70ddd0255dbe5c7930e812ab96a",
+    "semantic_hash": "c2b0a70ddd0255dbe5c7930e812ab96a"
+  },
+  "program/hardware_config.json": {
+    "mtime": 1781518216.472,
+    "ast_hash": "80a4598b4a971294d7c238d530b859bc",
+    "semantic_hash": "80a4598b4a971294d7c238d530b859bc"
+  },
+  "program/install_autostart.sh": {
+    "mtime": 1779261582.353,
+    "ast_hash": "3881e1f0538aff310074a467d7794abc",
+    "semantic_hash": "3881e1f0538aff310074a467d7794abc"
+  },
+  "program/install_xdg_autostart.sh": {
+    "mtime": 1779261582.353,
+    "ast_hash": "fdaae24eb9d6ec7e90158da1383b245c",
+    "semantic_hash": "fdaae24eb9d6ec7e90158da1383b245c"
+  },
+  "program/run_gui.sh": {
+    "mtime": 1779261582.354,
+    "ast_hash": "b6d180074bf723e435868e0479f01c2f",
+    "semantic_hash": "b6d180074bf723e435868e0479f01c2f"
+  },
+  "reading/ADS1263.py": {
+    "mtime": 1771399278.575,
+    "ast_hash": "8f49a4c7325c18cf5d8f06d3754d45d1",
+    "semantic_hash": "8f49a4c7325c18cf5d8f06d3754d45d1"
+  },
+  "reading/__init__.py": {
+    "mtime": 1781518216.471,
+    "ast_hash": "a7fc2493cfde1f25db6b30dd4acedc46",
+    "semantic_hash": "a7fc2493cfde1f25db6b30dd4acedc46"
+  },
+  "reading/bme280.py": {
+    "mtime": 1781518216.468,
+    "ast_hash": "d517c093e13af1d2090a0ba4dc0b2df4",
+    "semantic_hash": "d517c093e13af1d2090a0ba4dc0b2df4"
+  },
+  "reading/config.py": {
+    "mtime": 1779114804.674,
+    "ast_hash": "36a61e13372da15141084d4a3540ea17",
+    "semantic_hash": "36a61e13372da15141084d4a3540ea17"
+  },
+  "reading/covert.py": {
+    "mtime": 1771399278.577,
+    "ast_hash": "63bfafb092530eeaafd4050f5edd5efe",
+    "semantic_hash": "63bfafb092530eeaafd4050f5edd5efe"
+  },
+  "reading/main.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "a2e5051948b355f417c6fc1498614f33",
+    "semantic_hash": "a2e5051948b355f417c6fc1498614f33"
+  },
+  "scripts/sync_to_pi.ps1": {
+    "mtime": 1780891992.575,
+    "ast_hash": "76b7a219586af94bc9d6eb9b6372f999",
+    "semantic_hash": "76b7a219586af94bc9d6eb9b6372f999"
+  },
+  "scripts/sync_to_pi.sh": {
+    "mtime": 1780891992.575,
+    "ast_hash": "5d2c780fcfb228698304ef957fe39762",
+    "semantic_hash": "5d2c780fcfb228698304ef957fe39762"
+  },
+  "tests/test_cloud_gdrive_smoke.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "5743d14940a6ed8804ae73e14b450e5c",
+    "semantic_hash": "5743d14940a6ed8804ae73e14b450e5c"
+  },
+  "tests/test_cloud_queue.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "b57406dde545ee7003790d01bdb7b3ae",
+    "semantic_hash": "b57406dde545ee7003790d01bdb7b3ae"
+  },
+  "tests/test_cloud_uploader.py": {
+    "mtime": 1778473916.232,
+    "ast_hash": "0c4321e6cfaee5e04a33ef38dcd3313d",
+    "semantic_hash": "0c4321e6cfaee5e04a33ef38dcd3313d"
+  },
+  "README.md": {
+    "mtime": 1781518216.476,
+    "ast_hash": "cb075dc8710cb85bb7e26cae1ffea105",
+    "semantic_hash": "cb075dc8710cb85bb7e26cae1ffea105"
+  },
+  "docs/user-guide/README.md": {
+    "mtime": 1782571235.154,
+    "ast_hash": "38729164f9e35cd646a57ac985773904",
+    "semantic_hash": "38729164f9e35cd646a57ac985773904"
+  },
+  "docs/user-guide/assets/screenshots/SHOTLIST.md": {
+    "mtime": 1782571235.167,
+    "ast_hash": "e28e11f013d6aaab05292d63d6c5a9b6",
+    "semantic_hash": "e28e11f013d6aaab05292d63d6c5a9b6"
+  },
+  "docs/user-guide/eNose-User-Guide.html": {
+    "mtime": 1782562094.979,
+    "ast_hash": "36e11fb1ba4a11d79ae1787c2551d20a",
+    "semantic_hash": "36e11fb1ba4a11d79ae1787c2551d20a"
+  },
+  "docs/user-guide/eNose-User-Guide.md": {
+    "mtime": 1782571235.148,
+    "ast_hash": "0edebdc57e04d3af5dc2109fa445c629",
+    "semantic_hash": "0edebdc57e04d3af5dc2109fa445c629"
+  },
+  "predict_cell.txt": {
+    "mtime": 1780929452.361,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "program/AUTOSTART_SETUP.md": {
+    "mtime": 1781518216.472,
+    "ast_hash": "2c64e9c5bfda7b7d16402789287aa40c",
+    "semantic_hash": "2c64e9c5bfda7b7d16402789287aa40c"
+  },
+  "requirements-cloud.txt": {
+    "mtime": 1779114804.685,
+    "ast_hash": "2bbde708153f4b523f656ca372f183af",
+    "semantic_hash": "2bbde708153f4b523f656ca372f183af"
+  },
+  "requirements-pi-core.txt": {
+    "mtime": 1779257285.331,
+    "ast_hash": "72191f17387c5ba525b8416319daaede",
+    "semantic_hash": "72191f17387c5ba525b8416319daaede"
+  },
+  "requirements-pi-viz.txt": {
+    "mtime": 1779261434.695,
+    "ast_hash": "ae5a3f1ccfe6258ae9e618d1267f3016",
+    "semantic_hash": "ae5a3f1ccfe6258ae9e618d1267f3016"
+  },
+  "requirements-pi.txt": {
+    "mtime": 1779257287.42,
+    "ast_hash": "d9fe8765880d38110a11dd5123518057",
+    "semantic_hash": "d9fe8765880d38110a11dd5123518057"
+  },
+  "result2.txt": {
+    "mtime": 1780978949.902,
+    "ast_hash": "0451b833140b5e0b7ae05bb6fdd288a4",
+    "semantic_hash": "0451b833140b5e0b7ae05bb6fdd288a4"
+  },
+  "result_compare.txt": {
+    "mtime": 1780978929.573,
+    "ast_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e",
+    "semantic_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e"
+  },
+  "docs/user-guide/eNose-User-Guide.pdf": {
+    "mtime": 1782562097.67,
+    "ast_hash": "9ab7f6e81268d2842e5f7b6e57027b4c",
+    "semantic_hash": "9ab7f6e81268d2842e5f7b6e57027b4c"
+  },
+  "docs/assets/raspberry-pi-gpio-pinout.png": {
+    "mtime": 1778484720.081,
+    "ast_hash": "b507f62a1e124b6fe609dbb9cfda33c7",
+    "semantic_hash": "b507f62a1e124b6fe609dbb9cfda33c7"
+  },
+  "docs/user-guide/assets/diagrams/auto-sequence-flow.svg": {
+    "mtime": 1782571234.621,
+    "ast_hash": "e59062fea1508a2d806d94b8b6b09af4",
+    "semantic_hash": "e59062fea1508a2d806d94b8b6b09af4"
+  },
+  "docs/user-guide/assets/screenshots/01-pi-desktop-gui.png": {
+    "mtime": 1782554176.719,
+    "ast_hash": "78f59bd6fdf5ee5bfaa95903340f6c6a",
+    "semantic_hash": "78f59bd6fdf5ee5bfaa95903340f6c6a"
+  },
+  "docs/user-guide/assets/screenshots/02-control-overview.png": {
+    "mtime": 1782554177.484,
+    "ast_hash": "78f59bd6fdf5ee5bfaa95903340f6c6a",
+    "semantic_hash": "78f59bd6fdf5ee5bfaa95903340f6c6a"
+  },
+  "docs/user-guide/assets/screenshots/03-select-auto.png": {
+    "mtime": 1782554178.21,
+    "ast_hash": "6963a81d1cb749a8efaa13d7cef47df6",
+    "semantic_hash": "6963a81d1cb749a8efaa13d7cef47df6"
+  },
+  "docs/user-guide/assets/screenshots/04-settings-full.png": {
+    "mtime": 1782554179.078,
+    "ast_hash": "65db1e46c0571cfe75ebb987a52a21d4",
+    "semantic_hash": "65db1e46c0571cfe75ebb987a52a21d4"
+  },
+  "docs/user-guide/assets/screenshots/05-operation-times.png": {
+    "mtime": 1782554179.817,
+    "ast_hash": "3ecce0c6526e1d02e16a5f61f32341fb",
+    "semantic_hash": "3ecce0c6526e1d02e16a5f61f32341fb"
+  },
+  "docs/user-guide/assets/screenshots/06-save-config.png": {
+    "mtime": 1782554180.596,
+    "ast_hash": "65db1e46c0571cfe75ebb987a52a21d4",
+    "semantic_hash": "65db1e46c0571cfe75ebb987a52a21d4"
+  },
+  "docs/user-guide/assets/screenshots/07-start-auto.png": {
+    "mtime": 1782554181.388,
+    "ast_hash": "3c0d1e5154a352979236aaf95665f2b8",
+    "semantic_hash": "3c0d1e5154a352979236aaf95665f2b8"
+  },
+  "docs/user-guide/assets/screenshots/08-sequence-running.png": {
+    "mtime": 1782554182.162,
+    "ast_hash": "18048d475ef0352161f4483a6b2edad0",
+    "semantic_hash": "18048d475ef0352161f4483a6b2edad0"
+  },
+  "docs/user-guide/assets/screenshots/09-methane-result.png": {
+    "mtime": 1782554182.936,
+    "ast_hash": "05211d5c9c6a0b344046334d8b50bded",
+    "semantic_hash": "05211d5c9c6a0b344046334d8b50bded"
+  },
+  "docs/user-guide/assets/screenshots/10-display-graph.png": {
+    "mtime": 1782554184.046,
+    "ast_hash": "4269550cfa7c4e849ad11311189c67bc",
+    "semantic_hash": "4269550cfa7c4e849ad11311189c67bc"
+  },
+  "docs/user-guide/assets/screenshots/11-loop-settings.png": {
+    "mtime": 1782554184.842,
+    "ast_hash": "9e3908c3c2527cbacaa0f582f1411fa4",
+    "semantic_hash": "9e3908c3c2527cbacaa0f582f1411fa4"
+  },
+  "docs/user-guide/assets/screenshots/12-cloud-checkbox.png": {
+    "mtime": 1782554185.618,
+    "ast_hash": "9e3908c3c2527cbacaa0f582f1411fa4",
+    "semantic_hash": "9e3908c3c2527cbacaa0f582f1411fa4"
+  },
+  "docs/user-guide/assets/screenshots/13-manual-mode.png": {
+    "mtime": 1782554186.429,
+    "ast_hash": "b918d95bc484d7a06e77e12c9ae25bca",
+    "semantic_hash": "b918d95bc484d7a06e77e12c9ae25bca"
+  },
+  "docs/user-guide/assets/screenshots/14-stop-button.png": {
+    "mtime": 1782554187.151,
+    "ast_hash": "a031356481567e38405dc0d072812c73",
+    "semantic_hash": "a031356481567e38405dc0d072812c73"
+  }
+}
