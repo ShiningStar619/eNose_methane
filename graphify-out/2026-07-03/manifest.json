@@ -5,72 +5,72 @@
     "semantic_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe"
   },
   "acquisition/acquisiton.py": {
-    "mtime": 1778308917.8881168,
+    "mtime": 1778308917.888,
     "ast_hash": "ab9dea411cca58eb4669ca52a5fbd56a",
     "semantic_hash": "ab9dea411cca58eb4669ca52a5fbd56a"
   },
   "cloud/__init__.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "c26bd66d73b324a352c1a2ebc6845db5",
     "semantic_hash": "c26bd66d73b324a352c1a2ebc6845db5"
   },
   "cloud/config.py": {
-    "mtime": 1779114823.672,
+    "mtime": 1779114804.605,
     "ast_hash": "e141dbe6d528cdedf7c8478c74863607",
     "semantic_hash": "e141dbe6d528cdedf7c8478c74863607"
   },
   "cloud/providers/__init__.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "7d8994301e419a2e91ec073c79902d20",
     "semantic_hash": "7d8994301e419a2e91ec073c79902d20"
   },
   "cloud/providers/base.py": {
-    "mtime": 1778473916.2206292,
+    "mtime": 1778473916.22,
     "ast_hash": "72a748670be21901a4d2f882ed301bc2",
     "semantic_hash": "72a748670be21901a4d2f882ed301bc2"
   },
   "cloud/providers/gdrive.py": {
-    "mtime": 1779164866.2676916,
+    "mtime": 1779114804.619,
     "ast_hash": "c3541ab9f9c4322b7ea680ed04b12661",
     "semantic_hash": "c3541ab9f9c4322b7ea680ed04b12661"
   },
   "cloud/queue.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "fbac647d9407472ee75afc9bd937e638",
     "semantic_hash": "fbac647d9407472ee75afc9bd937e638"
   },
   "cloud/uploader.py": {
-    "mtime": 1778473916.2142355,
+    "mtime": 1778473916.214,
     "ast_hash": "1228da378dff9b7b677dd573d2fae9df",
     "semantic_hash": "1228da378dff9b7b677dd573d2fae9df"
   },
   "docs/user-guide/scripts/capture_gui_screenshots.py": {
-    "mtime": 1783028661.277,
-    "ast_hash": "705f468f8c137295d8a1d6faafe317dc",
-    "semantic_hash": "705f468f8c137295d8a1d6faafe317dc"
+    "mtime": 1782996323.886,
+    "ast_hash": "8657c7a93661e128029a5f32b5736b92",
+    "semantic_hash": ""
   },
   "docs/user-guide/scripts/export_pdf.ps1": {
-    "mtime": 1782571244.936,
+    "mtime": 1782571234.721,
     "ast_hash": "4abf19a1e65af2db7345a8f94531358c",
     "semantic_hash": "4abf19a1e65af2db7345a8f94531358c"
   },
   "docs/user-guide/scripts/export_pdf.py": {
-    "mtime": 1782995472.441,
+    "mtime": 1782995465.973,
     "ast_hash": "415482207e339323e125d3bc563dee3a",
-    "semantic_hash": "415482207e339323e125d3bc563dee3a"
+    "semantic_hash": ""
   },
   "docs/user-guide/scripts/generate_placeholders.py": {
-    "mtime": 1782571245.033,
+    "mtime": 1782571235.17,
     "ast_hash": "18f527a57e5efca5391b2da6dc90448c",
     "semantic_hash": "18f527a57e5efca5391b2da6dc90448c"
   },
   "hardware_control/__init__.py": {
-    "mtime": 1771399278.5581331,
+    "mtime": 1771399278.558,
     "ast_hash": "c71435604cde5e7b594d83b8fb6ede38",
     "semantic_hash": "c71435604cde5e7b594d83b8fb6ede38"
   },
   "hardware_control/hardware.py": {
-    "mtime": 1779259166.92358,
+    "mtime": 1779259166.923,
     "ast_hash": "f6b1ea46c53f290c2469dba16e295615",
     "semantic_hash": "f6b1ea46c53f290c2469dba16e295615"
   },
@@ -80,119 +80,119 @@
     "semantic_hash": "9bc8bee1673c0fd9e4e5e18d1dbb8dc4"
   },
   "predict_methane.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782995465.947,
     "ast_hash": "12f45f9343ee5b5abf13842523807b51",
-    "semantic_hash": "12f45f9343ee5b5abf13842523807b51"
+    "semantic_hash": ""
   },
   "program/cloud_config.example.json": {
-    "mtime": 1778473916.2192295,
+    "mtime": 1778473916.219,
     "ast_hash": "2b16ac6d92afac7f90f2d2cee02c33d1",
     "semantic_hash": "2b16ac6d92afac7f90f2d2cee02c33d1"
   },
   "program/gui.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782995458.918,
     "ast_hash": "61cd1768198bc428f8ac045814b7d0e0",
-    "semantic_hash": "61cd1768198bc428f8ac045814b7d0e0"
+    "semantic_hash": ""
   },
   "program/hardware_config.json": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782804497.328,
     "ast_hash": "80a4598b4a971294d7c238d530b859bc",
     "semantic_hash": "80a4598b4a971294d7c238d530b859bc"
   },
   "program/install_autostart.sh": {
-    "mtime": 1779261582.3538804,
+    "mtime": 1779261582.353,
     "ast_hash": "3881e1f0538aff310074a467d7794abc",
     "semantic_hash": "3881e1f0538aff310074a467d7794abc"
   },
   "program/install_xdg_autostart.sh": {
-    "mtime": 1779261582.3538804,
+    "mtime": 1779261582.353,
     "ast_hash": "fdaae24eb9d6ec7e90158da1383b245c",
     "semantic_hash": "fdaae24eb9d6ec7e90158da1383b245c"
   },
   "program/run_gui.sh": {
-    "mtime": 1779261582.35488,
+    "mtime": 1779261582.354,
     "ast_hash": "b6d180074bf723e435868e0479f01c2f",
     "semantic_hash": "b6d180074bf723e435868e0479f01c2f"
   },
   "reading/ADS1263.py": {
-    "mtime": 1771399278.5751886,
+    "mtime": 1771399278.575,
     "ast_hash": "8f49a4c7325c18cf5d8f06d3754d45d1",
     "semantic_hash": "8f49a4c7325c18cf5d8f06d3754d45d1"
   },
   "reading/__init__.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782804497.303,
     "ast_hash": "a7fc2493cfde1f25db6b30dd4acedc46",
     "semantic_hash": "a7fc2493cfde1f25db6b30dd4acedc46"
   },
   "reading/bme280.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782804497.302,
     "ast_hash": "d517c093e13af1d2090a0ba4dc0b2df4",
     "semantic_hash": "d517c093e13af1d2090a0ba4dc0b2df4"
   },
   "reading/config.py": {
-    "mtime": 1779164678.421608,
+    "mtime": 1779114804.674,
     "ast_hash": "36a61e13372da15141084d4a3540ea17",
     "semantic_hash": "36a61e13372da15141084d4a3540ea17"
   },
   "reading/covert.py": {
-    "mtime": 1771399278.5773635,
+    "mtime": 1771399278.577,
     "ast_hash": "63bfafb092530eeaafd4050f5edd5efe",
     "semantic_hash": "63bfafb092530eeaafd4050f5edd5efe"
   },
   "reading/main.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "a2e5051948b355f417c6fc1498614f33",
     "semantic_hash": "a2e5051948b355f417c6fc1498614f33"
   },
   "scripts/sync_to_pi.ps1": {
-    "mtime": 1780891992.5753655,
+    "mtime": 1780891992.575,
     "ast_hash": "76b7a219586af94bc9d6eb9b6372f999",
     "semantic_hash": "76b7a219586af94bc9d6eb9b6372f999"
   },
   "scripts/sync_to_pi.sh": {
-    "mtime": 1780891992.5753655,
+    "mtime": 1780891992.575,
     "ast_hash": "5d2c780fcfb228698304ef957fe39762",
     "semantic_hash": "5d2c780fcfb228698304ef957fe39762"
   },
   "tests/test_cloud_gdrive_smoke.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "5743d14940a6ed8804ae73e14b450e5c",
     "semantic_hash": "5743d14940a6ed8804ae73e14b450e5c"
   },
   "tests/test_cloud_queue.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "b57406dde545ee7003790d01bdb7b3ae",
     "semantic_hash": "b57406dde545ee7003790d01bdb7b3ae"
   },
   "tests/test_cloud_uploader.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "0c4321e6cfaee5e04a33ef38dcd3313d",
     "semantic_hash": "0c4321e6cfaee5e04a33ef38dcd3313d"
   },
   "README.md": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782804497.328,
     "ast_hash": "cb075dc8710cb85bb7e26cae1ffea105",
     "semantic_hash": "cb075dc8710cb85bb7e26cae1ffea105"
   },
   "docs/user-guide/README.md": {
-    "mtime": 1782571244.933,
+    "mtime": 1782571235.154,
     "ast_hash": "38729164f9e35cd646a57ac985773904",
     "semantic_hash": "38729164f9e35cd646a57ac985773904"
   },
   "docs/user-guide/assets/screenshots/SHOTLIST.md": {
-    "mtime": 1783028661.276,
-    "ast_hash": "e28e11f013d6aaab05292d63d6c5a9b6",
-    "semantic_hash": "e28e11f013d6aaab05292d63d6c5a9b6"
+    "mtime": 1782996356.475,
+    "ast_hash": "44d2a1ba987e168082e53c5b0adec55a",
+    "semantic_hash": ""
   },
   "docs/user-guide/eNose-User-Guide.html": {
-    "mtime": 1782997488.15,
-    "ast_hash": "6b1f1a4b60cdc07be3093354b0b45e59",
-    "semantic_hash": "6b1f1a4b60cdc07be3093354b0b45e59"
+    "mtime": 1782996358.469,
+    "ast_hash": "b903d2f0b7c6ebeffe1abeba2705ef2a",
+    "semantic_hash": ""
   },
   "docs/user-guide/eNose-User-Guide.md": {
-    "mtime": 1783028661.456,
-    "ast_hash": "486f1613ebed1f76dbe940c10d48f9a4",
-    "semantic_hash": "486f1613ebed1f76dbe940c10d48f9a4"
+    "mtime": 1782995466.062,
+    "ast_hash": "f91f31c2ad56ec0f0603a1f17d66801c",
+    "semantic_hash": ""
   },
   "predict_cell.txt": {
     "mtime": 1780929452.361,
@@ -200,368 +200,343 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "program/AUTOSTART_SETUP.md": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1782804497.328,
     "ast_hash": "2c64e9c5bfda7b7d16402789287aa40c",
     "semantic_hash": "2c64e9c5bfda7b7d16402789287aa40c"
   },
   "requirements-cloud.txt": {
-    "mtime": 1779114804.679,
+    "mtime": 1779114804.685,
     "ast_hash": "2bbde708153f4b523f656ca372f183af",
     "semantic_hash": "2bbde708153f4b523f656ca372f183af"
   },
   "requirements-pi-core.txt": {
-    "mtime": 1779257285.3313568,
+    "mtime": 1779257285.331,
     "ast_hash": "72191f17387c5ba525b8416319daaede",
     "semantic_hash": "72191f17387c5ba525b8416319daaede"
   },
   "requirements-pi-viz.txt": {
-    "mtime": 1779261434.6952078,
+    "mtime": 1779261434.695,
     "ast_hash": "ae5a3f1ccfe6258ae9e618d1267f3016",
     "semantic_hash": "ae5a3f1ccfe6258ae9e618d1267f3016"
   },
   "requirements-pi.txt": {
-    "mtime": 1779257287.4204533,
+    "mtime": 1779257287.42,
     "ast_hash": "d9fe8765880d38110a11dd5123518057",
     "semantic_hash": "d9fe8765880d38110a11dd5123518057"
   },
   "result2.txt": {
-    "mtime": 1780978949.9028552,
+    "mtime": 1780978949.902,
     "ast_hash": "0451b833140b5e0b7ae05bb6fdd288a4",
     "semantic_hash": "0451b833140b5e0b7ae05bb6fdd288a4"
   },
   "result_compare.txt": {
-    "mtime": 1780978929.5730715,
+    "mtime": 1780978929.573,
     "ast_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e",
     "semantic_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e"
   },
   "docs/user-guide/eNose-User-Guide.pdf": {
-    "mtime": 1782997492.91,
-    "ast_hash": "b8d83bda50c52580ca3d7cef613a8d99",
-    "semantic_hash": "b8d83bda50c52580ca3d7cef613a8d99"
+    "mtime": 1782996362.429,
+    "ast_hash": "6b294ac5781b3419124d6bf6e31943b0",
+    "semantic_hash": ""
   },
   "docs/assets/raspberry-pi-gpio-pinout.png": {
-    "mtime": 1778484720.0816238,
+    "mtime": 1778484720.081,
     "ast_hash": "b507f62a1e124b6fe609dbb9cfda33c7",
     "semantic_hash": "b507f62a1e124b6fe609dbb9cfda33c7"
   },
   "docs/user-guide/assets/diagrams/auto-sequence-flow.svg": {
-    "mtime": 1782571244.941,
+    "mtime": 1782571234.621,
     "ast_hash": "e59062fea1508a2d806d94b8b6b09af4",
     "semantic_hash": "e59062fea1508a2d806d94b8b6b09af4"
   },
   "docs/user-guide/assets/screenshots/01-pi-desktop-gui.png": {
-    "mtime": 1782996625.346,
-    "ast_hash": "ca66f67f4170caf0113a81c493ddb66a",
-    "semantic_hash": "ca66f67f4170caf0113a81c493ddb66a"
+    "mtime": 1782996335.419,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/02-control-overview.png": {
-    "mtime": 1782996625.492,
-    "ast_hash": "ca66f67f4170caf0113a81c493ddb66a",
-    "semantic_hash": "ca66f67f4170caf0113a81c493ddb66a"
+    "mtime": 1782996336.198,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/03-select-auto.png": {
-    "mtime": 1782996625.495,
-    "ast_hash": "5cb90894f67a822d8927c8b9ff54b7b2",
-    "semantic_hash": "5cb90894f67a822d8927c8b9ff54b7b2"
+    "mtime": 1782996336.923,
+    "ast_hash": "056e771c97484646c0ee93572019dce4",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/04-settings-full.png": {
-    "mtime": 1782996627.836,
-    "ast_hash": "cfac8232837c43060047eb01440496fc",
-    "semantic_hash": "cfac8232837c43060047eb01440496fc"
+    "mtime": 1782996337.747,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/05-operation-times.png": {
-    "mtime": 1782996628.18,
-    "ast_hash": "bd6af2c42f3985be76cbf5768006f67a",
-    "semantic_hash": "bd6af2c42f3985be76cbf5768006f67a"
+    "mtime": 1782996338.508,
+    "ast_hash": "b3aab1f31c13b348ae603600c08105e4",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/06-save-config.png": {
-    "mtime": 1782996628.127,
-    "ast_hash": "cfac8232837c43060047eb01440496fc",
-    "semantic_hash": "cfac8232837c43060047eb01440496fc"
+    "mtime": 1782996339.266,
+    "ast_hash": "e848fce0bc52dce7173af24b5f6cc130",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/07-start-auto.png": {
-    "mtime": 1782996629.772,
-    "ast_hash": "792082eac3fd24559cf5018e18cda36d",
-    "semantic_hash": "792082eac3fd24559cf5018e18cda36d"
+    "mtime": 1782996340.028,
+    "ast_hash": "599f355cdb17876d48bc0d266dbfd122",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/08-sequence-running.png": {
-    "mtime": 1782996629.71,
-    "ast_hash": "d5a96cf8ae365f946296208eeb140611",
-    "semantic_hash": "d5a96cf8ae365f946296208eeb140611"
+    "mtime": 1782996340.776,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/09-methane-result.png": {
-    "mtime": 1782996629.937,
-    "ast_hash": "199a1b05a553fa3ea0d2366a47df2c1a",
-    "semantic_hash": "199a1b05a553fa3ea0d2366a47df2c1a"
+    "mtime": 1782996341.496,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/10-display-graph.png": {
-    "mtime": 1782996630.716,
-    "ast_hash": "8f509b4b46f17be9a57b666b1a67201c",
-    "semantic_hash": "8f509b4b46f17be9a57b666b1a67201c"
+    "mtime": 1782996343.196,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/11-loop-settings.png": {
-    "mtime": 1782996631.879,
-    "ast_hash": "793ace67765174939e9977c783ea33c4",
-    "semantic_hash": "793ace67765174939e9977c783ea33c4"
+    "mtime": 1782996343.977,
+    "ast_hash": "7dcec3e483bf694efb023f763e21f843",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/12-cloud-checkbox.png": {
-    "mtime": 1782996632.275,
-    "ast_hash": "793ace67765174939e9977c783ea33c4",
-    "semantic_hash": "793ace67765174939e9977c783ea33c4"
+    "mtime": 1782996344.702,
+    "ast_hash": "d88912b73f9a5659f9769fbd506be7cd",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/13-manual-mode.png": {
-    "mtime": 1782996633.229,
-    "ast_hash": "5a632a9a4e08b4739e6a4d564a3178c0",
-    "semantic_hash": "5a632a9a4e08b4739e6a4d564a3178c0"
+    "mtime": 1782996345.449,
+    "ast_hash": "f362787d85db7ea5dfaf37ca721a43c8",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/screenshots/14-stop-button.png": {
-    "mtime": 1782996634.528,
-    "ast_hash": "324079a6b44d7401e16f84a48c11dc82",
-    "semantic_hash": "324079a6b44d7401e16f84a48c11dc82"
+    "mtime": 1782996346.225,
+    "ast_hash": "13f749af4a06350343bbb4a4ef6b6ae5",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/doc-cover.html": {
-    "mtime": 1783028661.48,
-    "ast_hash": "0f8b872b0f129c07f7f980e8bdfae925",
-    "semantic_hash": "0f8b872b0f129c07f7f980e8bdfae925"
+    "mtime": 1782996158.582,
+    "ast_hash": "9ddc324f641f60f885cb673e7a0079a1",
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/doc-header.html": {
-    "mtime": 1782995472.492,
+    "mtime": 1782995466.085,
     "ast_hash": "6c940410fadd03aed4b08685a648be52",
-    "semantic_hash": "6c940410fadd03aed4b08685a648be52"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c.txt": {
-    "mtime": 1782720318.1210968,
+    "mtime": 1782720318.121,
     "ast_hash": "99ac1ce5cc21f83d882526683ada9af0",
-    "semantic_hash": "99ac1ce5cc21f83d882526683ada9af0"
+    "semantic_hash": ""
   },
   "docs/user-guide/eNose-One-Page-Guide.html": {
-    "mtime": 1783050266.1558836,
+    "mtime": 1782995465.964,
     "ast_hash": "d5a6bcacc1ae244f2e52412bc2a09230",
-    "semantic_hash": "d5a6bcacc1ae244f2e52412bc2a09230"
+    "semantic_hash": ""
   },
   "docs/user-guide/eNose-One-Page-Guide.pdf": {
-    "mtime": 1782714677.800846,
+    "mtime": 1782714677.8,
     "ast_hash": "8051008e386adef6ffbf854a6c0d79c5",
-    "semantic_hash": "8051008e386adef6ffbf854a6c0d79c5"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/20260522_173305-Photoroom.png": {
-    "mtime": 1782703906.529,
+    "mtime": 1782703850.548,
     "ast_hash": "8c120919e6f15fd19306df98939afeb4",
-    "semantic_hash": "8c120919e6f15fd19306df98939afeb4"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260522_173305.jpg": {
     "mtime": 1781274022.957,
     "ast_hash": "1ff736bc71f94461def1aefe4d9639f0",
-    "semantic_hash": "1ff736bc71f94461def1aefe4d9639f0"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152432.jpg": {
     "mtime": 1782995951.443,
     "ast_hash": "1880dd0ba7bd8e0bcfb90e623fe37b46",
-    "semantic_hash": "1880dd0ba7bd8e0bcfb90e623fe37b46"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152433.jpg": {
     "mtime": 1782995951.502,
     "ast_hash": "ba28ea1e49c5000888443e1a588a58e6",
-    "semantic_hash": "ba28ea1e49c5000888443e1a588a58e6"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152436.jpg": {
     "mtime": 1782995951.387,
     "ast_hash": "75cad4df0a8048c6b73248e67dec7b44",
-    "semantic_hash": "75cad4df0a8048c6b73248e67dec7b44"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152437.jpg": {
     "mtime": 1782995951.333,
     "ast_hash": "16ba1aed3ee97bb0342fea344c183b18",
-    "semantic_hash": "16ba1aed3ee97bb0342fea344c183b18"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152442.jpg": {
     "mtime": 1782995951.247,
     "ast_hash": "5fabf7c3c1360330b3ec11d37ed6c652",
-    "semantic_hash": "5fabf7c3c1360330b3ec11d37ed6c652"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152443.jpg": {
     "mtime": 1782995951.177,
     "ast_hash": "934a3756d3b020bc0ff5a61393663ec2",
-    "semantic_hash": "934a3756d3b020bc0ff5a61393663ec2"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152447.jpg": {
     "mtime": 1782995951.092,
     "ast_hash": "2d490c32db18ad1c4a106c7e2459ad14",
-    "semantic_hash": "2d490c32db18ad1c4a106c7e2459ad14"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152453.jpg": {
     "mtime": 1782995951.137,
     "ast_hash": "9b26f796839b7e296e79be6467b52142",
-    "semantic_hash": "9b26f796839b7e296e79be6467b52142"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152454.jpg": {
     "mtime": 1782995950.961,
     "ast_hash": "f30211ccd2a5bb6f07a238dda8592587",
-    "semantic_hash": "f30211ccd2a5bb6f07a238dda8592587"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152456.jpg": {
     "mtime": 1782995950.832,
     "ast_hash": "a83c41a0d38fc1f3df10928143f413af",
-    "semantic_hash": "a83c41a0d38fc1f3df10928143f413af"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152457.jpg": {
     "mtime": 1782995951.023,
     "ast_hash": "6322c92de1137f29e311cd06045bc98c",
-    "semantic_hash": "6322c92de1137f29e311cd06045bc98c"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152533(0).jpg": {
     "mtime": 1782995950.769,
     "ast_hash": "20b96fb43fc856e4e36715a8229295cf",
-    "semantic_hash": "20b96fb43fc856e4e36715a8229295cf"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152533.jpg": {
     "mtime": 1782995950.909,
     "ast_hash": "d94a564c9914d0159d34e8a332fd4722",
-    "semantic_hash": "d94a564c9914d0159d34e8a332fd4722"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152534.jpg": {
     "mtime": 1782995950.705,
     "ast_hash": "6a3a3296ac5992ff4762f7055bc579ae",
-    "semantic_hash": "6a3a3296ac5992ff4762f7055bc579ae"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152539(0).jpg": {
     "mtime": 1782995950.548,
     "ast_hash": "48816913ef196082a90589197818f34b",
-    "semantic_hash": "48816913ef196082a90589197818f34b"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152539.jpg": {
     "mtime": 1782995950.644,
     "ast_hash": "19fe2a7b3b875644ec6501964500f8b1",
-    "semantic_hash": "19fe2a7b3b875644ec6501964500f8b1"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152542.jpg": {
     "mtime": 1782995950.481,
     "ast_hash": "dc52a49f94fc128761de7c6142f01999",
-    "semantic_hash": "dc52a49f94fc128761de7c6142f01999"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152543.jpg": {
     "mtime": 1782995950.422,
     "ast_hash": "bcfb0046eef82a1f0db0723ecfe6c192",
-    "semantic_hash": "bcfb0046eef82a1f0db0723ecfe6c192"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152546.jpg": {
     "mtime": 1782995950.355,
     "ast_hash": "51261773438886aa2f0cc7b2c528bbcd",
-    "semantic_hash": "51261773438886aa2f0cc7b2c528bbcd"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152609.jpg": {
     "mtime": 1782995950.299,
     "ast_hash": "99ebd68036a03343db83b9e265e6162f",
-    "semantic_hash": "99ebd68036a03343db83b9e265e6162f"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152610.jpg": {
     "mtime": 1782995950.235,
     "ast_hash": "935ca5db884234c57cb1f6718bf4cbc1",
-    "semantic_hash": "935ca5db884234c57cb1f6718bf4cbc1"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152721(0).jpg": {
     "mtime": 1782995950.137,
     "ast_hash": "8f0fc818136950ab9a84af0985cb09b5",
-    "semantic_hash": "8f0fc818136950ab9a84af0985cb09b5"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152721.jpg": {
     "mtime": 1782995950.176,
     "ast_hash": "ccc840ce196ebfe0f6710fb98a6175fb",
-    "semantic_hash": "ccc840ce196ebfe0f6710fb98a6175fb"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152725.jpg": {
     "mtime": 1782995950.1,
     "ast_hash": "199459e3b941fc01290001cf37d31cdb",
-    "semantic_hash": "199459e3b941fc01290001cf37d31cdb"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152731(0).jpg": {
     "mtime": 1782995949.994,
     "ast_hash": "df9f5bb5abc1f4f182b147edc21a3ad9",
-    "semantic_hash": "df9f5bb5abc1f4f182b147edc21a3ad9"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152731.jpg": {
     "mtime": 1782995950.053,
     "ast_hash": "e618a6dbbb5d7bdacb547379bd26aa2c",
-    "semantic_hash": "e618a6dbbb5d7bdacb547379bd26aa2c"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152737.jpg": {
     "mtime": 1782995949.868,
     "ast_hash": "9d4e150b678a9fa59acb3c0a8a0a41b3",
-    "semantic_hash": "9d4e150b678a9fa59acb3c0a8a0a41b3"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152738.jpg": {
     "mtime": 1782995949.943,
     "ast_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0",
-    "semantic_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152743(0).jpg": {
     "mtime": 1782995949.198,
     "ast_hash": "d3efd3c8321572123b0bcb0a28eb34ab",
-    "semantic_hash": "d3efd3c8321572123b0bcb0a28eb34ab"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152743.jpg": {
     "mtime": 1782995949.8,
     "ast_hash": "9caccb4f130975b130b276754c8c9a79",
-    "semantic_hash": "9caccb4f130975b130b276754c8c9a79"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152904.jpg": {
     "mtime": 1782995949.124,
     "ast_hash": "7607fd07642317bd3f885232882538ad",
-    "semantic_hash": "7607fd07642317bd3f885232882538ad"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152907.jpg": {
     "mtime": 1782995949.078,
     "ast_hash": "5c9dad02f677a64927732b8eb5bc736a",
-    "semantic_hash": "5c9dad02f677a64927732b8eb5bc736a"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152908.jpg": {
     "mtime": 1782995949.029,
     "ast_hash": "a7ffbd0e07e6e1c03b415358a1b499d5",
-    "semantic_hash": "a7ffbd0e07e6e1c03b415358a1b499d5"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152909.jpg": {
     "mtime": 1782995948.974,
     "ast_hash": "1e8905cc9ae752127e13c93a33ee0f72",
-    "semantic_hash": "1e8905cc9ae752127e13c93a33ee0f72"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152921.jpg": {
     "mtime": 1782995948.92,
     "ast_hash": "a6df53ab1fb37fc6624ea55c02a264b6",
-    "semantic_hash": "a6df53ab1fb37fc6624ea55c02a264b6"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152922.jpg": {
     "mtime": 1782995948.84,
     "ast_hash": "53fd340aa0cbfb2cc3a5fa3784cca44a",
-    "semantic_hash": "53fd340aa0cbfb2cc3a5fa3784cca44a"
+    "semantic_hash": ""
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/Cover.png": {
     "mtime": 1781356738.407,
     "ast_hash": "e3d6b69ff6e5b89a0f5616d72308ac17",
-    "semantic_hash": "e3d6b69ff6e5b89a0f5616d72308ac17"
-  },
-  "docs/user-guide/assets/\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e01\u0e32\u0e23\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 \u0e08\u0e32\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 eNose.pdf": {
-    "mtime": 1774952876.678,
-    "ast_hash": "59362d84afbf08242a83c6aeb763130b",
-    "semantic_hash": "59362d84afbf08242a83c6aeb763130b"
-  },
-  "docs/user-guide/assets/screenshots/20260703_095030(0).jpg": {
-    "mtime": 1783050160.22,
-    "ast_hash": "ab80d0564302950251018ab9bf64fb74",
-    "semantic_hash": "ab80d0564302950251018ab9bf64fb74"
-  },
-  "docs/user-guide/assets/screenshots/20260703_095030.jpg": {
-    "mtime": 1783050160.124,
-    "ast_hash": "0489fa3a10c1d8987dac62fa1d116c9e",
-    "semantic_hash": "0489fa3a10c1d8987dac62fa1d116c9e"
-  },
-  "docs/user-guide/assets/screenshots/20260703_095035.jpg": {
-    "mtime": 1783050160.051,
-    "ast_hash": "d947bb374a95fefd66ae21ff5eb7602a",
-    "semantic_hash": "d947bb374a95fefd66ae21ff5eb7602a"
-  },
-  "docs/user-guide/assets/screenshots/20260703_095036.jpg": {
-    "mtime": 1783050159.93,
-    "ast_hash": "76218813fc819b2143d793664a7272b0",
-    "semantic_hash": "76218813fc819b2143d793664a7272b0"
+    "semantic_hash": ""
   }
 }
