@@ -1,76 +1,101 @@
 {
+  "README.md": {
+    "mtime": 1783389371.922,
+    "ast_hash": "ece0a6fab54cb3b262b2f56feae37672",
+    "semantic_hash": "ece0a6fab54cb3b262b2f56feae37672"
+  },
   "BuildML_PC/train/models/methane_linreg_metrics.json": {
     "mtime": 1780862992.0,
     "ast_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe",
     "semantic_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe"
   },
   "acquisition/acquisiton.py": {
-    "mtime": 1778308917.8881168,
+    "mtime": 1778308917.888,
     "ast_hash": "ab9dea411cca58eb4669ca52a5fbd56a",
     "semantic_hash": "ab9dea411cca58eb4669ca52a5fbd56a"
   },
   "cloud/__init__.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "c26bd66d73b324a352c1a2ebc6845db5",
     "semantic_hash": "c26bd66d73b324a352c1a2ebc6845db5"
   },
   "cloud/config.py": {
-    "mtime": 1779114823.672,
+    "mtime": 1779114804.605,
     "ast_hash": "e141dbe6d528cdedf7c8478c74863607",
     "semantic_hash": "e141dbe6d528cdedf7c8478c74863607"
   },
   "cloud/providers/__init__.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "7d8994301e419a2e91ec073c79902d20",
     "semantic_hash": "7d8994301e419a2e91ec073c79902d20"
   },
   "cloud/providers/base.py": {
-    "mtime": 1778473916.2206292,
+    "mtime": 1778473916.22,
     "ast_hash": "72a748670be21901a4d2f882ed301bc2",
     "semantic_hash": "72a748670be21901a4d2f882ed301bc2"
   },
   "cloud/providers/gdrive.py": {
-    "mtime": 1779164866.2676916,
+    "mtime": 1779114804.619,
     "ast_hash": "c3541ab9f9c4322b7ea680ed04b12661",
     "semantic_hash": "c3541ab9f9c4322b7ea680ed04b12661"
   },
   "cloud/queue.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "fbac647d9407472ee75afc9bd937e638",
     "semantic_hash": "fbac647d9407472ee75afc9bd937e638"
   },
   "cloud/uploader.py": {
-    "mtime": 1778473916.2142355,
+    "mtime": 1778473916.214,
     "ast_hash": "1228da378dff9b7b677dd573d2fae9df",
     "semantic_hash": "1228da378dff9b7b677dd573d2fae9df"
   },
+  "docs/paper/download_papers.py": {
+    "mtime": 1783408887.388,
+    "ast_hash": "fa50dfe6de874d3f13b078bfde15c3de",
+    "semantic_hash": "fa50dfe6de874d3f13b078bfde15c3de"
+  },
+  "docs/paper/migrate_thesis_papers.py": {
+    "mtime": 1783408887.709,
+    "ast_hash": "0097d9c2cf822c565f8a43c770fb0a8d",
+    "semantic_hash": "0097d9c2cf822c565f8a43c770fb0a8d"
+  },
+  "docs/user-guide/assets/docx-filter.lua": {
+    "mtime": 1783481292.203,
+    "ast_hash": "b1bfa4d4a6a1f94f1acab450ebb8d5ad",
+    "semantic_hash": "b1bfa4d4a6a1f94f1acab450ebb8d5ad"
+  },
+  "docs/user-guide/scripts/build_docx_reference.py": {
+    "mtime": 1783481388.23,
+    "ast_hash": "ee8fd2a44cdbb1fcbfb1137fe1a8f0b6",
+    "semantic_hash": "ee8fd2a44cdbb1fcbfb1137fe1a8f0b6"
+  },
   "docs/user-guide/scripts/capture_gui_screenshots.py": {
-    "mtime": 1783028661.277,
-    "ast_hash": "705f468f8c137295d8a1d6faafe317dc",
-    "semantic_hash": "705f468f8c137295d8a1d6faafe317dc"
+    "mtime": 1783478066.504,
+    "ast_hash": "8d08628778753429847472d0fcfd7aa9",
+    "semantic_hash": "8d08628778753429847472d0fcfd7aa9"
   },
   "docs/user-guide/scripts/export_pdf.ps1": {
-    "mtime": 1782571244.936,
+    "mtime": 1782571234.721,
     "ast_hash": "4abf19a1e65af2db7345a8f94531358c",
     "semantic_hash": "4abf19a1e65af2db7345a8f94531358c"
   },
   "docs/user-guide/scripts/export_pdf.py": {
-    "mtime": 1782995472.441,
-    "ast_hash": "415482207e339323e125d3bc563dee3a",
-    "semantic_hash": "415482207e339323e125d3bc563dee3a"
+    "mtime": 1783481612.944,
+    "ast_hash": "5da8b8f5af5f91b50e0d490a6f14d251",
+    "semantic_hash": "5da8b8f5af5f91b50e0d490a6f14d251"
   },
   "docs/user-guide/scripts/generate_placeholders.py": {
-    "mtime": 1782571245.033,
+    "mtime": 1782571235.17,
     "ast_hash": "18f527a57e5efca5391b2da6dc90448c",
     "semantic_hash": "18f527a57e5efca5391b2da6dc90448c"
   },
   "hardware_control/__init__.py": {
-    "mtime": 1771399278.5581331,
+    "mtime": 1771399278.558,
     "ast_hash": "c71435604cde5e7b594d83b8fb6ede38",
     "semantic_hash": "c71435604cde5e7b594d83b8fb6ede38"
   },
   "hardware_control/hardware.py": {
-    "mtime": 1779259166.92358,
+    "mtime": 1779259166.923,
     "ast_hash": "f6b1ea46c53f290c2469dba16e295615",
     "semantic_hash": "f6b1ea46c53f290c2469dba16e295615"
   },
@@ -80,119 +105,189 @@
     "semantic_hash": "9bc8bee1673c0fd9e4e5e18d1dbb8dc4"
   },
   "predict_methane.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783478066.572,
     "ast_hash": "12f45f9343ee5b5abf13842523807b51",
     "semantic_hash": "12f45f9343ee5b5abf13842523807b51"
   },
   "program/cloud_config.example.json": {
-    "mtime": 1778473916.2192295,
+    "mtime": 1778473916.219,
     "ast_hash": "2b16ac6d92afac7f90f2d2cee02c33d1",
     "semantic_hash": "2b16ac6d92afac7f90f2d2cee02c33d1"
   },
   "program/gui.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783478058.45,
     "ast_hash": "61cd1768198bc428f8ac045814b7d0e0",
     "semantic_hash": "61cd1768198bc428f8ac045814b7d0e0"
   },
   "program/hardware_config.json": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783389187.505,
     "ast_hash": "80a4598b4a971294d7c238d530b859bc",
     "semantic_hash": "80a4598b4a971294d7c238d530b859bc"
   },
   "program/install_autostart.sh": {
-    "mtime": 1779261582.3538804,
+    "mtime": 1779261582.353,
     "ast_hash": "3881e1f0538aff310074a467d7794abc",
     "semantic_hash": "3881e1f0538aff310074a467d7794abc"
   },
   "program/install_xdg_autostart.sh": {
-    "mtime": 1779261582.3538804,
+    "mtime": 1779261582.353,
     "ast_hash": "fdaae24eb9d6ec7e90158da1383b245c",
     "semantic_hash": "fdaae24eb9d6ec7e90158da1383b245c"
   },
   "program/run_gui.sh": {
-    "mtime": 1779261582.35488,
+    "mtime": 1779261582.354,
     "ast_hash": "b6d180074bf723e435868e0479f01c2f",
     "semantic_hash": "b6d180074bf723e435868e0479f01c2f"
   },
   "reading/ADS1263.py": {
-    "mtime": 1771399278.5751886,
+    "mtime": 1771399278.575,
     "ast_hash": "8f49a4c7325c18cf5d8f06d3754d45d1",
     "semantic_hash": "8f49a4c7325c18cf5d8f06d3754d45d1"
   },
   "reading/__init__.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783389187.481,
     "ast_hash": "a7fc2493cfde1f25db6b30dd4acedc46",
     "semantic_hash": "a7fc2493cfde1f25db6b30dd4acedc46"
   },
   "reading/bme280.py": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783389187.481,
     "ast_hash": "d517c093e13af1d2090a0ba4dc0b2df4",
     "semantic_hash": "d517c093e13af1d2090a0ba4dc0b2df4"
   },
   "reading/config.py": {
-    "mtime": 1779164678.421608,
+    "mtime": 1779114804.674,
     "ast_hash": "36a61e13372da15141084d4a3540ea17",
     "semantic_hash": "36a61e13372da15141084d4a3540ea17"
   },
   "reading/covert.py": {
-    "mtime": 1771399278.5773635,
+    "mtime": 1771399278.577,
     "ast_hash": "63bfafb092530eeaafd4050f5edd5efe",
     "semantic_hash": "63bfafb092530eeaafd4050f5edd5efe"
   },
   "reading/main.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "a2e5051948b355f417c6fc1498614f33",
     "semantic_hash": "a2e5051948b355f417c6fc1498614f33"
   },
   "scripts/sync_to_pi.ps1": {
-    "mtime": 1780891992.5753655,
+    "mtime": 1780891992.575,
     "ast_hash": "76b7a219586af94bc9d6eb9b6372f999",
     "semantic_hash": "76b7a219586af94bc9d6eb9b6372f999"
   },
   "scripts/sync_to_pi.sh": {
-    "mtime": 1780891992.5753655,
+    "mtime": 1780891992.575,
     "ast_hash": "5d2c780fcfb228698304ef957fe39762",
     "semantic_hash": "5d2c780fcfb228698304ef957fe39762"
   },
   "tests/test_cloud_gdrive_smoke.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "5743d14940a6ed8804ae73e14b450e5c",
     "semantic_hash": "5743d14940a6ed8804ae73e14b450e5c"
   },
   "tests/test_cloud_queue.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "b57406dde545ee7003790d01bdb7b3ae",
     "semantic_hash": "b57406dde545ee7003790d01bdb7b3ae"
   },
   "tests/test_cloud_uploader.py": {
-    "mtime": 1778473916.2329054,
+    "mtime": 1778473916.232,
     "ast_hash": "0c4321e6cfaee5e04a33ef38dcd3313d",
     "semantic_hash": "0c4321e6cfaee5e04a33ef38dcd3313d"
   },
-  "README.md": {
-    "mtime": 1783050319.3542888,
-    "ast_hash": "cb075dc8710cb85bb7e26cae1ffea105",
-    "semantic_hash": "cb075dc8710cb85bb7e26cae1ffea105"
+  "docs/paper/literature-review-4.2.md": {
+    "mtime": 1783409031.967,
+    "ast_hash": "2616b8b17e4b9dcb0fc8948d212867c7",
+    "semantic_hash": "2616b8b17e4b9dcb0fc8948d212867c7"
+  },
+  "docs/paper/literature-review-enose-ml-methane-rice.md": {
+    "mtime": 1783408887.652,
+    "ast_hash": "7324afce1c76167fd922866c0e120ce7",
+    "semantic_hash": "7324afce1c76167fd922866c0e120ce7"
+  },
+  "docs/paper/methane/2023_multiyear_methane_N2O_AWD_Arkansas_rice.md": {
+    "mtime": 1783390728.321,
+    "ast_hash": "271f6981110b0cdd772ebd0b2fb7e735",
+    "semantic_hash": "271f6981110b0cdd772ebd0b2fb7e735"
+  },
+  "docs/paper/methane/2024_IoT_lowcost_GHG_monitoring_paddy_regions.md": {
+    "mtime": 1783390704.347,
+    "ast_hash": "5a0f2c3850b487ef65d49e580fb84c8e",
+    "semantic_hash": "5a0f2c3850b487ef65d49e580fb84c8e"
+  },
+  "docs/paper/methane/2024_Zhou_paddy_methane_emissions_Monsoon_Asia_review.md": {
+    "mtime": 1783390666.738,
+    "ast_hash": "db42403c80fcfc9a90240dcc768b1a4a",
+    "semantic_hash": "db42403c80fcfc9a90240dcc768b1a4a"
+  },
+  "docs/paper/methane/2024_agro_technologies_GHG_mitigation_flooded_rice_India.md": {
+    "mtime": 1783390704.348,
+    "ast_hash": "9d70a826cc2a2560e4de18b751ac0418",
+    "semantic_hash": "9d70a826cc2a2560e4de18b751ac0418"
+  },
+  "docs/paper/methane/2024_diurnal_methane_emission_rice_paddy_ebullition.md": {
+    "mtime": 1783390692.777,
+    "ast_hash": "d11916673925cfa462fcfa7df8e30c7a",
+    "semantic_hash": "d11916673925cfa462fcfa7df8e30c7a"
+  },
+  "docs/paper/methane/2025_ML_geochemical_drivers_Cd_methane_paddy_soils.md": {
+    "mtime": 1783390704.346,
+    "ast_hash": "520745d66761294aa77772f6a237e3e9",
+    "semantic_hash": "520745d66761294aa77772f6a237e3e9"
+  },
+  "docs/paper/methane/2025_straw_mulching_AWD_reduces_methane_paddy.md": {
+    "mtime": 1783390692.777,
+    "ast_hash": "9ec8d2e3bab06664c5343a640d96097b",
+    "semantic_hash": "9ec8d2e3bab06664c5343a640d96097b"
   },
   "docs/user-guide/README.md": {
-    "mtime": 1782571244.933,
-    "ast_hash": "38729164f9e35cd646a57ac985773904",
-    "semantic_hash": "38729164f9e35cd646a57ac985773904"
+    "mtime": 1783481614.116,
+    "ast_hash": "b96a53a7c33dfb5a56ea2eddaa3f374b",
+    "semantic_hash": "b96a53a7c33dfb5a56ea2eddaa3f374b"
+  },
+  "docs/user-guide/assets/diagrams/_svg-export.html": {
+    "mtime": 1783481528.193,
+    "ast_hash": "6089aa3c8dacfff9f82c99a35c4b909a",
+    "semantic_hash": "6089aa3c8dacfff9f82c99a35c4b909a"
+  },
+  "docs/user-guide/assets/doc-cover.html": {
+    "mtime": 1783283537.683,
+    "ast_hash": "0f8b872b0f129c07f7f980e8bdfae925",
+    "semantic_hash": "0f8b872b0f129c07f7f980e8bdfae925"
+  },
+  "docs/user-guide/assets/doc-header.html": {
+    "mtime": 1782995466.085,
+    "ast_hash": "6c940410fadd03aed4b08685a648be52",
+    "semantic_hash": "6c940410fadd03aed4b08685a648be52"
   },
   "docs/user-guide/assets/screenshots/SHOTLIST.md": {
-    "mtime": 1783028661.276,
-    "ast_hash": "e28e11f013d6aaab05292d63d6c5a9b6",
-    "semantic_hash": "e28e11f013d6aaab05292d63d6c5a9b6"
+    "mtime": 1783431817.554,
+    "ast_hash": "c08e62ae78e7da561b11ae53269ed666",
+    "semantic_hash": "c08e62ae78e7da561b11ae53269ed666"
+  },
+  "docs/user-guide/assets/\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c.txt": {
+    "mtime": 1782720318.121,
+    "ast_hash": "99ac1ce5cc21f83d882526683ada9af0",
+    "semantic_hash": "99ac1ce5cc21f83d882526683ada9af0"
+  },
+  "docs/user-guide/eNose-One-Page-Guide.html": {
+    "mtime": 1782995465.964,
+    "ast_hash": "d5a6bcacc1ae244f2e52412bc2a09230",
+    "semantic_hash": "d5a6bcacc1ae244f2e52412bc2a09230"
   },
   "docs/user-guide/eNose-User-Guide.html": {
-    "mtime": 1782997488.15,
-    "ast_hash": "6b1f1a4b60cdc07be3093354b0b45e59",
-    "semantic_hash": "6b1f1a4b60cdc07be3093354b0b45e59"
+    "mtime": 1783481657.262,
+    "ast_hash": "a96da23f9b9b1ee7e498debe2dbdc2af",
+    "semantic_hash": "a96da23f9b9b1ee7e498debe2dbdc2af"
   },
   "docs/user-guide/eNose-User-Guide.md": {
-    "mtime": 1783028661.456,
-    "ast_hash": "486f1613ebed1f76dbe940c10d48f9a4",
-    "semantic_hash": "486f1613ebed1f76dbe940c10d48f9a4"
+    "mtime": 1783478066.478,
+    "ast_hash": "a7b2a52d0788857b411dc13e4d1f7cac",
+    "semantic_hash": "a7b2a52d0788857b411dc13e4d1f7cac"
+  },
+  "docs/user-guide/eNose-User-Guide.tmp.html": {
+    "mtime": 1783481657.262,
+    "ast_hash": "a96da23f9b9b1ee7e498debe2dbdc2af",
+    "semantic_hash": "a96da23f9b9b1ee7e498debe2dbdc2af"
   },
   "predict_cell.txt": {
     "mtime": 1780929452.361,
@@ -200,154 +295,384 @@
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
   "program/AUTOSTART_SETUP.md": {
-    "mtime": 1783050319.3542888,
+    "mtime": 1783389187.505,
     "ast_hash": "2c64e9c5bfda7b7d16402789287aa40c",
     "semantic_hash": "2c64e9c5bfda7b7d16402789287aa40c"
   },
   "requirements-cloud.txt": {
-    "mtime": 1779114804.679,
+    "mtime": 1779114804.685,
     "ast_hash": "2bbde708153f4b523f656ca372f183af",
     "semantic_hash": "2bbde708153f4b523f656ca372f183af"
   },
   "requirements-pi-core.txt": {
-    "mtime": 1779257285.3313568,
+    "mtime": 1779257285.331,
     "ast_hash": "72191f17387c5ba525b8416319daaede",
     "semantic_hash": "72191f17387c5ba525b8416319daaede"
   },
   "requirements-pi-viz.txt": {
-    "mtime": 1779261434.6952078,
+    "mtime": 1779261434.695,
     "ast_hash": "ae5a3f1ccfe6258ae9e618d1267f3016",
     "semantic_hash": "ae5a3f1ccfe6258ae9e618d1267f3016"
   },
   "requirements-pi.txt": {
-    "mtime": 1779257287.4204533,
+    "mtime": 1779257287.42,
     "ast_hash": "d9fe8765880d38110a11dd5123518057",
     "semantic_hash": "d9fe8765880d38110a11dd5123518057"
   },
   "result2.txt": {
-    "mtime": 1780978949.9028552,
+    "mtime": 1780978949.902,
     "ast_hash": "0451b833140b5e0b7ae05bb6fdd288a4",
     "semantic_hash": "0451b833140b5e0b7ae05bb6fdd288a4"
   },
   "result_compare.txt": {
-    "mtime": 1780978929.5730715,
+    "mtime": 1780978929.573,
     "ast_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e",
     "semantic_hash": "1167d3cddd4ccc1b8e5d8b0a8b90917e"
   },
+  "docs/Proposal draft 4.pdf": {
+    "mtime": 1783396256.509,
+    "ast_hash": "1612dac5744653c3c15d4705ac72875a",
+    "semantic_hash": "1612dac5744653c3c15d4705ac72875a"
+  },
+  "docs/paper/README.md": {
+    "mtime": 1783409040.464,
+    "ast_hash": "439e6d691d44940141f3ab05b7349a79",
+    "semantic_hash": "439e6d691d44940141f3ab05b7349a79"
+  },
+  "docs/paper/algorithm/2022_ML_indirect_methane_quantification_single_sensor.pdf": {
+    "mtime": 1783390618.973,
+    "ast_hash": "5afcd26ff9b15768be6dd329b93a0ed6",
+    "semantic_hash": "5afcd26ff9b15768be6dd329b93a0ed6"
+  },
+  "docs/paper/algorithm/2022_SVM_sparrow_search_mixed_gas_concentration_prediction.pdf": {
+    "mtime": 1783390639.92,
+    "ast_hash": "1b7cb54a0599d0d1ab5aa281f473a603",
+    "semantic_hash": "1b7cb54a0599d0d1ab5aa281f473a603"
+  },
+  "docs/paper/algorithm/2023_Andrews_ML_calibrating_gas_sensors_methane_emissions.pdf": {
+    "mtime": 1783390569.032,
+    "ast_hash": "86a3e02a8d765e0b9dba5fb04a29fa49",
+    "semantic_hash": "86a3e02a8d765e0b9dba5fb04a29fa49"
+  },
+  "docs/paper/algorithm/2024_Jiang_TFA-CNN_gas_classification_concentration_prediction.pdf": {
+    "mtime": 1783390603.261,
+    "ast_hash": "9f98630f42566ddae1682a36a7e21a4b",
+    "semantic_hash": "9f98630f42566ddae1682a36a7e21a4b"
+  },
+  "docs/paper/algorithm/2024_Lakhmi_linear_nonlinear_gas_sensor_array_CH4.pdf": {
+    "mtime": 1783390593.388,
+    "ast_hash": "b06cdf762969aa7b0a6bea804a32cc55",
+    "semantic_hash": "b06cdf762969aa7b0a6bea804a32cc55"
+  },
+  "docs/paper/algorithm/2024_Mitchell_Figaro_lowcost_methane_ML_calibration.pdf": {
+    "mtime": 1783390580.763,
+    "ast_hash": "3c2b02d5a2fa8b2b6c2b26cdb4e8c213",
+    "semantic_hash": "3c2b02d5a2fa8b2b6c2b26cdb4e8c213"
+  },
+  "docs/paper/algorithm/2024_Wang_graph_models_gas_mixture_concentration_estimation.pdf": {
+    "mtime": 1783390607.086,
+    "ast_hash": "ebedada6ef45e36816c8702ff29c32a5",
+    "semantic_hash": "ebedada6ef45e36816c8702ff29c32a5"
+  },
+  "docs/paper/algorithm/2024_enhanced_gas_classification_SMOTE_ML_eNose.pdf": {
+    "mtime": 1783390649.386,
+    "ast_hash": "82f36382b12b94d9c1ab33435b2f28ca",
+    "semantic_hash": "82f36382b12b94d9c1ab33435b2f28ca"
+  },
+  "docs/paper/algorithm/2024_tree_ML_mixed_gas_identification_sensor_array.pdf": {
+    "mtime": 1783390662.38,
+    "ast_hash": "06e87b48901f1d2818f3486ed3cd327d",
+    "semantic_hash": "06e87b48901f1d2818f3486ed3cd327d"
+  },
+  "docs/paper/algorithm/2025_Baruah_ML_eNose_healthcare_agriculture_review.pdf": {
+    "mtime": 1779173878.303,
+    "ast_hash": "a05d1e35a69f3ea37c93fd326f3266bf",
+    "semantic_hash": "a05d1e35a69f3ea37c93fd326f3266bf"
+  },
+  "docs/paper/algorithm/2025_ML_enhanced_NDIR_methane_outdoor_monitoring.pdf": {
+    "mtime": 1783390631.42,
+    "ast_hash": "259cf643094f6db7f4d7f0df1d69f6a2",
+    "semantic_hash": "259cf643094f6db7f4d7f0df1d69f6a2"
+  },
+  "docs/paper/algorithm/2025_PCA-ANN_single_MOS_sensor_quantification.pdf": {
+    "mtime": 1783390613.23,
+    "ast_hash": "1f029ec3f800fec317f13b543743d0e9",
+    "semantic_hash": "1f029ec3f800fec317f13b543743d0e9"
+  },
+  "docs/paper/algorithm/2026_Ha_eNose_artificial_intelligence_review.pdf": {
+    "mtime": 1779174411.924,
+    "ast_hash": "414e6d097fef7b7f18a33a09fa7f54af",
+    "semantic_hash": "414e6d097fef7b7f18a33a09fa7f54af"
+  },
+  "docs/paper/enose/2021_Dobrzyniewski_TGS_sensor_array_methane_reforming.pdf": {
+    "mtime": 1783390469.34,
+    "ast_hash": "50dc406cc97510790bb0e41e02ecbdb1",
+    "semantic_hash": "50dc406cc97510790bb0e41e02ecbdb1"
+  },
+  "docs/paper/enose/2021_Ye_smart_eNose_machine_learning_review.pdf": {
+    "mtime": 1783390484.484,
+    "ast_hash": "2528c08547631ca3128d3173205eac09",
+    "semantic_hash": "2528c08547631ca3128d3173205eac09"
+  },
+  "docs/paper/enose/2021_chemiresistive_eNose_food_environment_review.pdf": {
+    "mtime": 1783390502.534,
+    "ast_hash": "b6cbe3470a0e2d6a56e651e29786e90e",
+    "semantic_hash": "b6cbe3470a0e2d6a56e651e29786e90e"
+  },
+  "docs/paper/enose/2022_portable_lowcost_semiconductor_methane_sensor.pdf": {
+    "mtime": 1783390542.898,
+    "ast_hash": "bcf63d40c5e1f245fbcf40e1f112784c",
+    "semantic_hash": "bcf63d40c5e1f245fbcf40e1f112784c"
+  },
+  "docs/paper/enose/2023_MOS_chemiresistive_methane_sensor_review.pdf": {
+    "mtime": 1783390551.394,
+    "ast_hash": "4c70ccd2640d128167d1689b90dd7c86",
+    "semantic_hash": "4c70ccd2640d128167d1689b90dd7c86"
+  },
+  "docs/paper/enose/2023_Moshayedi_eNose_agriculture_sustainability.pdf": {
+    "mtime": 1779173657.185,
+    "ast_hash": "c3f42287ec9501442c2fd737c84fe98f",
+    "semantic_hash": "c3f42287ec9501442c2fd737c84fe98f"
+  },
+  "docs/paper/enose/2023_Yin_eNose_CH4_CO_mixed_gas_identification.pdf": {
+    "mtime": 1783390476.694,
+    "ast_hash": "c9b2ef71abedaf2537b88316f4aaa9db",
+    "semantic_hash": "c9b2ef71abedaf2537b88316f4aaa9db"
+  },
+  "docs/paper/enose/2024_Domenech-Gil_eNose_environmental_methane_monitoring.pdf": {
+    "mtime": 1783390462.192,
+    "ast_hash": "0a4bf6e04839853b40060b4112af97f3",
+    "semantic_hash": "0a4bf6e04839853b40060b4112af97f3"
+  },
+  "docs/paper/enose/2024_Rusdianto_eNose_methane_gas_detection.pdf": {
+    "mtime": 1779174194.214,
+    "ast_hash": "34b9698b9db799985affd0ce57075358",
+    "semantic_hash": "34b9698b9db799985affd0ce57075358"
+  },
+  "docs/paper/enose/2024_eNose_gas_sensitive_components_applications_review.pdf": {
+    "mtime": 1783390493.77,
+    "ast_hash": "67d0a292ee0de3ffd84d0636a4568a5d",
+    "semantic_hash": "67d0a292ee0de3ffd84d0636a4568a5d"
+  },
+  "docs/paper/enose/2024_portable_methane_measurement_platform.pdf": {
+    "mtime": 1783390558.687,
+    "ast_hash": "489d5df2f00e5ebdb5da7ead5d674ee3",
+    "semantic_hash": "489d5df2f00e5ebdb5da7ead5d674ee3"
+  },
+  "docs/paper/enose/2025_enhanced_selectivity_eNose_agricultural_ammonia.pdf": {
+    "mtime": 1783390521.64,
+    "ast_hash": "c06829229eb5ab4bea1af784f6fde8cf",
+    "semantic_hash": "c06829229eb5ab4bea1af784f6fde8cf"
+  },
+  "docs/paper/enose/2026_Ahmad_MOS_sensors_precision_agriculture.pdf": {
+    "mtime": 1779173779.37,
+    "ast_hash": "682186b6a227e4a6b1acfc377229fe6d",
+    "semantic_hash": "682186b6a227e4a6b1acfc377229fe6d"
+  },
+  "docs/paper/methane/2022_water_fertilizer_management_methane_paddy_synthesis.pdf": {
+    "mtime": 1783390726.551,
+    "ast_hash": "bfc13adf80ba0dd7680bce0cab28da72",
+    "semantic_hash": "bfc13adf80ba0dd7680bce0cab28da72"
+  },
+  "docs/paper/methane/2023_Anapalli_eddy_covariance_AWD_rice_methane.pdf": {
+    "mtime": 1783390680.709,
+    "ast_hash": "e84a3712993cdaf839df58614d947cae",
+    "semantic_hash": "e84a3712993cdaf839df58614d947cae"
+  },
+  "docs/paper/methane/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation.pdf": {
+    "mtime": 1778746017.731,
+    "ast_hash": "5e29bd9decceef16e95ea5a3a7744f78",
+    "semantic_hash": "5e29bd9decceef16e95ea5a3a7744f78"
+  },
+  "docs/paper/methane/2024_comprehensive_review_GHG_rice_paddies.pdf": {
+    "mtime": 1778745816.929,
+    "ast_hash": "1d0ac1b77c506050598be5ba9e090abf",
+    "semantic_hash": "1d0ac1b77c506050598be5ba9e090abf"
+  },
+  "docs/paper/methane/2024_promoting_rice_upland_crops_mitigate_CH4.pdf": {
+    "mtime": 1778747265.702,
+    "ast_hash": "909f3ac90539f93041821b5393ad4340",
+    "semantic_hash": "909f3ac90539f93041821b5393ad4340"
+  },
+  "docs/paper/methane/2024_rice_root_rhizosphere_methane_emission.pdf": {
+    "mtime": 1783390713.84,
+    "ast_hash": "cbeece2062b7e43a4791b9fa3ceea779",
+    "semantic_hash": "cbeece2062b7e43a4791b9fa3ceea779"
+  },
+  "docs/paper/methane/2025_CH4MOD_global_methane_emissions_rice_paddies.pdf": {
+    "mtime": 1783390701.528,
+    "ast_hash": "6dbc0db4cdacccf26bf4cf4434eb743c",
+    "semantic_hash": "6dbc0db4cdacccf26bf4cf4434eb743c"
+  },
+  "docs/paper/methane/2025_Zhang_ML_in-situ_CH4_measurement_paddy_fields_Yangtze.pdf": {
+    "mtime": 1779172882.552,
+    "ast_hash": "e363da6eaf9f482e3100d7305af98be4",
+    "semantic_hash": "e363da6eaf9f482e3100d7305af98be4"
+  },
+  "docs/paper/methane/2025_methane_emissions_carbon_availability_soil_pH_gradient.pdf": {
+    "mtime": 1783390686.15,
+    "ast_hash": "8d88b4bb5fd735313bab81aaed4d4b37",
+    "semantic_hash": "8d88b4bb5fd735313bab81aaed4d4b37"
+  },
+  "docs/paper/methane/2025_product_type_rice_variety_agronomic_CH4_emissions.pdf": {
+    "mtime": 1778745756.997,
+    "ast_hash": "b1bc2121c0fc46a9727e24b0d1e1801d",
+    "semantic_hash": "b1bc2121c0fc46a9727e24b0d1e1801d"
+  },
+  "docs/paper/methods-chamber-gc/2020_Cardador_GHG_measurement_methodologies_livestock_pig.pdf": {
+    "mtime": 1779172793.976,
+    "ast_hash": "7eec34eefd7712c59b1a74dd4028b1ac",
+    "semantic_hash": "7eec34eefd7712c59b1a74dd4028b1ac"
+  },
+  "docs/paper/methods-chamber-gc/2021_Zaman_GHG_measurement_agricultural_soils_methodology.pdf": {
+    "mtime": 1779173333.669,
+    "ast_hash": "7bd298697521a1ee8d64bb3ee253a91b",
+    "semantic_hash": "7bd298697521a1ee8d64bb3ee253a91b"
+  },
+  "docs/paper/methods-chamber-gc/2022_Borhan_sensors_methods_GHG_livestock.pdf": {
+    "mtime": 1779172520.547,
+    "ast_hash": "3943de938b3d2d4c1ad7155bea1567bc",
+    "semantic_hash": "3943de938b3d2d4c1ad7155bea1567bc"
+  },
+  "docs/paper/methods-chamber-gc/2024_Mumu_methodological_progress_agricultural_GHG.pdf": {
+    "mtime": 1779172697.336,
+    "ast_hash": "4bc49083edb348a39a02eafd9d54a8fe",
+    "semantic_hash": "4bc49083edb348a39a02eafd9d54a8fe"
+  },
+  "docs/paper/methods-field/2022_Rajasekar_GHG_sensing_rice_fields_near_field.pdf": {
+    "mtime": 1783390538.581,
+    "ast_hash": "f31f5b0fa6b2544f250c1fa464297dae",
+    "semantic_hash": "f31f5b0fa6b2544f250c1fa464297dae"
+  },
+  "docs/paper/methods-remote/2025_Xu_AI_ML_methane_rice_remote_sensing.pdf": {
+    "mtime": 1779082131.208,
+    "ast_hash": "6ce88fea2016d187bad844b34dfb9321",
+    "semantic_hash": "6ce88fea2016d187bad844b34dfb9321"
+  },
+  "docs/paper/methods-spectroscopy/2022_Vo_TGA_vs_GC_methane_agricultural_soils.pdf": {
+    "mtime": 1779092134.246,
+    "ast_hash": "7a9a5bfebf09ee276a7c8f093b776f12",
+    "semantic_hash": "7a9a5bfebf09ee276a7c8f093b776f12"
+  },
+  "docs/paper/methods-spectroscopy/2025_Tyagi_methane_sensing_environmental_review.pdf": {
+    "mtime": 1779081631.808,
+    "ast_hash": "1e50056eea9710fe6ab5d3eb4d2fd6c5",
+    "semantic_hash": "1e50056eea9710fe6ab5d3eb4d2fd6c5"
+  },
+  "docs/user-guide/assets/\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e01\u0e32\u0e23\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 \u0e08\u0e32\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 eNose.pdf": {
+    "mtime": 1774952876.678,
+    "ast_hash": "59362d84afbf08242a83c6aeb763130b",
+    "semantic_hash": "59362d84afbf08242a83c6aeb763130b"
+  },
+  "docs/user-guide/eNose-One-Page-Guide.pdf": {
+    "mtime": 1782714677.8,
+    "ast_hash": "8051008e386adef6ffbf854a6c0d79c5",
+    "semantic_hash": "8051008e386adef6ffbf854a6c0d79c5"
+  },
   "docs/user-guide/eNose-User-Guide.pdf": {
-    "mtime": 1782997492.91,
-    "ast_hash": "b8d83bda50c52580ca3d7cef613a8d99",
-    "semantic_hash": "b8d83bda50c52580ca3d7cef613a8d99"
+    "mtime": 1783481720.901,
+    "ast_hash": "35fdda2703548ccb413c4f485c4812af",
+    "semantic_hash": "35fdda2703548ccb413c4f485c4812af"
   },
   "docs/assets/raspberry-pi-gpio-pinout.png": {
-    "mtime": 1778484720.0816238,
+    "mtime": 1778484720.081,
     "ast_hash": "b507f62a1e124b6fe609dbb9cfda33c7",
     "semantic_hash": "b507f62a1e124b6fe609dbb9cfda33c7"
   },
+  "docs/user-guide/assets/20260522_173305-Photoroom.png": {
+    "mtime": 1782703850.548,
+    "ast_hash": "8c120919e6f15fd19306df98939afeb4",
+    "semantic_hash": "8c120919e6f15fd19306df98939afeb4"
+  },
+  "docs/user-guide/assets/diagrams/auto-sequence-flow.png": {
+    "mtime": 1783481529.383,
+    "ast_hash": "4c7ca8e42fa6e49a014f185624544c6e",
+    "semantic_hash": "4c7ca8e42fa6e49a014f185624544c6e"
+  },
   "docs/user-guide/assets/diagrams/auto-sequence-flow.svg": {
-    "mtime": 1782571244.941,
+    "mtime": 1782571234.621,
     "ast_hash": "e59062fea1508a2d806d94b8b6b09af4",
     "semantic_hash": "e59062fea1508a2d806d94b8b6b09af4"
   },
+  "docs/user-guide/assets/diagrams/raspberry-pi-gpio-pinout.png": {
+    "mtime": 1778484720.081,
+    "ast_hash": "b507f62a1e124b6fe609dbb9cfda33c7",
+    "semantic_hash": "b507f62a1e124b6fe609dbb9cfda33c7"
+  },
   "docs/user-guide/assets/screenshots/01-pi-desktop-gui.png": {
-    "mtime": 1782996625.346,
-    "ast_hash": "ca66f67f4170caf0113a81c493ddb66a",
-    "semantic_hash": "ca66f67f4170caf0113a81c493ddb66a"
+    "mtime": 1783288037.783,
+    "ast_hash": "2d166bba0f7d28dd7a6b4ec94345634b",
+    "semantic_hash": "2d166bba0f7d28dd7a6b4ec94345634b"
   },
   "docs/user-guide/assets/screenshots/02-control-overview.png": {
-    "mtime": 1782996625.492,
-    "ast_hash": "ca66f67f4170caf0113a81c493ddb66a",
-    "semantic_hash": "ca66f67f4170caf0113a81c493ddb66a"
+    "mtime": 1783288038.519,
+    "ast_hash": "2d166bba0f7d28dd7a6b4ec94345634b",
+    "semantic_hash": "2d166bba0f7d28dd7a6b4ec94345634b"
   },
   "docs/user-guide/assets/screenshots/03-select-auto.png": {
-    "mtime": 1782996625.495,
-    "ast_hash": "5cb90894f67a822d8927c8b9ff54b7b2",
-    "semantic_hash": "5cb90894f67a822d8927c8b9ff54b7b2"
+    "mtime": 1783289305.246,
+    "ast_hash": "0d70ae931d74677c310dd183187f3b97",
+    "semantic_hash": "0d70ae931d74677c310dd183187f3b97"
   },
   "docs/user-guide/assets/screenshots/04-settings-full.png": {
-    "mtime": 1782996627.836,
-    "ast_hash": "cfac8232837c43060047eb01440496fc",
-    "semantic_hash": "cfac8232837c43060047eb01440496fc"
+    "mtime": 1783288040.056,
+    "ast_hash": "ec469f28c10bb722c841f5281f60576e",
+    "semantic_hash": "ec469f28c10bb722c841f5281f60576e"
   },
   "docs/user-guide/assets/screenshots/05-operation-times.png": {
-    "mtime": 1782996628.18,
-    "ast_hash": "bd6af2c42f3985be76cbf5768006f67a",
-    "semantic_hash": "bd6af2c42f3985be76cbf5768006f67a"
+    "mtime": 1783288040.794,
+    "ast_hash": "8c10b429e625599df9ad1c30d6feb4dc",
+    "semantic_hash": "8c10b429e625599df9ad1c30d6feb4dc"
   },
   "docs/user-guide/assets/screenshots/06-save-config.png": {
-    "mtime": 1782996628.127,
-    "ast_hash": "cfac8232837c43060047eb01440496fc",
-    "semantic_hash": "cfac8232837c43060047eb01440496fc"
+    "mtime": 1783288967.959,
+    "ast_hash": "36b4ecb308184f31fa35417094b1a224",
+    "semantic_hash": "36b4ecb308184f31fa35417094b1a224"
   },
   "docs/user-guide/assets/screenshots/07-start-auto.png": {
-    "mtime": 1782996629.772,
+    "mtime": 1783288042.252,
     "ast_hash": "792082eac3fd24559cf5018e18cda36d",
     "semantic_hash": "792082eac3fd24559cf5018e18cda36d"
   },
   "docs/user-guide/assets/screenshots/08-sequence-running.png": {
-    "mtime": 1782996629.71,
-    "ast_hash": "d5a96cf8ae365f946296208eeb140611",
-    "semantic_hash": "d5a96cf8ae365f946296208eeb140611"
+    "mtime": 1783288043.003,
+    "ast_hash": "10450da334dcaeeb61da54e35b86179d",
+    "semantic_hash": "10450da334dcaeeb61da54e35b86179d"
   },
   "docs/user-guide/assets/screenshots/09-methane-result.png": {
-    "mtime": 1782996629.937,
-    "ast_hash": "199a1b05a553fa3ea0d2366a47df2c1a",
-    "semantic_hash": "199a1b05a553fa3ea0d2366a47df2c1a"
+    "mtime": 1783288043.827,
+    "ast_hash": "d6b09b0d5b23066b6dcf248b678a5bb3",
+    "semantic_hash": "d6b09b0d5b23066b6dcf248b678a5bb3"
   },
   "docs/user-guide/assets/screenshots/10-display-graph.png": {
-    "mtime": 1782996630.716,
-    "ast_hash": "8f509b4b46f17be9a57b666b1a67201c",
-    "semantic_hash": "8f509b4b46f17be9a57b666b1a67201c"
+    "mtime": 1783288046.47,
+    "ast_hash": "fc94bba8fa55058d430e691c164af6b5",
+    "semantic_hash": "fc94bba8fa55058d430e691c164af6b5"
   },
   "docs/user-guide/assets/screenshots/11-loop-settings.png": {
-    "mtime": 1782996631.879,
-    "ast_hash": "793ace67765174939e9977c783ea33c4",
-    "semantic_hash": "793ace67765174939e9977c783ea33c4"
+    "mtime": 1783286482.915,
+    "ast_hash": "c4f4430516603411eabc7c2b889acb28",
+    "semantic_hash": "c4f4430516603411eabc7c2b889acb28"
   },
-  "docs/user-guide/assets/screenshots/12-cloud-checkbox.png": {
-    "mtime": 1782996632.275,
-    "ast_hash": "793ace67765174939e9977c783ea33c4",
-    "semantic_hash": "793ace67765174939e9977c783ea33c4"
-  },
-  "docs/user-guide/assets/screenshots/13-manual-mode.png": {
-    "mtime": 1782996633.229,
+  "docs/user-guide/assets/screenshots/12-manual-mode.png": {
+    "mtime": 1782996626.795,
     "ast_hash": "5a632a9a4e08b4739e6a4d564a3178c0",
     "semantic_hash": "5a632a9a4e08b4739e6a4d564a3178c0"
   },
-  "docs/user-guide/assets/screenshots/14-stop-button.png": {
-    "mtime": 1782996634.528,
+  "docs/user-guide/assets/screenshots/13-stop-button.png": {
+    "mtime": 1782996627.511,
     "ast_hash": "324079a6b44d7401e16f84a48c11dc82",
     "semantic_hash": "324079a6b44d7401e16f84a48c11dc82"
   },
-  "docs/user-guide/assets/doc-cover.html": {
-    "mtime": 1783028661.48,
-    "ast_hash": "0f8b872b0f129c07f7f980e8bdfae925",
-    "semantic_hash": "0f8b872b0f129c07f7f980e8bdfae925"
+  "docs/user-guide/assets/screenshots/front-view.png": {
+    "mtime": 1783283480.731,
+    "ast_hash": "caefefe7d1bccd0e8195a2ad0d249f8e",
+    "semantic_hash": "caefefe7d1bccd0e8195a2ad0d249f8e"
   },
-  "docs/user-guide/assets/doc-header.html": {
-    "mtime": 1782995472.492,
-    "ast_hash": "6c940410fadd03aed4b08685a648be52",
-    "semantic_hash": "6c940410fadd03aed4b08685a648be52"
-  },
-  "docs/user-guide/assets/\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c.txt": {
-    "mtime": 1782720318.1210968,
-    "ast_hash": "99ac1ce5cc21f83d882526683ada9af0",
-    "semantic_hash": "99ac1ce5cc21f83d882526683ada9af0"
-  },
-  "docs/user-guide/eNose-One-Page-Guide.html": {
-    "mtime": 1783050266.1558836,
-    "ast_hash": "d5a6bcacc1ae244f2e52412bc2a09230",
-    "semantic_hash": "d5a6bcacc1ae244f2e52412bc2a09230"
-  },
-  "docs/user-guide/eNose-One-Page-Guide.pdf": {
-    "mtime": 1782714677.800846,
-    "ast_hash": "8051008e386adef6ffbf854a6c0d79c5",
-    "semantic_hash": "8051008e386adef6ffbf854a6c0d79c5"
-  },
-  "docs/user-guide/assets/20260522_173305-Photoroom.png": {
-    "mtime": 1782703906.529,
-    "ast_hash": "8c120919e6f15fd19306df98939afeb4",
-    "semantic_hash": "8c120919e6f15fd19306df98939afeb4"
+  "docs/user-guide/assets/screenshots/side-view.png": {
+    "mtime": 1783283465.127,
+    "ast_hash": "14494b7de2a265ce87c3556f19e3b569",
+    "semantic_hash": "14494b7de2a265ce87c3556f19e3b569"
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260522_173305.jpg": {
     "mtime": 1781274022.957,
@@ -358,16 +683,6 @@
     "mtime": 1782995951.443,
     "ast_hash": "1880dd0ba7bd8e0bcfb90e623fe37b46",
     "semantic_hash": "1880dd0ba7bd8e0bcfb90e623fe37b46"
-  },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152433.jpg": {
-    "mtime": 1782995951.502,
-    "ast_hash": "ba28ea1e49c5000888443e1a588a58e6",
-    "semantic_hash": "ba28ea1e49c5000888443e1a588a58e6"
-  },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152436.jpg": {
-    "mtime": 1782995951.387,
-    "ast_hash": "75cad4df0a8048c6b73248e67dec7b44",
-    "semantic_hash": "75cad4df0a8048c6b73248e67dec7b44"
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152437.jpg": {
     "mtime": 1782995951.333,
@@ -414,11 +729,6 @@
     "ast_hash": "20b96fb43fc856e4e36715a8229295cf",
     "semantic_hash": "20b96fb43fc856e4e36715a8229295cf"
   },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152533.jpg": {
-    "mtime": 1782995950.909,
-    "ast_hash": "d94a564c9914d0159d34e8a332fd4722",
-    "semantic_hash": "d94a564c9914d0159d34e8a332fd4722"
-  },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152534.jpg": {
     "mtime": 1782995950.705,
     "ast_hash": "6a3a3296ac5992ff4762f7055bc579ae",
@@ -449,11 +759,6 @@
     "ast_hash": "51261773438886aa2f0cc7b2c528bbcd",
     "semantic_hash": "51261773438886aa2f0cc7b2c528bbcd"
   },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152609.jpg": {
-    "mtime": 1782995950.299,
-    "ast_hash": "99ebd68036a03343db83b9e265e6162f",
-    "semantic_hash": "99ebd68036a03343db83b9e265e6162f"
-  },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152610.jpg": {
     "mtime": 1782995950.235,
     "ast_hash": "935ca5db884234c57cb1f6718bf4cbc1",
@@ -464,20 +769,10 @@
     "ast_hash": "8f0fc818136950ab9a84af0985cb09b5",
     "semantic_hash": "8f0fc818136950ab9a84af0985cb09b5"
   },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152721.jpg": {
-    "mtime": 1782995950.176,
-    "ast_hash": "ccc840ce196ebfe0f6710fb98a6175fb",
-    "semantic_hash": "ccc840ce196ebfe0f6710fb98a6175fb"
-  },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152725.jpg": {
     "mtime": 1782995950.1,
     "ast_hash": "199459e3b941fc01290001cf37d31cdb",
     "semantic_hash": "199459e3b941fc01290001cf37d31cdb"
-  },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152731(0).jpg": {
-    "mtime": 1782995949.994,
-    "ast_hash": "df9f5bb5abc1f4f182b147edc21a3ad9",
-    "semantic_hash": "df9f5bb5abc1f4f182b147edc21a3ad9"
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152731.jpg": {
     "mtime": 1782995950.053,
@@ -489,25 +784,10 @@
     "ast_hash": "9d4e150b678a9fa59acb3c0a8a0a41b3",
     "semantic_hash": "9d4e150b678a9fa59acb3c0a8a0a41b3"
   },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152738.jpg": {
-    "mtime": 1782995949.943,
-    "ast_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0",
-    "semantic_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0"
-  },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152743(0).jpg": {
-    "mtime": 1782995949.198,
-    "ast_hash": "d3efd3c8321572123b0bcb0a28eb34ab",
-    "semantic_hash": "d3efd3c8321572123b0bcb0a28eb34ab"
-  },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152743.jpg": {
     "mtime": 1782995949.8,
     "ast_hash": "9caccb4f130975b130b276754c8c9a79",
     "semantic_hash": "9caccb4f130975b130b276754c8c9a79"
-  },
-  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152904.jpg": {
-    "mtime": 1782995949.124,
-    "ast_hash": "7607fd07642317bd3f885232882538ad",
-    "semantic_hash": "7607fd07642317bd3f885232882538ad"
   },
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/20260630_152907.jpg": {
     "mtime": 1782995949.078,
@@ -539,29 +819,49 @@
     "ast_hash": "e3d6b69ff6e5b89a0f5616d72308ac17",
     "semantic_hash": "e3d6b69ff6e5b89a0f5616d72308ac17"
   },
-  "docs/user-guide/assets/\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e01\u0e32\u0e23\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 \u0e08\u0e32\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 eNose.pdf": {
-    "mtime": 1774952876.678,
-    "ast_hash": "59362d84afbf08242a83c6aeb763130b",
-    "semantic_hash": "59362d84afbf08242a83c6aeb763130b"
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 1.jpg": {
+    "mtime": 1783285176.116,
+    "ast_hash": "ba28ea1e49c5000888443e1a588a58e6",
+    "semantic_hash": "ba28ea1e49c5000888443e1a588a58e6"
   },
-  "docs/user-guide/assets/screenshots/20260703_095030(0).jpg": {
-    "mtime": 1783050160.22,
-    "ast_hash": "ab80d0564302950251018ab9bf64fb74",
-    "semantic_hash": "ab80d0564302950251018ab9bf64fb74"
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 10.jpg": {
+    "mtime": 1783285428.014,
+    "ast_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0",
+    "semantic_hash": "f9c6eabc58dc5fb18e9e775eb3c571d0"
   },
-  "docs/user-guide/assets/screenshots/20260703_095030.jpg": {
-    "mtime": 1783050160.124,
-    "ast_hash": "0489fa3a10c1d8987dac62fa1d116c9e",
-    "semantic_hash": "0489fa3a10c1d8987dac62fa1d116c9e"
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 2.jpg": {
+    "mtime": 1783285187.119,
+    "ast_hash": "75cad4df0a8048c6b73248e67dec7b44",
+    "semantic_hash": "75cad4df0a8048c6b73248e67dec7b44"
   },
-  "docs/user-guide/assets/screenshots/20260703_095035.jpg": {
-    "mtime": 1783050160.051,
-    "ast_hash": "d947bb374a95fefd66ae21ff5eb7602a",
-    "semantic_hash": "d947bb374a95fefd66ae21ff5eb7602a"
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 3.jpg": {
+    "mtime": 1783285227.663,
+    "ast_hash": "d94a564c9914d0159d34e8a332fd4722",
+    "semantic_hash": "d94a564c9914d0159d34e8a332fd4722"
   },
-  "docs/user-guide/assets/screenshots/20260703_095036.jpg": {
-    "mtime": 1783050159.93,
-    "ast_hash": "76218813fc819b2143d793664a7272b0",
-    "semantic_hash": "76218813fc819b2143d793664a7272b0"
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 4.jpg": {
+    "mtime": 1783285276.534,
+    "ast_hash": "7607fd07642317bd3f885232882538ad",
+    "semantic_hash": "7607fd07642317bd3f885232882538ad"
+  },
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 5.jpg": {
+    "mtime": 1783285301.085,
+    "ast_hash": "99ebd68036a03343db83b9e265e6162f",
+    "semantic_hash": "99ebd68036a03343db83b9e265e6162f"
+  },
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 6.jpg": {
+    "mtime": 1783285328.766,
+    "ast_hash": "ccc840ce196ebfe0f6710fb98a6175fb",
+    "semantic_hash": "ccc840ce196ebfe0f6710fb98a6175fb"
+  },
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 8.jpg": {
+    "mtime": 1783285358.584,
+    "ast_hash": "d3efd3c8321572123b0bcb0a28eb34ab",
+    "semantic_hash": "d3efd3c8321572123b0bcb0a28eb34ab"
+  },
+  "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/\u0e23\u0e39\u0e1b 9.jpg": {
+    "mtime": 1783285404.6,
+    "ast_hash": "df9f5bb5abc1f4f182b147edc21a3ad9",
+    "semantic_hash": "df9f5bb5abc1f4f182b147edc21a3ad9"
   }
 }

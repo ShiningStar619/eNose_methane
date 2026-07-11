@@ -1,0 +1,10 @@
+﻿py :   File "<string>", line 11
+At C:\Users\PKSpu\AppData\Local\Temp\ps-script-64ef683f-b602-4751-a17a-812059016f64.ps1:80 char:1
++ py -3 -c "
++ ~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 11:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    out.append(f'=== {name} ERROR: {info[" error\]}
+                                         ^
+SyntaxError: unterminated string literal (detected at line 11)

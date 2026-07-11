@@ -1,10 +1,12 @@
 # eNose Methane Detection System
 
-ระบบควบคุมและเก็บข้อมูลจาก eNose (Electronic Nose) สำหรับตรวจจับก๊าซมีเทน บน Raspberry Pi
+ระบบควบคุมและเก็บข้อมูลจาก eNose (Electronic Nose) สำหรับตรวจจับก๊าซมีเทน บน Raspberry Pi — อ่านสัญญาณจากเซ็นเซอร์ก๊าซผ่าน ADS1263 ประมวลผลเป็น CSV แล้วประมาณความเข้มข้นเป็น **ppm** ด้วยโมเดล ML บนหน้าจอ GUI
 
-**ผู้อ่านเป้าหมาย:** ผู้พัฒนาและผู้ติดตั้งบน Raspberry Pi ที่ต้องการรัน GUI เก็บข้อมูลเซ็นเซอร์ ประมวลผลเป็น CSV และ (ถ้าต้องการ) อัปโหลด Google Drive
+**ผู้อ่านเป้าหมาย:** ผู้พัฒนาและผู้ติดตั้งบน Raspberry Pi ที่ต้องการรัน GUI เก็บข้อมูลเซ็นเซอร์ ประมวลผลเป็น CSV ทำนาย ppm และ (ถ้าต้องการ) อัปโหลด Google Drive
 
-**สิ่งที่เอกสารนี้ครอบคลุม:** ภาพรวมระบบ โครงสร้างไฟล์ การติดตั้ง การตั้งค่า การใช้งาน GUI รูปแบบข้อมูล การประมวลผล อัปโหลดคลาวด์แบบเลือกได้ และแก้ปัญหาเบื้องต้น — ไม่ลงรายละเอียดอัลกอริทึม ML หรือการวิเคราะห์ข้อมูลหลัง CSV
+**สำหรับผู้ใช้งานบนเครื่องจริง** (ไม่เน้นโค้ด): อ่าน [**คู่มือผู้ใช้**](docs/user-guide/eNose-User-Guide.md) หรือเปิด [`docs/user-guide/eNose-User-Guide.pdf`](docs/user-guide/eNose-User-Guide.pdf)
+
+**สิ่งที่เอกสารนี้ครอบคลุม:** ภาพรวมระบบ โครงสร้างไฟล์ การติดตั้ง การตั้งค่า การใช้งาน GUI รูปแบบข้อมูล การประมวลผล การทำนาย ppm บน Pi อัปโหลดคลาวด์แบบเลือกได้ และแก้ปัญหาเบื้องต้น — ไม่ลงรายละเอียด pipeline train โมเดล (ดู `BuildML_PC/`)
 
 ## ภาพรวมโปรเจกต์
 
@@ -15,9 +17,25 @@
 
 และควบคุมอุปกรณ์ 7 ตัว (Solenoid Valves, Pump, Fan, Heater) ผ่าน **GPIO Relay** จาก GUI หลัก
 
+หลังจบรอบวัด ระบบดึง features จาก CSV ที่ประมวลผลแล้ว แล้วทำนายความเข้มข้นมีเทนเป็น **ppm** ด้วยโมเดล Linear Regression (`predict_methane.py` + `models/methane_linreg_model.joblib`) แสดงบนหน้า Control และ Display
+
+## เอกสาร
+
+| เอกสาร | ผู้อ่าน | ไฟล์ |
+|--------|---------|------|
+| **README** (ไฟล์นี้) | ผู้พัฒนา / ผู้ติดตั้ง | — |
+| **คู่มือผู้ใช้** | ผู้ปฏิบัติงานบนเครื่อง | [`docs/user-guide/eNose-User-Guide.md`](docs/user-guide/eNose-User-Guide.md) · [PDF](docs/user-guide/eNose-User-Guide.pdf) |
+| **Autostart** | ผู้ดูแลระบบ Pi | [`program/AUTOSTART_SETUP.md`](program/AUTOSTART_SETUP.md) |
+
+สร้าง PDF/HTML คู่มือใหม่จาก Markdown:
+
+```bash
+py docs/user-guide/scripts/export_pdf.py
+```
+
 ## ฟีเจอร์หลัก
 
-- **GUI Control Interface** — หน้าจอควบคุมแบบกราฟิก รองรับย่อ-ขยายตามหน้าต่าง พร้อม Scrollbar และมุมมองกราฟข้อมูล (ใช้ Matplotlib เมื่อติดตั้งครบ)
+- **GUI Control Interface** — 3 หน้า (Control / Display / Settings) รองรับย่อ-ขยายตามหน้าต่าง พร้อม Scrollbar กราฟ Process Data และช่องแสดง Methane (ppm)
 - **สองโหมดการทำงาน**
   - **Manual Mode** — ควบคุมอุปกรณ์ด้วยตนเอง และเริ่ม/หยุดเก็บข้อมูล ADC
   - **Auto Mode** — รันลำดับ 7 Operations อัตโนมัติ พร้อมช่วง Break และ Loop
@@ -27,6 +45,7 @@
   - ทั้งสองเซ็นเซอร์เริ่ม/หยุดพร้อมกัน (ใช้ `stop_event` ตัวเดียวกัน) และเก็บลงไฟล์ `.npz` แยกกัน
 - **Data Processing** — กรองข้อมูลด้วย Low-pass IIR และ Moving Average แล้วบันทึกเป็น CSV (`acquisition/acquisiton.py`) — `process_all_data()` ประมวลผลทั้งไฟล์ ADC และ BME280 ของรอบล่าสุดในคำสั่งเดียว
 - **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active HIGH): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
+- **Methane Prediction (ppm)** — หลัง `process_all_data()` ระบบเรียก `predict_ppm()` จาก processed CSV แล้วแสดงค่าบน GUI (หน้า Control + Display); โมเดลอยู่ที่ `models/methane_linreg_model.joblib`
 - **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ในแท็บ **Settings** ของ GUI
 - **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` รวมขั้นตอนหลังซิงก์โค้ดใหม่ (รายละเอียดใน [`program/AUTOSTART_SETUP.md`](program/AUTOSTART_SETUP.md))
 
@@ -37,8 +56,26 @@
 ```
 eNose_methane/
 ├── README.md
+├── predict_methane.py          # ทำนาย ppm จาก processed CSV (เรียกจาก GUI)
 ├── .gitignore                  # ยกเว้นไฟล์ที่กำหนดใน repo (เช่น secret คลาวด์, คิวอัปโหลด) — ปรับเพิ่มได้ตามทีม
 ├── requirements-cloud.txt      # แพ็กเกจ Google API สำหรับอัปโหลด (ไม่บังคับ)
+├── requirements-pi*.txt        # dependencies บน Raspberry Pi (core / viz / รวม)
+│
+├── models/                     # โมเดลที่ deploy บน Pi
+│   ├── methane_linreg_model.joblib
+│   └── methane_linreg_metrics.json
+│
+├── scripts/                    # ส่งโค้ดไป Pi (ไม่รวม venv / ข้อมูล)
+│   ├── sync_to_pi.sh
+│   └── sync_to_pi.ps1
+│
+├── docs/user-guide/            # คู่มือผู้ใช้ (Markdown, HTML, PDF, ภาพประกอบ)
+│   ├── eNose-User-Guide.md
+│   ├── eNose-User-Guide.pdf
+│   └── scripts/                # export PDF, จับภาพ GUI
+│
+├── BuildML_PC/                 # train โมเดลบน PC / Colab (ไม่รันบน Pi)
+│   └── train/colab/methane_ppm_regression_colab.ipynb
 │
 ├── program/                    # GUI และการตั้งค่า
 │   ├── gui.py                  # หน้าจอควบคุมหลัก (HardwareControlGUI)
@@ -96,6 +133,7 @@ eNose_methane/
   - `RPi.GPIO` — GPIO บน Raspberry Pi
   - `spidev` — SPI สำหรับ ADS1263 บน Raspberry Pi
   - `adafruit-circuitpython-bme280`, `adafruit-blinka` — I2C BME280 (ถ้าไม่ติดตั้งจะรันโหมดจำลอง BME280)
+  - `scikit-learn`, `joblib` — โหลดโมเดลและทำนาย ppm (ถ้าไม่ติดตั้ง GUI ยังรันได้แต่ช่อง Methane จะแสดง `----`)
 
 ### การติดตั้ง Dependencies
 
@@ -108,6 +146,7 @@ sudo apt-get install -y python3-rpi.gpio python3-spidev
 python3 -m venv .venv
 .venv/bin/python -m ensurepip --upgrade
 .venv/bin/python -m pip install -r requirements-pi.txt
+.venv/bin/python -m pip install scikit-learn joblib
 ```
 
 > บน Pi ใช้ `.venv/bin/python -m pip` — ไม่ใช้ `pip` ระดับระบบ (PEP 668)
@@ -290,7 +329,7 @@ python program/gui.py
 3. ตั้งค่า Loop (ไม่จำกัดหรือจำนวนรอบ)
 4. เริ่มลำดับอัตโนมัติ
 
-**การเก็บข้อมูลใน Auto Mode** (ทั้ง ADC และ BME280) เริ่มที่ **Op2: Baseline** (`start_collection` ใน `gui.py`) และรันต่อเนื่องจนจบรอบ จากนั้นระบบหยุดเก็บข้อมูล ปิดอุปกรณ์ และประมวลผล `process_all_data()` (ครอบคลุมทั้ง `adc1263_*.npz` และ `bme280_*.npz`) ก่อนเข้าช่วง Break (ถ้ามี)
+**การเก็บข้อมูลใน Auto Mode** (ทั้ง ADC และ BME280) เริ่มที่ **Op2: Baseline** (`start_collection` ใน `gui.py`) และรันต่อเนื่องจนจบรอบ จากนั้นระบบหยุดเก็บข้อมูล ปิดอุปกรณ์ และประมวลผล `process_all_data()` (ครอบคลุมทั้ง `adc1263_*.npz` และ `bme280_*.npz`) แล้วทำนาย ppm แสดงบน GUI ก่อนเข้าช่วง Break (ถ้ามี)
 
 ### ลำดับ Auto Mode (7 Operations)
 
@@ -359,6 +398,31 @@ python3 acquisition/acquisiton.py
 from acquisition.acquisiton import process_data
 process_data(prefix="adc1263")  # หรือ "bme280"
 ```
+
+## การทำนายความเข้มข้นมีเทน (Methane ppm)
+
+หลังประมวลผล CSV แต่ละรอบ GUI เรียก `predict_methane.predict_ppm()` โดยอัตโนมัติ:
+
+1. ตัดช่วง **Baseline** และ **Measure** ตาม `analysis_windows` ใน model bundle
+2. คำนวณ features (ΔV ต่อเซ็นเซอร์ `ss1`–`ss4`, ค่า BME280, ฯลฯ)
+3. ส่งเข้า pipeline Linear Regression → แสดงผลเป็นตัวเลข ppm บนหน้า Control และ Display
+
+**ไฟล์ที่เกี่ยวข้อง**
+
+| ไฟล์ | บทบาท |
+|------|--------|
+| `models/methane_linreg_model.joblib` | โมเดล + feature list + analysis windows (deploy บน Pi) |
+| `models/methane_linreg_metrics.json` | ค่า RMSE / R² จากการ train (อ้างอิง) |
+| `predict_methane.py` | โหลดโมเดล, extract features, `predict_ppm()` |
+| `BuildML_PC/train/colab/` | Notebook สำหรับ train และ export โมเดลใหม่บน PC/Colab |
+
+ทดสอบทำนายจาก CLI (หลังมี CSV ใน `acquisition/processed_data/`):
+
+```bash
+python3 -c "from predict_methane import predict_ppm; print(predict_ppm('acquisition/processed_data/adc1263_....csv', 'acquisition/processed_data/bme280_....csv'))"
+```
+
+> ค่า ppm เป็นผลประมาณจากโมเดล ML — ไม่ใช่ค่ามาตรฐานอ้างอิงทางกฎหมายหรือการรับรอง
 
 ## อัปโหลดข้อมูลไป Cloud (Google Drive)
 
@@ -454,6 +518,12 @@ sudo usermod -a -G dialout $USER
 ### GUI / SSH (`no $DISPLAY` / `TclError`)
 
 ถ้ารัน `python program/gui.py` ทาง SSH แล้วได้ `_tkinter.TclError: no display name and no $DISPLAY` ให้ดูหัวข้อ **รัน GUI ผ่าน SSH** ใน `README.md` (ส่วน **การใช้งาน**) — ต้องมีเซสชันกราฟิก (จอ Pi, VNC, หรือ `DISPLAY` + `XAUTHORITY` ที่ถูกต้อง)
+
+### Methane แสดง `----`
+
+- ลำดับ Auto ยังไม่จบ หรือยังไม่ได้ประมวลผล CSV
+- ไม่มี `scikit-learn` / `joblib` หรือโหลด `models/methane_linreg_model.joblib` ไม่สำเร็จ (ดูข้อความใน console)
+- ไฟล์ CSV ไม่ครบหรือช่วง Baseline/Measure สั้นเกินไป — ตรวจ `acquisition/processed_data/` และค่าเวลาใน Settings
 
 ## หมายเหตุ
 

@@ -20,10 +20,9 @@ py docs/user-guide/scripts/capture_gui_screenshots.py
 | `08-sequence-running.png` | กำลังรัน + countdown | — |
 | `09-methane-result.png` | ค่า ppm จริง | — |
 | `10-display-graph.png` | กราฟ + Refresh Graph | — |
-| `11-loop-settings.png` | Infinite Loop / Cycles | — |
-| `12-cloud-checkbox.png` | Cloud checkbox | — |
-| `13-manual-mode.png` | Manual + Hardware Controls | — |
-| `14-stop-button.png` | ปุ่ม Stop | — |
+| `11-loop-settings.png` | crop Break + Cloud + Loop | — |
+| `12-manual-mode.png` | Manual + Hardware Controls | — |
+| `13-stop-button.png` | ปุ่ม Stop | — |
 
 ## เครื่องมือ annotate (แนะนำ)
 
