@@ -1,0 +1,216 @@
+แบบเสนอหัวข้อและโครงร่างการท าโครงงานทางวิศวกรรม 
+ประจ าภาคการศึกษาที่ 2 ปีการศึกษา 2568 
+1. หัวข้อโครงร่าง (Thesis Title) 
+ภาษาไทย (ไทย) การประยุกต์ใช้จมูกอิเล็กทรอนิกส์ร่วมกับการเรียนรู้ของเครื่องในการประเมิน
+ปริมาณก๊าซมีเทนในนาข้าว 
+ภาษาอังกฤษ (English) Application of Electronic Nose Coupled with Machine 
+Learning for Estimating Methane Emissions in Rice Paddies 
+ 
+2. ชื่อและรหัสนักศึกษา (Student name and  code) 
+นาย ปัญจกุล พงษ์พานิช — รหัส 680631040 
+หลักสูตรวิศวกรรมเกษตร 
+ 
+3. อาจารย์ที่ปรึกษา (Advisor) 
+ผศ.ดร. ณัฐวุฒิ เนียมสอน 
+ภาควิชาวิศวกรรมเครื่องกล มหาวิทยาลัยเชียงใหม่ 
+4. บทท า (Introduction) 
+4.1.  ที่มาและความส าคัญ (Overviews) 
+ข้าวเป็นพืชเศรษฐกิจหลักของประเทศไทย ทั้งในด้านการส่งออกและรายได้ของเกษตรกร ในปี พ.ศ. 2567 
+ไทยส่งออกข้าวได้ประมาณ 10 ล้านตัน สร้างรายได้ราว 6.5 พันล้านดอลลาร์สหรัฐ [1, 2]มีครัวเรือนเกษตรกรท า
+นาปลูกข้าวกว่า 4.6 ล้านครัวเรือน ครอบคลุมพื้นที่มากกว่า 115,000 ตารางกิโลเมตร [1, 2]แม้สัดส่วนต่อ
+ผลิตภัณฑ์มวลรวมภายในประเทศจะไม่สูงเท่าอุตสาหกรรมอื่น ข้าวยังเชื่อมโยงกับรายได้และการด ารงชีพของ
+ครัวเรือนในชนบทจ านวนมาก การพัฒนาการเกษตรข้าวจึงไม่ได้จ ากัดอยู่ที่การเพิ่มผลผลิตเพียงอย่างเดียว แต่
+รวมถึงการจัดการผลกระทบต่อสิ่งแวดล้อมจากรูปแบบการปลูกด้วย 
+การปลูกข้าวในไทยส่วนใหญ่เป็นแบบน ้าขัง ทั้งนาปีและนาปรัง [3] เมื่อมีน ้าค้างในดินอย่างต่อเนื่อง สภาวะ
+ดินจะขาดออกซิเจน จุลินทรีย์กลุ่มสร้างก๊าซมีเทน (methanogens) จึงย่อยสลายอินทรียวัตถุและปล่อยก๊าซ
+มีเทน (CH₄) ออกสู่บรรยากาศ ทั้งทางผิวน ้าและทางรากหรือล าต้นข้าว [4] ก๊าซมีเทนเป็นก๊าซเรือนกระจกที่มี
+ศักยภาพในการกักเก็บความร้อนสูง นาข้าวจึงเป็นหนึ่งในแหล่งปล่อย CH₄ ส าคัญของภาคเกษตร โดยมีรายงาน
+ว่าสัดส่วนการปล่อยจากนาข้าวอยู่ในช่วงร้อยละ 12–26 ของก๊าซเรือนกระจกจากพื้นที่เกษตร [4] อย่างไรก็ตาม 
+ปริมาณที่ปล่อยจริงเปลี่ยนแปลงตามฤดูกาล การจัดการน ้า พันธุ์ข้าว และสภาพดิน หากต้องการลดการปล่อย
+หรือติดตามผลของมาตรการลดก๊าซ จ าเป็นต้องมีข้อมูลการวัดที่เชื่อถือได้ในระดับแปลงนา ไม่ใช่เพียงค่าเฉลี่ยใน
+ระดับภูมิภาค 
+ปัจจุบันมีหลายวิธีส าหรับการวัดก๊าซมีเทนจากนาข้าว โดยแต่ละวิธีเหมาะกับบริบทการใช้งานที่ต่างกัน การ
+ใช้ห้องเก็บตัวอย่าง (chamber) ร่วมกับก๊าซโครมาโทกราฟี (GC) ถือเป็นวิธีอ้างอิงที่ให้ความแม่นย าสูง [5, 6]
+แต่ต้องใช้แรงงานและต้นทุนมาก การเก็บข้อมูลท าได้ไม่บ่อย จึงติดตามการเปลี่ยนแปลงตลอดฤดูปลูกได้ยาก [6, 
+7] เครื่องวิเคราะห์สเปกโทรสโกปีและการสังเกตจากดาวเทียมให้ข้อมูลในระดับภูมิภาคหรือระดับความละเอียดสูง 
+แต่ต้นทุนสูงและความละเอียดเชิงพื้นที่มักไม่ถึงระดับรายแปลงนา [8] ทางเลือกที่ต้นทุนต ่ากว่าคือเซ็นเซอร์ก๊าซ
+ราคาประหยัดและจมูกอิเล็กทรอนิกส์ (electronic nose หรือ eNose) ซึ่งเป็นอาเรย์เซ็นเซอร์หลายตัวที่
+น าไปใช้ร่วมกับ machine learning (ML) ในการประเมินความเข้มข้นของก๊าซ 
+แนวทาง eNose ร่วมกับ ML มีศักยภาพส าหรับการประเมินความเข้มข้น CH₄ ในภาคสนาม โดยเฉพาะเมื่อ
+น าค่าอุณหภูมิ ความชื้น และความดันบรรยากาศเข้าร่วมในแบบจ าลองเพื่อชดเชยผลกระทบจากสภาพแวดล้อม 
+[10] อย่างไรก็ตาม งานวิจัยก่อนหน้าส่วนใหญ่ยังเน้นการพิสูจน์แนวคิดหรือการทดลองในห้องแล็บ มากกว่าการ
+สร้างแบบจ าลอง regression ที่ให้ค่าความเข้มข้น CH₄ (หน่วย ppm) อย่างต่อเนื่องบนฮาร์ดแวร์ที่น าไปใช้ใน
+แปลงจริงได้ แม้ Domènech-Gil et al. [10] จะรายงานผลที่ดีในสภาพภาคสนามทั่วไป แต่งานดังกล่าวมุ่ง
+ช่วงความเข้มข้นต ่า (ระดับ ppb–ppm ในบรรยากาศ) ขณะที่บริบทนาข้าวไทยมีความชื้นสูง การเปลี่ยนแปลง
+ตามฤดูกาล และสภาพแวดล้อมที่ซับซ้อน จึงยังจ าเป็นต้องพัฒนาและตรวจสอบแบบจ าลองใหม่ภายใต้เงื่อนไข
+แปลงนาจริง โดยอ้างอิงกับวิธี chamber–GC ดังนั้น งานวิจัยนี้จึงมุ่งพัฒนาและประเมินแบบจ าลอง ML จาก
+สัญญาณ eNose ควบคู่กับค่าอุณหภูมิ ความชื้น และความดัน บนชุดเครื่องมือที่พัฒนาเอง แล้วเปรียบเทียบ
+ความแม่นย าของค่าความเข้มข้น CH₄ (mg CH4/m2/hr.) กับ GC-FID ภายใต้ขอบเขตการศึกษา เป้าหมาย
+เพื่อพัฒนาเครื่องมือต้นทุนต ่าที่ใช้ในการติดตามการปล่อยก๊าซเรือนกระจกจากนาข้าวได้ 
+ 
+4.2.  สรุปสาระส าคัญจากงานวิจัยที่เกี่ยวข้อง (Literature reviews) 
+4.2.1. การปล่อยก๊าซมีเทนจากนาข้าวและปัจจัยควบคุม 
+การปลูกข้าวแบบน ้าขังสร้างสภาวะดินแบบ anaerobic ที่เอื้อต่อการเจริญเติบโต้ของจุลินทรีย์ในกลุ่ม 
+methanogens ให้ย่อยสลายอินทรีย์วัตถุและสร้างก๊าซมีเทน (CH4) และปล่อยออกสู่ชั้นบรรยากาศ 
+ทั้งทางผิวน ้าและทางรากหรือล าตัวของต้นข้าว [4] จากการศึกษาของ Nguyen et al. [4]สรุปได้ว่าการ
+ปลูกข้าวแบบน ้าขังเป็นสาเหตุส าคัญของการปล่อยก๊าซมีเทนและไนตรัสออกไซด์จากพื้นที่การเกษตร 
+โดยปริมาณการปล่อยขึ้นอยู่กับการจัดการน ้า, พันธุ์ข้าว และ สภาพดิน 
+Zhou et al. [8] ทบทวนการปล่อย CH₄ จากนาข้าวใน Monsoon Asia โดยชี้ว่าข้าวเป็นอาหารหลัก
+ของมากกว่าครึ่งหนึ่งของประชากรโลก และการปลูกข้าวในสภาพน ้าท่วมขังสร้างสภาพที่เหมาะสมต่อ
+การผลิตและปล่อย CH₄ งานด้านการจัดการน ้าและปุ๋ยในนาข้าว [9] แสดงให้เห็นว่ารูปแบบการจัดการ
+นา โดยเฉพาะการควบคุมระดับน ้า มีผลอย่างมีนัยส าคัญต่อการปล่อย CH₄ การศึกษาเรื่องพันธุ์ข้าว
+และปัจจัยทางเกษตร [10] ยืนยันว่าชนิดผลิตภัณฑ์ พันธุ์ข้าว และมาตรการทางเกษตรมีผลต่อปริมาณ
+การปล่อยก๊าซ 
+ปัจจัยทางดินและชีวภาพก็มีบทบาทส าคัญ งานวิจัยระดับ rhizosphere ชี้ว่าการพัฒนารากข้าวและ
+สภาพดินรอบรากส่งผลต่อการปล่อยมีเทน [11] ในขณะที่ carbon availability และค่า pH ของดิน
+เป็นตัวควบคุมส าคัญของการปล่อยก๊าซมีเทน ไล่ตามระดับอุณหภูมิ [12] โมเดลกระบวนการเช่น 
+CH4MOD [13] ถูกพัฒนาเพื่อประมาณการปล่อยก๊าซมีเทน จากนาข้าวในระดับภูมิภาคและโลก แต่
+การประมาณระดับ macro ยังไม่เพียงพอส าหรับการติดตามการเปลี่ยนแปลงในระดับแปลงนา 
+ก๊าซมีเทนจากนาข้าวมี ความผันผวนสูง ทั้งตามฤดูกาล ระยะเจริญเติบโตของข้าว และช่วงเวลาในวัน [8] 
+ดังนั้นการติดตามการปล่อยก๊าซเพื่อประเมินมาตรการลด emission หรือเพื่อ validate เครื่องมือวัด
+ใหม่ จ าเป็นต้องอาศัยการวัดซ ้าในช่วงเวลาที่เหมาะสม ไม่ใช่การสรุปจากค่าเฉลี่ยเพียงครั้งเดียว [4, 9] 
+4.2.2. วิธีการวัด chamber ร่วมกับ GC อ้างอิง  
+การใช้ static chamber ร่วมกับ gas chromatography (GC-FID) ส าหรับ CH₄ ยังถือเป็น วิธี
+อ้างอิงที่ได้รับการยอมรับกว้างขวางในการวัดการปล่อยก๊าซเรือนกระจกจากดินเกษตรกรรม [6] 
+Zaman et al. [6] น าเสนอระเบียบวิธีการวัดการปล่อยก๊าซเรือนกระจกจากดินเกษตรกรรมด้วยเทคนิค 
+non-isotopic รวมถึงการออกแบบ chamber การเก็บตัวอย่าง และการวิเคราะห์ด้วย GC-FID 
+ส าหรับก๊าซมีเทน 
+Mumu et al. [7] ทบทวนความก้าวหน้าทางวิธีวิทยาในการวัดก๊าซเรือนกระจกจากเกษตรกรรม และ
+สรุปว่า chamber–GC ยังให้ ความแม่นย าสูง แต่มีข้อจ ากัดด้าน ต้นทุน แรงงาน และความถี่ในการเก็บ
+ตัวอย่าง (sampling) การเก็บข้อมูลท าได้ไม่บ่อย จึงติดตามการเปลี่ยนแปลงตลอดฤดูปลูกได้ยาก [7] 
+Borhan และ Khanaum [9] เปรียบเทียบเซ็นเซอร์และวิธีการวัดก๊าซเรือนกระจกจากฟาร์มปศุสัตว์ 
+แม้บริบทจะต่างจากนาข้าว แต่หลักการของ chamber และ GC ส าหรับการวัด flux สามารถน ามา
+ประยุกต์กับนาข้าวได้ 
+งานวิจัยนี้ก าหนดให้ chamber ร่วมกับ GC-FID เป็นวิธีอ้างอิงส าหรับการฝึกและตรวจสอบ
+แบบจ าลอง eNose โดยค่าความเข้มข้นของก๊าซมีเทน จาก GC จะใช้เป็นค่าเปรียบเทียบกับค่าที่ได้
+จากระบบ eNose ภายใต้ขอบเขตการศึกษา [6], [7] 
+4.2.3.  วิธีการวัดอื่นๆและการประเมินก๊าซมีเทน 
+นอกจาก chamber–GC ยังมีวิธีและแนวทางอื่นส าหรับการตรวจวัดและประเมิน CH₄ จากนาข้าว ซึ่ง
+แต่ละวิธีมีข้อดีและข้อจ ากัดต่างกัน 
+สเปกโทรสโกปีและเทคโนโลยีตรวจจับระดับสูง 
+Tyagi et al. [8] ทบทวนความก้าวหน้าของเทคโนโลยีการตรวจจับมีเทน รวมถึง TDLAS, CRDS และ 
+FTIR ที่วัดได้ในระดับ ppm ถึง ppb วิธีเหล่านี้ให้ความแม่นย าสูงและตอบสนองเร็ว เหมาะกับงานใน
+ห้องแล็บหรือสถานีตรวจวัดคงที่ แต่มี ต้นทุนสูง ต้องการการตั้งค่าที่ซับซ้อน และไม่เหมาะกับการติดตั้ง
+หลายจุดในแปลงนาขนาดเล็กหรือการติดตามแบบต่อเนื่องตลอดฤดูปลูก [8] Vo et al. [21] 
+เปรียบเทียบเทคนิค TGA กับ GC ในการวัดมีเทนจากดินเกษตรกรรม ซึ่งแสดงให้เห็นว่ามีทางเลือกด้าน
+เครื่องมือวิเคราะห์หลายแบบ แต่การเลือกใช้ยังขึ้นกับความแม่นย า ต้นทุน และบริบทการใช้งาน 
+การสังเกตจากระยะไกลและ machine learning ระดับภูมิภาค 
+การสังเกตจากดาวเทียมและ UAV ช่วยครอบคลุมพื้นที่กว้างได้ แต่ความละเอียดเชิงพื้นที่มัก ไม่ถึงระดับ
+รายแปลงนา โดยตรง [8] Xu et al. [22] น าเสนอแนวทาง AI/ML ร่วมกับ remote sensing ส าหรับ
+ประเมิน CH₄ จากนาข้าว ซึ่งเหมาะกับการประเมินในระดับภูมิภาคมากกว่าการติดตาม real-time ใน
+แปลงเดียว 
+เซ็นเซอร์ต้นทุนต ่าและระบบภาคสนามในนาข้าว 
+Rajasekar และ Selvi [5] ศึกษาการปล่อยก๊าซเรือนกระจกจากนาข้าวสู่บรรยากาศใกล้พื้นผิว โดย
+ติดตั้ง ระบบ chamber อัตโนมัติ พร้อมเซ็นเซอร์ MQ4 และ TGS2611 ส าหรับ CH₄ ผลการทดลอง
+แสดงให้เห็นว่าการใช้เซ็นเซอร์ราคาประหยัดในภาคสนามเป็นไปได้ แต่ค่าที่ได้ยังต้องอาศัยการสอบ
+เทียบและตรวจสอบกับวิธีอ้างอิงอย่างสม ่าเสมอ [5] งานนี้มีความเกี่ยวข้องโดยตรงกับแนวทางของ
+งานวิจัยนี้ทั้งในแง่การเลือกเซ็นเซอร์ MOS และการติดตั้งในแปลงนาข้าว อย่างไรก็ตาม งานดังกล่าวยัง
+ไม่ได้ใช้ eNose array หลายช่องร่วมกับ ML regression เพื่อให้ค่าความเข้มข้น ppm โดยตรง 
+ML จากปัจจัยสิ่งแวดล้อมในข้าวนา 
+Zhang et al. [13] เสนอวิธีวัด CH₄ แบบ in-situ ความถี่สูงในข้าวนา โดยใช้ machine learning 
+กับปัจจัยน ้า–ดิน–อากาศ (water–soil–air factors) ในบริบทลุ่มแม่น ้าแยงซี ผลการทดลองด้วย 
+Decision Tree Regressor ให้ค่า R² สูงถึง 0.84 [13] งานนี้เป็นแนวทางที่ ใกล้ use case ของ
+งานวิจัยนี้มากที่สุด ในด้านนาข้าว แต่ยัง ไม่ได้ใช้สัญญาณจาก eNose/MOS เป็นตัวแปรหลัก 
+Anapalli et al. [15] ใช้ eddy covariance ประเมินผลของ alternate wetting and drying 
+(AWD) ต่อการปล่อย CH₄ จากนาข้าว ซึ่งแสดงให้เห็นว่ามาตรการจัดการน ้าลด emission ได้ แต่วิธีนี้
+มีต้นทุนสูงและไม่อยู่ในขอบเขตของงานวิจัยนี้ [15] 
+ 
+4.2.4. เทคโนโลยีจมูกอิเล็กทรอนิกส์ และ เซนเซอร์ MOS 
+4.2.5. เทคนิคการเรียนรู้ของเครื่องส าหรับการประเมินความเข้มข้นก๊าซมีเทน 
+4.2.6. ช่องว่างทางการวิจัย 
+ 
+เทคโนโลยีจมูกอิเล็กทรอนิกส์และเซนเซอร์ก๊าซ 
+การประยุกต์ใช้จมูกอิเล็กทรอนิกส์ 
+4.3. วัตถุประสงค์ของการศึกษา (Research Objective) 
+4.4. ขอบเขตการศึกษา (Research scopes and limitations) 
+4.5. ประโยชน์ที่คาดว่าจะได้รับ (Research Contribution) 
+5. หลักการและทฤษฎีที่เกี่ยวข้อง 
+6. วิธีการด าเนินงานวิจัย 
+7. สภานที่ในการด าเนินโครงการ (Location) 
+8. แผ่นการด าเนินงาน (Project timeline) 
+9. งบประมาณ (Budget) 
+ 
+ 
+ 
+ 
+ 
+เอกสารอ้างอิง (References) 
+[1] C. Sowcharoensuk, "Industry Outlook 2026-2028: Rice Industry," Krungsri Research, 
+2026. [Online]. Available: https://www.krungsri.com/th/research/industry/industry-
+outlook/agriculture/rice/io/io-rice-2026-2028 
+[2] T. Nation, "Thai farm incomes face pressure from global rice market shifts," The 
+Nation, 2026. 
+[3] Thairath, "Thai Rice Exports in 2025 Surpass Targets Efforts Accelerate in 2026 to 
+Maintain and Expand Markets," Thairath, 2026. 
+[4] H. Nguyen et al., "Carbon Footprint Reduction from Closing Rice Yield Gaps," in 
+Carbon Footprint of Rice Production, 2023, pp. 149–176. 
+[5] P. Rajasekar and J. A. V. Selvi, "Sensing and Analysis of Greenhouse Gas Emissions 
+from Rice Fields to the Near Field Atmosphere," Sensors, vol. 22, no. 11, p. 4141, 2022. 
+[6] M. Zaman et al., "Methodology for measuring greenhouse gas emissions from 
+agricultural soils using non-isotopic techniques," in Measuring Emission of Agricultural 
+Greenhouse Gases and Developing Mitigation Options Using Nuclear and Related 
+Techniques, Springer, 2021, pp. 11–108. 
+[7] N. J. Mumu et al., "Methodological progress in the measurement of agricultural 
+greenhouse gases," Carbon Management, vol. 15, no. 1, p. 2366527, 2024. 
+[8] L. Tyagi et al., "Environmental impacts and recent advancements in the sensing of 
+methane: a review," Environ. Technol. Rev., vol. 14, no. 1, pp. 191–212, 2025. 
+[9] M. S. Borhan and M. M. Khanaum, "Sensors and methods for measuring greenhouse 
+gas emissions from different components of livestock production facilities," J. Geosci. 
+Environ. Prot., vol. 10, no. 12, pp. 242–272, 2022. 
+[10] G. Domènech-Gil et al., "Electronic nose for improved environmental methane 
+monitoring," Environ. Sci. Technol., vol. 58, no. 1, pp. 352–361, 2023. 
+[11] S. Baruah and D. H. Mazumder, "A Review on Application of Machine Learning 
+Techniques Coupled With E-Nose in Healthcare Agriculture and Allied Domains," IEEE 
+Access, 2025. 
+[12] A. Ahmad et al., "The Promise of Low-Cost Metal-Oxide Semiconductor Gas 
+Sensors for Precision Agriculture," Adv. Sensor Res., 2026. 
+ 
+ 
+1. 
+Sowcharoensuk, C. Industry Outlook 2026-2028: Rice Industry. 2026; Available 
+from: https://www.krungsri.com/th/research/industry/industry-
+outlook/agriculture/rice/io/io-rice-2026-2028. 
+2. 
+Nation, T., Thai farm incomes face pressure from global rice market shifts, in The 
+Nation. 2026. 
+3. 
+Thairath, Thai Rice Exports in 2025 Surpass Targets Efforts Accelerate in 2026 to 
+Maintain and Expand Markets, in Thairath. 2026. 
+4. 
+Nguyen, H., et al., Carbon Footprint Reduction from Closing Rice Yield Gaps. 
+2023. p. 149-176. 
+5. 
+Zaman, M., et al., Methodology for measuring greenhouse gas emissions from 
+agricultural soils using non-isotopic techniques, in Measuring emission of 
+agricultural greenhouse gases and developing mitigation options using nuclear 
+and related techniques: Applications of nuclear techniques for GHGs. 2021, 
+Springer. p. 11-108. 
+6. 
+Mumu, N.J., et al., Methodological progress in the measurement of agricultural 
+greenhouse gases. Carbon Management, 2024. 15(1): p. 2366527. 
+7. 
+Rajasekar, P. and J.A.V. Selvi, Sensing and Analysis of Greenhouse Gas Emissions 
+from Rice Fields to the Near Field Atmosphere. Sensors, 2022. 22(11): p. 4141. 
+8. 
+Ji, Y., et al., Carbon footprint research and mitigation strategies for rice-cropping 
+systems in China: a review. Frontiers in Sustainable Food Systems, 2024. 8. 
+9. 
+Gu, X., et al., Effects of Water and Fertilizer Management Practices on Methane 
+Emissions from Paddy Soils: Synthesis and Perspective. Int J Environ Res Public 
+Health, 2022. 19(12). 
+10. 
+Singh, A., et al., A Comprehensive Review on Greenhouse Gas Emissions in 
+Agriculture and Evolving Agricultural Practices for Climate Resilience. 
+International Journal of Environment and Climate Change, 2024. 14(5): p. 455-
+464. 
+11. 
+Guan, S., et al., Effects of Rice Root Development and Rhizosphere Soil on 
+Methane Emission in Paddy Fields. Plants (Basel), 2024. 13(22). 
+12. 
+Yusong, D., et al., Methane emissions from rice paddies are regulated by carbon 
+availability and soil pH along a mean annual temperature gradient. Sci Rep, 
+2026. 16(1). 
+13. 
+Hu, Q., et al., Global methane emissions from rice paddies: CH4MOD model 
+development and application. iScience, 2024. 27(11): p. 111237. 
+ 

@@ -1,0 +1,65 @@
+# Zhang et al. (2025) — structured extract (no OA PDF available)
+# DOI: 10.1016/j.jenvman.2025.127132
+# PubMed: 40884954
+# Note: Former file 2025_Zhang_ML_in-situ_CH4_measurement_paddy_fields_Yangtze.pdf was MISFILED
+#       (actually Basheer et al. 2024, Sustainability 16, 4789). Renamed to _MISFILED_Basheer2024_GHG_agricultural_soil.pdf
+
+TITLE
+Machine learning-driven method for in-situ high-frequency CH4 measurement in paddy fields based on water-soil-air factors: A case study of the Yangtze River Basin
+
+AUTHORS
+Qinjing Zhang, Weijia Wen, Yanhua Zhuang, Liang Zhang, Limei Zhai, Sisi Li, Hongbin Liu, Yun Du
+
+JOURNAL
+Journal of Environmental Management, Volume 393, October 2025, Article 127132
+
+ABSTRACT (PubMed / ScienceDirect)
+Accurate and high-frequency monitoring of methane (CH4) from rice paddies is crucial for effective carbon emission control but remains challenging due to fluctuant emissions and complex field environments. This study proposed a new in-situ high-frequency CH4 measurement method based on machine learning and sensor-measurable water-soil-air environment factors. The results show that:
+(1) soil and paddy water serve as critical media influencing CH4 production and transportation, with paddy water depth (Hpw), soil electrical conductivity (EC), and soil temperature (Ts) being significantly positively correlated with CH4 emission flux, while soil redox potential (Eh) had a negative effect (p < 0.05).
+(2) The decision tree (DTR) showed the best accuracy for CH4 inversion, with soil factors being the optimal input group (R2 = 0.84), which was superior to water-soil (0.83), water-soil-air (0.55), and air-soil (0.45) groups; Eh, EC, soil pH, and Ts are the essential input variables (R2 > 0.80).
+(3) Combining the immediacy of multi-sensor detection and the accuracy of machine learning, the new method demonstrates notable advantages in high frequency, high accuracy, synchronous multiparameter monitoring, and low cost. This method enables the real-time monitoring and control of CH4 emission from paddy fields, thereby offering new perspectives for CH4 monitoring in small water bodies (such as ditches, ponds, lakes, etc.).
+
+HIGHLIGHTS
+- Develop a new in-situ high-frequency CH4 measurement method for rice paddies.
+- The new method combines the advantages of sensor and decision tree algorithm.
+- Sensor-measured water-soil-air factors are selected to simulate CH4 emission.
+
+STUDY AREA & DATA (ScienceDirect preview)
+- Experiment: June–September 2022 and 2024
+- Sites: Liuzhou village (112.62°E, 30.39°N), Qianjiang City; Wenan town (111.82°E, 30.53°N), Zhijiang City, Hubei Province, China
+- Context: Yangtze River Basin — largest paddy area in China (~68.7% of national rice area)
+- Two typical crop rotation systems
+
+MOTIVATION (Introduction summary)
+- Rice paddies ≈ 48% of agricultural CH4 emissions (flooded conditions)
+- CH4 processes: production, oxidation, transport — driven by soil properties, water/fertilizer management, tillage, climate
+- Limitations of existing methods:
+  * Chamber: labor-intensive, low temporal resolution
+  * Models (CH4MOD, DNDC): complex calibration, limited temporal resolution
+  * Remote sensing: cloud/rain gaps during rice season (Jun–Oct)
+- Proposed: sensor immediacy + ML accuracy for CH4 monitoring
+
+KEY FINDINGS — factor relevance
+- Paddy water depth and soil EC significantly positively correlated with CH4 flux
+- Soil Eh negatively correlated
+- Soil + paddy surface water are critical for CH4 production and transport
+
+ML COMPARISON
+- Five ML algorithms evaluated; Decision Tree Regressor (DTR) best
+- Input groups (R2):
+  * Soil only: 0.84 (best)
+  * Water-soil: 0.83
+  * Water-soil-air: 0.55
+  * Air-soil: 0.45
+- Key variables: Eh, EC, soil pH, Ts (each R2 > 0.80 when used individually)
+
+CONCLUSION (ScienceDirect preview)
+Among five evaluated ML algorithms, DTR exhibited highest accuracy (R2 = 0.84) with soil factors as input. Emphasizes critical roles of soil and paddy surface water; Eh, EC, soil pH, and Ts are essential.
+
+FUNDING
+- National Key R&D Program of China [2022YFD1700700]
+- Hubei Provincial Natural Science Foundation [2024AFA020]
+- Young Top-notch Talent Cultivation Program of Hubei Province
+
+KEYWORDS
+In-situ monitoring; Machine learning; Methane (CH4); Paddy fields; Water-soil-air environment factors
