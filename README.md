@@ -1,541 +1,132 @@
 # eNose Methane Detection System
 
-ระบบควบคุมและเก็บข้อมูลจาก eNose (Electronic Nose) สำหรับตรวจจับก๊าซมีเทน บน Raspberry Pi — อ่านสัญญาณจากเซ็นเซอร์ก๊าซผ่าน ADS1263 ประมวลผลเป็น CSV แล้วประมาณความเข้มข้นเป็น **ppm** ด้วยโมเดล ML บนหน้าจอ GUI
+Raspberry Pi–based **electronic nose (eNose)** for estimating methane (CH₄) concentration in **ppm**, using MOS gas sensors, automated sampling, and machine learning.
 
-**ผู้อ่านเป้าหมาย:** ผู้พัฒนาและผู้ติดตั้งบน Raspberry Pi ที่ต้องการรัน GUI เก็บข้อมูลเซ็นเซอร์ ประมวลผลเป็น CSV ทำนาย ppm และ (ถ้าต้องการ) อัปโหลด Google Drive
+ระบบควบคุมและเก็บข้อมูลจาก eNose บน Raspberry Pi — อ่านสัญญาณเซ็นเซอร์ก๊าซผ่าน ADS1263 + สภาพแวดล้อมจาก BME280 ประมวลผลเป็น CSV แล้วประมาณค่ามีเทนด้วยโมเดล ML แสดงบน GUI
 
-**สำหรับผู้ใช้งานบนเครื่องจริง** (ไม่เน้นโค้ด): อ่าน [**คู่มือผู้ใช้**](docs/user-guide/eNose-User-Guide.md) หรือเปิด [`docs/user-guide/eNose-User-Guide.pdf`](docs/user-guide/eNose-User-Guide.pdf)
+<p align="center">
+  <img src="docs/user-guide/assets/screenshots/front-view.png" alt="eNose hardware front view" width="420"/>
+  <img src="docs/user-guide/assets/screenshots/02-control-overview.png" alt="GUI Control page" width="420"/>
+</p>
 
-**สิ่งที่เอกสารนี้ครอบคลุม:** ภาพรวมระบบ โครงสร้างไฟล์ การติดตั้ง การตั้งค่า การใช้งาน GUI รูปแบบข้อมูล การประมวลผล การทำนาย ppm บน Pi อัปโหลดคลาวด์แบบเลือกได้ และแก้ปัญหาเบื้องต้น — ไม่ลงรายละเอียด pipeline train โมเดล (ดู `BuildML_PC/`)
+**เป้าหมาย:** มอนิเตอร์มีเทนแบบต้นทุนต่ำ (เช่น บริบทนาข้าว) เป็นทางเลือกเสริมวิธีอ้างอิงอย่าง chamber–GC
 
-## ภาพรวมโปรเจกต์
+> ค่า ppm จากโมเดลเป็นค่าประมาณจากการสอบเทียบ ML — ไม่ใช่ค่ามาตรฐานรับรองทางกฎหมาย
 
-โปรเจกต์นี้เป็นระบบควบคุม hardware และเก็บข้อมูลจากเซ็นเซอร์ eNose โดยใช้:
+---
 
-- **ADS1263** (SPI) อ่านค่าก๊าซเซ็นเซอร์หลายช่องตามที่ตั้งใน `reading/main.py`
-- **BME280** (I2C) อ่านอุณหภูมิ ความชื้น และความดันอากาศ คู่ขนานกับ ADC ผ่าน `reading/bme280.py`
+## Features
 
-และควบคุมอุปกรณ์ 7 ตัว (Solenoid Valves, Pump, Fan, Heater) ผ่าน **GPIO Relay** จาก GUI หลัก
+- **GUI** — 3 หน้า: Control / Display / Settings (Tkinter)
+- **Manual & Auto modes** — ควบคุมรีเลย์ด้วยมือ หรือรันลำดับ 7 Operations อัตโนมัติพร้อม Loop
+- **Data acquisition** — ADS1263 (~100 Hz, หลายช่อง) + BME280 (T/H/P, ~10 Hz) → `.npz`
+- **Signal processing** — Low-pass IIR + Moving Average → `.csv`
+- **Methane prediction (ppm)** — Linear Regression (`models/methane_linreg_model.joblib`)
+- **Cloud upload (optional)** — Google Drive (Service Account) พร้อมคิว retry
+- **Autostart** — เปิด GUI หลัง boot บน Raspberry Pi
 
-หลังจบรอบวัด ระบบดึง features จาก CSV ที่ประมวลผลแล้ว แล้วทำนายความเข้มข้นมีเทนเป็น **ppm** ด้วยโมเดล Linear Regression (`predict_methane.py` + `models/methane_linreg_model.joblib`) แสดงบนหน้า Control และ Display
+## Hardware
 
-## เอกสาร
+| ส่วน | รายละเอียด |
+|------|------------|
+| Controller | Raspberry Pi (SPI / I2C / GPIO) |
+| Gas ADC | ADS1263 (SPI) — เซ็นเซอร์ MOS เช่น TGS2611 |
+| Environment | BME280 (I2C) — อุณหภูมิ ความชื้น ความดัน |
+| Actuators | 7× relay (Active HIGH): วาล์ว ×4, pump, fan, heater |
 
-| เอกสาร | ผู้อ่าน | ไฟล์ |
-|--------|---------|------|
-| **README** (ไฟล์นี้) | ผู้พัฒนา / ผู้ติดตั้ง | — |
-| **คู่มือผู้ใช้** | ผู้ปฏิบัติงานบนเครื่อง | [`docs/user-guide/eNose-User-Guide.md`](docs/user-guide/eNose-User-Guide.md) · [PDF](docs/user-guide/eNose-User-Guide.pdf) |
-| **Autostart** | ผู้ดูแลระบบ Pi | [`program/AUTOSTART_SETUP.md`](program/AUTOSTART_SETUP.md) |
+## Quick start
 
-สร้าง PDF/HTML คู่มือใหม่จาก Markdown:
+### Requirements
 
-```bash
-py docs/user-guide/scripts/export_pdf.py
-```
+- Raspberry Pi + Python 3.x (หรือ PC โหมดจำลอง)
+- Dependencies: ดู `requirements-pi.txt` (core/viz แยกได้) และ `requirements-cloud.txt` (ถ้าใช้ Drive)
 
-## ฟีเจอร์หลัก
-
-- **GUI Control Interface** — 3 หน้า (Control / Display / Settings) รองรับย่อ-ขยายตามหน้าต่าง พร้อม Scrollbar กราฟ Process Data และช่องแสดง Methane (ppm)
-- **สองโหมดการทำงาน**
-  - **Manual Mode** — ควบคุมอุปกรณ์ด้วยตนเอง และเริ่ม/หยุดเก็บข้อมูล ADC
-  - **Auto Mode** — รันลำดับ 7 Operations อัตโนมัติ พร้อมช่วง Break และ Loop
-- **Data Collection** — เก็บข้อมูลจาก:
-  - **ADS1263** ตาม `CHANNEL_LIST` และ `SAMPLE_INTERVAL_SEC` ใน `reading/main.py` (ค่าเริ่มต้นปัจจุบัน: 4 ช่อง, ~100 Hz)
-  - **BME280** ตาม `BME_SAMPLE_INTERVAL_SEC` ใน `reading/bme280.py` (ค่าเริ่มต้น: 10 Hz, อ่าน T/H/P)
-  - ทั้งสองเซ็นเซอร์เริ่ม/หยุดพร้อมกัน (ใช้ `stop_event` ตัวเดียวกัน) และเก็บลงไฟล์ `.npz` แยกกัน
-- **Data Processing** — กรองข้อมูลด้วย Low-pass IIR และ Moving Average แล้วบันทึกเป็น CSV (`acquisition/acquisiton.py`) — `process_all_data()` ประมวลผลทั้งไฟล์ ADC และ BME280 ของรอบล่าสุดในคำสั่งเดียว
-- **Hardware Control** — ควบคุม 7 Relay ผ่าน GPIO (Active HIGH): `s_valve1`, `s_valve2`, `s_valve3`, `s_valve4`, `pump`, `fan`, `heater`
-- **Methane Prediction (ppm)** — หลัง `process_all_data()` ระบบเรียก `predict_ppm()` จาก processed CSV แล้วแสดงค่าบน GUI (หน้า Control + Display); โมเดลอยู่ที่ `models/methane_linreg_model.joblib`
-- **Cloud Upload (optional)** — หลังประมวลผลแต่ละรอบ อัปโหลด `.npz` + `.csv` ขึ้น Google Drive (Service Account) พร้อมคิว retry; ตั้งค่าใน `program/cloud_config.json` และติ๊ก **Auto-upload to Cloud** ในแท็บ **Settings** ของ GUI
-- **Autostart** — รองรับการเปิด GUI หลัง boot ผ่าน `run_gui.sh` และไฟล์ `.desktop` รวมขั้นตอนหลังซิงก์โค้ดใหม่ (รายละเอียดใน [`program/AUTOSTART_SETUP.md`](program/AUTOSTART_SETUP.md))
-
-โค้ดที่ใช้งานจริงกับ BME280 และ ADS1263 อยู่ที่ `reading/bme280.py` และ `reading/main.py` / `reading/ADS1263.py` — หากต้องการสคริปต์ทดสอบแยกให้สร้างในเครื่องหรือเรียกคลาส collector จากโมดูลเหล่านี้โดยตรง
-
-## โครงสร้างโปรเจกต์
-
-```
-eNose_methane/
-├── README.md
-├── predict_methane.py          # ทำนาย ppm จาก processed CSV (เรียกจาก GUI)
-├── .gitignore                  # ยกเว้นไฟล์ที่กำหนดใน repo (เช่น secret คลาวด์, คิวอัปโหลด) — ปรับเพิ่มได้ตามทีม
-├── requirements-cloud.txt      # แพ็กเกจ Google API สำหรับอัปโหลด (ไม่บังคับ)
-├── requirements-pi*.txt        # dependencies บน Raspberry Pi (core / viz / รวม)
-│
-├── models/                     # โมเดลที่ deploy บน Pi
-│   ├── methane_linreg_model.joblib
-│   └── methane_linreg_metrics.json
-│
-├── scripts/                    # ส่งโค้ดไป Pi (ไม่รวม venv / ข้อมูล)
-│   ├── sync_to_pi.sh
-│   └── sync_to_pi.ps1
-│
-├── docs/user-guide/            # คู่มือผู้ใช้ (Markdown, HTML, PDF, ภาพประกอบ)
-│   ├── eNose-User-Guide.md
-│   ├── eNose-User-Guide.pdf
-│   └── scripts/                # export PDF, จับภาพ GUI
-│
-├── BuildML_PC/                 # train โมเดลบน PC / Colab (ไม่รันบน Pi)
-│   └── train/colab/methane_ppm_regression_colab.ipynb
-│
-├── program/                    # GUI และการตั้งค่า
-│   ├── gui.py                  # หน้าจอควบคุมหลัก (HardwareControlGUI)
-│   ├── hardware_config.json    # เวลาแต่ละ operation, GPIO, การวน loop
-│   ├── cloud_config.example.json  # ตัวอย่างการตั้งค่าอัปโหลด Cloud (คัดลอกเป็น cloud_config.json)
-│   ├── run_gui.sh              # รัน GUI (รองรับ autostart)
-│   ├── install_autostart.sh    # ช่วยติดตั้ง autostart (สคริปต์ใน repo)
-│   ├── install_xdg_autostart.sh
-│   ├── enose-gui.desktop       # ตัวอย่างไฟล์ autostart สำหรับ Desktop
-│   └── AUTOSTART_SETUP.md      # คู่มือตั้งค่าเปิดอัตโนมัติบน Raspberry Pi
-│
-├── cloud/                      # อัปโหลดไฟล์ NPZ/CSV ไป Google Drive (ไม่บังคับ)
-│   ├── __init__.py
-│   ├── uploader.py             # คิวอัปโหลด + ThreadPool ตัวเดียว
-│   ├── config.py               # โหลด program/cloud_config.json
-│   ├── queue.py                # คิว retry เมื่อเน็ตล่ม
-│   └── providers/              # provider ต่อคลาวด์
-│       ├── __init__.py
-│       ├── base.py             # สัญญา (interface) ของ provider
-│       └── gdrive.py           # Google Drive (Service Account)
-│
-├── reading/                    # อ่านค่าเซ็นเซอร์และบันทึก NPZ
-│   ├── __init__.py
-│   ├── main.py                 # SensorDataCollector / run_collection (ADS1263)
-│   ├── bme280.py               # BMESensorDataCollector / run_bme_collection (BME280, I2C)
-│   ├── ADS1263.py              # ไดรเวอร์ ADS1263 (SPI)
-│   ├── config.py               # การตั้งค่า SPI/GPIO สำหรับ ADC
-│   ├── covert.py               # ฟังก์ชันแปลงข้อมูล
-│   └── data/                   # ไฟล์ดิบ .npz (`adc1263_*.npz`, `bme280_*.npz`)
-│
-├── acquisition/                # ประมวลผลหลังเก็บข้อมูล
-│   ├── acquisiton.py           # Low-pass + Moving Average → CSV (`process_all_data`)
-│   └── processed_data/         # ไฟล์ .csv หลังประมวลผล (`adc1263_*.csv`, `bme280_*.csv`)
-│
-├── hardware_control/           # ชั้นควบคุม Relay
-│   ├── hardware.py             # HardwareController
-│   └── __init__.py
-│
-└── tests/                      # ทดสอบอัตโนมัติ (คลาวด์ / คิว)
-    ├── test_cloud_queue.py
-    ├── test_cloud_uploader.py
-    └── test_cloud_gdrive_smoke.py   # ต้องมี credential + folder id (ดูหัวข้อ Cloud)
-```
-
-## การติดตั้ง
-
-### ความต้องการของระบบ
-
-- **Hardware**: Raspberry Pi สำหรับ SPI/GPIO จริง หรือโหมดจำลองบน PC
-- **Python**: Python 3.x
-- **ไลบรารีหลัก**:
-  - `tkinter` — GUI
-  - `numpy`, `pandas` — ข้อมูลและประมวลผล
-  - `matplotlib` — แสดงกราฟใน GUI (ถ้าไม่ติดตั้ง บางส่วนของ GUI จะถูกปิดใช้)
-  - `RPi.GPIO` — GPIO บน Raspberry Pi
-  - `spidev` — SPI สำหรับ ADS1263 บน Raspberry Pi
-  - `adafruit-circuitpython-bme280`, `adafruit-blinka` — I2C BME280 (ถ้าไม่ติดตั้งจะรันโหมดจำลอง BME280)
-  - `scikit-learn`, `joblib` — โหลดโมเดลและทำนาย ppm (ถ้าไม่ติดตั้ง GUI ยังรันได้แต่ช่อง Methane จะแสดง `----`)
-
-### การติดตั้ง Dependencies
-
-บน Raspberry Pi (ตัวอย่าง):
+### Install (Raspberry Pi)
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y python3-tk python3-numpy python3-pandas python3-matplotlib
 sudo apt-get install -y python3-rpi.gpio python3-spidev
+
 python3 -m venv .venv
 .venv/bin/python -m ensurepip --upgrade
 .venv/bin/python -m pip install -r requirements-pi.txt
 .venv/bin/python -m pip install scikit-learn joblib
 ```
 
-> บน Pi ใช้ `.venv/bin/python -m pip` — ไม่ใช้ `pip` ระดับระบบ (PEP 668)
-
-**ติดตั้งแบบแยกชุด (ลดขนาด venv):**
-
-| ไฟล์ | ใช้เมื่อ |
-|------|---------|
-| [`requirements-pi-core.txt`](requirements-pi-core.txt) | GPIO, SPI, BME280 — จำเป็นสำหรับเก็บข้อมูล |
-| [`requirements-pi-viz.txt`](requirements-pi-viz.txt) | กราฟใน GUI (`matplotlib`, `pandas`, `numpy`) |
-| [`requirements-pi.txt`](requirements-pi.txt) | ติดตั้งครบ (core + viz) |
-| [`requirements-cloud.txt`](requirements-cloud.txt) | อัปโหลด Google Drive (ไม่บังคับ) |
-
-```bash
-# เฉพาะเก็บข้อมูล ไม่ใช้กราฟใน GUI
-.venv/bin/python -m pip install -r requirements-pi-core.txt
-```
-
-บนเครื่องพัฒนา (โหมดจำลอง ไม่มี ADC/BME280 จริง):
-
-```bash
-pip install -r requirements-pi-viz.txt
-```
-
-หากใช้งานอัปโหลด Google Drive ให้ติดตั้งแพ็กเกจเพิ่มจากไฟล์ [`requirements-cloud.txt`](requirements-cloud.txt) (ดูหัวข้อ **อัปโหลดข้อมูลไป Cloud**)
-
-### ส่งโค้ดไป Raspberry Pi (ไม่รวม venv / ข้อมูลเซ็นเซอร์)
-
-จาก Linux/macOS หรือ Git Bash บน Windows:
-
-```bash
-chmod +x scripts/sync_to_pi.sh
-./scripts/sync_to_pi.sh pi@raspberrypi.local ~/eNose_methane
-```
-
-บน PowerShell (ต้องมี `rsync` ใน PATH):
-
-```powershell
-.\scripts\sync_to_pi.ps1 -Remote "pi@raspberrypi.local" -Dest "~/eNose_methane"
-```
-
-สคริปต์จะข้าม `.venv`, `.cursor`, `reading/data/*.npz`, `acquisition/processed_data/`, ไฟล์ลับคลาวด์ และ `__pycache__`
-
-## การตั้งค่า
-
-### 1. Hardware Configuration (`program/hardware_config.json`)
-
-ไฟล์นี้กำหนดระยะเวลาแต่ละขั้น (วินาที), แมป GPIO ของ relay และการตั้งค่า loop ใน Auto Mode  
-ค่าตัวเลขจริงใน repo อาจถูกปรับเพื่อทดสอบสั้นๆ — แก้ให้ตรงกับงานจริงของคุณ
-
-**โครงสร้างที่รองรับ:**
-
-```json
-{
-    "operation_times": {
-        "heating": 1800,
-        "baseline": 30,
-        "vacuum": 10,
-        "mix_air": 10,
-        "measure": 60,
-        "vacuum_return": 10,
-        "recovery": 60,
-        "break_time": 1620
-    },
-    "gpio_pins": {
-        "s_valve1": 5,
-        "s_valve2": 6,
-        "s_valve3": 13,
-        "s_valve4": 19,
-        "pump": 26,
-        "fan": 20,
-        "heater": 21
-    },
-    "auto_settings": {
-        "loop_count": 0,
-        "infinite_loop": true
-    }
-}
-```
-
-| พารามิเตอร์ | คำอธิบาย |
-|---|---|
-| `heating` … `recovery` | ระยะเวลาแต่ละ Operation ใน Auto Mode (วินาที) |
-| `break_time` | เวลาพักระหว่างรอบ (วินาที) |
-| `gpio_pins` | หมายเลข BCM ของแต่ละ relay (โมดูลใช้ **Active HIGH**: GPIO สูง = ON) |
-| `loop_count` | จำนวนรอบเมื่อไม่ใช้ infinite (ใช้ร่วมกับ GUI) |
-| `infinite_loop` | วนไม่สิ้นสุดเมื่อเป็น `true` |
-
-### 2. ADC Configuration (`reading/main.py`)
-
-```python
-REF = 5.08
-CHANNEL_LIST = [0, 1, 2, 3]   # ดัชนีช่อง ADC ที่ใช้ (ปรับจำนวนช่องได้)
-SAMPLE_INTERVAL_SEC = 0.01    # ~100 Hz
-ADC_SAMPLE_RATE = 'ADS1263_14400SPS'
-INITIAL_BUFFER_SIZE = 1000
-```
-
-### 3. BME280 Configuration (`reading/bme280.py`)
-
-```python
-BME_SAMPLE_INTERVAL_SEC = 0.1   # 10 Hz
-BME_I2C_ADDRESS = 0x76          # หรือ 0x77 ตาม jumper บนบอร์ด
-BME_INITIAL_BUFFER_SIZE = 1000
-```
-
-อ่านค่า 3 ค่า: `temperature_c`, `humidity_pct`, `pressure_hpa` ผ่าน I2C  
-เริ่ม/หยุดเก็บข้อมูลพร้อมกับ ADS1263 โดยใช้ `stop_event` ตัวเดียวกันใน GUI
-
-### 4. Data Processing (`acquisition/acquisiton.py`)
-
-```python
-CUTOFF_FREQ = 50              # Hz (low-pass)
-MOVING_AVG_WINDOW = 1000      # ขนาดหน้าต่าง moving average
-```
-
-## การใช้งาน
-
-### รัน GUI
-
-```bash
-cd program
-python3 gui.py
-```
-
-หรือ:
+### Run GUI
 
 ```bash
 bash program/run_gui.sh
+# หรือ
+cd program && python3 gui.py
 ```
 
-คู่มือตั้ง autostart (รวม checklist หลังอัปโหลดโค้ดใหม่หรือลบโปรเจกต์แล้วซิงก์ขึ้น Pi ใหม่): [program/AUTOSTART_SETUP.md](program/AUTOSTART_SETUP.md)
+ต้องมีจอ Desktop / VNC (`$DISPLAY`) — ดูรายละเอียดในเอกสารด้านล่าง
 
-### รัน GUI ผ่าน SSH
-
-โปรแกรมใช้ **Tkinter** จึงต้องมี **X11 / desktop display** — ตัวแปรสภาพแวดล้อม **`$DISPLAY`** ต้องชี้ไปที่จอที่รองรับ GUI ได้ ถ้าเข้า Pi แบบ SSH อย่างเดียว (ไม่มีจอ / ไม่ forward กราฟิก) จะพบข้อความ `_tkinter.TclError: no display name and no $DISPLAY environment variable`
-
-**แนะนำที่เสถียรที่สุด:** เปิด **Terminal บน Raspberry Pi Desktop** (จอต่อกับ Pi, หรือ VNC ไปที่เดสก์ท็อปของ Pi) แล้ว activate venv และรัน `python program/gui.py` หรือ `bash program/run_gui.sh`
-
-**ถ้าต้องสั่งรันจาก SSH ขณะที่ Pi มีเซสชันกราฟิกล็อกอินอยู่แล้ว** (มักเป็น `:0`):
+### Sync code to Pi
 
 ```bash
-export DISPLAY=:0
-export XAUTHORITY=/home/pi/.Xauthority   # เปลี่ยน user/path ให้ตรงกับบัญชีที่ล็อกอินเดสก์ท็อป
-cd ~/eNose_methane                         # path โปรเจกต์จริงบน Pi
-. .venv/bin/activate
-python program/gui.py
+# Linux / macOS / Git Bash
+./scripts/sync_to_pi.sh pi@raspberrypi.local ~/eNose_methane
+
+# PowerShell
+.\scripts\sync_to_pi.ps1 -Remote "pi@raspberrypi.local" -Dest "~/eNose_methane"
 ```
 
-ถ้ายังเปิดหน้าต่างไม่ได้ ให้เปิด **Terminal บนเดสก์ท็อปของ Pi** (ไม่ใช่ SSH) แล้วรันครั้งเดียวเพื่ออนุญาต client บนเครื่องเดียวกัน:
+## Project structure
 
-```bash
-xhost +local:
+```
+eNose_methane/
+├── program/              # GUI + hardware_config / cloud_config
+├── reading/              # ADS1263 + BME280 → reading/data/*.npz
+├── acquisition/          # Filter → acquisition/processed_data/*.csv
+├── hardware_control/     # GPIO relay controller
+├── cloud/                # Google Drive upload (optional)
+├── models/               # Deployed ML model (.joblib)
+├── predict_methane.py    # Feature extract + predict_ppm()
+├── BuildML_PC/           # Train / export model (PC / Colab)
+├── scripts/              # sync_to_pi
+├── docs/                 # User guide, manuscript, papers
+└── tests/                # Cloud queue / uploader tests
 ```
 
-จากนั้นลองรันคำสั่ง SSH ชุดด้านบนอีกครั้ง
+## Documentation
 
-**X11 forwarding ผ่าน SSH** (กราฟิกมารีดเลย์ไปเครื่อง client — ช้ากว่า และต้องมี X server บนเครื่องคุณ):
+| Document | Audience |
+|----------|----------|
+| [User guide](docs/user-guide/eNose-User-Guide.md) ([PDF](docs/user-guide/eNose-User-Guide.pdf)) | ผู้ปฏิบัติงานบนเครื่อง |
+| [Autostart setup](program/AUTOSTART_SETUP.md) | ผู้ดูแลระบบ Pi |
+| [Docs index](docs/README.md) | Manuscript / literature |
+| [ML training (Colab)](BuildML_PC/train/colab/) | ผู้เทรนโมเดลบน PC |
 
-```bash
-ssh -X pi@raspberrypi
-cd ~/eNose_methane
-. .venv/bin/activate
-python program/gui.py
-```
+### Config cheat sheet
 
-บน Windows การใช้ `-X` มักต้องติดตั้ง/เปิด X server (เช่น VcXsrv) หรือใช้ WSLg — **ทางลัดที่ใช้งานจริงบ่อยคือ VNC ไปที่ Pi แล้วรัน GUI บนเดสก์ท็อป Pi โดยตรง**
+| ไฟล์ | ใช้ทำอะไร |
+|------|-----------|
+| `program/hardware_config.json` | เวลาแต่ละ Op, GPIO, loop |
+| `reading/main.py` | ช่อง ADC, sample rate |
+| `reading/bme280.py` | I2C address, sample rate |
+| `acquisition/acquisiton.py` | cutoff / moving-average window |
+| `program/cloud_config.json` | Google Drive (คัดลอกจาก `cloud_config.example.json`) |
 
-### Manual Mode
+## Pipeline (สั้นๆ)
 
-1. เลือก "Manual Mode"
-2. ใช้ปุ่มควบคุมอุปกรณ์แต่ละตัว
-3. กดปุ่มเริ่มเก็บข้อมูล (collection) ตามที่ GUI กำหนด
-4. กดหยุด — ระบบจะบันทึกไฟล์ `.npz` และเรียกประมวลผลเป็น `.csv` (เมื่อโมดูล `acquisition` พร้อม)
+1. **Collect** — Auto/Manual เริ่มเก็บ ADC + BME → `.npz`
+2. **Process** — `process_all_data()` → low-pass + MA → `.csv`
+3. **Predict** — `predict_ppm()` จากช่วง Baseline/Measure → แสดง ppm บน GUI
+4. **Upload (optional)** — `.npz` + `.csv` → Google Drive
 
-### Auto Mode
+**Auto Mode (7 ops):** Heating → Baseline *(เริ่มเก็บข้อมูล)* → Vacuum → Mix Air → Measure → Vacuum Return → Recovery → Break → วนซ้ำ
 
-1. เลือก "Auto Mode"
-2. ตรวจสอบ/แก้เวลาแต่ละขั้นและ Break จาก GUI หรือจาก `hardware_config.json`
-3. ตั้งค่า Loop (ไม่จำกัดหรือจำนวนรอบ)
-4. เริ่มลำดับอัตโนมัติ
+## Model note
 
-**การเก็บข้อมูลใน Auto Mode** (ทั้ง ADC และ BME280) เริ่มที่ **Op2: Baseline** (`start_collection` ใน `gui.py`) และรันต่อเนื่องจนจบรอบ จากนั้นระบบหยุดเก็บข้อมูล ปิดอุปกรณ์ และประมวลผล `process_all_data()` (ครอบคลุมทั้ง `adc1263_*.npz` และ `bme280_*.npz`) แล้วทำนาย ppm แสดงบน GUI ก่อนเข้าช่วง Break (ถ้ามี)
+โมเดล Linear Regression ถูกเทรนนอก Pi แล้ว deploy ที่ `models/`. เมตริกอ้างอิงจาก `models/methane_linreg_metrics.json` (GroupKFold OOF โดยประมาณ R² ≈ 0.74, RMSE ≈ 1.8 ppm — อัปเดตตามรอบเทรนล่าสุด)
 
-### ลำดับ Auto Mode (7 Operations)
+เทรนใหม่: ดู notebook ใน `BuildML_PC/train/colab/`
 
-พฤติกรรม relay ในแต่ละขั้นถูกกำหนดใน `AUTO_OPERATION_STEPS` ใน `program/gui.py`  
-**Heater** เปิดตั้งแต่ Op1 และจะไม่ถูกปิดด้วยคำสั่งของขั้นถัดไปจนกว่าจะจบรอบ (เพราะแต่ละขั้นเพิ่ม/ลดเฉพาะบางอุปกรณ์) — หลังจบ Op7 ระบบจะ `all_off()` ก่อนประมวลผล
+## License & authorship
 
-| ขั้น | คำอธิบายโดยย่อ | หมายเหตุ |
-|---|---|---|
-| Op1 Heating | เปิด heater ปิดวาล์ว/ปั๊ม/พัดลมที่ไม่ใช้ | ระยะเวลา = `heating` |
-| Op2 Baseline | เปิดบางวาล์ว + ปั๊ม | **เริ่มบันทึก ADC** |
-| Op3 Vacuum | ปิดบางวาล์วตามลำดับ | ต่อเนื่องจาก Op2 |
-| Op4 Mix Air | พัดลม + ปิดบางสายทาง | |
-| Op5 Measure | วัด / เก็บข้อมูลต่อในขั้นนี้ | |
-| Op6 Vacuum Return | ปรับวาล์วสำหรับดูดกลับ | |
-| Op7 Recovery | กู้สภาพเส้นทางก๊าซ | จบรอบ → หยุดบันทึก + ประมวลผล |
-| Break | ปิดทั้งหมดชั่วคราว | ระยะเวลา = `break_time` แล้ววนรอบใหม่ |
+ส่วนหนึ่งของงานวิจัย eNose สำหรับการตรวจจับก๊าซมีเทน
 
-ระยะเวลาในตารางขึ้นกับค่าใน config ไม่ใช่คงที่
-
-## ข้อมูลที่เก็บ
-
-### 1. ADC Raw (`reading/data/`)
-
-| รายละเอียด | ค่า |
-|---|---|
-| รูปแบบ | `.npz` (บีบอัด) |
-| เนื้อหา | เวลา `elapsed_time_sec` + คอลัมน์เซ็นเซอร์ `ss1`, `ss2`, … ตามจำนวนช่อง |
-| อัตรา sampling | จาก `1 / SAMPLE_INTERVAL_SEC` (บันทึกในไฟล์) |
-| ชื่อไฟล์ | `adc1263_YYYYMMDD_HHMMSS.npz` |
-
-### 2. BME280 Raw (`reading/data/`)
-
-| รายละเอียด | ค่า |
-|---|---|
-| รูปแบบ | `.npz` (บีบอัด) |
-| เนื้อหา | `elapsed_time_sec`, `temperature_c`, `humidity_pct`, `pressure_hpa` |
-| อัตรา sampling | จาก `1 / BME_SAMPLE_INTERVAL_SEC` (เริ่มต้น 10 Hz) |
-| ชื่อไฟล์ | `bme280_YYYYMMDD_HHMMSS.npz` |
-
-### 3. Processed Data (`acquisition/processed_data/`)
-
-| รายละเอียด | ค่า |
-|---|---|
-| รูปแบบ | `.csv` |
-| เนื้อหา | `elapsed_time_sec` + คอลัมน์ที่ลงท้าย `_lp_ma` (low-pass แล้วเฉลี่ยเลื่อน) เช่น `ss1_lp_ma`, `temperature_c_lp_ma` |
-| ชื่อไฟล์ | `adc1263_YYYYMMDD_HHMMSS.csv` (ADC) และ `bme280_YYYYMMDD_HHMMSS.csv` (BME280) |
-
-## การประมวลผลข้อมูล
-
-โปรแกรมจะประมวลผลอัตโนมัติเมื่อ:
-
-- หยุดการเก็บข้อมูลใน Manual Mode (หลังบันทึก `.npz` ของทั้ง ADC และ BME280)
-- จบรอบ Auto Mode ครบ 7 ขั้น — เรียก `process_all_data()` หลังหยุด collection
-
-**ขั้นตอน:** สำหรับแต่ละ prefix (`adc1263`, `bme280`) จะโหลด `.npz` ล่าสุดที่ตรงกับ prefix นั้นจาก `reading/data/` → low-pass ตาม `CUTOFF_FREQ` และ sample rate ในไฟล์ → moving average → บันทึก CSV ใน `acquisition/processed_data/` ด้วยชื่อตาม prefix เดิม
-
-รันมือจากโฟลเดอร์โปรเจกต์ (จะรันทั้งสอง prefix):
-
-```bash
-python3 acquisition/acquisiton.py
-```
-
-หากต้องการประมวลผลเฉพาะ prefix เดียว สามารถเรียกใน Python ได้:
-
-```python
-from acquisition.acquisiton import process_data
-process_data(prefix="adc1263")  # หรือ "bme280"
-```
-
-## การทำนายความเข้มข้นมีเทน (Methane ppm)
-
-หลังประมวลผล CSV แต่ละรอบ GUI เรียก `predict_methane.predict_ppm()` โดยอัตโนมัติ:
-
-1. ตัดช่วง **Baseline** และ **Measure** ตาม `analysis_windows` ใน model bundle
-2. คำนวณ features (ΔV ต่อเซ็นเซอร์ `ss1`–`ss4`, ค่า BME280, ฯลฯ)
-3. ส่งเข้า pipeline Linear Regression → แสดงผลเป็นตัวเลข ppm บนหน้า Control และ Display
-
-**ไฟล์ที่เกี่ยวข้อง**
-
-| ไฟล์ | บทบาท |
-|------|--------|
-| `models/methane_linreg_model.joblib` | โมเดล + feature list + analysis windows (deploy บน Pi) |
-| `models/methane_linreg_metrics.json` | ค่า RMSE / R² จากการ train (อ้างอิง) |
-| `predict_methane.py` | โหลดโมเดล, extract features, `predict_ppm()` |
-| `BuildML_PC/train/colab/` | Notebook สำหรับ train และ export โมเดลใหม่บน PC/Colab |
-
-ทดสอบทำนายจาก CLI (หลังมี CSV ใน `acquisition/processed_data/`):
-
-```bash
-python3 -c "from predict_methane import predict_ppm; print(predict_ppm('acquisition/processed_data/adc1263_....csv', 'acquisition/processed_data/bme280_....csv'))"
-```
-
-> ค่า ppm เป็นผลประมาณจากโมเดล ML — ไม่ใช่ค่ามาตรฐานอ้างอิงทางกฎหมายหรือการรับรอง
-
-## อัปโหลดข้อมูลไป Cloud (Google Drive)
-
-หลังประมวลผลแต่ละรอบ (Auto Mode จบ 7 ขั้น หรือ Manual กด Stop) ระบบสามารถอัปโหลดไฟล์ **ดิบ `.npz`** (`reading/data/`) และ **CSV หลังประมวลผล** (`acquisition/processed_data/`) ขึ้น Google Drive แบบไม่บล็อก GUI โดยใช้ **Service Account**
-
-### การติดตั้งแพ็กเกจ (บน Raspberry Pi)
-
-```bash
-pip install -r requirements-cloud.txt
-```
-
-### การตั้งค่า
-
-1. ใน Google Cloud Console: สร้างโปรเจกต์ → เปิดใช้ **Google Drive API** → สร้าง **Service Account** → ดาวน์โหลด JSON key  
-2. คัดลอกไฟล์ key ไปที่เครื่อง Pi เช่น `~/.enose/gdrive_service_account.json` และตั้งสิทธิ์แฟ้มให้เหมาะสม (`chmod 600`)  
-3. บน Google Drive สร้างโฟลเดอร์ปลายทาง → แชร์โฟลเดอร์นั้นให้ **อีเมลของ Service Account** (จากไฟล์ JSON ฟิลด์ `client_email`) สิทธิ์ **Editor**  
-4. คัดลอก **Folder ID** จาก URL ของโฟลเดอร์บน Drive  
-5. คัดลอก [`program/cloud_config.example.json`](program/cloud_config.example.json) เป็น `program/cloud_config.json` แล้วแก้:
-   - `remote_root_folder_id` = Folder ID  
-   - `credentials_path` = path ถึง JSON key  
-   - `device_id` = ชื่ออุปกรณ์ (ใช้เป็นชื่อโฟลเดอร์ย่อยบน Drive)  
-6. ใน GUI ไปที่แท็บ **Settings** แล้วติ๊ก **Auto-upload to Cloud** (จะบันทึก `enabled: true` ลง `cloud_config.json`) หรือตั้ง `enabled: true` ด้วยมือ
-
-**โครงสร้างบน Drive:** `root_folder / {device_id} / raw / *.npz` และ `... / processed / *.csv`
-
-### คิว retry
-
-ถ้าอัปโหลดล้มเหลว ไฟล์จะถูกใส่ใน `cloud/upload_queue.json` (ไม่ commit ลง git) แล้วลองใหม่ในรอบถัดไปก่อนอัปโหลดไฟล์ใหม่ จำกัดเวลา `queue_retry_budget_sec` ต่อรอบ หากเกิน `retry_attempts` จะถูกทำเครื่องหมาย dead letter ในไฟล์คิว
-
-### ตัวแปรสภาพแวดล้อม
-
-- `ENOSE_CLOUD_ENABLED` = `1` / `true` / `yes` — บังคับเปิดอัปโหลดแม้ใน `cloud_config.json` จะปิด (มีประโยชน์ตอนทดสอบ)
-
-### ทดสอบ
-
-```bash
-python3 -m unittest tests.test_cloud_queue tests.test_cloud_uploader -v
-```
-
-ทดสอบต่อ Drive จริง (รันต่อเมื่อตั้งค่า credential และโฟลเดอร์ปลายทางแล้ว):
-
-**Linux / Raspberry Pi (bash):**
-
-```bash
-export ENOSE_GDRIVE_SERVICE_ACCOUNT_JSON=/home/pi/.enose/gdrive_service_account.json
-export ENOSE_GDRIVE_FOLDER_ID=your_folder_id
-python3 -m unittest tests.test_cloud_gdrive_smoke -v
-```
-
-**Windows (cmd):**
-
-```bat
-set ENOSE_GDRIVE_SERVICE_ACCOUNT_JSON=C:\path\to\key.json
-set ENOSE_GDRIVE_FOLDER_ID=your_folder_id
-python -m unittest tests.test_cloud_gdrive_smoke -v
-```
-
-## คีย์บอร์ด Shortcuts
-
-| คีย์ | การทำงาน |
-|---|---|
-| `F11` | สลับโหมดเต็มจอ (ตามการผูกใน `gui.py`) |
-| `ESC` | ออกจากสถานะเต็มจอ (ถ้ามีการผูกไว้) |
-
-## Troubleshooting
-
-### Permission (โฟลเดอร์ผลลัพธ์)
-
-```bash
-chmod 755 acquisition/processed_data
-```
-
-### GPIO
-
-Relay ต้องเป็นแบบ **Active HIGH** (หรือโมดูล relay ที่เปิดเมื่อสัญญาณ GPIO เป็น HIGH) ให้สอดคล้องกับ `HardwareController`
-
-```bash
-sudo usermod -a -G gpio $USER
-# ออกจากระบบแล้วเข้าใหม่
-```
-
-### SPI / Serial (ถ้าใช้พอร์ตอนุกรม)
-
-```bash
-sudo usermod -a -G dialout $USER
-```
-
-### Import Error
-
-- ติดตั้งแพ็กเกจตามหัวข้อ **การติดตั้ง**
-- บน PC ที่ไม่มี `RPi.GPIO` / `spidev` ระบบจะรันโหมดจำลอง ADC ได้ (ดูข้อความใน console)
-
-### GUI / SSH (`no $DISPLAY` / `TclError`)
-
-ถ้ารัน `python program/gui.py` ทาง SSH แล้วได้ `_tkinter.TclError: no display name and no $DISPLAY` ให้ดูหัวข้อ **รัน GUI ผ่าน SSH** ใน `README.md` (ส่วน **การใช้งาน**) — ต้องมีเซสชันกราฟิก (จอ Pi, VNC, หรือ `DISPLAY` + `XAUTHORITY` ที่ถูกต้อง)
-
-### Methane แสดง `----`
-
-- ลำดับ Auto ยังไม่จบ หรือยังไม่ได้ประมวลผล CSV
-- ไม่มี `scikit-learn` / `joblib` หรือโหลด `models/methane_linreg_model.joblib` ไม่สำเร็จ (ดูข้อความใน console)
-- ไฟล์ CSV ไม่ครบหรือช่วง Baseline/Measure สั้นเกินไป — ตรวจ `acquisition/processed_data/` และค่าเวลาใน Settings
-
-## หมายเหตุ
-
-- Relay แบบ **Active HIGH** (GPIO สูง = ON, ต่ำ = OFF) — กำหนดใน `hardware_control/hardware.py`
-- GUI ปรับขนาดฟอนต์และเลย์เอาต์ตามขนาดหน้าต่าง
-- ถ้าชื่อไฟล์ผลลัพธ์ชนกัน ระบบจะเติม timestamp เพื่อไม่ทับของเดิม
-- ชื่อไฟล์ `acquisiton.py` เป็นการสะกดตามที่มีใน repo (ถ้าจะเปลี่ยนชื่อควรอัปเดต import ใน `gui.py` ด้วย)
-
-## Author
-
-eNose Project
-
-## License
-
-โปรเจกต์นี้เป็นส่วนหนึ่งของงานวิจัย eNose สำหรับการตรวจจับก๊าซมีเทน
+**Author:** eNose Project
