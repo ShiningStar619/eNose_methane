@@ -1,9 +1,17 @@
 # Python
 .venv/
+.venv-hr/
 venv/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# hyperresearch (local vault caches; markdown notes stay tracked)
+research/*.db
+research/*.db-*
+research/temp/
+.hyperresearch/*.db
+.hyperresearch/*.db-*
 
 # Sensor / acquisition output (machine-local, regenerable)
 reading/data/*.csv
