@@ -1,0 +1,1119 @@
+TY  - JOUR
+DO  - 10.5194/bg-17-3659-2020
+UR  - http://dx.doi.org/10.5194/bg-17-3659-2020
+TI  - Technical note: Facilitating the use of low-cost methane (CH
+                    <sub>4</sub>
+                    ) sensors in flux chambers – calibration, data processing, and an open-source make-it-yourself logger
+T2  - Biogeosciences
+AU  - Bastviken, David
+AU  - Nygren, Jonatan
+AU  - Schenk, Jonathan
+AU  - Parellada Massana, Roser
+AU  - Duc, Nguyen Thanh
+PY  - 2020
+DA  - 2020/07/14
+PB  - Copernicus GmbH
+SP  - 3659-3667
+IS  - 13
+VL  - 17
+SN  - 1726-4189
+ER  -
+
+TY  - JOUR
+DO  - 10.2480/agrmet.d-20-00029
+UR  - http://dx.doi.org/10.2480/agrmet.d-20-00029
+TI  - Increasing measurement throughput of methane emission from rice paddies with a modified closed-chamber method
+T2  - Journal of Agricultural Meteorology
+AU  - TOKIDA, Takeshi
+PY  - 2021
+PB  - Society of Agricultural Meteorology of Japan
+SP  - 160-165
+IS  - 2
+VL  - 77
+SN  - 0021-8588
+SN  - 1881-0136
+ER  -
+
+TY  - GENERIC
+DO  - 10.1007/978-3-030-55396-8_2
+UR  - http://dx.doi.org/10.1007/978-3-030-55396-8_2
+TI  - Methodology for Measuring Greenhouse Gas Emissions from Agricultural Soils Using Non-isotopic Techniques
+T2  - Measuring Emission of Agricultural Greenhouse Gases and Developing Mitigation Options using Nuclear and Related Techniques
+AU  - Zaman, M.
+AU  - Kleineidam, K.
+AU  - Bakken, L.
+AU  - Berendt, J.
+AU  - Bracken, C.
+AU  - Butterbach-Bahl, K.
+AU  - Cai, Z.
+AU  - Chang, S. X.
+AU  - Clough, T.
+AU  - Dawar, K.
+AU  - Ding, W. X.
+AU  - Dörsch, P.
+AU  - dos Reis Martins, M.
+AU  - Eckhardt, C.
+AU  - Fiedler, S.
+AU  - Frosch, T.
+AU  - Goopy, J.
+AU  - Görres, C.-M.
+AU  - Gupta, A.
+AU  - Henjes, S.
+AU  - Hofmann, M. E. G.
+AU  - Horn, M. A.
+AU  - Jahangir, M. M. R.
+AU  - Jansen-Willems, A.
+AU  - Lenhart, K.
+AU  - Heng, L.
+AU  - Lewicka-Szczebak, D.
+AU  - Lucic, G.
+AU  - Merbold, L.
+AU  - Mohn, J.
+AU  - Molstad, L.
+AU  - Moser, G.
+AU  - Murphy, P.
+AU  - Sanz-Cobena, A.
+AU  - Šimek, M.
+AU  - Urquiaga, S.
+AU  - Well, R.
+AU  - Wrage-Mönnig, N.
+AU  - Zaman, S.
+AU  - Zhang, J.
+AU  - Müller, C.
+PY  - 2021
+PB  - Springer International Publishing
+SP  - 11-108
+SN  - 9783030553951
+SN  - 9783030553968
+ER  -
+
+TY  - JOUR
+DO  - 10.5194/amt-15-5117-2022
+UR  - http://dx.doi.org/10.5194/amt-15-5117-2022
+TI  - Characterization of inexpensive metal oxide sensor performance for trace methane detection
+T2  - Atmospheric Measurement Techniques
+AU  - Furuta, Daniel
+AU  - Sayahi, Tofigh
+AU  - Li, Jinsheng
+AU  - Wilson, Bruce
+AU  - Presto, Albert A.
+AU  - Li, Jiayu
+PY  - 2022
+DA  - 2022/09/08
+PB  - Copernicus GmbH
+SP  - 5117-5128
+IS  - 17
+VL  - 15
+SN  - 1867-8548
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/molecules27133968
+UR  - http://dx.doi.org/10.3390/molecules27133968
+TI  - Low-Cost Detection of Methane Gas in Rice Cultivation by Gas Chromatography-Flame Ionization Detector Based on Manual Injection and Split Pattern
+T2  - Molecules
+AU  - Li, Chaofeng
+AU  - Ji, Qingge
+AU  - Fu, Xianshu
+AU  - Yu, Xiaoping
+AU  - Ye, Zihong
+AU  - Zhang, Mingzhou
+AU  - Sun, Chuanxin
+AU  - Qiu, Yulou
+PY  - 2022
+DA  - 2022/06/21
+PB  - MDPI AG
+SP  - 3968
+IS  - 13
+VL  - 27
+SN  - 1420-3049
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.heliyon.2022.e11962
+UR  - http://dx.doi.org/10.1016/j.heliyon.2022.e11962
+TI  - Machine learning techniques to increase the performance of indirect methane quantification from a single, stationary sensor
+T2  - Heliyon
+AU  - Heltzel, Robert S.
+AU  - Johnson, Derek R.
+AU  - Zaki, Mohammed T.
+AU  - Gebreslase, Aron K.
+AU  - Abdul-Aziz, Omar I.
+PY  - 2022
+DA  - 2022/12
+PB  - Elsevier BV
+SP  - e11962
+IS  - 12
+VL  - 8
+SN  - 2405-8440
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s21227456
+UR  - http://dx.doi.org/10.3390/s21227456
+TI  - A Portable Device for Methane Measurement Using a Low-Cost Semiconductor Sensor: Development, Calibration and Environmental Applications
+T2  - Sensors
+AU  - Furst, Leonardo
+AU  - Feliciano, Manuel
+AU  - Frare, Laercio
+AU  - Igrejas, Getúlio
+PY  - 2021
+DA  - 2021/11/10
+PB  - MDPI AG
+SP  - 7456
+IS  - 22
+VL  - 21
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s22114141
+UR  - http://dx.doi.org/10.3390/s22114141
+TI  - Sensing and Analysis of Greenhouse Gas Emissions from Rice Fields to the Near Field Atmosphere
+T2  - Sensors
+AU  - Rajasekar, Panneerselvam
+AU  - Selvi, James Arputha Vijaya
+PY  - 2022
+DA  - 2022/05/30
+PB  - MDPI AG
+SP  - 4141
+IS  - 11
+VL  - 22
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3389/fagro.2025.1693620
+UR  - http://dx.doi.org/10.3389/fagro.2025.1693620
+TI  - Measurement approaches for greenhouse gas emissions from rice II: advanced technology for accelerating throughput
+T2  - Frontiers in Agronomy
+AU  - Vo, Thi Bach Thuong
+AU  - Wassmann, Reiner
+AU  - Romasanta, Ryan R.
+AU  - Centeno, Caesar Arloo R.
+AU  - Mendoza, Mary Louise C.
+AU  - Willibald, Georg
+AU  - Kiese, Ralf
+AU  - Radanielson, Ando Mariot
+PY  - 2026
+DA  - 2026/02/11
+PB  - Frontiers Media SA
+VL  - 7
+SN  - 2673-3218
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s23249898
+UR  - http://dx.doi.org/10.3390/s23249898
+TI  - Application of Machine Learning for Calibrating Gas Sensors for Methane Emissions Monitoring
+T2  - Sensors
+AU  - Andrews, Ballard
+AU  - Chakrabarti, Aditi
+AU  - Dauphin, Mathieu
+AU  - Speck, Andrew
+PY  - 2023
+DA  - 2023/12/18
+PB  - MDPI AG
+SP  - 9898
+IS  - 24
+VL  - 23
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.5194/amt-16-3391-2023
+UR  - http://dx.doi.org/10.5194/amt-16-3391-2023
+TI  - Characterising the methane gas and environmental response of the Figaro Taguchi Gas Sensor (TGS) 2611-E00
+T2  - Atmospheric Measurement Techniques
+AU  - Shah, Adil
+AU  - Laurent, Olivier
+AU  - Lienhardt, Luc
+AU  - Broquet, Grégoire
+AU  - Rivera Martinez, Rodrigo
+AU  - Allegrini, Elisa
+AU  - Ciais, Philippe
+PY  - 2023
+DA  - 2023/07/05
+PB  - Copernicus GmbH
+SP  - 3391-3419
+IS  - 13
+VL  - 16
+SN  - 1867-8548
+ER  -
+
+TY  - JOUR
+DO  - 10.1021/acs.est.3c06945
+UR  - http://dx.doi.org/10.1021/acs.est.3c06945
+TI  - Electronic Nose for Improved Environmental Methane Monitoring
+T2  - Environmental Science &amp; Technology
+AU  - Domènech-Gil, Guillem
+AU  - Duc, Nguyen Thanh
+AU  - Wikner, J. Jacob
+AU  - Eriksson, Jens
+AU  - Påledal, Sören Nilsson
+AU  - Puglisi, Donatella
+AU  - Bastviken, David
+PY  - 2023
+DA  - 2023/12/21
+PB  - American Chemical Society (ACS)
+SP  - 352-361
+IS  - 1
+VL  - 58
+SN  - 0013-936X
+SN  - 1520-5851
+ER  -
+
+TY  - JOUR
+DO  - 10.5194/amt-17-2103-2024
+UR  - http://dx.doi.org/10.5194/amt-17-2103-2024
+TI  - Design and evaluation of a low-cost sensor node for near-background methane measurement
+T2  - Atmospheric Measurement Techniques
+AU  - Furuta, Daniel
+AU  - Wilson, Bruce
+AU  - Presto, Albert A.
+AU  - Li, Jiayu
+PY  - 2024
+DA  - 2024/04/16
+PB  - Copernicus GmbH
+SP  - 2103-2121
+IS  - 7
+VL  - 17
+SN  - 1867-8548
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.watres.2024.122663
+UR  - http://dx.doi.org/10.1016/j.watres.2024.122663
+TI  - Synchronous monitoring agricultural water qualities and greenhouse gas emissions based on low-cost Internet of Things and intelligent algorithms
+T2  - Water Research
+AU  - Zhang, Huazhan
+AU  - Ren, Rui
+AU  - Gao, Xiang
+AU  - Wang, Housheng
+AU  - Jiang, Wei
+AU  - Jiang, Xiaosan
+AU  - Li, Zhaofu
+AU  - Pan, Jianjun
+AU  - Wang, Jinyang
+AU  - Wang, Songhan
+AU  - Ding, Yanfeng
+AU  - Mu, Yue
+AU  - Wang, Xuelei
+AU  - Du, Jizeng
+AU  - Li, Wen-Tao
+AU  - Xiong, Zhengqin
+AU  - Zou, Jianwen
+PY  - 2025
+DA  - 2025/01
+PB  - Elsevier BV
+SP  - 122663
+VL  - 268
+SN  - 0043-1354
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/atmos15111313
+UR  - http://dx.doi.org/10.3390/atmos15111313
+TI  - Addressing Low-Cost Methane Sensor Calibration Shortcomings with Machine Learning
+T2  - Atmosphere
+AU  - Kiplimo, Elijah
+AU  - Riddick, Stuart N.
+AU  - Mbua, Mercy
+AU  - Upreti, Aashish
+AU  - Anand, Abhinav
+AU  - Zimmerle, Daniel J.
+PY  - 2024
+DA  - 2024/10/31
+PB  - MDPI AG
+SP  - 1313
+IS  - 11
+VL  - 15
+SN  - 2073-4433
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s24113499
+UR  - http://dx.doi.org/10.3390/s24113499
+TI  - Linear and Non-Linear Modelling Methods for a Gas Sensor Array Developed for Process Control Applications
+T2  - Sensors
+AU  - Lakhmi, Riadh
+AU  - Fischer, Marc
+AU  - Darves-Blanc, Quentin
+AU  - Alrammouz, Rouba
+AU  - Rieu, Mathilde
+AU  - Viricelle, Jean-Paul
+PY  - 2024
+DA  - 2024/05/29
+PB  - MDPI AG
+SP  - 3499
+IS  - 11
+VL  - 24
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s24041066
+UR  - http://dx.doi.org/10.3390/s24041066
+TI  - Calibration of a Low-Cost Methane Sensor Using Machine Learning
+T2  - Sensors
+AU  - Mitchell, Hazel Louise
+AU  - Cox, Simon J.
+AU  - Lewis, Hugh G.
+PY  - 2024
+DA  - 2024/02/06
+PB  - MDPI AG
+SP  - 1066
+IS  - 4
+VL  - 24
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.1080/17583004.2024.2366527
+UR  - http://dx.doi.org/10.1080/17583004.2024.2366527
+TI  - Methodological progress in the measurement of agricultural greenhouse gases
+T2  - Carbon Management
+AU  - Mumu, Nusrat Jahan
+AU  - Ferdous, Jannatul
+AU  - Müller, Christoph
+AU  - Ding, Weixin
+AU  - Zaman, Mohammad
+AU  - Jahangir, Mohammad Mofizur Rahman
+PY  - 2024
+DA  - 2024/06/13
+PB  - Informa UK Limited
+IS  - 1
+VL  - 15
+SN  - 1758-3004
+SN  - 1758-3012
+ER  -
+
+TY  - JOUR
+DO  - 10.1039/d3ea00138e
+UR  - http://dx.doi.org/10.1039/d3ea00138e
+TI  - Determining methane mole fraction at a landfill site using the Figaro Taguchi gas sensor 2611-C00 and wind direction measurements
+T2  - Environmental Science: Atmospheres
+AU  - Shah, Adil
+AU  - Laurent, Olivier
+AU  - Broquet, Grégoire
+AU  - Philippon, Carole
+AU  - Kumar, Pramod
+AU  - Allegrini, Elisa
+AU  - Ciais, Philippe
+PY  - 2024
+PB  - Royal Society of Chemistry (RSC)
+SP  - 362-386
+IS  - 3
+VL  - 4
+SN  - 2634-3606
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.scitotenv.2024.173441
+UR  - http://dx.doi.org/10.1016/j.scitotenv.2024.173441
+TI  - Paddy rice methane emissions, controlling factors, and mitigation potentials across Monsoon Asia
+T2  - Science of The Total Environment
+AU  - Zhou, Hong
+AU  - Tao, Fulu
+AU  - Chen, Yi
+AU  - Yin, Lichang
+AU  - Li, Yibo
+AU  - Wang, Yicheng
+AU  - Su, Chenfang
+PY  - 2024
+DA  - 2024/07
+PB  - Elsevier BV
+SP  - 173441
+VL  - 935
+SN  - 0048-9697
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.jhazmat.2026.141734
+UR  - http://dx.doi.org/10.1016/j.jhazmat.2026.141734
+TI  - Machine learning revealed geochemical drivers of cadmium availability and methane emissions in hydrologically fluctuating paddy soils
+T2  - Journal of Hazardous Materials
+AU  - Chen, Qiuyue
+AU  - Yin, Mengmeng
+AU  - Hong, Chengjie
+AU  - Fan, Bowen
+AU  - Chi, Jialin
+AU  - Zhu, Zongqiang
+AU  - Liu, Kai
+AU  - Zhou, Xiaoxia
+AU  - Fang, Liping
+AU  - Li, Fangbai
+PY  - 2026
+DA  - 2026/04
+PB  - Elsevier BV
+SP  - 141734
+VL  - 507
+SN  - 0304-3894
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.jenvman.2025.127132
+UR  - http://dx.doi.org/10.1016/j.jenvman.2025.127132
+TI  - Machine learning-driven method for in-situ high-frequency CH4 measurement in paddy fields based on water-soil-air factors: A case study of the Yangtze River Basin
+T2  - Journal of Environmental Management
+AU  - Zhang, Qinjing
+AU  - Wen, Weijia
+AU  - Zhuang, Yanhua
+AU  - Zhang, Liang
+AU  - Zhai, Limei
+AU  - Li, Sisi
+AU  - Liu, Hongbin
+AU  - Du, Yun
+PY  - 2025
+DA  - 2025/10
+PB  - Elsevier BV
+SP  - 127132
+VL  - 393
+SN  - 0301-4797
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s21072271
+UR  - http://dx.doi.org/10.3390/s21072271
+TI  - An Outlook of Recent Advances in Chemiresistive Sensor-Based Electronic Nose Systems for Food Quality and Environmental Monitoring
+T2  - Sensors
+AU  - John, Alishba T.
+AU  - Murugappan, Krishnan
+AU  - Nisbet, David R.
+AU  - Tricoli, Antonio
+PY  - 2021
+DA  - 2021/03/24
+PB  - MDPI AG
+SP  - 2271
+IS  - 7
+VL  - 21
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s21154983
+UR  - http://dx.doi.org/10.3390/s21154983
+TI  - Development of Gas Sensor Array for Methane Reforming Process Monitoring
+T2  - Sensors
+AU  - Dobrzyniewski, Dominik
+AU  - Szulczyński, Bartosz
+AU  - Dymerski, Tomasz
+AU  - Gębicki, Jacek
+PY  - 2021
+DA  - 2021/07/22
+PB  - MDPI AG
+SP  - 4983
+IS  - 15
+VL  - 21
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s21227620
+UR  - http://dx.doi.org/10.3390/s21227620
+TI  - Recent Progress in Smart Electronic Nose Technologies Enabled with Machine Learning Methods
+T2  - Sensors
+AU  - Ye,  Zhenyi
+AU  - Liu, Yuan
+AU  - Li, Qiliang
+PY  - 2021
+DA  - 2021/11/16
+PB  - MDPI AG
+SP  - 7620
+IS  - 22
+VL  - 21
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.4236/gep.2022.1012014
+UR  - http://dx.doi.org/10.4236/gep.2022.1012014
+TI  - Sensors and Methods for Measuring Greenhouse Gas Emissions from Different Components of Livestock Production Facilities
+T2  - Journal of Geoscience and Environment Protection
+AU  - Borhan, Md Saidul
+AU  - Khanaum, Mosammat Mustari
+PY  - 2022
+PB  - Scientific Research Publishing, Inc.
+SP  - 242-272
+IS  - 12
+VL  - 10
+SN  - 2327-4336
+SN  - 2327-4344
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s22228977
+UR  - http://dx.doi.org/10.3390/s22228977
+TI  - A New Mixed-Gas-Detection Method Based on a Support Vector Machine Optimized by a Sparrow Search Algorithm
+T2  - Sensors
+AU  - Zhang, Haitao
+AU  - Han, Yaozhen
+PY  - 2022
+DA  - 2022/11/20
+PB  - MDPI AG
+SP  - 8977
+IS  - 22
+VL  - 22
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/ijerph19127324
+UR  - http://dx.doi.org/10.3390/ijerph19127324
+TI  - Effects of Water and Fertilizer Management Practices on Methane Emissions from Paddy Soils: Synthesis and Perspective
+T2  - International Journal of Environmental Research and Public Health
+AU  - Gu, Xinyun
+AU  - Weng, Shimei
+AU  - Li, Yu’e
+AU  - Zhou, Xiaoqi
+PY  - 2022
+DA  - 2022/06/15
+PB  - MDPI AG
+SP  - 7324
+IS  - 12
+VL  - 19
+SN  - 1660-4601
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.heliyon.2023.e14696
+UR  - http://dx.doi.org/10.1016/j.heliyon.2023.e14696
+TI  - Eddy covariance assessment of alternate wetting and drying floodwater management on rice methane emissions
+T2  - Heliyon
+AU  - Anapalli, Saseendran S.
+AU  - Pinnamaneni, Srinivasa R.
+AU  - Reddy, Krishna N.
+AU  - Wagle, Pradeep
+AU  - Ashworth, Amanda J.
+PY  - 2023
+DA  - 2023/04
+PB  - Elsevier BV
+SP  - e14696
+IS  - 4
+VL  - 9
+SN  - 2405-8440
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/molecules28186710
+UR  - http://dx.doi.org/10.3390/molecules28186710
+TI  - Application of Semiconductor Metal Oxide in Chemiresistive Methane Gas Sensor: Recent Developments and Future Perspectives
+T2  - Molecules
+AU  - Fu, Li
+AU  - You, Shixi
+AU  - Li, Guangjun
+AU  - Li, Xingxing
+AU  - Fan, Zengchang
+PY  - 2023
+DA  - 2023/09/20
+PB  - MDPI AG
+SP  - 6710
+IS  - 18
+VL  - 28
+SN  - 1420-3049
+ER  -
+
+TY  - JOUR
+DO  - 10.1002/jeq2.20444
+UR  - http://dx.doi.org/10.1002/jeq2.20444
+TI  - Multiyear methane and nitrous oxide emissions in different irrigation management under long‐term continuous rice rotation in Arkansas
+T2  - Journal of Environmental Quality
+AU  - Karki, S.
+AU  - Adviento‐Borbe, M. A. A.
+AU  - Runkle, B. R. K.
+AU  - Moreno‐García, B.
+AU  - Anders, M.
+AU  - Reba, M. L.
+PY  - 2023
+DA  - 2023/03/22
+PB  - Wiley
+SP  - 558-572
+IS  - 3
+VL  - 52
+SN  - 0047-2425
+SN  - 1537-2537
+ER  -
+
+TY  - GENERIC
+DO  - 10.1007/978-3-031-37947-5_5
+UR  - http://dx.doi.org/10.1007/978-3-031-37947-5_5
+TI  - Carbon Footprint Reduction from Closing Rice Yield Gaps
+T2  - Closing Rice Yield Gaps in Asia
+AU  - Nguyen-Van-Hung
+AU  - Ha-An, Nguyen Thi
+AU  - Singleton, Grant Robert
+AU  - Connor, Melanie
+PY  - 2023
+PB  - Springer Nature Switzerland
+SP  - 149-176
+SN  - 9783031379468
+SN  - 9783031379475
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s23062975
+UR  - http://dx.doi.org/10.3390/s23062975
+TI  - Rapid Identification Method for CH4/CO/CH4-CO Gas Mixtures Based on Electronic Nose
+T2  - Sensors
+AU  - Yin, Jianxin
+AU  - Zhao, Yongli
+AU  - Peng, Zhi
+AU  - Ba, Fushuai
+AU  - Peng, Peng
+AU  - Liu, Xiaolong
+AU  - Rong, Qian
+AU  - Guo, Youmin
+AU  - Zhang, Yafei
+PY  - 2023
+DA  - 2023/03/09
+PB  - MDPI AG
+SP  - 2975
+IS  - 6
+VL  - 23
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.envpol.2024.123973
+UR  - http://dx.doi.org/10.1016/j.envpol.2024.123973
+TI  - Agro-technologies for greenhouse gases mitigation in flooded rice fields for promoting climate smart agriculture
+T2  - Environmental Pollution
+AU  - Rajbonshi, Manas Protim
+AU  - Mitra, Sudip
+AU  - Bhattacharyya, Pratap
+PY  - 2024
+DA  - 2024/06
+PB  - Elsevier BV
+SP  - 123973
+VL  - 350
+SN  - 0269-7491
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/su16114789
+UR  - http://dx.doi.org/10.3390/su16114789
+TI  - A Review of Greenhouse Gas Emissions from Agricultural Soil
+T2  - Sustainability
+AU  - Basheer, Sana
+AU  - Wang, Xiuquan
+AU  - Farooque, Aitazaz A.
+AU  - Nawaz, Rana Ali
+AU  - Pang, Tianze
+AU  - Neokye, Emmanuel Okine
+PY  - 2024
+DA  - 2024/06/04
+PB  - MDPI AG
+SP  - 4789
+IS  - 11
+VL  - 16
+SN  - 2071-1050
+ER  -
+
+TY  - JOUR
+DO  - 10.9734/ijecc/2024/v14i54206
+UR  - http://dx.doi.org/10.9734/ijecc/2024/v14i54206
+TI  - A Comprehensive Review on Greenhouse Gas Emissions in Agriculture and Evolving Agricultural Practices for Climate Resilience
+T2  - International Journal of Environment and Climate Change
+AU  - Singh, Ashutosh
+AU  - Pandey, Amit Kumar
+AU  - Santhosh D T
+AU  - Ganavi N R
+AU  - Sarma, Anjan
+AU  - Deori, Chinmoy
+AU  - Das, Juman
+AU  - Shiva Kumar. D
+PY  - 2024
+DA  - 2024/06/02
+PB  - Sciencedomain International
+SP  - 455-464
+IS  - 5
+VL  - 14
+SN  - 2581-8627
+ER  -
+
+TY  - CPAPER
+DO  - 10.3390/proceedings2024097079
+UR  - http://dx.doi.org/10.3390/proceedings2024097079
+TI  - Efficient Methane Monitoring with Low-Cost Chemical Sensors and Machine Learning
+T2  - Eurosensors 2023
+AU  - Domènech-Gil, Guillem
+AU  - Duc, Nguyen Thanh
+AU  - Wikner, J. Jacob
+AU  - Eriksson, Jens
+AU  - Puglisi, Donatella
+AU  - Bastviken, David
+PY  - 2024
+DA  - 2024/03/22
+PB  - MDPI
+SP  - 79
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s24134126
+UR  - http://dx.doi.org/10.3390/s24134126
+TI  - E-Nose: Time–Frequency Attention Convolutional Neural Network for Gas Classification and Concentration Prediction
+T2  - Sensors
+AU  - Jiang, Minglv
+AU  - Li, Na
+AU  - Li, Mingyong
+AU  - Wang, Zhou
+AU  - Tian, Yuan
+AU  - Peng, Kaiyan
+AU  - Sheng, Haoran
+AU  - Li, Haoyu
+AU  - Li, Qiang
+PY  - 2024
+DA  - 2024/06/25
+PB  - MDPI AG
+SP  - 4126
+IS  - 13
+VL  - 24
+SN  - 1424-8220
+ER  -
+
+TY  - GENERIC
+DO  - 10.21203/rs.3.rs-7887418/v1
+UR  - http://dx.doi.org/10.21203/rs.3.rs-7887418/v1
+TI  - Promoting rice-upland crops systems to mitigate direct greenhouse gas emissions from intensive rice-based agriculture globally
+AU  - Song, Hanxiong
+AU  - Li, Tong
+AU  - Zhu, Qiuan
+AU  - Zhou, Xiaolu
+AU  - Peng, Changhui
+PY  - 2025
+DA  - 2025/10/20
+PB  - Springer Science and Business Media LLC
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/plants13223223
+UR  - http://dx.doi.org/10.3390/plants13223223
+TI  - Effects of Rice Root Development and Rhizosphere Soil on Methane Emission in Paddy Fields
+T2  - Plants
+AU  - Guan, Sheng
+AU  - Qi, Zhijuan
+AU  - Li, Sirui
+AU  - Du, Sicheng
+AU  - Xu, Dan
+PY  - 2024
+DA  - 2024/11/16
+PB  - MDPI AG
+SP  - 3223
+IS  - 22
+VL  - 13
+SN  - 2223-7747
+ER  -
+
+TY  - JOUR
+DO  - 10.5194/amt-17-4257-2024
+UR  - http://dx.doi.org/10.5194/amt-17-4257-2024
+TI  - Using metal oxide gas sensors to estimate the emission rates and locations of methane leaks in an industrial site: assessment with controlled methane releases
+T2  - Atmospheric Measurement Techniques
+AU  - Rivera-Martinez, Rodrigo
+AU  - Kumar, Pramod
+AU  - Laurent, Olivier
+AU  - Broquet, Gregoire
+AU  - Caldow, Christopher
+AU  - Cropley, Ford
+AU  - Santaren, Diego
+AU  - Shah, Adil
+AU  - Mallet, Cécile
+AU  - Ramonet, Michel
+AU  - Rivier, Leonard
+AU  - Juery, Catherine
+AU  - Duclaux, Olivier
+AU  - Bouchet, Caroline
+AU  - Allegrini, Elisa
+AU  - Utard, Hervé
+AU  - Ciais, Philippe
+PY  - 2024
+DA  - 2024/07/17
+PB  - Copernicus GmbH
+SP  - 4257-4290
+IS  - 14
+VL  - 17
+SN  - 1867-8548
+ER  -
+
+TY  - ELEC
+AU  - Ding Wang
+AU  - Lei Wang
+AU  - Huilin Yin
+AU  - Guoqing Gu
+AU  - Zhiping Lin
+AU  - Wenwen Zhang
+TI  - Graph-Driven Models for Gas Mixture Identification and Concentration Estimation on Heterogeneous Sensor Array Signals
+PY  - 2024
+PB  - arXiv
+UR  - https://arxiv.org/abs/2412.13891
+ID  - arXiv:2412.13891
+N1  - citation key: 2024_Wang_graph_models_gas_mixture_concentration_estimation; source: existing BibTeX fields only
+ER  -
+
+TY  - JOUR
+DO  - 10.11591/ijai.v14.i1.pp231-239
+UR  - http://dx.doi.org/10.11591/ijai.v14.i1.pp231-239
+TI  - Neural networks based-simple estimated model for greenhouse gas emission from irrigated paddy fields
+T2  - IAES International Journal of Artificial Intelligence (IJ-AI)
+AU  - Arif, Chusnul
+AU  - Purwanto, Yohanes Aris
+AU  - Rudiyanto, Rudiyanto
+AU  - Mizoguchi, Masaru
+PY  - 2025
+DA  - 2025/02/01
+PB  - Institute of Advanced Engineering and Science
+SP  - 231
+IS  - 1
+VL  - 14
+SN  - 2252-8938
+SN  - 2089-4872
+ER  -
+
+TY  - JOUR
+DO  - 10.1109/tim.2025.3547517
+UR  - http://dx.doi.org/10.1109/tim.2025.3547517
+TI  - A Review on Application of Machine Learning Techniques Coupled With E-Nose in Healthcare, Agriculture, and Allied Domains
+T2  - IEEE Transactions on Instrumentation and Measurement
+AU  - Baruah, Samujjal
+AU  - Mazumder, Dilwar Hussain
+PY  - 2025
+PB  - Institute of Electrical and Electronics Engineers (IEEE)
+SP  - 1-23
+VL  - 74
+SN  - 0018-9456
+SN  - 1557-9662
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.isci.2024.111237
+UR  - http://dx.doi.org/10.1016/j.isci.2024.111237
+TI  - Global methane emissions from rice paddies: CH4MOD model development and application
+T2  - iScience
+AU  - Hu, Qiwen
+AU  - Li, Jingxian
+AU  - Xie, Hanzhi
+AU  - Huang, Yao
+AU  - Canadell, Josep G.
+AU  - Yuan, Wenping
+AU  - Wang, Jinyang
+AU  - Zhang, Wen
+AU  - Yu, Lijun
+AU  - Li, Shihua
+AU  - Lu, Xinqing
+AU  - Li, Tingting
+AU  - Qin, Zhangcai
+PY  - 2024
+DA  - 2024/11
+PB  - Elsevier BV
+SP  - 111237
+IS  - 11
+VL  - 27
+SN  - 2589-0042
+ER  -
+
+TY  - JOUR
+DO  - 10.18502/kls.v9i1.19350
+UR  - http://dx.doi.org/10.18502/kls.v9i1.19350
+TI  - Development of an IoT-based Monitoring System for Greenhouse Gas Emissions and Soil Health in Paddy Fields
+T2  - KnE Life Sciences
+AU  - Jaya, Galang Indra
+AU  - Handru, Alan
+AU  - Avianto, Yovi
+AU  - Noviyanto, Amir
+AU  - Kautsar, Valensi
+AU  - Suryanti, Sri
+AU  - Krisdiarto, Andreas Wahyu
+AU  - Maward, Rahadian
+AU  - Martini, Tri
+AU  - Abdul Aziz, ‎
+PY  - 2025
+DA  - 2025/08/12
+PB  - Knowledge E DMCC
+SP  - 56-66
+IS  - 1
+VL  - 9
+SN  - 2413-0877
+ER  -
+
+TY  - JOUR
+DO  - 10.1038/s41598-026-43940-8
+UR  - http://dx.doi.org/10.1038/s41598-026-43940-8
+TI  - Methane emissions from rice paddies are regulated by carbon availability and soil pH along a mean annual temperature gradient
+T2  - Scientific Reports
+AU  - Yusong, Dai
+AU  - Jiawei, Cao
+AU  - Huabin, Li
+AU  - Jinli, Hu
+AU  - Guangcheng, Liu
+AU  - Ronglin, Su
+AU  - Xian, Wu
+AU  - Yan, Wang
+AU  - Ronggui, Hu
+PY  - 2026
+DA  - 2026/03/19
+PB  - Springer Science and Business Media LLC
+IS  - 1
+VL  - 16
+SN  - 2045-2322
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s25226913
+UR  - http://dx.doi.org/10.3390/s25226913
+TI  - Quantification of Volatile Compounds in Mixtures Using a Single Thermally Modulated MOS Gas Sensor with PCA–ANN Data Processing
+T2  - Sensors
+AU  - Wawrzyniak, Jolanta
+PY  - 2025
+DA  - 2025/11/12
+PB  - MDPI AG
+SP  - 6913
+IS  - 22
+VL  - 25
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/agronomy12102240
+UR  - http://dx.doi.org/10.3390/agronomy12102240
+TI  - Product Type, Rice Variety, and Agronomic Measures Determined the Efficacy of Enhanced-Efficiency Nitrogen Fertilizer on the CH4 Emission and Rice Yields in Paddy Fields: A Meta-Analysis
+T2  - Agronomy
+AU  - Yang, Tong
+AU  - Wang, Mengjie
+AU  - Wang, Xiaodan
+AU  - Xu, Chunchun
+AU  - Fang, Fuping
+AU  - Li, Fengbo
+PY  - 2022
+DA  - 2022/09/20
+PB  - MDPI AG
+SP  - 2240
+IS  - 10
+VL  - 12
+SN  - 2073-4395
+ER  -
+
+TY  - JOUR
+DO  - 10.1016/j.jenvman.2026.130155
+UR  - http://dx.doi.org/10.1016/j.jenvman.2026.130155
+TI  - Straw mulching combined with alternate wetting and drying reduces methane emissions in paddy fields: associations with carbon availability and methanogenic archaeal community shifts
+T2  - Journal of Environmental Management
+AU  - Shu, Chuanhai
+AU  - Wang, Zhonglin
+AU  - Liu, Binbin
+AU  - Huang, Yue
+AU  - Shi, Yuanqing
+AU  - Xie, Hongkun
+AU  - Hu, Mingming
+AU  - Cheng, Qingyue
+AU  - Liao, Qin
+AU  - Li, Na
+AU  - Chen, Zongkui
+AU  - Sun, Yongjian
+AU  - Yang, Zhiyuan
+AU  - Ma, Jun
+PY  - 2026
+DA  - 2026/06
+PB  - Elsevier BV
+SP  - 130155
+VL  - 410
+SN  - 0301-4797
+ER  -
+
+TY  - JOUR
+DO  - 10.1080/21622515.2025.2470448
+UR  - http://dx.doi.org/10.1080/21622515.2025.2470448
+TI  - Environmental impacts and recent advancements in the sensing of methane: a review
+T2  - Environmental Technology Reviews
+AU  - Tyagi, Lavista
+AU  - Devi, Rajni
+AU  - Tyagi, Shrestha
+AU  - Kumar, Vinay
+AU  - Sharma, Kavita
+AU  - Gautam, Yogendra K.
+AU  - Kumar, Anuj
+AU  - Kapoor, Saurabh
+AU  - Bhardwaj, Aman
+AU  - Kumar, Ashwani
+PY  - 2025
+DA  - 2025/03/04
+PB  - Informa UK Limited
+SP  - 191-212
+IS  - 1
+VL  - 14
+SN  - 2162-2515
+SN  - 2162-2523
+ER  -
+
+TY  - GENERIC
+DO  - 10.2139/ssrn.5218753
+UR  - http://dx.doi.org/10.2139/ssrn.5218753
+TI  - From Detection to Decision: A Systematic Literature Review of AI and Machine Learning Evolution in Methane Modelling
+AU  - Xu, Yang
+AU  - Yazdinejad, Abbas
+AU  - Wang, Hao
+AU  - Kong, Jude Dzevela
+PY  - 2025
+PB  - Elsevier BV
+ER  -
+
+TY  - JOUR
+DO  - 10.1002/adsr.202500112
+UR  - http://dx.doi.org/10.1002/adsr.202500112
+TI  - The Promise of Low‐Cost Metal‐Oxide Semiconductor Gas Sensors for Precision Agriculture
+T2  - Advanced Sensor Research
+AU  - Ahmad, Ali
+AU  - Sendra, Sandra
+AU  - Lloret, Jaime
+AU  - Bai, Jinhe
+AU  - Rosskopf, Erin
+AU  - Di Gioia, Francesco
+PY  - 2026
+DA  - 2026/03
+PB  - Wiley
+IS  - 3
+VL  - 5
+SN  - 2751-1219
+SN  - 2751-1219
+ER  -
+
+TY  - JOUR
+DO  - 10.3390/s26020714
+UR  - http://dx.doi.org/10.3390/s26020714
+TI  - Enhanced Gas Classification in Electronic Nose Systems Using an SMOTE-Augmented Machine Learning Framework
+T2  - Sensors
+AU  - Li, Minqiang
+AU  - Wu, Chenxi
+AU  - Wang, Zhiyang
+AU  - Wu, Zhijian
+AU  - Huang, Wei
+AU  - Chen, Junru
+AU  - Yu, Kaibo
+AU  - Wen, Ting
+AU  - Yin, Hongbo
+AU  - Wang, Zhuqing
+PY  - 2026
+DA  - 2026/01/21
+PB  - MDPI AG
+SP  - 714
+IS  - 2
+VL  - 26
+SN  - 1424-8220
+ER  -
+
+TY  - JOUR
+DO  - 10.1038/s41598-025-19063-x
+UR  - http://dx.doi.org/10.1038/s41598-025-19063-x
+TI  - Fast and robust mixed gas identification and recognition using tree-based machine learning and sensor array response
+T2  - Scientific Reports
+AU  - Ansari, Ghazala
+AU  - Singh, Rupali
+AU  - Kumar, Sachin
+AU  - Soliman, Naglaa F.
+PY  - 2025
+DA  - 2025/10/03
+PB  - Springer Science and Business Media LLC
+IS  - 1
+VL  - 15
+SN  - 2045-2322
+ER  -
+
