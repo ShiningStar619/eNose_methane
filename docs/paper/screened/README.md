@@ -1,5 +1,8 @@
 # Paper ที่คัดแล้ว (`screened/`)
 
+**อ่านในเบราว์เซอร์:** เปิด [`index.html`](index.html) (ค้น/กรอง tier · สรุป screening · Literature Review · ลิงก์ PDF)  
+สร้างใหม่ได้ด้วย `py -3 _build_reader.py` ในโฟลเดอร์นี้
+
 **Single source of truth** ของคลังอ้างอิงวิทยานิพนธ์ eNose–CH₄ นาข้าว  
 อัปเดตรอบ reorg: 23 ก.ค. 2026 — รวมคลังเก่า + batch `candidates_2026-07-23` และจัดหมวดตาม taxonomy thesis-focused
 

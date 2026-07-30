@@ -1,0 +1,560 @@
+{
+  "success": true,
+  "data": {
+    "matches": 6,
+    "results": [
+      {
+        "path": "/body/p[@paraId=7FECFA70]",
+        "type": "paragraph",
+        "text": "รูปที่ 1: แผนภาพแนวคิดกลไกการเกิดและเส้นทางปล่อย CH4 ในนาข้าว (สังเคราะห์จากวรรณกรรม [4], [17])",
+        "preview": "รูปที่ 1: แผนภาพแนวคิดกลไกการเกิดและเส้นทางปล่อย C...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA70",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[5]",
+            "type": "run",
+            "text": "1",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA70]/r[7]",
+            "type": "run",
+            "text": ": แผนภาพแนวคิดกลไกการเกิดและเส้นทางปล่อย CH4 ในนาข้าว (สังเคราะห์จากวรรณกรรม [4], [17])",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/body/p[@paraId=7FECFA76]",
+        "type": "paragraph",
+        "text": "รูปที่ 2: ตัวอย่างอนุกรมเวลาการปล่อย CH4 ภายใต้ AWD เทียบกับการขังน้ำต่อเนื่อง (ดัดแปลงจาก Anapalli et al. [16])",
+        "preview": "รูปที่ 2: ตัวอย่างอนุกรมเวลาการปล่อย CH4 ภายใต้ AW...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA76",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[5]",
+            "type": "run",
+            "text": "2",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA76]/r[7]",
+            "type": "run",
+            "text": ": ตัวอย่างอนุกรมเวลาการปล่อย CH4 ภายใต้ AWD เทียบกับการขังน้ำต่อเนื่อง (ดัดแปลงจาก Anapalli et al. [16])",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/body/p[@paraId=7FECFA7C]",
+        "type": "paragraph",
+        "text": "รูปที่ 3: หลักการ static chamber จากความเข้มข้น C(t) สู่ฟลักซ์ และจุดที่งานนี้ประมาณค่า ppm (แผนภาพแนวคิด อ้างอิงกรอบวิธี [6], [7])",
+        "preview": "รูปที่ 3: หลักการ static chamber จากความเข้มข้น C(...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA7C",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[5]",
+            "type": "run",
+            "text": "3",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA7C]/r[7]",
+            "type": "run",
+            "text": ": หลักการ static chamber จากความเข้มข้น C(t) สู่ฟลักซ์ และจุดที่งานนี้ประมาณค่า ppm (แผนภาพแนวคิด อ้างอิงกรอบวิธี [6], [7])",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/body/p[@paraId=7FECFA82]",
+        "type": "paragraph",
+        "text": "รูปที่ 4: ตัวอย่างสถาปัตยกรรมระบบเซ็นเซอร์มีเทนต้นทุนต่ำร่วมกับ ML (ดัดแปลงจาก Kiplimo et al., 2024; สอดคล้องแนวทาง [10], [28])",
+        "preview": "รูปที่ 4: ตัวอย่างสถาปัตยกรรมระบบเซ็นเซอร์มีเทนต้น...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA82",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[5]",
+            "type": "run",
+            "text": "4",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA82]/r[7]",
+            "type": "run",
+            "text": ": ตัวอย่างสถาปัตยกรรมระบบเซ็นเซอร์มีเทนต้นทุนต่ำร่วมกับ ML (ดัดแปลงจาก Kiplimo et al., 2024; สอดคล้องแนวทาง [10], [28])",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/body/p[@paraId=7FECFA88]",
+        "type": "paragraph",
+        "text": "รูปที่ 5: ตัวอย่างผลสอบเทียบ eNose+PLSR กับค่าอ้างอิง (ดัดแปลงจาก Domenech-Gil et al., Eurosensors 2024; เกี่ยวข้อง [10])",
+        "preview": "รูปที่ 5: ตัวอย่างผลสอบเทียบ eNose+PLSR กับค่าอ้าง...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA88",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[5]",
+            "type": "run",
+            "text": "5",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA88]/r[7]",
+            "type": "run",
+            "text": ": ตัวอย่างผลสอบเทียบ eNose+PLSR กับค่าอ้างอิง (ดัดแปลงจาก Domenech-Gil et al., Eurosensors 2024; เกี่ยวข้อง [10])",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "/body/p[@paraId=7FECFA8E]",
+        "type": "paragraph",
+        "text": "รูปที่ 6: แผนภาพเปรียบเทียบแนวทางวัด CH4 และช่องว่างของงานวิจัยนี้ (สังเคราะห์)",
+        "preview": "รูปที่ 6: แผนภาพเปรียบเทียบแนวทางวัด CH4 และช่องว่...",
+        "style": "Caption",
+        "childCount": 7,
+        "format": {
+          "paraId": "7FECFA8E",
+          "style": "Caption",
+          "styleId": "Caption",
+          "styleName": "Caption",
+          "align": "center",
+          "size": "10pt",
+          "italic": true
+        },
+        "children": [
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[1]",
+            "type": "run",
+            "text": "รูปที่ ",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[2]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "begin"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[3]",
+            "type": "instrText",
+            "text": " SEQ Figure ",
+            "childCount": 0,
+            "format": {
+              "instruction": " SEQ Figure "
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[4]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "separate"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[5]",
+            "type": "run",
+            "text": "6",
+            "childCount": 0,
+            "format": {
+              "effective.size": "12pt",
+              "effective.size.src": "/docDefaults"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[6]",
+            "type": "fieldChar",
+            "text": "",
+            "childCount": 0,
+            "format": {
+              "fieldCharType": "end"
+            },
+            "children": []
+          },
+          {
+            "path": "/body/p[@paraId=7FECFA8E]/r[7]",
+            "type": "run",
+            "text": ": แผนภาพเปรียบเทียบแนวทางวัด CH4 และช่องว่างของงานวิจัยนี้ (สังเคราะห์)",
+            "childCount": 0,
+            "format": {
+              "size": "10pt",
+              "italic": true
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

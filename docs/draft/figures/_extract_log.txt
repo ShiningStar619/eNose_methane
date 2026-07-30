@@ -1,0 +1,6 @@
+fig1_ch4_pathway_ji: fig1_ch4_pathway_ji_page.png render 1191x1684 page=2
+fig2_chamber_ct_tokida: fig2_chamber_ct_tokida_page.png render 1310x1853 page=5
+fig3_awd_anapalli: fig3_awd_anapalli.png extract 1423x1034 page=7
+fig4_enose_plsr_domenech: fig4_enose_plsr_domenech.png extract 489x394 page=2
+fig_bastviken_logger: fig_bastviken_logger.png extract 2067x2096 page=6
+fig_kiplimo_arch: fig_kiplimo_arch.png extract 1631x998 page=4
