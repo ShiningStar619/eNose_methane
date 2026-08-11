@@ -159,7 +159,7 @@ Total features: ~30–40 per sample.
 #### 2.4.1 Data Preprocessing
 
 1. **Quality control:** Remove samples with sensor failure flags or baseline drift > threshold
-2. **Train/test split:** Stratified by ppm level and heater setpoint
+2. **Train/test split:** Stratified by ppm level and ambient temperature (temp_set)
 3. **Feature scaling:** StandardScaler (fit on train, transform train+test)
 
 #### 2.4.2 Feature Selection
@@ -171,7 +171,7 @@ Pearson correlation with target ppm calculated for each feature. Top-k features 
 **Primary model:** Linear Regression (ordinary least squares)
 
 - **Rationale:** Interpretability, minimal overfitting risk with moderate feature count, baseline comparison
-- **Cross-validation:** GroupKFold (5 splits, grouped by heater setpoint) to assess robustness across temperature conditions
+- **Cross-validation:** GroupKFold (5 splits, grouped by ambient temperature / temp_set) to assess robustness across temperature conditions
 
 **Comparison models:**
 
@@ -228,7 +228,7 @@ Code repository structure documented in `README.md`. Testing via `tests/` (unitt
 - **Total experimental runs:** [N]
 - **Successful runs (passed QC):** [M]
 - **CH₄ range (GC-FID ground truth):** [X–Y ppm]
-- **Temperature range (heater setpoint):** 30–50 °C
+- **Temperature range (ambient / environment):** 30–50 °C
 - **Ambient conditions:** 25–28 °C, 50–70% RH
 
 ### 3.2 Feature Analysis
@@ -243,9 +243,9 @@ Code repository structure documented in `README.md`. Testing via `tests/` (unitt
 
 #### 3.2.2 Environmental Influence
 
-*[Include figure: scatter plots of temperature, humidity vs. ppm; color-coded by heater setpoint]*
+*[Include figure: scatter plots of temperature, humidity vs. ppm; color-coded by ambient temperature (temp_set)]*
 
-- **Temperature:** Moderate correlation with ppm (r = [W]), but cross-effects with heater setpoint observed
+- **Temperature:** Moderate correlation with ppm (r = [W]), but cross-effects with ambient temperature (temp_set) observed
 - **Humidity:** Weak direct correlation (r = [V]), included as compensation feature
 - **Pressure:** Minimal variation across runs, low feature importance
 
@@ -282,7 +282,7 @@ Top 10 features by absolute Pearson correlation with ppm:
 
 #### 3.3.2 Prediction Accuracy by Concentration Range
 
-*[Include figure: predicted vs. true scatter plot with diagonal line, color-coded by heater setpoint]*
+*[Include figure: predicted vs. true scatter plot with diagonal line, color-coded by ambient temperature (temp_set)]*
 
 | CH₄ range (ppm) | n samples | RMSE (ppm) | MAE (ppm) | Bias (ppm) |
 |-----------------|-----------|------------|-----------|------------|
@@ -294,7 +294,7 @@ Top 10 features by absolute Pearson correlation with ppm:
 
 - Accuracy highest in mid-range (2–5 ppm)
 - Slight overestimation at low concentrations (< 1 ppm) possibly due to sensor noise floor
-- Predictions stable across heater setpoints (no significant setpoint × concentration interaction after feature compensation)
+- Predictions stable across ambient temperature levels (no significant temp_set × concentration interaction after feature compensation)
 
 #### 3.3.3 Residual Analysis
 
@@ -389,7 +389,7 @@ However, the system should be viewed as a **complement to, not replacement for**
 
 ## 5. Conclusions
 
-This research developed and validated a low-cost electronic nose system integrating Figaro TGS2611 MOS sensor arrays with Linear Regression models for quantitative methane concentration estimation in rice paddy contexts. Under controlled laboratory conditions mimicking paddy environments (1–10 ppm CH₄, 30–50°C heater setpoints), the system achieved [R² = X.XX, RMSE = Y.YY ppm], demonstrating feasibility for continuous, per-sample CH₄ monitoring.
+This research developed and validated a low-cost electronic nose system integrating Figaro TGS2611 MOS sensor arrays with Linear Regression models for quantitative methane concentration estimation in rice paddy contexts. Under controlled laboratory conditions mimicking paddy environments (1–10 ppm CH₄, ambient temperatures 30–50°C), the system achieved [R² = X.XX, RMSE = Y.YY ppm], demonstrating feasibility for continuous, per-sample CH₄ monitoring.
 
 Key contributions include:
 

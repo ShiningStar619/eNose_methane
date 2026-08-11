@@ -160,7 +160,8 @@ def predict_ppm(
     bme_csv : str | Path, optional
         path ไฟล์ bme280_*_lp_ma.csv
     temp_set : float, optional
-        อุณหภูมิห้องทดลอง °C (30/40/50) — ต้องระบุถ้าโมเดล include temp_set
+        อุณหภูมิสภาพแวดล้อม / ห้องทดลอง °C (30/40/50) — ต้องระบุถ้าโมเดล include temp_set
+        ไม่ใช่อุณหภูมิตั้งของฮีตเตอร์เซ็นเซอร์
         ถ้าโมเดล train ด้วย INCLUDE_TEMP_SET=False ไม่ต้องส่งค่านี้
 
     Returns
