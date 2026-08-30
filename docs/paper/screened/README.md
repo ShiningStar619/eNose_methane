@@ -8,14 +8,14 @@
 
 | โฟลเดอร์ | ความหมาย (relevance tier) | paper ไฟล์ | `.bib` | `.ris` |
 |----------|---------------------------|----------:|------:|------:|
-| [`direct/`](direct/) | ใกล้โจทย์สูง: eNose/MOS+CH₄, ML calibration CH₄, chamber–GC ในนา/เกษตร, field low-cost CH₄ ที่ validate ได้ | 12 | 22 | 22 |
-| [`supporting/`](supporting/) | รอง: mitigation/AWD เชิง agronomy, flux/model context, remote sensing, review ทั่วไป, companion proceedings | 17 | 31 | 31 |
+| [`direct/`](direct/) | ใกล้โจทย์สูง: eNose/MOS+CH₄, ML calibration CH₄, chamber–GC ในนา/เกษตร, field low-cost CH₄ ที่ validate ได้ | 15 | 23 | 23 |
+| [`supporting/`](supporting/) | รอง: mitigation/AWD เชิง agronomy, flux/model context, remote sensing, review ทั่วไป, companion proceedings | 18 | 32 | 32 |
 | [`excluded/`](excluded/) | นอกประเด็นชัด / stub ชน DOI / classification ที่ไม่ใช้ใน lit review หลัก | 1 | 2 | 2 |
 
 **Master bibliography (EndNote / LaTeX):**
 
-- [`references.bib`](references.bib) — รวมทุก tier (55 entries)
-- [`references.ris`](references.ris) — รวมทุก tier สำหรับ import EndNote ครั้งเดียว (55 records)
+- [`references.bib`](references.bib) — รวมทุก tier (57 entries)
+- [`references.ris`](references.ris) — รวมทุก tier สำหรับ import EndNote ครั้งเดียว (57 records)
 
 รายงาน: [`../citation-reorg-report-2026-07-23.md`](../citation-reorg-report-2026-07-23.md) · sync batch ก่อนหน้า: [`../citation-sync-report-2026-07-23.md`](../citation-sync-report-2026-07-23.md) · screening: [`../project-relevance-screening.md`](../project-relevance-screening.md)
 
@@ -44,8 +44,12 @@
 | `enose-mos-ch4` | MOS/eNose สำหรับ CH₄ | `2024_Domenech-Gil_…`, `2022_Furuta_…`, `2023_Shah_…`, `2024_Shah_…` |
 | `ml-calibration-regression` | ML/regression calibration หรือ concentration estimation | `2024_Mitchell_…`, `2023_Andrews_…`, `2024_Kiplimo_…`, `2024_Lakhmi_…` |
 | `field-iot-portable` | portable / IoT / near-field rice deployment | `2022_Rajasekar_…`, `2024_IoT_lowcost_…`, `2022_portable_…` |
+| `review` | รีวิว/สังเคราะห์กว้าง | `2021_Ye_…`, `2025_Tyagi_…`, `2023_MOS_…` |
+| `remote-sensing` | CH₄ นาข้าวจากรีโมทเซนซิง | `2025_Xu_…` |
+| `gas-ml-general` | ML ก๊าซผสม/classification ที่ไม่ใช่ calibration CH₄ | `2022_SVM_…` + excluded |
+| `livestock-ghg` | วิธีวัด GHG สัตว์ ไม่ใช่นา | `2022_Borhan_…` |
 
-รายการ thematic เต็มอยู่ในรายงาน reorg § Thematic index
+รายการ thematic เต็ม: [`thematic-index.md`](thematic-index.md) (รายงาน reorg มีเฉพาะตัวอย่าง)
 
 ---
 
@@ -72,7 +76,7 @@ ID ที่ว่างหลังย้าย: **D01, D02, D03, D06–D09, D1
 
 ## หมายเหตุปฏิบัติ
 
-- หลายเรื่องมีแค่ `.bib`/`.ris` ใน `cite/` (ยังไม่มี PDF ในคลัง) — ยังเป็น metadata-level evidence
+- หลายเรื่องยังมีแค่ `.bib`/`.ris` ใน `cite/` (ยังไม่มี PDF ในคลัง) — ยังเป็น metadata-level evidence รอบ 30 ส.ค. 2026 เติม PDF + `file`/`pdf` ให้ Rajasekar, Zaman บทที่ 2, Domènech-Gil *ES&T*, Ye, Yin, Fu, Andrews, Mitchell, Lakhmi (PMC11174819), Minamikawa 2015, Conrad 2020
 - `excluded/` มี stub ที่ DOI ชนงานคนละเรื่อง (`2024_diurnal_…`) และ classification papers ที่ไม่ผ่านเกณฑ์
 - BibTeX ของ Moshayedi / Rusdianto / Ha / Cardador ถูกลบไปก่อนหน้า (orphan) — ไม่มีในคลังปัจจุบัน; ดู screening § orphan
 - `candidates_2026-07-23/` ยังเป็น staging archive (คัดลอกแล้ว ไม่ลบ)

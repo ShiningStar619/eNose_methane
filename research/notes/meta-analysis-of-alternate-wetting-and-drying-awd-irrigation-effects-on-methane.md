@@ -8,8 +8,9 @@ tags:
 - awd
 - methane
 - meta-analysis
+- ch5-theory-foundations-05eb4d
 created: '2026-07-30T09:52:47.742870Z'
-updated: '2026-07-30T09:54:38.468249Z'
+updated: '2026-08-16T13:54:57.113362Z'
 source: https://doi.org/10.59324/ejeba.2025.2(5).13
 source_domain: doi.org
 fetched_at: '2026-07-30T09:52:47.606082Z'

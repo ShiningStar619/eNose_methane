@@ -4,7 +4,9 @@ title: Application of Machine Learning for Calibrating Gas Sensors for Methane E
 id: application-of-machine-learning-for-calibrating-gas-sensors-for-methane-emission
 tags:
 - ml
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:08:26.759712Z'
+updated: '2026-08-16T13:54:51.082170Z'
 source: https://www.mdpi.com/1424-8220/23/24/9898
 source_domain: www.mdpi.com
 fetched_at: '2026-08-03T07:08:26.661302Z'

@@ -1,11 +1,20 @@
 ---
+title: Harris, Quantitative Chemical Analysis — dilution and standards (bibliographic
+  note)
 id: harris-qa-dilution-biblio
-title: "Harris, Quantitative Chemical Analysis — dilution and standards (bibliographic note)"
-url: "https://www.macmillanlearning.com/college/us/product/Quantitative-Chemical-Analysis/p/1319164307"
-tags: [ch4-volumetric-dilution-calc-bafe1e, textbook, theory]
+tags:
+- ch4-volumetric-dilution-calc-bafe1e
+- textbook
+- theory
+- ch5-theory-foundations-05eb4d
+created: '2026-08-04T07:25:00Z'
+updated: '2026-08-16T13:55:00.532072Z'
 status: review
-summary: "Canonical analytical-chemistry textbook treating solution/gas standard preparation via known amounts and dilution factors; supports C_final = C_stock × (V_stock/V_final) under uniform intensive conditions."
-created: 2026-08-04T07:25:00Z
+type: note
+deprecated: false
+summary: Canonical analytical-chemistry textbook treating solution/gas standard preparation
+  via known amounts and dilution factors; supports C_final = C_stock × (V_stock/V_final)
+  under uniform intensive conditions.
 ---
 
 Bibliographic / curriculum reference (not a full-text fetch):

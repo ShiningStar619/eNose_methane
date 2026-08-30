@@ -267,6 +267,7 @@ TAG_RULES = [
             "Nguyen",
             "Basheer",
             "comprehensive_review",
+            "diurnal",
         ],
     ),
     (
@@ -298,9 +299,34 @@ TAG_RULES = [
             "Arif",
             "TFA",
             "graph",
+            "PCA-ANN",
         ],
     ),
     ("field-iot-portable", ["Rajasekar", "IoT_lowcost", "Jaya", "portable"]),
+    (
+        "review",
+        [
+            "Ye_smart",
+            "Tyagi",
+            "Baruah",
+            "chemiresistive_eNose",
+            "MOS_chemiresistive",
+            "Basheer",
+            "comprehensive_review",
+            "Nguyen",
+            "Zhou",
+        ],
+    ),
+    ("remote-sensing", ["Xu_AI"]),
+    (
+        "gas-ml-general",
+        [
+            "SVM_sparrow",
+            "enhanced_gas_classification",
+            "tree_ML_mixed",
+        ],
+    ),
+    ("livestock-ghg", ["Borhan"]),
 ]
 
 
@@ -312,11 +338,85 @@ def tags_for(stem):
     return t
 
 
+# RQ: eNose/MOS + ML regression → CH4 ppm ในนา; chamber–GC = ground truth
+# จัดอันดับตามจำนวนเสาที่แตะ (นา / MOS-eNose-CH4 / ML-quant / chamber-GC) ไม่ใช่คุณภาพวารสาร
+RELEVANCE = {
+    "2022_Rajasekar_GHG_sensing_rice_fields_near_field": (1, "สูงมาก", "MOS (MQ4/TGS2611) + chamber ในนา — ขาด eNose array+ML→ppm"),
+    "2024_Domenech-Gil_eNose_environmental_methane_monitoring": (2, "สูงมาก", "eNose+ML quantify CH4 ภาคสนาม — ไม่ใช่นาข้าว"),
+    "2025_Zhang_ML_in-situ_CH4_measurement_paddy_fields_Yangtze": (3, "สูงมาก", "ML in-situ CH4 ในนา — ไม่ใช้สัญญาณ MOS"),
+    "2024_Mitchell_Figaro_lowcost_methane_ML_calibration": (4, "สูงมาก", "ML calibrate Figaro CH4 ภาคสนาม"),
+    "2024_Kiplimo_ML_calibration_lowcost_methane_TGS": (5, "สูงมาก", "ML calibrate TGS CH4"),
+    "2023_Andrews_ML_calibrating_gas_sensors_methane_emissions": (6, "สูงมาก", "ML calibrate เซ็นเซอร์ก๊าซสำหรับ methane emissions"),
+    "2022_portable_lowcost_semiconductor_methane_sensor": (7, "สูงมาก", "เซ็นเซอร์สารกึ่งตัวนำพกพา วัด/สอบเทียบ CH4"),
+    "2022_Furuta_inexpensive_MOx_trace_methane": (8, "สูงมาก", "MOS ต้นทุนต่ำ วัด CH4 ระดับต่ำ"),
+    "2024_Furuta_lowcost_sensor_node_near_background_methane": (9, "สูงมาก", "โหนด MOS วัด CH4 ใกล้พื้นหลัง"),
+    "2024_Lakhmi_linear_nonlinear_gas_sensor_array_CH4": (10, "สูงมาก", "linear vs nonlinear บน array มี CH4 — ใกล้โมเดลวิทยานิพนธ์"),
+    "2022_ML_indirect_methane_quantification_single_sensor": (11, "สูงมาก", "ML quantify CH4 จากเซ็นเซอร์เดี่ยว"),
+    "2021_Tokida_modified_closed_chamber_rice_methane": (12, "สูงมาก", "closed chamber วัด CH4 นาข้าว (GT)"),
+    "2022_LowCost_GC-FID_methane_rice_cultivation": (13, "สูงมาก", "GC-FID ต้นทุนต่ำในนาข้าว (GT)"),
+    "2023_Shah_TGS2611-E00_methane_environmental_response": (14, "สูง", "TGS2611 ตอบสนอง CH4+สภาพแวดล้อม — เซ็นเซอร์เดียวกับโจทย์"),
+    "2020_Bastviken_lowcost_CH4_sensors_flux_chambers": (15, "สูง", "เซ็นเซอร์ CH4 ต้นทุนต่ำใน flux chamber"),
+    "2021_Zaman_GHG_measurement_agricultural_soils_methodology": (16, "สูง", "ระเบียบ chamber–GC ดินเกษตร"),
+    "2024_Mumu_methodological_progress_agricultural_GHG": (17, "สูง", "วิธีวัด GHG เกษตร รวมข้อจำกัด chamber–GC"),
+    "2024_IoT_lowcost_GHG_monitoring_paddy_regions": (18, "สูง", "IoT+อัลกอริทึม เฝ้า GHG ในพื้นที่นา"),
+    "2024_Shah_TGS2611-C00_landfill_methane": (19, "สูง", "TGS2611 วัด CH4 ภาคสนาม — หลุมฝังกลบ ไม่ใช่นา"),
+    "2022_Vo_TGA_vs_GC_methane_agricultural_soils": (20, "สูง", "เปรียบเทียบวิธีวิเคราะห์ CH4 ดินเกษตร/นา กับ GC"),
+    "2024_Zhou_paddy_methane_emissions_Monsoon_Asia_review": (21, "สูง", "ปัจจัยควบคุม CH4 นา Monsoon Asia (บริบทภูมิภาค)"),
+    "2023_MOS_chemiresistive_methane_sensor_review": (22, "สูง", "รีวิว MOS สำหรับ CH4"),
+    "2024_DomenechGil_efficient_methane_monitoring_Eurosensors": (23, "ปานกลาง", "companion ของ eNose CH4 (proceedings)"),
+    "2024_RiveraMartinez_MOS_methane_leak_emission_MLP": (24, "ปานกลาง", "MOS+MLP ประมาณ CH4 — บริบทรั่วไหลอุตสาหกรรม"),
+    "2025_PCA-ANN_single_MOS_sensor_quantification": (25, "ปานกลาง", "quantify ด้วย MOS เดี่ยว+PCA-ANN — ไม่จำเพาะนา/CH4 นา"),
+    "2026_Ahmad_MOS_sensors_precision_agriculture": (26, "ปานกลาง", "MOS ในเกษตรแม่นยำ — ไม่ใช่ CH4 นาโดยตรง"),
+    "2023_Yin_eNose_CH4_CO_mixed_gas_identification": (27, "ปานกลาง", "eNose จำแนก CH4/CO ไม่ใช่ regression ppm ในนา"),
+    "2025_Jaya_IoT_GHG_soil_paddy": (28, "ปานกลาง", "IoT GHG ดินนา — รายละเอียดเซ็นเซอร์/validation บาง"),
+    "2025_ML_geochemical_drivers_Cd_methane_paddy_soils": (29, "ปานกลาง", "ML กับ CH4 ดินนา จากตัวแปรธรณีเคมี ไม่ใช่ MOS"),
+    "2021_Dobrzyniewski_TGS_sensor_array_methane_reforming": (30, "ปานกลาง", "TGS array กับมีเทน — กระบวนการ reforming อุตสาหกรรม"),
+    "2022_water_fertilizer_management_methane_paddy_synthesis": (31, "ปานกลาง", "ปัจจัยน้ำ-ปุ๋ยต่อ CH4 นา (บริบท ไม่ใช่เครื่องมือ)"),
+    "2023_Anapalli_eddy_covariance_AWD_rice_methane": (32, "ปานกลาง", "CH4 นา+AWD แต่ eddy covariance คนละวิธีกับโจทย์"),
+    "2023_multiyear_methane_N2O_AWD_Arkansas_rice": (33, "ปานกลาง", "CH4 นาหลายปี+AWD — บริบทความแปรผัน"),
+    "2024_rice_root_rhizosphere_methane_emission": (34, "ปานกลาง", "กลไกราก/rhizosphere ต่อ CH4"),
+    "2025_CH4MOD_global_methane_emissions_rice_paddies": (35, "ปานกลาง", "โมเดลกระบวนการระดับโลก คนละสเกล"),
+    "2025_straw_mulching_AWD_reduces_methane_paddy": (36, "ปานกลาง", "mitigation นา ไม่ใช่การวัดด้วย eNose"),
+    "2024_agro_technologies_GHG_mitigation_flooded_rice_India": (37, "ปานกลาง", "mitigation นาท่วม"),
+    "2025_product_type_rice_variety_agronomic_CH4_emissions": (38, "ปานกลาง", "พันธุ์ข้าว/เกษตรต่อ CH4"),
+    "2025_methane_emissions_carbon_availability_soil_pH_gradient": (39, "ปานกลาง", "ตัวแปรดินต่อ CH4"),
+    "2024_promoting_rice_upland_crops_mitigate_CH4": (40, "น้อย", "mitigation ระบบข้าว-ไร่ preprint"),
+    "2024_comprehensive_review_GHG_rice_paddies": (41, "น้อย", "รีวิว GHG นากว้าง"),
+    "2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation": (42, "น้อย", "คาร์บอนฟุตพริ้นท์ข้าว ไม่ใช่เซ็นเซอร์"),
+    "2021_Ye_smart_eNose_machine_learning_review": (43, "น้อย", "รีวิว eNose+ML ทั่วไป"),
+    "2025_Tyagi_methane_sensing_environmental_review": (44, "น้อย", "รีวิวการตรวจ CH4 รวม spectroscopy ต้นทุนสูง"),
+    "2025_Arif_NN_GHG_irrigated_paddy": (45, "น้อย", "NN ประมาณ GHG นาชลประทาน — ไม่ใช่สัญญาณ MOS"),
+    "2024_Basheer_GHG_agricultural_soil_review": (46, "น้อย", "รีวิว GHG ดินเกษตรกว้าง"),
+    "2025_Baruah_ML_eNose_healthcare_agriculture_review": (47, "น้อย", "รีวิว eNose+ML สุขภาพ/เกษตร ไม่จำเพาะ CH4 นา"),
+    "2021_chemiresistive_eNose_food_environment_review": (48, "น้อย", "รีวิว eNose อาหาร/สิ่งแวดล้อม"),
+    "2025_Xu_AI_ML_methane_rice_remote_sensing": (49, "น้อย", "remote sensing+ML ระดับภูมิภาค ไม่ถึงรายแปลง"),
+    "2024_Wang_graph_models_gas_mixture_concentration_estimation": (50, "น้อย", "GNN ก๊าซผสม — ถ่ายโอนวิธี ไม่ใช่ CH4 นา"),
+    "2024_Jiang_TFA-CNN_gas_classification_concentration_prediction": (51, "น้อย", "deep learning จำแนก/ความเข้มข้นก๊าซทั่วไป"),
+    "2022_SVM_sparrow_search_mixed_gas_concentration_prediction": (52, "น้อย", "SVM ก๊าซผสม ไม่จำเพาะ CH4 นา"),
+    "2022_Borhan_sensors_methods_GHG_livestock": (53, "น้อย", "วิธีวัด GHG ปศุสัตว์ คนละระบบผลิต"),
+    "2024_diurnal_methane_emission_rice_paddy_ebullition": (54, "ไม่เกี่ยวข้อง", "excluded: stub ชน DOI / metadata ใช้ไม่ได้"),
+    "2024_tree_ML_mixed_gas_identification_sensor_array": (55, "ไม่เกี่ยวข้อง", "excluded: จำแนกก๊าซผสม ไม่มี regression CH4"),
+    "2024_enhanced_gas_classification_SMOTE_ML_eNose": (56, "ไม่เกี่ยวข้อง", "excluded: classification eNose ไม่ใช่ quantify CH4 นา"),
+}
+
+
 for p in papers:
     p["tags"] = tags_for(p["stem"])
+    rel = RELEVANCE.get(p["stem"])
+    if rel:
+        p["rank"], p["band"], p["why"] = rel
+    else:
+        p["rank"], p["band"], p["why"] = 999, "?", ""
+
+untagged = [p["stem"] for p in papers if not p["tags"]]
+assert not untagged, f"untagged stems: {untagged}"
+missing_rank = [p["stem"] for p in papers if p["stem"] not in RELEVANCE]
+assert not missing_rank, f"unstemmed relevance: {missing_rank}"
+extra_rank = set(RELEVANCE) - {p["stem"] for p in papers}
+assert not extra_rank, f"relevance stems not in corpus: {extra_rank}"
 
 tier_order = {"direct": 0, "supporting": 1, "excluded": 2}
-papers.sort(key=lambda p: (tier_order.get(p["tier"], 9), p.get("year") or "9999", p["title"]))
+papers.sort(key=lambda p: (p.get("rank", 999), tier_order.get(p["tier"], 9)))
 
 data = {
     "papers": papers,
@@ -638,6 +738,38 @@ renderView();
 )
 
 out.write_text(html_out, encoding="utf-8")
+
+# keep thematic-index.md in lockstep with TAG_RULES
+rows = [
+    "| อันดับ | ความเกี่ยวข้อง | tier | stem | tags | เหตุผลสั้น |",
+    "|------:|:---------------|------|------|------|----------|",
+]
+for p in papers:
+    rows.append(
+        f"| {p['rank']} | {p['band']} | {p['tier']} | `{p['stem']}` | "
+        f"{', '.join(f'`{t}`' for t in p['tags'])} | {p['why']} |"
+    )
+theme_md = (
+    "# Thematic index (`screened/`)\n\n"
+    "ไม่แยกโฟลเดอร์ย่อย — แท็กอยู่ที่นี่และใน `index.html`\n"
+    "กฎจับแท็กอยู่ใน `_build_reader.py` (`TAG_RULES`)\n"
+    "อันดับความเกี่ยวข้องอยู่ใน `RELEVANCE` ของไฟล์เดียวกัน\n\n"
+    "**คำถามจัดอันดับ:** จมูกอิเล็กทรอนิกส์ (MOS array) + ML regression "
+    "ให้ค่าความเข้มข้น CH₄ (ppm) ในนาข้าว โดยใช้ static chamber–GC เป็นค่าอ้างอิง\n\n"
+    "เกณฑ์ (เรียงมาก→น้อย): (1) แตะหลายเสาของช่องว่างวิจัย "
+    "นา + MOS/eNose + ML-quantify CH₄ + chamber–GC "
+    "(2) แตะเสาเดียวอย่างจำเพาะ "
+    "(3) บริบทนา/รีวิวที่ถ่ายโอนได้ "
+    "(4) คนละสเกลหรือคนละ analyte "
+    "(5) `excluded` = ไม่ใช้ในคลัง\n\n"
+    "อันดับไม่ใช่คะแนนคุณภาพวารสาร และไม่ได้เปิด full text ใหม่ทุกรายการ — "
+    "ใช้ title/metadata + ผลการคัดกรอง 23 ก.ค. 2026 + ช่องว่างใน literature review 4.2.6\n\n"
+    f"รวม {data['meta']['n']} เรื่อง (direct {data['meta']['n_direct']} / "
+    f"supporting {data['meta']['n_supporting']} / excluded {data['meta']['n_excluded']})\n\n"
+    + "\n".join(rows)
+    + "\n"
+)
+(base / "thematic-index.md").write_text(theme_md, encoding="utf-8")
 print("Wrote", out)
 print("papers", data["meta"]["n"], "pdf", data["meta"]["n_pdf"], "extracts", len(extracts))
 un = [p["stem"] for p in papers if not p["reason"]]

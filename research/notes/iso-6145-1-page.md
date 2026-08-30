@@ -6,8 +6,9 @@ tags:
 - gas-dilution
 - theory
 - standard
+- ch5-theory-foundations-05eb4d
 created: '2026-08-04T07:22:54.363257Z'
-updated: '2026-08-04T07:23:26.229545Z'
+updated: '2026-08-16T13:54:59.687115Z'
 status: draft
 type: note
 deprecated: false

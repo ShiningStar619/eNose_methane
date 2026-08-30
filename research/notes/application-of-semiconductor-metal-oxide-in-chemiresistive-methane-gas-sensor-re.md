@@ -4,7 +4,9 @@ title: 'Application of Semiconductor Metal Oxide in Chemiresistive Methane Gas S
 id: application-of-semiconductor-metal-oxide-in-chemiresistive-methane-gas-sensor-re
 tags:
 - mos
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:08:01.493692Z'
+updated: '2026-08-16T13:54:48.619521Z'
 source: https://www.mdpi.com/1420-3049/28/18/6710
 source_domain: www.mdpi.com
 fetched_at: '2026-08-03T07:08:01.392156Z'

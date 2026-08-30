@@ -3,7 +3,9 @@ title: Calibration of a Low-Cost Methane Sensor Using Machine Learning
 id: calibration-of-a-low-cost-methane-sensor-using-machine-learning
 tags:
 - ml
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:08:12.748041Z'
+updated: '2026-08-16T13:54:53.034425Z'
 source: https://www.mdpi.com/1424-8220/24/4/1066
 source_domain: www.mdpi.com
 fetched_at: '2026-08-03T07:08:12.635889Z'

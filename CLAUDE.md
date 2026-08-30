@@ -1,4 +1,6 @@
 # CLAUDE
+@.claude/skills/token-optimization.md
+
 <!-- hyperresearch:start -->
 ## Research Base (hyperresearch)
 
@@ -127,3 +129,13 @@ Summaries must be specific — "Mamba achieves linear-time sequence modeling via
 - After editing `.md` files directly, run `C:/Users/PKSpu/AppData/Roaming/uv/tools/hyperresearch/Scripts/hyperresearch.exe sync` to update the index
 - Run `C:/Users/PKSpu/AppData/Roaming/uv/tools/hyperresearch/Scripts/hyperresearch.exe --help` for the full command list
 <!-- hyperresearch:end -->
+
+## Three Man Team
+Available agents: Arch (Architect), Bob (Builder), Richard (Reviewer)
+
+Start a coding session with: You are the Architect on this project. Read CLAUDE.md, then ARCHITECT.md.
+First-time setup: You are the Architect on this project. Please read new-setup.md.
+
+## เขียนไทย (kien-thai)
+- เขียน/แก้เอกสารภาษาไทยในโปรเจกต์นี้ ให้โหลด skill `kien-thai`
+- ต้องการวนตรวจแก้จนหมดจุดผิด: ใช้ `/kode-thai` หรือบอกว่า "ตรวจวนๆ จนกว่าจะหมดที่ผิด"

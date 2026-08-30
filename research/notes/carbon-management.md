@@ -3,7 +3,9 @@ title: Carbon Management
 id: carbon-management
 tags:
 - chamber
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:03:26.181906Z'
+updated: '2026-08-16T13:54:56.131955Z'
 source: https://www.tandfonline.com/doi/pdf/10.1080/17583004.2024.2366527
 source_domain: www.tandfonline.com
 fetched_at: '2026-08-03T07:03:26.180029Z'

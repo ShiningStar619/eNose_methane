@@ -4,7 +4,9 @@ title: 'Frontiers | Measurement approaches for greenhouse gas emissions from ric
 id: frontiers-measurement-approaches-for-greenhouse-gas-emissions-from-rice-ii-advan
 tags:
 - chamber
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:06:08.722513Z'
+updated: '2026-08-16T13:54:54.645467Z'
 source: https://www.frontiersin.org/journals/agronomy/articles/10.3389/fagro.2025.1693620/full
 source_domain: www.frontiersin.org
 fetched_at: '2026-08-03T07:06:08.619489Z'

@@ -4,7 +4,9 @@ title: Recent Progress in Smart Electronic Nose Technologies Enabled with Machin
 id: recent-progress-in-smart-electronic-nose-technologies-enabled-with-machine-learn
 tags:
 - enose
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:07:52.444696Z'
+updated: '2026-08-16T13:54:49.825989Z'
 source: https://www.mdpi.com/1424-8220/21/22/7620
 source_domain: www.mdpi.com
 fetched_at: '2026-08-03T07:07:52.339714Z'

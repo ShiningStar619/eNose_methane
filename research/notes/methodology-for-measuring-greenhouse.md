@@ -3,7 +3,9 @@ title: Methodology for Measuring Greenhouse
 id: methodology-for-measuring-greenhouse
 tags:
 - chamber
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:03:43.517678Z'
+updated: '2026-08-16T13:54:55.380084Z'
 source: https://link.springer.com/content/pdf/10.1007/978-3-030-55396-8_2.pdf
 source_domain: link.springer.com
 fetched_at: '2026-08-03T07:03:43.511937Z'

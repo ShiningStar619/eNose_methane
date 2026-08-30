@@ -4,19 +4,9 @@
     "ast_hash": "5e8fcc466066275f13855b7d21d00334",
     "semantic_hash": ""
   },
-  ".hyperresearch/hook.js": {
-    "mtime": 1785173274.109,
-    "ast_hash": "44e349e3956e0f6f904774a446a1c8fd",
-    "semantic_hash": ""
-  },
   "BuildML_PC/train/models/methane_linreg_metrics.json": {
     "mtime": 1780862992.0,
     "ast_hash": "73e5a5cea5f1b94bfe105bdf6453c5fe",
-    "semantic_hash": ""
-  },
-  "_styles.json": {
-    "mtime": 1785578080.834,
-    "ast_hash": "4ac9a97d272810de6e05f3abd37b18cd",
     "semantic_hash": ""
   },
   "acquisition/acquisiton.py": {
@@ -59,529 +49,24 @@
     "ast_hash": "1228da378dff9b7b677dd573d2fae9df",
     "semantic_hash": ""
   },
-  "docs/draft/_ch56_work/_ai_highlight_hits.json": {
-    "mtime": 1785938341.607,
-    "ast_hash": "0a1486d498e296e1bc864bd625123d27",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_ai_scan_live.json": {
-    "mtime": 1785938341.585,
-    "ast_hash": "4c7d7d8b61a8027cb8da58f699b65a5d",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_ai_scan_text.json": {
-    "mtime": 1785938212.847,
-    "ast_hash": "1533eaa9f8866734015c7f0b00b32a98",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_apply_ch6_rewrite.py": {
-    "mtime": 1785853893.664,
-    "ast_hash": "dfe021a1a8470d4ac83126ed6c4a9528",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_apply_ch6_tighten.py": {
-    "mtime": 1786424677.101,
-    "ast_hash": "ecf2ac35351d4aac4c524439743f9fc4",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_apply_detectai_highlight.py": {
-    "mtime": 1786424677.145,
-    "ast_hash": "e6830d97c31c62841be5da75f123ea17",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_apply_detectai_patch.py": {
-    "mtime": 1786424677.085,
-    "ast_hash": "756697a305100efe3131d5887ad8a102",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_apply_eq_figs.py": {
-    "mtime": 1785803357.324,
-    "ast_hash": "cc5d40365dc0ce07c848129dd5611f46",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_close_word.ps1": {
-    "mtime": 1785805294.389,
-    "ast_hash": "71476f13eff809e376276024016105df",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_count_after_detectai.py": {
-    "mtime": 1786424677.102,
-    "ast_hash": "7badbc218f496ec382a14f154b031d84",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_after_counts.json": {
-    "mtime": 1785855152.135,
-    "ast_hash": "35980f1222be008ca13e4b5208ef674e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_annotate_result.json": {
-    "mtime": 1785934681.507,
-    "ast_hash": "34146e67379e31beae91d7d16bdb6298",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_docx_view.json": {
-    "mtime": 1785934629.512,
-    "ast_hash": "0b1a802ef6f880a0e0109e9908fc89cb",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_heuristic_scan.py": {
-    "mtime": 1786424677.093,
-    "ast_hash": "5aa48251ebb8b93376a8efee6bb3bdfc",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits1.json": {
-    "mtime": 1785854753.149,
-    "ast_hash": "274db11f414f42dd1c69a044b799b4f9",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits2.json": {
-    "mtime": 1785854755.389,
-    "ast_hash": "ca228f0e312dab986b3e20e3525d949f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits3.json": {
-    "mtime": 1785854756.368,
-    "ast_hash": "bb13487b43c2043e4534b821528be935",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits4.json": {
-    "mtime": 1785854757.113,
-    "ast_hash": "eb14bd0a17188894660d5e09cdf76b07",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits5.json": {
-    "mtime": 1785854765.02,
-    "ast_hash": "5d06230a9877ec6d24457e2950c1de6e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits6.json": {
-    "mtime": 1785854765.511,
-    "ast_hash": "d6ba95b3e4b1f2ffcacc28c2ed975aaf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits7.json": {
-    "mtime": 1785854766.153,
-    "ast_hash": "c06f9e01782c1fae9a9c42952653f8a0",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits8.json": {
-    "mtime": 1785854766.683,
-    "ast_hash": "5d06230a9877ec6d24457e2950c1de6e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits9.json": {
-    "mtime": 1785854768.532,
-    "ast_hash": "e64cad769ba1d10d9fea09f6dbeafa84",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_hits_live.json": {
-    "mtime": 1785934629.522,
-    "ast_hash": "e1ebba30711b7c6da2b5062f08ac8044",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_paras.json": {
-    "mtime": 1785854950.416,
-    "ast_hash": "8c36b25ca29cb9b598a0b7600193e428",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_patch_log.json": {
-    "mtime": 1785855128.094,
-    "ast_hash": "267968b2c241c38784d54506a7528b41",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_pdf10_scan.py": {
-    "mtime": 1786424677.278,
-    "ast_hash": "72430b905a36470351c7c90fd62d51cc",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_pdf_scan.json": {
-    "mtime": 1785920399.008,
-    "ast_hash": "a86c22aa0d6e97d28e62322a712fb534",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_rescan.py": {
-    "mtime": 1785855234.542,
-    "ast_hash": "900e58c0ba14d75c34222b18b4436554",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_scan.py": {
-    "mtime": 1785852525.978,
-    "ast_hash": "36cfc027b43d0699e1f2a74aed5ffba5",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_embed_ch6_simple_figs.py": {
-    "mtime": 1786424677.283,
-    "ast_hash": "fe1319321ea4d04d99e66064ff2527d2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_fetch_detectai.py": {
-    "mtime": 1786424677.085,
-    "ast_hash": "dac00e98960d62180049cbd5b87a28b6",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_fix_ambient_temp_docx.py": {
-    "mtime": 1786424677.102,
-    "ast_hash": "84ac6ee9d662191e7cd9e1db07b202ac",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_fix_image14_media.py": {
-    "mtime": 1786424677.093,
-    "ast_hash": "7206d015a2b0c0184d43e79d08ea4291",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_fix_remaining_tells.py": {
-    "mtime": 1785853209.089,
-    "ast_hash": "24e4618d0095762f6e6951079b945f0a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_gen_ch5_formal_figs.py": {
-    "mtime": 1785803357.329,
-    "ast_hash": "a75592a85fa7c5995c891bcbab0f002f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_gen_ch6_figs_tmp.py": {
-    "mtime": 1786424677.096,
-    "ast_hash": "84b365c1ad2fb36538bb7e2269044fb6",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_gen_ch6_formal_figs.py": {
-    "mtime": 1786424677.096,
-    "ast_hash": "16129bd2c4576569f1ad00dee5bebfa0",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_gen_ch6_simple_figs.py": {
-    "mtime": 1786424677.145,
-    "ast_hash": "d2fff49f5ea9171e4f9d611d01e217a7",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h1.json": {
-    "mtime": 1785854848.457,
-    "ast_hash": "876fac665c261f9ffcd8499bd8d53ad4",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h2.json": {
-    "mtime": 1785854849.116,
-    "ast_hash": "69ccd389bd5062a14bcc51069cd4e0e6",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h3.json": {
-    "mtime": 1785854850.143,
-    "ast_hash": "7f48ee713641838860ec9a4a7bd965ae",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h4.json": {
-    "mtime": 1785854850.874,
-    "ast_hash": "f164eaff7f8a3332e3397f511ab0b652",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h5.json": {
-    "mtime": 1785854865.297,
-    "ast_hash": "653213d6b25f8c9bfb30b5b5dc1f8eff",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h6.json": {
-    "mtime": 1785854865.895,
-    "ast_hash": "fa9a5a577de58a47cf0c2d229f18fa8d",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h7.json": {
-    "mtime": 1785854866.504,
-    "ast_hash": "c1793c77a87ebded6c12f33162288dd2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_h8.json": {
-    "mtime": 1785854867.068,
-    "ast_hash": "653213d6b25f8c9bfb30b5b5dc1f8eff",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_ahmad.json": {
-    "mtime": 1785743208.757,
-    "ast_hash": "a8d9f875e4d8460de13b370f4589d670",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_claims_r2.json": {
-    "mtime": 1785743115.41,
-    "ast_hash": "6599f2060a6435b71c3d4723731ed76c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_dom.json": {
-    "mtime": 1785743207.336,
-    "ast_hash": "6673c8070a20a6af33d0f8e7158777cf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_gc_fid_qa.json": {
-    "mtime": 1785746703.434,
-    "ast_hash": "21c82252631eae69385dc2bc1a6d7097",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_ml.json": {
-    "mtime": 1785743114.889,
-    "ast_hash": "208d6e618bdd0363a37c89149493f2c8",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_mos.json": {
-    "mtime": 1785743114.28,
-    "ast_hash": "80ac7cbe944efc5478b2d1aa26f87cf0",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_hr_rivera.json": {
-    "mtime": 1785743208.174,
-    "ast_hash": "85bb5cd92ebf59f75dc9823d01ad1cc1",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_audit.py": {
-    "mtime": 1785859370.396,
-    "ast_hash": "f8a2da9a62d17e7e565c3793f1c1ac79",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_batch.json": {
-    "mtime": 1785834979.602,
-    "ast_hash": "ace4c15bc3301f0964912c16323e5b84",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_body_indent.json": {
-    "mtime": 1785835141.42,
-    "ast_hash": "7f1085856cf93ed438474346f357460d",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_finalize.py": {
-    "mtime": 1786424677.108,
-    "ast_hash": "bece4fb933ae8e89844caca765f415b3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_fix_caps.json": {
-    "mtime": 1785912437.329,
-    "ast_hash": "4c891bae4b89c9e9c033807f6a6b5d01",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_fixup.json": {
-    "mtime": 1785835062.12,
-    "ast_hash": "ac9552f4054681aec16cf3b018a98764",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_fixup.py": {
-    "mtime": 1786341949.924,
-    "ast_hash": "07431eea188b371031dc0e0c08081686",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_format.py": {
-    "mtime": 1786341949.917,
-    "ast_hash": "3e7e6575dac2c278e1d124b77fe1cd0b",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_insert_fig7.py": {
-    "mtime": 1785859566.188,
-    "ast_hash": "b500fceadd91ddabe5ab92cd3bda0cf7",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_layout_polish.py": {
-    "mtime": 1785859471.285,
-    "ast_hash": "17194f2c3a1e7226eee95a881d73ede8",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_merge_hits.py": {
-    "mtime": 1786424677.089,
-    "ast_hash": "c74b69938e4af32ca6b084162fc84b08",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_overwrite_active_hw_media.py": {
-    "mtime": 1786424677.265,
-    "ast_hash": "0455a01af990ab6726e2075b7e0b1b8b",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_parse_detectai_hits.py": {
-    "mtime": 1786424677.101,
-    "ast_hash": "27393fbb2bed3dea7c0379d260ce4b81",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_reembed_ch6_hw.py": {
-    "mtime": 1786424677.145,
-    "ast_hash": "d12126c527a37de99cf2284fcbc861d4",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_replace_ch6_hw_media.py": {
-    "mtime": 1786424677.104,
-    "ast_hash": "ebcf51332248f5c4f009f4d1aa717786",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_rewrite_ch64.py": {
-    "mtime": 1785807351.237,
-    "ast_hash": "7ff58ae9df2880e353bd83a6a998fbdf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_scan_ai_highlight.py": {
-    "mtime": 1786424677.09,
-    "ast_hash": "46674c004487057da7cdd24c6f54ca48",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_scan_detectai_live.py": {
-    "mtime": 1786424677.093,
-    "ast_hash": "c63a9117ed6acccf28b1a4bf0639ef02",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_scan_eq_context.py": {
-    "mtime": 1785803357.337,
-    "ast_hash": "52733c45e0e0a1339f2782d2b0ef2b60",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_vault_notes_batch.json": {
-    "mtime": 1785742736.074,
-    "ast_hash": "f8cdb664ca651c16d8bc22118da40378",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_zaman_mumu_notes.json": {
-    "mtime": 1785740800.546,
-    "ast_hash": "fd8597f9a155bc0522c73591a24394bb",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ai_tell_full_paras.json": {
-    "mtime": 1785853098.487,
-    "ast_hash": "61b61e80288f1ebfeb6fcd37739c5cd3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ai_tell_paras.json": {
-    "mtime": 1785852739.154,
-    "ast_hash": "94c683abf9d78aadcfc0611136e903e5",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/captions_sample.json": {
-    "mtime": 1785741274.688,
-    "ast_hash": "734102d1330cacfbe0b87010bcb5effb",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch5_after.json": {
-    "mtime": 1785741428.591,
-    "ast_hash": "3f71c7740c56eb0cd9eb62e586827a18",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch5_current_full.json": {
-    "mtime": 1785742071.007,
-    "ast_hash": "5864f8c3e9c21191336a7c177bd8ec34",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch5_expand_apply_log.json": {
-    "mtime": 1785741410.972,
-    "ast_hash": "ac2d7b2732ad24b1e33459c3aeeab287",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch5_paras_now.json": {
-    "mtime": 1785741254.889,
-    "ast_hash": "a2b8a68cdc2c06ec6687221d119fd339",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/cordia15_batch.json": {
-    "mtime": 1785824413.9,
-    "ast_hash": "59fd062d91f6f23a00ce678b0eb11004",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/cordia15_batch_result.json": {
-    "mtime": 1785824415.444,
-    "ast_hash": "97bee5ad68230ee5c939e6808894ba81",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_targets.json": {
-    "mtime": 1785854729.705,
-    "ast_hash": "738055a6f7f1063096b60a2b1a4c7bfb",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/eq_context.json": {
-    "mtime": 1785766086.354,
-    "ast_hash": "caec9c99fa5fe8809627bfb39b70ad3e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_body.json": {
-    "mtime": 1785578115.201,
-    "ast_hash": "633d7922b40424d3e0f42bd9a569048b",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_ch4_body.json": {
-    "mtime": 1785579446.333,
-    "ast_hash": "93929535eef74d4c910fa68e8ca413b2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_ch5_body.json": {
-    "mtime": 1785579446.711,
-    "ast_hash": "a2b6ff2be04b3dd4c3b8cd7f7b4bf675",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_h4.json": {
-    "mtime": 1785578114.48,
-    "ast_hash": "fd1eb5ddb3f8d20b4c28165d8a9ffa3c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_h41.json": {
-    "mtime": 1785578114.816,
-    "ast_hash": "f27347e74ac8460a611375d524be8888",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_h5.json": {
-    "mtime": 1785578115.515,
-    "ast_hash": "c79c975de8a11bafa54c83318bb34646",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_h6.json": {
-    "mtime": 1785578115.841,
-    "ast_hash": "2efb9fbca25be04f07d00db2b8cdc9ea",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_h7.json": {
-    "mtime": 1785578116.251,
-    "ast_hash": "05028c24bac34c143a55da5106c30487",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fulltext_now.json": {
-    "mtime": 1785741228.008,
-    "ast_hash": "e49cfe94c91a03465b23536bef577812",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_inventory.json": {
-    "mtime": 1785912151.185,
-    "ast_hash": "301bf8a6631a6e268cd050f288940d23",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_qa_summary.json": {
-    "mtime": 1785912553.064,
-    "ast_hash": "b016436da8252b79967c99cc71e54530",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/p9_section.json": {
-    "mtime": 1785834792.062,
-    "ast_hash": "e4267003870ee4b3c4b12e79447754f3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/proofing_thai_batch.json": {
-    "mtime": 1785825043.217,
-    "ast_hash": "d751713988987e9331980363e24189ce",
-    "semantic_hash": ""
-  },
   "docs/draft/figures/_caption_verify.json": {
     "mtime": 1785418063.171,
     "ast_hash": "3f4a5d09bfeac9f9ad638d48bfe0ebc7",
     "semantic_hash": ""
   },
   "docs/draft/figures/_fig_ch4_air_mixing_sample_tank.py": {
-    "mtime": 1786341949.924,
+    "mtime": 1786686215.008,
     "ast_hash": "8d39d4977d9ebb3c30531a0062fb39f2",
     "semantic_hash": ""
   },
   "docs/draft/figures/_fig_syringe_from_cylinder.py": {
-    "mtime": 1786341949.924,
+    "mtime": 1787902015.455,
     "ast_hash": "72c0cd1c4bfb49c28feaf620ad8942a1",
     "semantic_hash": ""
   },
-  "docs/paper/fetch_citations.py": {
-    "mtime": 1784600154.664,
-    "ast_hash": "f938f8f7f1ebb7f195596bea14a9fed9",
-    "semantic_hash": ""
-  },
-  "docs/paper/migrate_thesis_papers.py": {
-    "mtime": 1783801651.967,
-    "ast_hash": "980d7b9a4588c285768acc238f6d0eda",
-    "semantic_hash": ""
-  },
   "docs/paper/screened/_build_reader.py": {
-    "mtime": 1785401043.983,
-    "ast_hash": "82f355dff32c2ad6928730ba647874e1",
+    "mtime": 1787132820.277,
+    "ast_hash": "cc743cdeac4ecb45c35788b6b0ab996c",
     "semantic_hash": ""
   },
   "docs/user-guide/assets/docx-filter.lua": {
@@ -590,7 +75,7 @@
     "semantic_hash": ""
   },
   "docs/user-guide/scripts/capture_gui_screenshots.py": {
-    "mtime": 1786424677.09,
+    "mtime": 1788071705.082,
     "ast_hash": "9770e17f8b9cd20ffc30807e077b9adb",
     "semantic_hash": ""
   },
@@ -600,7 +85,7 @@
     "semantic_hash": ""
   },
   "docs/user-guide/scripts/export_pdf.py": {
-    "mtime": 1786424677.082,
+    "mtime": 1786596202.042,
     "ast_hash": "9b3ed4dd76ef41c7193ca70fa9f65d8a",
     "semantic_hash": ""
   },
@@ -625,7 +110,7 @@
     "semantic_hash": ""
   },
   "predict_methane.py": {
-    "mtime": 1786424677.271,
+    "mtime": 1786596202.295,
     "ast_hash": "6c36aea9435b2bc1dc93d087b797f52f",
     "semantic_hash": ""
   },
@@ -635,12 +120,12 @@
     "semantic_hash": ""
   },
   "program/gui.py": {
-    "mtime": 1785204314.041,
+    "mtime": 1787226964.111,
     "ast_hash": "61cd1768198bc428f8ac045814b7d0e0",
     "semantic_hash": ""
   },
   "program/hardware_config.json": {
-    "mtime": 1786341949.924,
+    "mtime": 1787902015.419,
     "ast_hash": "80a4598b4a971294d7c238d530b859bc",
     "semantic_hash": ""
   },
@@ -665,12 +150,12 @@
     "semantic_hash": ""
   },
   "reading/__init__.py": {
-    "mtime": 1786341949.889,
+    "mtime": 1786686215.006,
     "ast_hash": "a7fc2493cfde1f25db6b30dd4acedc46",
     "semantic_hash": ""
   },
   "reading/bme280.py": {
-    "mtime": 1786341949.889,
+    "mtime": 1786686215.006,
     "ast_hash": "d517c093e13af1d2090a0ba4dc0b2df4",
     "semantic_hash": ""
   },
@@ -687,31 +172,6 @@
   "reading/main.py": {
     "mtime": 1778473916.232,
     "ast_hash": "a2e5051948b355f417c6fc1498614f33",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/polish-log.json": {
-    "mtime": 1785828302.756,
-    "ast_hash": "337406bf3eb96424fffc76ebc83b0abe",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/prompt-decomposition.json": {
-    "mtime": 1786341949.924,
-    "ast_hash": "5b3cf99e32e03f1e45557bd478860fe2",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/readability-decisions.json": {
-    "mtime": 1785828302.76,
-    "ast_hash": "5624fd630d8b4cc83781b55ef81c11b4",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/readability-recommendations.json": {
-    "mtime": 1785828302.758,
-    "ast_hash": "4af179cff69ab0efb30f50bd8a1b276e",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/run.json": {
-    "mtime": 1785828393.987,
-    "ast_hash": "5481897f257404c16cee8804a741d73c",
     "semantic_hash": ""
   },
   "scripts/sync_to_pi.ps1": {
@@ -739,189 +199,9 @@
     "ast_hash": "0c4321e6cfaee5e04a33ef38dcd3313d",
     "semantic_hash": ""
   },
-  ".claude/agents/hyperresearch-browser-fetcher.md": {
-    "mtime": 1785173292.757,
-    "ast_hash": "d307d52947f2a6b1d700fe060119af6e",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-cite-checker.md": {
-    "mtime": 1785173292.818,
-    "ast_hash": "f1699b3816d443bb5f12c9c2cb002900",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-corpus-critic.md": {
-    "mtime": 1785173292.126,
-    "ast_hash": "1a18b9d4ad31ec69edf6ab463eba70c6",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-depth-critic.md": {
-    "mtime": 1785173291.501,
-    "ast_hash": "5a7709e92c6e94858ac45bf6f0e9c286",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-depth-investigator.md": {
-    "mtime": 1785173291.108,
-    "ast_hash": "3d27ffb4a4e930149d3531e677a5e3fe",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-dialectic-critic.md": {
-    "mtime": 1785173291.278,
-    "ast_hash": "944fac4655246feb542ba176064d74c6",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-draft-orchestrator.md": {
-    "mtime": 1785173292.31,
-    "ast_hash": "52d76e649f1a744a8bffde83faa89395",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-fetcher.md": {
-    "mtime": 1785173290.987,
-    "ast_hash": "a65d0ca743ac887502dc23fd6ae51a27",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-instruction-critic.md": {
-    "mtime": 1785173291.441,
-    "ast_hash": "69b098b08a4761a8074c8769e59395d9",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-loci-analyst.md": {
-    "mtime": 1785173291.047,
-    "ast_hash": "b7594db4df81bf1241d00cc672813d34",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-patcher.md": {
-    "mtime": 1785173291.783,
-    "ast_hash": "17037f484f88a83c19fee04eb57a68d8",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-polish-auditor.md": {
-    "mtime": 1785173291.985,
-    "ast_hash": "d729b67267a5dbb28123767f4e48f790",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-readability-recommender.md": {
-    "mtime": 1785173292.052,
-    "ast_hash": "b7eab8988bd79fee32c3ace0486ae186",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-source-analyst.md": {
-    "mtime": 1785173291.241,
-    "ast_hash": "34a0c865d9ae5dcd921861061f460e9b",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-synthesizer.md": {
-    "mtime": 1785173292.398,
-    "ast_hash": "614540ba4a33c8f92024de1de5419328",
-    "semantic_hash": ""
-  },
-  ".claude/agents/hyperresearch-width-critic.md": {
-    "mtime": 1785173291.612,
-    "ast_hash": "bebf02055a6789550b96c9681e770f41",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-1-5-chapter-partition/SKILL.md": {
-    "mtime": 1785173277.678,
-    "ast_hash": "2f6ee49e38cb1666d2d07aae4a620c55",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-1-decompose/SKILL.md": {
-    "mtime": 1785173277.391,
-    "ast_hash": "19fde3821ed85d08798d17af78286c72",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-10-triple-draft/SKILL.md": {
-    "mtime": 1785173288.842,
-    "ast_hash": "033171eab2f2e558c4a97fe5d52f86fb",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-11-synthesize/SKILL.md": {
-    "mtime": 1785173289.106,
-    "ast_hash": "531fe168693de4a9b0cfa6f97fc51704",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-12-critics/SKILL.md": {
-    "mtime": 1785173289.182,
-    "ast_hash": "9b5028a5e0809436024b116f686cb39d",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-13-gap-fetch/SKILL.md": {
-    "mtime": 1785173289.357,
-    "ast_hash": "9c7fa15e3196498663613388d362635a",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-14-5-cite-check/SKILL.md": {
-    "mtime": 1785173289.631,
-    "ast_hash": "b22032f40acd31239de4b41b7780a836",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-14-patcher/SKILL.md": {
-    "mtime": 1785173289.543,
-    "ast_hash": "d764c89704ae2ee8ade725974e2da1b9",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-15-polish/SKILL.md": {
-    "mtime": 1785173289.805,
-    "ast_hash": "845342adfc0b1eb0914733f7456c9fa5",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-16-readability-audit/SKILL.md": {
-    "mtime": 1785173290.035,
-    "ast_hash": "e34210e0133fcb4a485f8f4c98dbe19f",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-2-width-sweep/SKILL.md": {
-    "mtime": 1785173279.39,
-    "ast_hash": "2dafd45e4da44f65f59d14530b085218",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-3-contradiction-graph/SKILL.md": {
-    "mtime": 1785173279.856,
-    "ast_hash": "7c7e341720e5e56a695a7b00fde7b116",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-4-loci-analysis/SKILL.md": {
-    "mtime": 1785173280.394,
-    "ast_hash": "d4f3531088ac579d47c20b4b46d16843",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-5-depth-investigation/SKILL.md": {
-    "mtime": 1785173280.59,
-    "ast_hash": "3b174ce800907f86f35e6e344ddba5b6",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-6-cross-locus-reconcile/SKILL.md": {
-    "mtime": 1785173287.944,
-    "ast_hash": "3082cc0ad26ed8670b071ba0a3b5513f",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-7-source-tensions/SKILL.md": {
-    "mtime": 1785173288.291,
-    "ast_hash": "6e6ddd11c887c3d8d792f8c84baa58bf",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-8-corpus-critic/SKILL.md": {
-    "mtime": 1785173288.563,
-    "ast_hash": "5bfefd39a769188bf23fe8a11f701d54",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch-9-evidence-digest/SKILL.md": {
-    "mtime": 1785173288.756,
-    "ast_hash": "a542b02e639e9062cf29f1172b31097a",
-    "semantic_hash": ""
-  },
-  ".claude/skills/hyperresearch/SKILL.md": {
-    "mtime": 1785173277.168,
-    "ast_hash": "9755f4baf6f7544553a4078563249e6c",
-    "semantic_hash": ""
-  },
-  ".hyperresearch/templates/note.md": {
-    "mtime": 1785173272.758,
-    "ast_hash": "b48afbe8209f2c3a27460b331d936485",
-    "semantic_hash": ""
-  },
   "CLAUDE.md": {
-    "mtime": 1785173272.835,
-    "ast_hash": "44c270417b702397ba2b53cb4ed4ee32",
+    "mtime": 1788071705.087,
+    "ast_hash": "3482b83ce5ba3cec45d8adf011bc7f06",
     "semantic_hash": ""
   },
   "README.md": {
@@ -930,7 +210,7 @@
     "semantic_hash": ""
   },
   "docs/MANUSCRIPT.md": {
-    "mtime": 1786424677.085,
+    "mtime": 1788071705.082,
     "ast_hash": "287f670a8f2f90f2dddf756889d057f1",
     "semantic_hash": ""
   },
@@ -940,7 +220,7 @@
     "semantic_hash": ""
   },
   "docs/MANUSCRIPT_TH.md": {
-    "mtime": 1786424677.265,
+    "mtime": 1788092120.077,
     "ast_hash": "bf8ab8b4ddbb8cfddefa8e481d732981",
     "semantic_hash": ""
   },
@@ -974,346 +254,6 @@
     "ast_hash": "fdb23e1e83da10391f8eefe0e94c5c32",
     "semantic_hash": ""
   },
-  "docs/draft/_ch56_work/_ai_scan_text_plain.txt": {
-    "mtime": 1785938243.972,
-    "ast_hash": "83a3f2962f40344a542b6594cb1029a3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_docx_text_now.txt": {
-    "mtime": 1785934512.787,
-    "ast_hash": "68a3ecb3fd02e40b56f90c8053097a2a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_pdf_text.txt": {
-    "mtime": 1785920398.698,
-    "ast_hash": "b0405e6992d7ab693c277b25ca9ff231",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_readable.txt": {
-    "mtime": 1785854950.406,
-    "ast_hash": "35dfde3e54ca1f43f77fdc68d1d42f9b",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_detectai_summary.txt": {
-    "mtime": 1785854817.364,
-    "ast_hash": "38b0c04f9cf80b1b5a02bcaaaf92a470",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2020_Bastviken_lowcost_CH4_sensors_flux_chambers.txt": {
-    "mtime": 1785742679.683,
-    "ast_hash": "3d060699ae4a9bc17fa0f67fd0374688",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2021_Tokida_modified_closed_chamber_rice_methane.txt": {
-    "mtime": 1785742679.539,
-    "ast_hash": "bc7efaea98f3e8de2c0a92f98276a532",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2022_Furuta_inexpensive_MOx_trace_methane.txt": {
-    "mtime": 1785742680.868,
-    "ast_hash": "8719315f7fef23185a78e8d52ad7d96e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2022_LowCost_GC-FID_methane_rice_cultivation.txt": {
-    "mtime": 1785742681.657,
-    "ast_hash": "a6e92590b620c6e14f0486dab1d78446",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2023_Shah_TGS2611-E00_methane_environmental_response.txt": {
-    "mtime": 1785742680.306,
-    "ast_hash": "f18c4340273c5928b12ea933b5946f63",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2024_Furuta_lowcost_sensor_node_near_background_methane.txt": {
-    "mtime": 1785742681.167,
-    "ast_hash": "a7158eb574b1096eb2a19cf8d7513754",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2024_Kiplimo_ML_calibration_lowcost_methane_TGS.txt": {
-    "mtime": 1785742681.451,
-    "ast_hash": "9cdeef6b05893e23518dbd664a5a6348",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2024_Shah_TGS2611-C00_landfill_methane.txt": {
-    "mtime": 1785742680.686,
-    "ast_hash": "9398dbbe30363b9079c420db9fd05e0a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_remaining_issues.txt": {
-    "mtime": 1785835116.034,
-    "ast_hash": "69ab23a10f452ea9f14f3a0bb252ded4",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_para.txt": {
-    "mtime": 1785854928.299,
-    "ast_hash": "092d3e1e9aa761e12d2b3a2a0ee63064",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_proposal_text.txt": {
-    "mtime": 1785766773.931,
-    "ast_hash": "4d1ffbf86d94075fad3cf2be50375477",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_tmp_para.txt": {
-    "mtime": 1785806138.825,
-    "ast_hash": "383d7796ff36d8eebf02b98853042eb6",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_ambient_temp_check.txt": {
-    "mtime": 1785806360.446,
-    "ast_hash": "4566458e11fdac33cac9688120dd93f7",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_ch6_final_check.txt": {
-    "mtime": 1785768903.575,
-    "ast_hash": "df3ce0c1b976becd4dacef526c6acca7",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_ch6_rewrite_text.txt": {
-    "mtime": 1785768724.628,
-    "ast_hash": "409e4d1501e1cf8dca2acfbcf0f05bbf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_ch6_tighten.txt": {
-    "mtime": 1785805457.121,
-    "ast_hash": "04ebb5d8d0e2ba14a352c0643746c72f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_detectai_patch_text.txt": {
-    "mtime": 1785855213.881,
-    "ast_hash": "4654b867272927564a6053fbf130473f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_rewrite_text.txt": {
-    "mtime": 1785579795.691,
-    "ast_hash": "702c17d9891f32e8dfde75db3377fdeb",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_text.txt": {
-    "mtime": 1785578407.58,
-    "ast_hash": "d8d7d22512b499c36d43fe2174710907",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_text_utf8.txt": {
-    "mtime": 1785578426.064,
-    "ast_hash": "d8d7d22512b499c36d43fe2174710907",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/after_word_close_check.txt": {
-    "mtime": 1785769083.227,
-    "ast_hash": "b4045e3caf3a6a443c99118c5c8e468a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ai_highlight_log.md": {
-    "mtime": 1786424677.283,
-    "ast_hash": "1ca2cd96612fd42b66b78de77a06be66",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/before_detectai_patch_text.txt": {
-    "mtime": 1785854729.681,
-    "ast_hash": "9f0d96cba19b0b492063d0b351ab6363",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch4_sample.txt": {
-    "mtime": 1785742108.804,
-    "ast_hash": "e13e5d403012d589159194d088aba577",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch5_from_git.md": {
-    "mtime": 1785578114.123,
-    "ast_hash": "937a882bcf4411f49a44cd8b2749fc66",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch64_after.txt": {
-    "mtime": 1785807358.571,
-    "ast_hash": "679aa73399b35e3ff9e340ad9b9028cf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch64_current.txt": {
-    "mtime": 1785807308.711,
-    "ast_hash": "d5650fc6d31e8dafb4fa2fe28138ca26",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_4_modeling_from_notebook.md": {
-    "mtime": 1786424677.271,
-    "ast_hash": "bbaa0670e69cdf1ef27404c547b578d5",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_after_apply.txt": {
-    "mtime": 1785767301.774,
-    "ast_hash": "54a6c6060e4cc33dd898651872f65154",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_current_full.txt": {
-    "mtime": 1785766775.503,
-    "ast_hash": "e3f37195db0cffeefbdc5adda463645c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_figure_briefs.md": {
-    "mtime": 1786424677.104,
-    "ast_hash": "ed4cabae26bde428daa8240e0f62026a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_from_git.md": {
-    "mtime": 1785578114.158,
-    "ast_hash": "becef784028f6a77685bd2fd6d51e878",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_rewrite_2026-08-03.md": {
-    "mtime": 1786424677.149,
-    "ast_hash": "9fd1b6171d24f15c30aee331baa9ca73",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ch6_rewrite_new.md": {
-    "mtime": 1786424677.096,
-    "ast_hash": "fd276a18a260be5edceb87c4b4fccce7",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_pdf10_heuristic.txt": {
-    "mtime": 1785988178.306,
-    "ast_hash": "03fe9315d1743ed179893ee7be0c046f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_pdf10_text.txt": {
-    "mtime": 1785989567.315,
-    "ast_hash": "d2d4c8fd3ac624bcefe4fbfe33169495",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_pdf_heuristic.txt": {
-    "mtime": 1786424677.265,
-    "ast_hash": "9b727133437c2cd710070fb4dc19e301",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_pdf_text.txt": {
-    "mtime": 1785941546.899,
-    "ast_hash": "893c0a4e59a581b88c2787ecc5f6fe60",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_rescan.txt": {
-    "mtime": 1785853228.175,
-    "ast_hash": "1b2f769933b7b1bbe469603970dfa880",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/detectai_scan.txt": {
-    "mtime": 1785852526.235,
-    "ast_hash": "e18e7b5e32489b6420a68f0b9669142c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/docx_text_after_detectfix.txt": {
-    "mtime": 1785853228.158,
-    "ast_hash": "a4f171b76d34797aad65a77a11d7bd97",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/docx_text_before_detectfix.txt": {
-    "mtime": 1785852739.145,
-    "ast_hash": "9f0d96cba19b0b492063d0b351ab6363",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_new_b.txt": {
-    "mtime": 1785578426.751,
-    "ast_hash": "da0e86f1723c44a244840baa854258b1",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fmt_new_h.txt": {
-    "mtime": 1785578426.744,
-    "ast_hash": "d0f446aa92ed84391274183266475763",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/fulltext.txt": {
-    "mtime": 1785578369.589,
-    "ast_hash": "59a7900529b0f1c7a58d8f3cd4d41ee9",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/help_add.json.txt": {
-    "mtime": 1785578139.203,
-    "ast_hash": "b97e9f761df183211b6f81e888c1c22d",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/help_move.txt": {
-    "mtime": 1785578250.122,
-    "ast_hash": "2bc8956799c1c2a21e3864f2f709cbd2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/inspect_out.txt": {
-    "mtime": 1785578138.495,
-    "ast_hash": "5fa4b56118b41eeac67549d984bbfb9c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/issues.txt": {
-    "mtime": 1785578427.565,
-    "ast_hash": "b870ecf99dcde6354f96752338713971",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_after.txt": {
-    "mtime": 1785859510.947,
-    "ast_hash": "25e2b136fed10c56b51591751e590b1c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_after_text.txt": {
-    "mtime": 1785912460.069,
-    "ast_hash": "c77b61f5b4df882930a56ebed7c7c2ae",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_before_text.txt": {
-    "mtime": 1785912149.929,
-    "ast_hash": "40185a7499e3ee3119b78dc91c74e294",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_final_check.txt": {
-    "mtime": 1785859606.509,
-    "ast_hash": "c2148fe0d538c2fbdfae14ffba0a38f0",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_finalize_log.txt": {
-    "mtime": 1785912323.128,
-    "ast_hash": "4fdc8c516205c8b1d434eca8308d4ddc",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_fulltext.txt": {
-    "mtime": 1785859372.236,
-    "ast_hash": "4654b867272927564a6053fbf130473f",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_outline.txt": {
-    "mtime": 1785859350.353,
-    "ast_hash": "04c1c7e4b983c6c1d5bec8dbd7c628bd",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_qa_pages/p01.html": {
-    "mtime": 1785912479.359,
-    "ast_hash": "4d1b90fa8df5d1f746a5e076254c7072",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/layout_qa_pages/p06.html": {
-    "mtime": 1785912479.832,
-    "ast_hash": "4648c69b9220618b63d0fd92b03a3b48",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/mid_state.txt": {
-    "mtime": 1785805366.568,
-    "ast_hash": "e95d7fd826ace658a5328fe97981a78e",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/outline2.txt": {
-    "mtime": 1785578369.199,
-    "ast_hash": "81811df5c3c842c7acafd94f1700a6fd",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/p9_annotated.txt": {
-    "mtime": 1785834791.04,
-    "ast_hash": "64d18f778ad709dad47294bc3b392bcf",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/proposal9_pdf_text.txt": {
-    "mtime": 1785852450.554,
-    "ast_hash": "41486e292d09462e7e0ae72a8f0230b3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/refs_list.txt": {
-    "mtime": 1785742134.204,
-    "ast_hash": "afc9284cc77598cc6de3c47fd1d75fb8",
-    "semantic_hash": ""
-  },
   "docs/draft/figures/_caption_verify.txt": {
     "mtime": 1785418063.336,
     "ast_hash": "ffe7d559ed3bdefe12a82b80ddaa8880",
@@ -1324,54 +264,9 @@
     "ast_hash": "6908ce8d8c9496402ae7cb047336a49c",
     "semantic_hash": ""
   },
-  "docs/paper/README.md": {
-    "mtime": 1785161580.644,
-    "ast_hash": "de2d93a6b17661e0901532b150f7051f",
-    "semantic_hash": ""
-  },
-  "docs/paper/citation-reorg-report-2026-07-23.md": {
-    "mtime": 1785573421.515,
-    "ast_hash": "19a0d6da43671ef5dade4f69a5732eb5",
-    "semantic_hash": ""
-  },
-  "docs/paper/citation-sync-report-2026-07-23.md": {
-    "mtime": 1785573421.506,
-    "ast_hash": "5bcaa1a726a7501d7b082ff9f67a0f1b",
-    "semantic_hash": ""
-  },
-  "docs/paper/citation-sync-report.md": {
-    "mtime": 1785161580.263,
-    "ast_hash": "498a528a9841f815659ab238852f0e79",
-    "semantic_hash": ""
-  },
-  "docs/paper/find-paper-report-2026-07-23.md": {
-    "mtime": 1785573421.506,
-    "ast_hash": "52428323052c070be2eda96fc9b02106",
-    "semantic_hash": ""
-  },
-  "docs/paper/literature-review-4.2-draft.md": {
-    "mtime": 1785409383.52,
-    "ast_hash": "6efb5819ef1bbb8884abd7cd894c3407",
-    "semantic_hash": ""
-  },
-  "docs/paper/literature-review-4.2.md": {
-    "mtime": 1785573421.517,
-    "ast_hash": "c98da04c150900594f10d4b575f12fd9",
-    "semantic_hash": ""
-  },
-  "docs/paper/literature-review-enose-ml-methane-rice.md": {
-    "mtime": 1783801651.967,
-    "ast_hash": "0ff6dbb3aeb5a56ff90aa5ae2ff16e9e",
-    "semantic_hash": ""
-  },
-  "docs/paper/project-relevance-screening.md": {
-    "mtime": 1785161580.642,
-    "ast_hash": "4323e9d04a96213076d1a1c69cc411d2",
-    "semantic_hash": ""
-  },
   "docs/paper/screened/README.md": {
-    "mtime": 1785401044.113,
-    "ast_hash": "71ad0016ff385c35fee8e3f05494c495",
+    "mtime": 1788075578.775,
+    "ast_hash": "bc5c5841ca42374a8c3f0b4d404ae71d",
     "semantic_hash": ""
   },
   "docs/paper/screened/direct/2024_IoT_lowcost_GHG_monitoring_paddy_regions.md": {
@@ -1390,13 +285,13 @@
     "semantic_hash": ""
   },
   "docs/paper/screened/excluded/2024_diurnal_methane_emission_rice_paddy_ebullition.md": {
-    "mtime": 1783390692.777,
+    "mtime": 1788075368.14,
     "ast_hash": "d11916673925cfa462fcfa7df8e30c7a",
     "semantic_hash": ""
   },
   "docs/paper/screened/index.html": {
-    "mtime": 1785205655.612,
-    "ast_hash": "7d977b433382992f5af255519798e689",
+    "mtime": 1787031231.473,
+    "ast_hash": "864b432e8e99341e1d20a9473447b16d",
     "semantic_hash": ""
   },
   "docs/paper/screened/supporting/2023_multiyear_methane_N2O_AWD_Arkansas_rice.md": {
@@ -1415,17 +310,17 @@
     "semantic_hash": ""
   },
   "docs/proposal-4.1-4.2-cites-draft6.md": {
-    "mtime": 1786341949.924,
+    "mtime": 1787902015.456,
     "ast_hash": "1965e8809e3f83898f0656869b768fe3",
     "semantic_hash": ""
   },
   "docs/proposal-4.1-cites-draft5.md": {
-    "mtime": 1786341949.924,
+    "mtime": 1786686215.008,
     "ast_hash": "956679c9b532b8741a601aad817bdffe",
     "semantic_hash": ""
   },
   "docs/superpowers/specs/2026-08-01-ch4-calibration-gas-mixing-design.md": {
-    "mtime": 1786424677.098,
+    "mtime": 1786596202.223,
     "ast_hash": "898f68f4bcf84e452360765034cc20e3",
     "semantic_hash": ""
   },
@@ -1480,7 +375,7 @@
     "semantic_hash": ""
   },
   "program/AUTOSTART_SETUP.md": {
-    "mtime": 1786341949.958,
+    "mtime": 1786686215.008,
     "ast_hash": "2c64e9c5bfda7b7d16402789287aa40c",
     "semantic_hash": ""
   },
@@ -1505,53 +400,33 @@
     "semantic_hash": ""
   },
   "research/notes/final_report_ch4-volumetric-dilution-calc-bafe1e.md": {
-    "mtime": 1786341949.924,
+    "mtime": 1787902015.419,
     "ast_hash": "97b26ba04dcf7d951b518ecddcb3e067",
     "semantic_hash": ""
   },
   "research/notes/harris-qa-dilution-biblio.md": {
-    "mtime": 1786341949.889,
-    "ast_hash": "91969f72e34103d6c05feea9ae19815b",
+    "mtime": 1786888500.537,
+    "ast_hash": "1eef1d491b0ed8067cb83353c6b960da",
     "semantic_hash": ""
   },
   "research/notes/ideal-gas-law-libretexts.md": {
-    "mtime": 1785828204.991,
-    "ast_hash": "81fc253ca2a46373ed07c2177eb5921b",
+    "mtime": 1786888498.008,
+    "ast_hash": "de36b5be65916e9505137e56aafc2099",
     "semantic_hash": ""
   },
   "research/notes/iso-6142-page.md": {
-    "mtime": 1785828205.524,
-    "ast_hash": "0ac788faa466f307893ffb149f099768",
+    "mtime": 1786888498.824,
+    "ast_hash": "46d7910d9c476e7adbb880ec0a06c9a8",
     "semantic_hash": ""
   },
   "research/notes/iso-6145-1-page.md": {
-    "mtime": 1785828206.229,
-    "ast_hash": "0afdc823ba7b69c408331e0670f4ddc4",
-    "semantic_hash": ""
-  },
-  "research/notes/mdpi-error-404-file-not-found-2.md": {
-    "mtime": 1785740577.268,
-    "ast_hash": "151d2fde3010860462a22d632149e1e2",
-    "semantic_hash": ""
-  },
-  "research/notes/mdpi-error-404-file-not-found-3.md": {
-    "mtime": 1785740584.438,
-    "ast_hash": "14859ef1939fbf8a8744dfd089c81891",
-    "semantic_hash": ""
-  },
-  "research/notes/mdpi-error-404-file-not-found-4.md": {
-    "mtime": 1785740592.934,
-    "ast_hash": "8974d3b07b0540dc4c8e3f6f4b6dac12",
-    "semantic_hash": ""
-  },
-  "research/notes/mdpi-error-404-file-not-found.md": {
-    "mtime": 1785740569.008,
-    "ast_hash": "6fc2f260665cf8f8eece525fd8da2339",
+    "mtime": 1786888499.691,
+    "ast_hash": "322d3471c3bbfef4534b815ce6421265",
     "semantic_hash": ""
   },
   "research/notes/methodology-for-measuring-greenhouse.md": {
-    "mtime": 1785740623.587,
-    "ast_hash": "ee6091d42f3f7a9efb840948e837a8b0",
+    "mtime": 1786888495.388,
+    "ast_hash": "f6cd018dbf1b9710010e6958979058ac",
     "semantic_hash": ""
   },
   "research/notes/publications.md": {
@@ -1560,53 +435,13 @@
     "semantic_hash": ""
   },
   "research/notes/skoog-fac-gas-standards-biblio.md": {
-    "mtime": 1786341949.924,
-    "ast_hash": "7c3ba923269b263a7681dd7f2f6d8409",
+    "mtime": 1786888501.307,
+    "ast_hash": "6ed7a7b7c89c311dd0ce0332fc894c43",
     "semantic_hash": ""
   },
   "research/notes/wikipedia-ideal-gas.md": {
     "mtime": 1785828207.055,
     "ast_hash": "028aeea4ecd61280bc6829e8a881aecc",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/query.md": {
-    "mtime": 1786341949.924,
-    "ast_hash": "bfbf7b3dac8996d08d5e9334dbb44f14",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/scaffold.md": {
-    "mtime": 1786341949.924,
-    "ast_hash": "a12f14da0ca1ead5d15640a0eba835f5",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/shims/critics.md": {
-    "mtime": 1785828080.709,
-    "ast_hash": "a7cd05c1b88acaef566e0da74ecb4a84",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/shims/drafting.md": {
-    "mtime": 1785828080.709,
-    "ast_hash": "1632fa4a0e18fd3c72da2a375f1a0ccc",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/shims/polish.md": {
-    "mtime": 1785828080.71,
-    "ast_hash": "406562779ed6b1e9704545f33f234267",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/shims/research.md": {
-    "mtime": 1785828080.709,
-    "ast_hash": "bd579e5256f07677fdf9d77df99a5b42",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/temp/coverage-matrix.md": {
-    "mtime": 1786341949.888,
-    "ast_hash": "52afba90f65c64455a1d29d3e6fd405c",
-    "semantic_hash": ""
-  },
-  "research/runs/ch4-volumetric-dilution-calc-bafe1e/temp/search-plan.md": {
-    "mtime": 1786341949.889,
-    "ast_hash": "1b8feb2ac149a8c9fe68a1c4dd567aa9",
     "semantic_hash": ""
   },
   "result2.txt": {
@@ -1647,16 +482,6 @@
   "docs/draft/Proposal draft 9.pdf": {
     "mtime": 1785942852.313,
     "ast_hash": "220e18fd4871069d063101171024e449",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_domenechgil_eurosensors_extract.txt": {
-    "mtime": 1785740799.788,
-    "ast_hash": "51682d840a81666bbca30d09f646249c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_pdf_extracts/2024_DomenechGil_efficient_methane_monitoring_Eurosensors.txt": {
-    "mtime": 1785742681.726,
-    "ast_hash": "094d4d660e1305e0ce88de91d8b5b8c5",
     "semantic_hash": ""
   },
   "docs/draft/figures/fig_ch4_air_mixing_sample_tank.pdf": {
@@ -1805,323 +630,48 @@
     "semantic_hash": ""
   },
   "research/notes/application-of-machine-learning-for-calibrating-gas-sensors-for-methane-emission.md": {
-    "mtime": 1785740906.773,
-    "ast_hash": "d39c8da1e7a061bb22a3ece207d73137",
+    "mtime": 1786888491.09,
+    "ast_hash": "214a291d4b39f25ff1c8357cab706444",
     "semantic_hash": ""
   },
   "research/notes/application-of-semiconductor-metal-oxide-in-chemiresistive-methane-gas-sensor-re.md": {
-    "mtime": 1785740881.502,
-    "ast_hash": "fc7ec3786e04309e6e5eb787b82192fa",
+    "mtime": 1786888488.631,
+    "ast_hash": "d38680c9a0c797faa22b3ba8a3ad79d4",
     "semantic_hash": ""
   },
   "research/notes/calibration-of-a-low-cost-methane-sensor-using-machine-learning.md": {
-    "mtime": 1785740892.771,
-    "ast_hash": "80bab14d6f2b3ee7cbb1ebbe6c515717",
+    "mtime": 1786888493.042,
+    "ast_hash": "f76e9d66849d7bf082893ef883157594",
     "semantic_hash": ""
   },
   "research/notes/carbon-management.md": {
-    "mtime": 1785740606.239,
-    "ast_hash": "a23ffb221792aa8b88744b6938899ad7",
+    "mtime": 1786888496.137,
+    "ast_hash": "1f8defe7bd73a991f7bf76859d9ab851",
     "semantic_hash": ""
   },
   "research/notes/frontiers-measurement-approaches-for-greenhouse-gas-emissions-from-rice-ii-advan.md": {
-    "mtime": 1785740768.733,
-    "ast_hash": "0c757e2bed064b012c0af69dd3ede43b",
+    "mtime": 1786888494.65,
+    "ast_hash": "3b60ac4d3c097cff6744244252ce0b9d",
     "semantic_hash": ""
   },
   "research/notes/full-article-methodological-progress-in-the-measurement-of-agricultural-greenhou.md": {
-    "mtime": 1785740780.047,
-    "ast_hash": "5c52a3c33b1f24e0c6add2fdc541292f",
+    "mtime": 1786888493.887,
+    "ast_hash": "cabcb48d2f954395a7c6f5c2c1e7d76a",
     "semantic_hash": ""
   },
   "research/notes/meta-analysis-of-alternate-wetting-and-drying-awd-irrigation-effects-on-methane.md": {
-    "mtime": 1785405278.479,
-    "ast_hash": "a2a2bff2d77a9e65a8692d42f9589463",
+    "mtime": 1786888497.122,
+    "ast_hash": "11b1204274dd7485a463c55c6e5766b3",
     "semantic_hash": ""
   },
   "research/notes/recent-progress-in-smart-electronic-nose-technologies-enabled-with-machine-learn.md": {
-    "mtime": 1785740872.47,
-    "ast_hash": "1b6c518c2141834475b3df39a96745bd",
-    "semantic_hash": ""
-  },
-  "research/raw/carbon-management.pdf": {
-    "mtime": 1785740606.217,
-    "ast_hash": "710e751b2c400f789d705c623943dbb8",
-    "semantic_hash": ""
-  },
-  "research/raw/methodology-for-measuring-greenhouse.pdf": {
-    "mtime": 1785740623.541,
-    "ast_hash": "18f0c9d5cccdc559d3f4130bbcb13209",
-    "semantic_hash": ""
-  },
-  "research/raw/publications.pdf": {
-    "mtime": 1785828164.242,
-    "ast_hash": "171372e4021403af64b3f37a9fb3a401",
+    "mtime": 1786888489.848,
+    "ast_hash": "391f695703b4ccf3da04ad12a05ed10b",
     "semantic_hash": ""
   },
   "docs/assets/raspberry-pi-gpio-pinout.png": {
     "mtime": 1778484720.081,
     "ast_hash": "b507f62a1e124b6fe609dbb9cfda33c7",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-01.png": {
-    "mtime": 1785492447.517,
-    "ast_hash": "aa9dbce28af7e4bc6b9172d5e336daa6",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-02.png": {
-    "mtime": 1785492447.543,
-    "ast_hash": "4bb4d788b368b476ab0cd7cd20749004",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-03.png": {
-    "mtime": 1785492447.582,
-    "ast_hash": "caefefe7d1bccd0e8195a2ad0d249f8e",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-04.png": {
-    "mtime": 1785492447.608,
-    "ast_hash": "4c7ca8e42fa6e49a014f185624544c6e",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-05.png": {
-    "mtime": 1785492447.641,
-    "ast_hash": "f0a4a318757977ec6acaee99bfdcb1a4",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-06.png": {
-    "mtime": 1785492447.659,
-    "ast_hash": "a72bef966e16c83f43db3a164b40b455",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-07.png": {
-    "mtime": 1785492447.913,
-    "ast_hash": "07016c9ffe69b7a528f342e653b3164c",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-08.png": {
-    "mtime": 1785492448.11,
-    "ast_hash": "1f4a4d1a5aa3b7add07101ea71c6d65c",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-09.png": {
-    "mtime": 1785492448.147,
-    "ast_hash": "efa50e96df2eabf0f331e5f4ce5dbed7",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-10.png": {
-    "mtime": 1785492448.159,
-    "ast_hash": "71cc7e85c492820f6a8e7df9c71a906a",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-11.png": {
-    "mtime": 1785492448.168,
-    "ast_hash": "e711ad3f365c2a9461dab965294d72d8",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-12.png": {
-    "mtime": 1785492448.19,
-    "ast_hash": "bf21bd46138e30d4c6ed8eb34d6633d5",
-    "semantic_hash": ""
-  },
-  "docs/draft/Proposal draft 9_media/image-13.png": {
-    "mtime": 1785492448.203,
-    "ast_hash": "d89bb793659d66e59665fdb63a899a91",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p01.png": {
-    "mtime": 1785766791.244,
-    "ast_hash": "9e470a85a0420ceb4c5e130fdd481b89",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p06.png": {
-    "mtime": 1785766791.388,
-    "ast_hash": "6f8a958ed6ab5b229766ce009ec51dd2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p11.png": {
-    "mtime": 1785766791.522,
-    "ast_hash": "50a58070c6528855b169ad2aabdaed3b",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p16.png": {
-    "mtime": 1785766791.657,
-    "ast_hash": "f14daaa5e4175678678eace1af50db07",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p17.png": {
-    "mtime": 1785766833.756,
-    "ast_hash": "926dd13bae7c660b2caeb084566d217c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p18.png": {
-    "mtime": 1785766833.944,
-    "ast_hash": "3b29a9ef8bde6a5a9fa50a03a329f001",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p19.png": {
-    "mtime": 1785766834.137,
-    "ast_hash": "8929e790c4f40f2866b4965e8cadad45",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p20.png": {
-    "mtime": 1785766834.301,
-    "ast_hash": "613e2ad0f81b6ffbbb27c2714bd837f1",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p21.png": {
-    "mtime": 1785766834.467,
-    "ast_hash": "b41a7af74c248702e0ab58228f16141c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p22.png": {
-    "mtime": 1785766834.614,
-    "ast_hash": "a4394ae9fc7dce3590c21560ac9f6496",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p23.png": {
-    "mtime": 1785766834.765,
-    "ast_hash": "d436f4b738e527b5f7073f54705f2486",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p24.png": {
-    "mtime": 1785766834.922,
-    "ast_hash": "c88d662f21d0b9fa0d9bbb85ad5db8f5",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/_sample_pages/sample_p25.png": {
-    "mtime": 1785766791.973,
-    "ast_hash": "b51af87bc6945f035d68660cd4ec00f9",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p01.png": {
-    "mtime": 1785768271.233,
-    "ast_hash": "6b337b1396a5e68cd1aafc3d184b1607",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p02.png": {
-    "mtime": 1785768271.374,
-    "ast_hash": "92b67fe76e1347f361e904e5430ad1f6",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p10.png": {
-    "mtime": 1785768271.474,
-    "ast_hash": "64f592f78a094a0039942e3c19d46279",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p11.png": {
-    "mtime": 1785768271.588,
-    "ast_hash": "66a6fb4c0abdb9f6ed24fc2311028f2a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p12.png": {
-    "mtime": 1785768271.704,
-    "ast_hash": "01b48d905394b993c17702f6dc11381c",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p13.png": {
-    "mtime": 1785768271.848,
-    "ast_hash": "e6810b843d6cc9a26d092d941e733c41",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p14.png": {
-    "mtime": 1785768271.96,
-    "ast_hash": "ebf03ebe5ffc862257b4b7ef8d941597",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p15.png": {
-    "mtime": 1785768272.073,
-    "ast_hash": "df6563fc8888ee2c49f336658452fca1",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p16.png": {
-    "mtime": 1785768272.188,
-    "ast_hash": "9d614e040d75d878321488900d8debca",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/ex_proposal_pages/ex-p17.png": {
-    "mtime": 1785768272.317,
-    "ast_hash": "6b24508ecdb61fdcff58c905c25dcb89",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/eq-p12.png": {
-    "mtime": 1785766527.683,
-    "ast_hash": "5b6ac30105bd05dfb1eb8072da425428",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/eq-p13.png": {
-    "mtime": 1785766535.38,
-    "ast_hash": "8f6b9b505e9a44f93361fd80a549eeed",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/eq-p14.png": {
-    "mtime": 1785766543.231,
-    "ast_hash": "5d803ac0b4f13241611b5a7fe578b551",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/eq-p15.png": {
-    "mtime": 1785766551.508,
-    "ast_hash": "37bb19813be1040fb267d28531742a82",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/eq-p16.png": {
-    "mtime": 1785766559.28,
-    "ast_hash": "8f98e35d59b9f89d7fb994a40c82ca8a",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-10.png": {
-    "mtime": 1785579465.991,
-    "ast_hash": "b1779d4e9f14de3ed4510938e18e32db",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-11.png": {
-    "mtime": 1785579466.371,
-    "ast_hash": "a960de20f32a1278fccea59d1ee54e03",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-12.png": {
-    "mtime": 1785579466.64,
-    "ast_hash": "c53a9e8fdf3507b55db155cdbac889c2",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-13.png": {
-    "mtime": 1785579466.878,
-    "ast_hash": "f233c626c2e6eb370ce32533896f4ee3",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-14.png": {
-    "mtime": 1785579467.179,
-    "ast_hash": "9e0c141b2bc4f8aa57158406fe6d9072",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-15.png": {
-    "mtime": 1785579467.415,
-    "ast_hash": "347c4dfef8316ccd8e340c74996f7b97",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/mid-16.png": {
-    "mtime": 1785579467.743,
-    "ast_hash": "3475945e3286253a1cf4d8b71cb96024",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/p-01.png": {
-    "mtime": 1785579464.448,
-    "ast_hash": "a74f97f0f2ee91be43778cd8c33f3ede",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/p-02.png": {
-    "mtime": 1785579464.836,
-    "ast_hash": "f4926118897af8fd7e8115814a62fdfe",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/p-03.png": {
-    "mtime": 1785579465.052,
-    "ast_hash": "e8b7b61adaf2a5702de07dbf544ba870",
-    "semantic_hash": ""
-  },
-  "docs/draft/_ch56_work/sample_pages/p-04.png": {
-    "mtime": 1785579465.349,
-    "ast_hash": "3fc196dcb0c5ea6a2484f2b5873c646e",
     "semantic_hash": ""
   },
   "docs/draft/figures/fig1_ch4_pathway.png": {
@@ -2562,6 +1112,1811 @@
   "docs/user-guide/assets/\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e04\u0e2a\u0e19\u0e32\u0e21/Cover.png": {
     "mtime": 1781356738.407,
     "ast_hash": "e3d6b69ff6e5b89a0f5616d72308ac17",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_gen_ch6_schematics.py": {
+    "mtime": 1788092120.053,
+    "ast_hash": "1fee18210ab5e79baa66ebcbd14dba14",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/run.json": {
+    "mtime": 1786888405.212,
+    "ast_hash": "45a2bf06fa42e9cad4569b5c185b5648",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/run.json": {
+    "mtime": 1786887786.436,
+    "ast_hash": "93a0d33b3f88fe713d53a2cf6a6d680c",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/temp/api-candidates-2.json": {
+    "mtime": 1786888076.902,
+    "ast_hash": "7face69dca88836164ba047babf4f487",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/temp/api-candidates.json": {
+    "mtime": 1786887904.108,
+    "ast_hash": "9506f55b375f24e4fe2bc4c106346700",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/temp/url-batches.json": {
+    "mtime": 1786888010.553,
+    "ast_hash": "89cba7058616a1c38ef20b366e24266e",
+    "semantic_hash": ""
+  },
+  "ARCHITECT.md": {
+    "mtime": 1786619227.067,
+    "ast_hash": "bf638b749a3385b907de0d577d5b9c6a",
+    "semantic_hash": ""
+  },
+  "BUILDER.md": {
+    "mtime": 1786619227.068,
+    "ast_hash": "76846419ddcaad15684b9125bead4139",
+    "semantic_hash": ""
+  },
+  "REVIEWER.md": {
+    "mtime": 1786619227.069,
+    "ast_hash": "96b54bd4f4b0c9ae1c672f1aa095bc9f",
+    "semantic_hash": ""
+  },
+  "docs/draft/_draft12_extract.txt": {
+    "mtime": 1787030422.76,
+    "ast_hash": "efab333b2e5c0d1d5b774029aad0f244",
+    "semantic_hash": ""
+  },
+  "docs/draft/proposal-ch5-\u0e42\u0e04\u0e23\u0e07\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d.md": {
+    "mtime": 1788092120.039,
+    "ast_hash": "83d1a205f11ef600848ea97814b9288f",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/thematic-index.md": {
+    "mtime": 1787031231.474,
+    "ast_hash": "c296eba486b0dcda22111d13a1e8a88f",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/(Draft)eNose-User-Guide_28aa0197.md": {
+    "mtime": 1783577837.2359817,
+    "ast_hash": "4e7a50f69e26d504c53572d935d7cd6b",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 11 - Ch05 Theory_235a7f1b.md": {
+    "mtime": 1787030877.7150152,
+    "ast_hash": "19bebb8c807346ec9d69c4e127cbdf17",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 11_1bc18ea4.md": {
+    "mtime": 1787030877.8147135,
+    "ast_hash": "fda6ad9ecf82b88bb38da8564f7c0e3d",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 11_ch4-6_v3_d00b5eae.md": {
+    "mtime": 1787030878.337146,
+    "ast_hash": "2423f27a083ad52b253adb44c3707577",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 11_ch5_new_v2_186b558b.md": {
+    "mtime": 1787030878.4689946,
+    "ast_hash": "1585df26042a258ef7435386c409877a",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 12_86387b87.md": {
+    "mtime": 1787030878.5468369,
+    "ast_hash": "ed92ba3a65aef00287c0fa8bbd574f71",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 4_2d047679.md": {
+    "mtime": 1787030878.8108804,
+    "ast_hash": "5a32ffdc99ee4b4b4a5e50e76dc923e3",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 7_ecc0a5d9.md": {
+    "mtime": 1787030879.5814555,
+    "ast_hash": "7f4711c1574891f5ecdaa57146fb8079",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/Proposal draft 8_fc14769e.md": {
+    "mtime": 1787030880.1381478,
+    "ast_hash": "9cf81a4382c6145fb421b2ee23e88dbc",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/doc-reference-base_12bdde5f.md": {
+    "mtime": 1783577837.434947,
+    "ast_hash": "b0325bb86f73d18b03fabed4293c5b62",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/doc-reference_ab7bf98c.md": {
+    "mtime": 1783577837.4724514,
+    "ast_hash": "c77090d910709edff733f66b3094368f",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/proposal-ch5-ch6-\u0e42\u0e04\u0e23\u0e07\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d_02ed336e.md": {
+    "mtime": 1787030881.601797,
+    "ast_hash": "e60dc8b61f69296c70190f482746a1c2",
+    "semantic_hash": ""
+  },
+  "handoff/ARCHITECT-BRIEF.md": {
+    "mtime": 1786619227.073,
+    "ast_hash": "8b8f079dd15a18544bbce301ec65cda7",
+    "semantic_hash": ""
+  },
+  "handoff/BUILD-LOG.md": {
+    "mtime": 1787132820.247,
+    "ast_hash": "137214d9ff94f06e1f8ce60cdede2d78",
+    "semantic_hash": ""
+  },
+  "handoff/REVIEW-FEEDBACK.md": {
+    "mtime": 1786619227.075,
+    "ast_hash": "d64d2bbeb35fb7ce05120a0898d5aa0a",
+    "semantic_hash": ""
+  },
+  "handoff/REVIEW-REQUEST.md": {
+    "mtime": 1786619227.083,
+    "ast_hash": "ee214594821c2e67c96385e59e80f614",
+    "semantic_hash": ""
+  },
+  "handoff/SESSION-CHECKPOINT.md": {
+    "mtime": 1786862472.308,
+    "ast_hash": "65662719a8a05b194fb869649ab009e1",
+    "semantic_hash": ""
+  },
+  "manifest.md": {
+    "mtime": 1786862472.208,
+    "ast_hash": "f35a37b26ea9859e00144db48a750e03",
+    "semantic_hash": ""
+  },
+  "new-setup.md": {
+    "mtime": 1786619227.084,
+    "ast_hash": "260d723cdae66a0584291a480178611f",
+    "semantic_hash": ""
+  },
+  "research/notes/11-linear-models-scikit-learn-190-documentation.md": {
+    "mtime": 1786888985.324,
+    "ast_hash": "9501531cb11e2fb4a60c96c22a11b453",
+    "semantic_hash": ""
+  },
+  "research/notes/12-common-pitfalls-and-recommended-practices-scikit-learn-190-documentation.md": {
+    "mtime": 1786888847.925,
+    "ast_hash": "42b237ab72082f32b21662aa1eee95ad",
+    "semantic_hash": ""
+  },
+  "research/notes/83-preprocessing-data-scikit-learn-190-documentation.md": {
+    "mtime": 1786889014.263,
+    "ast_hash": "df43114f4b08ed9b4574292387818365",
+    "semantic_hash": ""
+  },
+  "research/notes/atmos-meas-tech-15-51175128-2022.md": {
+    "mtime": 1786888849.153,
+    "ast_hash": "086e1250fdfc2cb9f6d74fb31473ee48",
+    "semantic_hash": ""
+  },
+  "research/notes/atmos-meas-tech-16-33913419-2023.md": {
+    "mtime": 1786888797.095,
+    "ast_hash": "2f54f44b1f28c2dc4c376acdbdb91063",
+    "semantic_hash": ""
+  },
+  "research/notes/atmos-meas-tech-17-21032121-2024.md": {
+    "mtime": 1786888917.814,
+    "ast_hash": "3b9e31787e6639307dff31920efcc0d6",
+    "semantic_hash": ""
+  },
+  "research/notes/atmos-meas-tech-17-42574290-2024.md": {
+    "mtime": 1786889046.866,
+    "ast_hash": "27518733b5867b84c1262a85777a4e11",
+    "semantic_hash": ""
+  },
+  "research/notes/biogeosciences-17-36593667-2020.md": {
+    "mtime": 1786888984.11,
+    "ast_hash": "2ab2e44253caaba4c3c574fbcecb18d3",
+    "semantic_hash": ""
+  },
+  "research/notes/earth-syst-sci-data-12-15611623-2020.md": {
+    "mtime": 1786888732.542,
+    "ast_hash": "32e546f5cf011caf80a3314a4dcec2f6",
+    "semantic_hash": ""
+  },
+  "research/notes/essd-the-global-methane-budget-20002017.md": {
+    "mtime": 1786888753.168,
+    "ast_hash": "6ba9e814aa86b28e5b70b6b518c442c4",
+    "semantic_hash": ""
+  },
+  "research/notes/groupkfold-scikit-learn-190-documentation.md": {
+    "mtime": 1786888908.077,
+    "ast_hash": "8b72b917c69af0d971bbb6d59b9b5b0b",
+    "semantic_hash": ""
+  },
+  "research/notes/product-information.md": {
+    "mtime": 1786888836.022,
+    "ast_hash": "88802673c2e82e87eb715ae0541ca80d",
+    "semantic_hash": ""
+  },
+  "research/notes/usda-ars-gracenet-project-protocols.md": {
+    "mtime": 1786888753.289,
+    "ast_hash": "3483317ebe140c71a6089a9cc1baea3b",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/shims/critics.md": {
+    "mtime": 1786888370.258,
+    "ast_hash": "7e83c315d53e8a42006aabb15345f435",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/shims/drafting.md": {
+    "mtime": 1786888370.246,
+    "ast_hash": "50aa71646dd81b04302c73c209ec3a55",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/shims/polish.md": {
+    "mtime": 1786888370.269,
+    "ast_hash": "d6d5e2cea15a0e3949be7c3582610340",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/shims/research.md": {
+    "mtime": 1786888370.233,
+    "ast_hash": "0ee535b003704ce25fd0687e76315626",
+    "semantic_hash": ""
+  },
+  "research/runs/ch5-theory-foundations-05eb4d/temp/coverage-gaps.md": {
+    "mtime": 1788071705.09,
+    "ast_hash": "17afa51cac6f0434d90fe9532ca405d2",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/shims/critics.md": {
+    "mtime": 1786887751.362,
+    "ast_hash": "a7cd05c1b88acaef566e0da74ecb4a84",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/shims/drafting.md": {
+    "mtime": 1786887751.356,
+    "ast_hash": "13903c2fe9c7f6ed227fa8f201f9d338",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/shims/polish.md": {
+    "mtime": 1786887751.371,
+    "ast_hash": "406562779ed6b1e9704545f33f234267",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/shims/research.md": {
+    "mtime": 1786887751.35,
+    "ast_hash": "713152224c27150c9ab1068f6ead59a7",
+    "semantic_hash": ""
+  },
+  "research/runs/enose-ch5-principles-theories-036ce0/temp/scored-urls.md": {
+    "mtime": 1786888010.561,
+    "ast_hash": "f6659f3e7f9635b9a29d4499477e59da",
+    "semantic_hash": ""
+  },
+  "docs/draft/Proposal draft 11.pdf": {
+    "mtime": 1786864041.753,
+    "ast_hash": "e939d5abeea0c9e8bd6302579e755fab",
+    "semantic_hash": ""
+  },
+  "docs/draft/Proposal draft 12.pdf": {
+    "mtime": 1787323317.852,
+    "ast_hash": "9b8b374dee1a3546e481067a4ef28a03",
+    "semantic_hash": ""
+  },
+  "docs/draft/proposal-ch5-ch6-\u0e42\u0e04\u0e23\u0e07\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d(\u0e41\u0e01\u0e49\u0e44\u0e02).pdf": {
+    "mtime": 1787028983.68,
+    "ast_hash": "eb5cabdeb86821e8e9d249504c7dff38",
+    "semantic_hash": ""
+  },
+  "docs/knowledge base/1512.06808v1.pdf": {
+    "mtime": 1786513708.146,
+    "ast_hash": "c8ec9974811da3c5264826f816540b8d",
+    "semantic_hash": ""
+  },
+  "docs/knowledge base/1785400458549.pdf": {
+    "mtime": 1786513964.874,
+    "ast_hash": "b3b549978cfe7fe0addabcbb9abaaa1d",
+    "semantic_hash": ""
+  },
+  "docs/knowledge base/Book2.pdf": {
+    "mtime": 1786511088.788,
+    "ast_hash": "646c84011b090cbbbed81cae59bdb179",
+    "semantic_hash": ""
+  },
+  "docs/knowledge base/Creswell.pdf": {
+    "mtime": 1786513707.0,
+    "ast_hash": "9b91562b45c4f6b91659f28f8cfb5c5d",
+    "semantic_hash": ""
+  },
+  "docs/knowledge base/mml-book.pdf": {
+    "mtime": 1786513711.639,
+    "ast_hash": "eaf36ecfc54c5130232d36ca0bffaa6a",
+    "semantic_hash": ""
+  },
+  "research/notes/a-portable-device-for-methane-measurement-using-a-low-cost-semiconductor-sensor.md": {
+    "mtime": 1786889014.388,
+    "ast_hash": "8fee24b005f758e319a11776a5e08856",
+    "semantic_hash": ""
+  },
+  "research/notes/addressing-low-cost-methane-sensor-calibration-shortcomings-with-machine-learnin.md": {
+    "mtime": 1786889012.944,
+    "ast_hash": "178ea81b5d4a653a13d05d3a5611640a",
+    "semantic_hash": ""
+  },
+  "research/notes/applications-and-advances-in-electronic-nose-technologies.md": {
+    "mtime": 1786888982.278,
+    "ast_hash": "b01445f9b5fdd5b4c5fff535ef61750a",
+    "semantic_hash": ""
+  },
+  "research/notes/conduction-model-of-metal-oxide-gas-sensors-journal-of-electroceramics-springer.md": {
+    "mtime": 1786888740.274,
+    "ast_hash": "8854bc3297ea1fd6c5496e463cf6f2d9",
+    "semantic_hash": ""
+  },
+  "research/notes/frontiers-carbon-footprint-research-and-mitigation-strategies-for-rice-cropping.md": {
+    "mtime": 1786888911.477,
+    "ast_hash": "1b4bba91b90c6a1df6bca3b028bde9a6",
+    "semantic_hash": ""
+  },
+  "research/notes/increasing-measurement-throughput-of-methane-emission-from-rice-paddies-with-a-m.md": {
+    "mtime": 1786889201.154,
+    "ast_hash": "126d05e8e84cc4c0ca79d9d7f210644d",
+    "semantic_hash": ""
+  },
+  "research/notes/low-cost-detection-of-methane-gas-in-rice-cultivation-by-gas-chromatography-flam.md": {
+    "mtime": 1786889156.737,
+    "ast_hash": "c17650a578863974a9fc9e34a9664b8e",
+    "semantic_hash": ""
+  },
+  "research/notes/rapid-identification-method-for-ch4coch4-co-gas-mixtures-based-on-electronic-nos.md": {
+    "mtime": 1786889162.735,
+    "ast_hash": "27c283c3fae875c535c7dca54d728bd9",
+    "semantic_hash": ""
+  },
+  "research/notes/sensing-and-analysis-of-greenhouse-gas-emissions-from-rice-fields-to-the-near-fi.md": {
+    "mtime": 1786889009.903,
+    "ast_hash": "0c1d0d40541ed9fd1ca572432e318476",
+    "semantic_hash": ""
+  },
+  "research/raw/atmos-meas-tech-15-51175128-2022.pdf": {
+    "mtime": 1786888849.123,
+    "ast_hash": "931e3a6f0bff5d3e1b216df75eb67ad5",
+    "semantic_hash": ""
+  },
+  "research/raw/atmos-meas-tech-16-33913419-2023.pdf": {
+    "mtime": 1786888797.041,
+    "ast_hash": "4404f81c157c555664020c3681bab30c",
+    "semantic_hash": ""
+  },
+  "research/raw/atmos-meas-tech-17-21032121-2024.pdf": {
+    "mtime": 1786888917.791,
+    "ast_hash": "2e19bb5b9f6e6f601695d045c5b3688b",
+    "semantic_hash": ""
+  },
+  "research/raw/atmos-meas-tech-17-42574290-2024.pdf": {
+    "mtime": 1786889046.836,
+    "ast_hash": "7d76264fb52ec5a1553eb44e8f3b240e",
+    "semantic_hash": ""
+  },
+  "research/raw/biogeosciences-17-36593667-2020.pdf": {
+    "mtime": 1786888984.078,
+    "ast_hash": "9c3fc612a30360627fadc6920e5ecf3a",
+    "semantic_hash": ""
+  },
+  "research/raw/earth-syst-sci-data-12-15611623-2020.pdf": {
+    "mtime": 1786888732.506,
+    "ast_hash": "6135468b1a539630f37ba4a3e1d22ee3",
+    "semantic_hash": ""
+  },
+  "research/raw/product-information.pdf": {
+    "mtime": 1786888836.0,
+    "ast_hash": "7f495fcbfa72da8cccd2c22ccd25b145",
+    "semantic_hash": ""
+  },
+  "research/raw/usda-ars-gracenet-project-protocols.pdf": {
+    "mtime": 1786888723.288,
+    "ast_hash": "4595773e70c0bff576ea788fc48d5814",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p01.png": {
+    "mtime": 1786598315.052,
+    "ast_hash": "6b337b1396a5e68cd1aafc3d184b1607",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p02.png": {
+    "mtime": 1786598315.179,
+    "ast_hash": "92b67fe76e1347f361e904e5430ad1f6",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p03.png": {
+    "mtime": 1786598315.263,
+    "ast_hash": "07bb381d13b57edcdd59dbfd18f887e7",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p04.png": {
+    "mtime": 1786598315.36,
+    "ast_hash": "07bff2ea018a65fa5bd1fa2569cb55f8",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p05.png": {
+    "mtime": 1786598315.473,
+    "ast_hash": "a4b55e995978d0a6407f0806534fcfc7",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p06.png": {
+    "mtime": 1786598315.588,
+    "ast_hash": "2ab662ac65d7ff2d2501e20b751c0de7",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p07.png": {
+    "mtime": 1786598315.872,
+    "ast_hash": "b2e6186b74a15e44d3c135ffda3781c9",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p08.png": {
+    "mtime": 1786598315.982,
+    "ast_hash": "2cf3c63b7094128029a9f85a267d261d",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p09.png": {
+    "mtime": 1786598316.089,
+    "ast_hash": "1246f356155a13b4b8db6e424bf12c84",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p10.png": {
+    "mtime": 1786598316.174,
+    "ast_hash": "64f592f78a094a0039942e3c19d46279",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p11.png": {
+    "mtime": 1786598316.272,
+    "ast_hash": "66a6fb4c0abdb9f6ed24fc2311028f2a",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p12.png": {
+    "mtime": 1786598316.371,
+    "ast_hash": "01b48d905394b993c17702f6dc11381c",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p13.png": {
+    "mtime": 1786598316.464,
+    "ast_hash": "e6810b843d6cc9a26d092d941e733c41",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p14.png": {
+    "mtime": 1786598316.563,
+    "ast_hash": "ebf03ebe5ffc862257b4b7ef8d941597",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p15.png": {
+    "mtime": 1786598316.659,
+    "ast_hash": "df6563fc8888ee2c49f336658452fca1",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p16.png": {
+    "mtime": 1786598316.763,
+    "ast_hash": "9d614e040d75d878321488900d8debca",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p17.png": {
+    "mtime": 1786598316.862,
+    "ast_hash": "6b24508ecdb61fdcff58c905c25dcb89",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p18.png": {
+    "mtime": 1786598316.957,
+    "ast_hash": "2b74d2c4c58ff448d50e5938251bcb45",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p19.png": {
+    "mtime": 1786598317.075,
+    "ast_hash": "0f1e5b029a3d6801ed89cc812c5e25e9",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p20.png": {
+    "mtime": 1786598317.261,
+    "ast_hash": "846b5b600bfc74f6bff7037bf232f76b",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p21.png": {
+    "mtime": 1786598317.358,
+    "ast_hash": "e391bda09ad58d99526af3eb07a19e23",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p22.png": {
+    "mtime": 1786598317.447,
+    "ast_hash": "6a8adf6558b7ef7c636b3bb749dc9874",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p23.png": {
+    "mtime": 1786598317.537,
+    "ast_hash": "c33c720e52578582ff846678ce03618e",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p24.png": {
+    "mtime": 1786598317.64,
+    "ast_hash": "115a58eae59ae704b27685b1f63c2440",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p25.png": {
+    "mtime": 1786598317.75,
+    "ast_hash": "24b8e540db8932b942f6302fd1126441",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p26.png": {
+    "mtime": 1786598317.858,
+    "ast_hash": "371c6066101f8022a0cc76157b076f04",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/_ex_proposal_pages/p27.png": {
+    "mtime": 1786598317.926,
+    "ast_hash": "f120423c595a70af32aadcc10542162f",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/fig_ch6_01_flowchart.png": {
+    "mtime": 1786626408.884,
+    "ast_hash": "369a4dcfc1f806c3bcca887f2c36348b",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/fig_ch6_machine_operation.png": {
+    "mtime": 1786611376.488,
+    "ast_hash": "ebc85d6ecc41797a3d0f8d4016e4e0d3",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/fig_ch6_model_flowchart.png": {
+    "mtime": 1786611376.885,
+    "ast_hash": "b362b2cd7502f13e86a2e493777096af",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/fig_ch6_research_flowchart.png": {
+    "mtime": 1786687839.199,
+    "ast_hash": "6d6d7412a5a56e01beefefacd3868cf7",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/scripts/thai-native-draft.py": {
+    "mtime": 1787230367.26,
+    "ast_hash": "03115c4e393df609410599aa12d04c14",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/scripts/thai-route.sh": {
+    "mtime": 1787230367.26,
+    "ast_hash": "d4b3c58013f219084f873af7649f62c7",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/scripts/batch_manifest.py": {
+    "mtime": 1787149167.998,
+    "ast_hash": "be1680edf9e35aee15b78151ebcc5393",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/scripts/batch_verify.py": {
+    "mtime": 1787149167.999,
+    "ast_hash": "0172c3f14b9e2301c2f8139efc9becba",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/scripts/check_drawio.py": {
+    "mtime": 1787149167.999,
+    "ast_hash": "e4dd57d22ad1aa57a1c1ecda02e2715d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/scripts/crop_assist.py": {
+    "mtime": 1787149168.0,
+    "ast_hash": "9275da5fbf9906183ecf170c3c04fc98",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/scripts/export_drawio.py": {
+    "mtime": 1787149168.001,
+    "ast_hash": "36b2ad57ea2cfec8dd695310986e6ce3",
+    "semantic_hash": ""
+  },
+  "_tmp_extract_pdfs.py": {
+    "mtime": 1788071705.152,
+    "ast_hash": "f59409fb3a4ec344a3913a47927c886b",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks.py": {
+    "mtime": 1788071705.07,
+    "ast_hash": "936bb717fa60a0f7add396210aaf9fde",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_inventory.py": {
+    "mtime": 1788071705.09,
+    "ast_hash": "b57b334ab23250af88b4b6110b63cca8",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_meta.json": {
+    "mtime": 1787498846.617,
+    "ast_hash": "de2f68d58d23e58a92a82e4e6c13e088",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages.py": {
+    "mtime": 1788071705.06,
+    "ast_hash": "fa04f78a53301fc2141bbd92e51bc462",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections.py": {
+    "mtime": 1788071705.088,
+    "ast_hash": "5c9fac4cd9f9674cce574881e812031b",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/_layout_body.json": {
+    "mtime": 1787304682.81,
+    "ast_hash": "84d497f9ff1913c7afc1013100354a02",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/_batch_ppb.json": {
+    "mtime": 1787229396.058,
+    "ast_hash": "2afb4a3dd07d64090149cbb9de793809",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/_batch_split.json": {
+    "mtime": 1787229396.127,
+    "ast_hash": "6bb2ad05217a79caf9bc2a04aee08135",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/apply_ch42.py": {
+    "mtime": 1787319823.339,
+    "ast_hash": "56162bab440d6c19b4769970fbeffdc3",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/SKILL.md": {
+    "mtime": 1787230367.253,
+    "ast_hash": "baef8b52a9a34fb9d7ab993fc9fd6f9b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/ai-tells.md": {
+    "mtime": 1787230367.254,
+    "ast_hash": "77acd9925be92943a02d0e66e7e44d23",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/craft.md": {
+    "mtime": 1787230367.254,
+    "ast_hash": "a770a43416db42c2211ab84ab7b173e0",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/examples.md": {
+    "mtime": 1787230367.255,
+    "ast_hash": "ed414ef75b147a80a7cb4f5b5d94d53a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/exemplars.md": {
+    "mtime": 1787230367.255,
+    "ast_hash": "9821c0d6dbff07ccb2cdd91dd0534e6a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/forbidden-phrases.md": {
+    "mtime": 1787230367.258,
+    "ast_hash": "49a372d9d04948f99e8d03e7345ed9bd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/grammar.md": {
+    "mtime": 1787230367.258,
+    "ast_hash": "adb56e495afc6889fa1064cf379a73d7",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/register.md": {
+    "mtime": 1787230367.259,
+    "ast_hash": "1ddd8a0878d74d1bc29c0b50d9685b90",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/references/style-rules.md": {
+    "mtime": 1787230367.259,
+    "ast_hash": "8b972708ad760c4240813f2c4b34abb8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kien-thai/scripts/README.md": {
+    "mtime": 1787230367.26,
+    "ast_hash": "1b6853e3207ece5383cbe76eb931af8f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/kode-thai/SKILL.md": {
+    "mtime": 1787230367.261,
+    "ast_hash": "ff70b7994a979319c67fe12ebb32b981",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/README.en.md": {
+    "mtime": 1787149167.882,
+    "ast_hash": "c5e1f1f343ff438d8e022307a69546be",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/README.md": {
+    "mtime": 1787149167.883,
+    "ast_hash": "6435f3f9fde0c3ad00f0abba51ce00fc",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/SKILL.md": {
+    "mtime": 1787149167.885,
+    "ast_hash": "5107ef295e04cc155157e8e7531a2dfd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/benchmark-design.md": {
+    "mtime": 1787149167.886,
+    "ast_hash": "e9043954d64a5d0790f5c6b9335e5354",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/checklist.md": {
+    "mtime": 1787149167.887,
+    "ast_hash": "94e4fa78d15311dc9982ffd7591c0798",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/construction-pipeline.md": {
+    "mtime": 1787149167.888,
+    "ast_hash": "2db4a2988a3f2dd0dab52c8cb012ff7e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/experiments.md": {
+    "mtime": 1787149167.889,
+    "ast_hash": "0c77bb8419659c8b53169c1bd3f90df8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/gap-analysis.md": {
+    "mtime": 1787149167.89,
+    "ast_hash": "075cbd861d2c0a11c1b3745b1bf4f58e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/instantiation-template.md": {
+    "mtime": 1787149167.891,
+    "ast_hash": "ba21d14702e2f0cd2c7c67f3f017cd62",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/orchestrator-notes.md": {
+    "mtime": 1787149167.892,
+    "ast_hash": "d57af9e7938a8145e25212f8e0110d7a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/benchmark-paper-template/references/paper-structure.md": {
+    "mtime": 1787149167.893,
+    "ast_hash": "72de7f0778395e513271074a5c2ee96a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/SKILL.md": {
+    "mtime": 1787149167.894,
+    "ast_hash": "5fae0c4ef870016acd23fe8e2ea8bdd6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/citation-protocol.md": {
+    "mtime": 1787149167.895,
+    "ast_hash": "12e96e4a7ded7855b967da479a4a51c5",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/hedge-calibration.md": {
+    "mtime": 1787149167.896,
+    "ast_hash": "4e07cb35e283f6fef998ec51e9af3b2d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/output-structure.md": {
+    "mtime": 1787149167.897,
+    "ast_hash": "08dd2424380d440a914953fdc8f00297",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/quality-gates.md": {
+    "mtime": 1787149167.897,
+    "ast_hash": "69acbdf012afa448bceafe44f8cb6334",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/search-strategy.md": {
+    "mtime": 1787149167.898,
+    "ast_hash": "292c1797c389ad6eed62cb5f32cde375",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/self-adversarial.md": {
+    "mtime": 1787149167.899,
+    "ast_hash": "2ea00a838d1b68afb1cb451147f4d9d0",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/deep-research/references/synthesis-framework.md": {
+    "mtime": 1787149167.9,
+    "ast_hash": "a4426505d93c4a1b9a97ae750124a28d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/README.md": {
+    "mtime": 1787149167.902,
+    "ast_hash": "2dc07655fd3bbe5334db3d3798bdcefd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/README.zh-CN.md": {
+    "mtime": 1787149167.903,
+    "ast_hash": "97fcee6fdb3f0c36650f960d7779b44e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/SKILL.md": {
+    "mtime": 1787149167.903,
+    "ast_hash": "043f4110e951f5162fd15d07d349d25a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/agents/openai.yaml": {
+    "mtime": 1787149167.904,
+    "ast_hash": "4c6f862ff58523e67bead3145a917063",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/requirements.txt": {
+    "mtime": 1787149167.997,
+    "ast_hash": "6fdab1afba042a9fe87888ad2277cab9",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/SKILL.md": {
+    "mtime": 1787149168.001,
+    "ast_hash": "3c20b8e2e7786a86892c13c79aa7bf1e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/references/design-rules.md": {
+    "mtime": 1787149168.002,
+    "ast_hash": "8707c9df89dcc066a7f47c29c8f7ee14",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/references/experimental-results.md": {
+    "mtime": 1787149168.002,
+    "ast_hash": "a2f2efc485856408f94aeaab710eee83",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/references/motivated-example.md": {
+    "mtime": 1787149168.003,
+    "ast_hash": "b31258cfd67864f174c036dc903551fa",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/references/solution-overview.md": {
+    "mtime": 1787149168.003,
+    "ast_hash": "630d3ad2f6eb2216c4c2c232f9edc863",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/figure-designer/references/tools.md": {
+    "mtime": 1787149168.004,
+    "ast_hash": "57363e7a624a657023bc8bafe94a79fa",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/SKILL.md": {
+    "mtime": 1787149168.004,
+    "ast_hash": "501f149422576ae7f87d4d10b55c6baa",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/domain-evaluation-frameworks.md": {
+    "mtime": 1787149168.005,
+    "ast_hash": "e403f740884f712d3920e83e7128726a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/fatal-flaws.md": {
+    "mtime": 1787149168.006,
+    "ast_hash": "7c11dcbde15b196d21663796e58491fc",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/five-dimensions.md": {
+    "mtime": 1787149168.006,
+    "ast_hash": "34e649ce4520873195b6399e4ce2b7b7",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/lifecycle-capability-matching.md": {
+    "mtime": 1787149168.007,
+    "ast_hash": "c3d23fae7424f2f2e18597c882b30cbc",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-elephant.md": {
+    "mtime": 1787149168.007,
+    "ast_hash": "b0db478aedc6a0325f25fd4b79e7171e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-examples.md": {
+    "mtime": 1787149168.008,
+    "ast_hash": "2b947842723f10ad9bce4844836d5923",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-first-principles.md": {
+    "mtime": 1787149168.008,
+    "ast_hash": "bf1dab9d48c793eca25d4053bc2de941",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-hamming.md": {
+    "mtime": 1787149168.009,
+    "ast_hash": "665e924a37519929bb6bc4358cb1e349",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-shift-probe.md": {
+    "mtime": 1787149168.009,
+    "ast_hash": "438ff99e94209a4ea1d2d9fb8b8549f1",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/paradigm-technology-cycle.md": {
+    "mtime": 1787149168.01,
+    "ast_hash": "5be862d4cd093e0da75a0a376d890658",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/idea-evaluator/references/worked-examples.md": {
+    "mtime": 1787149168.01,
+    "ast_hash": "b04300fec3234958f8dd6d1b418aaeed",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/SKILL.md": {
+    "mtime": 1787149168.011,
+    "ast_hash": "acbe745e245c3ab6784c35ea71938bb6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/contribution-patterns.md": {
+    "mtime": 1787149168.012,
+    "ast_hash": "f1040d7a75a5c483ab7ae919bd6fc48e",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/evidence-discipline.md": {
+    "mtime": 1787149168.012,
+    "ast_hash": "eb523b003b1cad3268dd4204e1142343",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/flowchart.md": {
+    "mtime": 1787149168.013,
+    "ast_hash": "e990c681416e328bbbe0ea32ed707c38",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/paper-types.md": {
+    "mtime": 1787149168.014,
+    "ast_hash": "2065c7afabfb2c29ed67007018b7cb4b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/prose-delivery.md": {
+    "mtime": 1787149168.014,
+    "ast_hash": "abe88e1541fe448168398fed4394a1fb",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/running-example.md": {
+    "mtime": 1787149168.015,
+    "ast_hash": "369b1e6c135d0dcd967e6af5e4ce9633",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/intro-drafter/references/worked-examples.md": {
+    "mtime": 1787149168.015,
+    "ast_hash": "465ee996e0482cd313f8d4f7c7d42b9f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-polish/SKILL.md": {
+    "mtime": 1787149168.016,
+    "ast_hash": "3dd968c0ad32a2faf26f97bed2a0f700",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-polish/references/academic-phrasebank.md": {
+    "mtime": 1787149168.017,
+    "ast_hash": "d225b43c2dc2e7198e6c643cdaac466f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-polish/references/ai-tone-guardrails.md": {
+    "mtime": 1787149168.017,
+    "ast_hash": "c70ea8f0217fe88df6e0218b9d8723de",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-polish/references/section-conventions.md": {
+    "mtime": 1787149168.018,
+    "ast_hash": "68358330d6536d457c6708f655f76aa8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/academic-phrasebank.md": {
+    "mtime": 1787149168.02,
+    "ast_hash": "b374379659f5d0bc361e4bee0f302431",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/ai-tone-guardrails.md": {
+    "mtime": 1787149168.02,
+    "ast_hash": "a6a50bc46ae9cea01e52b32255d21eae",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/evidence-discipline.md": {
+    "mtime": 1787149168.021,
+    "ast_hash": "cf3705406cb613d8bbfa1b3eb8ba18a0",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/prose-delivery.md": {
+    "mtime": 1787149168.022,
+    "ast_hash": "a3e042f363d12c5abc5318575ebff7dc",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/section-conventions.md": {
+    "mtime": 1787149168.022,
+    "ast_hash": "69309516679edaf2622cce39eae56880",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/section-guidance.md": {
+    "mtime": 1787149168.023,
+    "ast_hash": "da704cb54404c99ad036beb6b4528e5b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/verification-checklist.md": {
+    "mtime": 1787149168.023,
+    "ast_hash": "b9da9f95048be7e40f96ba502e3025e6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/verification-ladder.md": {
+    "mtime": 1787149168.023,
+    "ast_hash": "0b19ab61a8e58a1dd08cbec91694b5ea",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/SKILL.md": {
+    "mtime": 1787149168.024,
+    "ast_hash": "15d3420159092bd06d122d8dbc703467",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/references/forbidden-patterns.md": {
+    "mtime": 1787149168.025,
+    "ast_hash": "4ee9b59aab7e29d04146b0831641c565",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/references/grammar-rules.md": {
+    "mtime": 1787149168.026,
+    "ast_hash": "937921d281203b9758fae25df8e5d7f8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/references/latex-rules.md": {
+    "mtime": 1787149168.027,
+    "ast_hash": "f4b009d12a86196eeffe137fb2b4101d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/references/logic-and-structure.md": {
+    "mtime": 1787149168.027,
+    "ast_hash": "59050ad8bc26198f46668f918981450a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/pre-submission-reviewer/references/section-guides.md": {
+    "mtime": 1787149168.028,
+    "ast_hash": "430f818c0e489f2324a674b592575eec",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/tech-paper-template/SKILL.md": {
+    "mtime": 1787149168.028,
+    "ast_hash": "c12b72fd092e0eb6e9353ceed9785778",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/tech-paper-template/references/consistency-checks.md": {
+    "mtime": 1787149168.029,
+    "ast_hash": "8ff824ba651151780435082230cf8728",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/tech-paper-template/references/paper-types.md": {
+    "mtime": 1787149168.03,
+    "ast_hash": "b7a3e3f7b5959bdebc207ba0bf47eeb8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/tech-paper-template/references/thinking-template.md": {
+    "mtime": 1787149168.031,
+    "ast_hash": "5d42460470a2394e4ea597e6a994ee32",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/tech-paper-template/references/worked-examples.md": {
+    "mtime": 1787149168.031,
+    "ast_hash": "583055ca176b42e296ddbaba83761515",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/SKILL.md": {
+    "mtime": 1787149168.032,
+    "ast_hash": "8d8d1126aeccfc94b832539e32dddf7a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/references/tool-selection.md": {
+    "mtime": 1787149168.033,
+    "ast_hash": "68d7002b67afe43c2082988b07645bd8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/references/vibe-coding.md": {
+    "mtime": 1787149168.034,
+    "ast_hash": "f4a81b929cc45ba2b8f2ee492a9b5f85",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/references/vibe-figure.md": {
+    "mtime": 1787149168.034,
+    "ast_hash": "c8e9c4b994c6dde3be7860edc527e5d4",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/references/vibe-writing.md": {
+    "mtime": 1787149168.035,
+    "ast_hash": "612ce4a2555b4e7acb468e68b721c264",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2021_Tokida_modified_closed_chamber_rice_methane.txt": {
+    "mtime": 1787498897.556,
+    "ast_hash": "3c227bc3dd3a20e59ffd8c3cc54e8c48",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2022_LowCost_GC-FID_methane_rice_cultivation.txt": {
+    "mtime": 1787498897.675,
+    "ast_hash": "93be697117e3016ea4b0cb5b24a0b8da",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2022_water_fertilizer_management_methane_paddy_synthesis.txt": {
+    "mtime": 1787498897.329,
+    "ast_hash": "a1961bbd70c8e5de40798aa3c7610bc9",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2023_Anapalli_eddy_covariance_AWD_rice_methane.txt": {
+    "mtime": 1787498897.449,
+    "ast_hash": "cadcd8f227c8951041bbb8bf1010c1df",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation.txt": {
+    "mtime": 1787498897.496,
+    "ast_hash": "b3025efaee9da0157bfe9938b6915c50",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2024_Basheer_GHG_agricultural_soil_review.txt": {
+    "mtime": 1787498897.512,
+    "ast_hash": "cda7159f62728188b264630d1e08b0b1",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2024_promoting_rice_upland_crops_mitigate_CH4.txt": {
+    "mtime": 1787498897.465,
+    "ast_hash": "d40a8aaeaece2b95523dd26b90787358",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2024_rice_root_rhizosphere_methane_emission.txt": {
+    "mtime": 1787498897.278,
+    "ast_hash": "29248704bd4a4a58ca98566dfc34d978",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2025_CH4MOD_global_methane_emissions_rice_paddies.txt": {
+    "mtime": 1787498897.417,
+    "ast_hash": "5ebebc7ce201fa88f4c11c4bb23b6fd7",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2025_Jaya_IoT_GHG_soil_paddy.txt": {
+    "mtime": 1787498897.542,
+    "ast_hash": "48b2b2bae6ef095f610e9c87089bdd1b",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2025_methane_emissions_carbon_availability_soil_pH_gradient.txt": {
+    "mtime": 1787498897.384,
+    "ast_hash": "1f60be967b6869da575d605115d06af3",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2025_product_type_rice_variety_agronomic_CH4_emissions.txt": {
+    "mtime": 1787498897.432,
+    "ast_hash": "bd5def369a56cec0718d3457a37132ed",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2021_Tokida_modified_closed_chamber_rice_methane_p1-6.txt": {
+    "mtime": 1787498964.812,
+    "ast_hash": "f05f9b372d9b567e555fc30373639c82",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2022_LowCost_GC-FID_methane_rice_cultivation_p1-10.txt": {
+    "mtime": 1787498965.021,
+    "ast_hash": "f221696113dabee294fae7b5a2a3438d",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2022_water_fertilizer_management_methane_paddy_synthesis_p4-10.txt": {
+    "mtime": 1787498965.448,
+    "ast_hash": "d2c234ddce9e63818234067d3380dd18",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2023_Anapalli_eddy_covariance_AWD_rice_methane_p1-11.txt": {
+    "mtime": 1787498963.488,
+    "ast_hash": "67072d0e6553c5ab4a9e9dc59950d9ae",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation_p1-12.txt": {
+    "mtime": 1787498964.17,
+    "ast_hash": "b76b6a9841c1f97a156820cb7d93e4b2",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2024_Basheer_GHG_agricultural_soil_review_p1-10.txt": {
+    "mtime": 1787498963.796,
+    "ast_hash": "888e49a21f5f4d1c572cf1e2ac489be3",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2024_promoting_rice_upland_crops_mitigate_CH4_p1-8.txt": {
+    "mtime": 1787498964.245,
+    "ast_hash": "b7f45ce8952861d23fe121f841f1c76b",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2024_rice_root_rhizosphere_methane_emission_p8-19.txt": {
+    "mtime": 1787498962.639,
+    "ast_hash": "9cbcffbc6bd4a8b86124f224954ac226",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2025_CH4MOD_global_methane_emissions_rice_paddies_p10-21.txt": {
+    "mtime": 1787498962.839,
+    "ast_hash": "333b9bdff57c215b9c7db4cd737ebb00",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2025_Jaya_IoT_GHG_soil_paddy_p1-10.txt": {
+    "mtime": 1787498964.575,
+    "ast_hash": "9ddb85c2e4f08b8262b7446edf5173aa",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2025_methane_emissions_carbon_availability_soil_pH_gradient_p1-12.txt": {
+    "mtime": 1787498963.292,
+    "ast_hash": "a8c4a705f90f40bd6972bdae008bc412",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2025_product_type_rice_variety_agronomic_CH4_emissions_p1-12.txt": {
+    "mtime": 1787498965.331,
+    "ast_hash": "7669fbf8d136b36355daa244929ba978",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2021_Tokida_modified_closed_chamber_rice_methane.txt": {
+    "mtime": 1787498846.618,
+    "ast_hash": "902b7e2563bdfb89af752af3f9a09bc3",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2022_LowCost_GC-FID_methane_rice_cultivation.txt": {
+    "mtime": 1787498846.63,
+    "ast_hash": "9ad35def300a646d1ef6e4696f0ccf9c",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2022_water_fertilizer_management_methane_paddy_synthesis.txt": {
+    "mtime": 1787498846.462,
+    "ast_hash": "e3c42999c24fc7d2cd12205c27f63a02",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2023_Anapalli_eddy_covariance_AWD_rice_methane.txt": {
+    "mtime": 1787498846.513,
+    "ast_hash": "89c40d6cf3e0dcd0012a11cc21b81f9c",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation.txt": {
+    "mtime": 1787498846.571,
+    "ast_hash": "bcd7322e241bb85d7c5173de804bb5bb",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2024_Basheer_GHG_agricultural_soil_review.txt": {
+    "mtime": 1787498846.583,
+    "ast_hash": "1c12187175fd32d591fea1192ed14941",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2024_agro_technologies_GHG_mitigation_flooded_rice_India.txt": {
+    "mtime": 1787498846.533,
+    "ast_hash": "2c3097c4d895bcb47e25580137c65476",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2024_promoting_rice_upland_crops_mitigate_CH4.txt": {
+    "mtime": 1787498846.545,
+    "ast_hash": "e17ed42981af3ce72e9dac4e5e1d1c58",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2024_rice_root_rhizosphere_methane_emission.txt": {
+    "mtime": 1787498846.445,
+    "ast_hash": "931951d552913ec7dbdf7edae8bcde43",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_CH4MOD_global_methane_emissions_rice_paddies.txt": {
+    "mtime": 1787498846.488,
+    "ast_hash": "f1b7bbee464c5fe58f00f0e15d222e1f",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_Jaya_IoT_GHG_soil_paddy.txt": {
+    "mtime": 1787498846.606,
+    "ast_hash": "5c475beb356e9e643b7b8b317af81586",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_methane_emissions_carbon_availability_soil_pH_gradient.txt": {
+    "mtime": 1787498846.477,
+    "ast_hash": "abde48b503eb8dd68f50d7d261569455",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_product_type_rice_variety_agronomic_CH4_emissions.txt": {
+    "mtime": 1787498846.5,
+    "ast_hash": "7a8cbaa50b3262182808412909dee35f",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_straw_mulching_AWD_reduces_methane_paddy.txt": {
+    "mtime": 1787498846.523,
+    "ast_hash": "2c3097c4d895bcb47e25580137c65476",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2021_Tokida_modified_closed_chamber_rice_methane.txt": {
+    "mtime": 1787498756.234,
+    "ast_hash": "bc7efaea98f3e8de2c0a92f98276a532",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2021_Tokida_modified_closed_chamber_rice_methane_hits.txt": {
+    "mtime": 1787498756.161,
+    "ast_hash": "03a546accc417db7f028c3296e07a2ae",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2022_LowCost_GC-FID_methane_rice_cultivation.txt": {
+    "mtime": 1787498756.513,
+    "ast_hash": "a6e92590b620c6e14f0486dab1d78446",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2022_LowCost_GC-FID_methane_rice_cultivation_hits.txt": {
+    "mtime": 1787498756.45,
+    "ast_hash": "e3d7aa0b9e1ba8a5e30a77491169da82",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2022_water_fertilizer_management_methane_paddy_synthesis.txt": {
+    "mtime": 1787498753.36,
+    "ast_hash": "80e76ce7965a9eeeb200e0769b0bef9a",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2022_water_fertilizer_management_methane_paddy_synthesis_hits.txt": {
+    "mtime": 1787498753.3,
+    "ast_hash": "99c1dcb77fff14451cc4ab7f85b5207f",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2023_Anapalli_eddy_covariance_AWD_rice_methane.txt": {
+    "mtime": 1787498754.562,
+    "ast_hash": "92683fdc1f754486b66f7b196ee6e79a",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2023_Anapalli_eddy_covariance_AWD_rice_methane_hits.txt": {
+    "mtime": 1787498754.462,
+    "ast_hash": "d7f4fe48bc7f96f52f6121c0115e0c51",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation.txt": {
+    "mtime": 1787498755.912,
+    "ast_hash": "c0a04b72635929b524722fd13ecd9407",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation_hits.txt": {
+    "mtime": 1787498755.713,
+    "ast_hash": "39bf0e3188d7fefd4cfd2c31bd1b04df",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_Basheer_GHG_agricultural_soil_review.txt": {
+    "mtime": 1787498755.413,
+    "ast_hash": "cb1ec54a64fe4b5ac31273476d03621b",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_Basheer_GHG_agricultural_soil_review_hits.txt": {
+    "mtime": 1787498755.293,
+    "ast_hash": "dbd3727e217475f4dff888269fe34246",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_comprehensive_review_GHG_rice_paddies_hits.txt": {
+    "mtime": 1787498754.217,
+    "ast_hash": "5b8540cb45a1c631dc535f51f16e2d1e",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_promoting_rice_upland_crops_mitigate_CH4.txt": {
+    "mtime": 1787498755.01,
+    "ast_hash": "99adf46933bfee3587086e1a54e35717",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_promoting_rice_upland_crops_mitigate_CH4_hits.txt": {
+    "mtime": 1787498754.932,
+    "ast_hash": "2602e1d869242a2fcef4afdf12d3656c",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_rice_root_rhizosphere_methane_emission.txt": {
+    "mtime": 1787498752.53,
+    "ast_hash": "4761c74dedda935cc10beeb774d60bec",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_rice_root_rhizosphere_methane_emission_hits.txt": {
+    "mtime": 1787498752.311,
+    "ast_hash": "9d3749d626d462920f0f70b0be854987",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_CH4MOD_global_methane_emissions_rice_paddies.txt": {
+    "mtime": 1787498754.121,
+    "ast_hash": "d91a79b1b70129524585db61789f4274",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_CH4MOD_global_methane_emissions_rice_paddies_hits.txt": {
+    "mtime": 1787498753.671,
+    "ast_hash": "87306ce6eb1325c6ae9ff44ad8bd0361",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_methane_emissions_carbon_availability_soil_pH_gradient.txt": {
+    "mtime": 1787498753.123,
+    "ast_hash": "cbcafc271e9a64b487808a4cfeed3145",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_methane_emissions_carbon_availability_soil_pH_gradient_hits.txt": {
+    "mtime": 1787498752.948,
+    "ast_hash": "56e51813ae04d7f34544538f688d1848",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_product_type_rice_variety_agronomic_CH4_emissions.txt": {
+    "mtime": 1787498754.855,
+    "ast_hash": "c43be72cd79f6fd5689fc97ba35c7983",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2025_product_type_rice_variety_agronomic_CH4_emissions_hits.txt": {
+    "mtime": 1787498754.772,
+    "ast_hash": "35034de0ced313f79034b5db6d457bac",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/console.txt": {
+    "mtime": 1787498692.971,
+    "ast_hash": "e93a0dbca489b67cffcbececc7be1114",
+    "semantic_hash": ""
+  },
+  "_tmp_saunois.txt": {
+    "mtime": 1787498115.122,
+    "ast_hash": "55a3288eca0130dd084b86df243833d5",
+    "semantic_hash": ""
+  },
+  "docs/draft/_draft12.1_extract.txt": {
+    "mtime": 1788073736.097,
+    "ast_hash": "bdee31de9ae973d0276cd6191ae741df",
+    "semantic_hash": ""
+  },
+  "docs/draft/systematic-review-4.2-ch5.md": {
+    "mtime": 1788074887.593,
+    "ast_hash": "3f681987376753c5e80e9c7815ea4ed7",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/README.md": {
+    "mtime": 1787319823.329,
+    "ast_hash": "0caef4356dcf8bb136dc38897ad24116",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/evidence-map-42.md": {
+    "mtime": 1787319823.309,
+    "ast_hash": "1cc6c75855d9dda0ef3b29fe65f0619f",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/othman-2026-positioning.md": {
+    "mtime": 1787319823.304,
+    "ast_hash": "4a5cbcd3f9b7f1618f0fa21ac580fbf9",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/selection.md": {
+    "mtime": 1787319823.288,
+    "ast_hash": "bd100761e19c866169201ab037402404",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/survey.md": {
+    "mtime": 1787319823.309,
+    "ast_hash": "362dfa54510064ea45be0fd36d223c9c",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/\u0e2a\u0e23\u0e38\u0e1b\u0e07\u0e32\u0e19\u0e27\u0e34\u0e08\u0e31\u0e22\u0e43\u0e19\u0e2b\u0e31\u0e27\u0e02\u0e49\u0e2d \u0e01\u0e32\u0e23\u0e40\u0e01\u0e34\u0e14\u0e01\u0e4a\u0e32\u0e0b\u0e21\u0e35\u0e40\u0e17\u0e19\u0e43\u0e19\u0e19\u0e32\u0e02\u0e49\u0e32\u0e27.md": {
+    "mtime": 1788092120.048,
+    "ast_hash": "63e2c35d21a6849711ad1820ca67760f",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-08-26-proposal-ch42-headings-design.md": {
+    "mtime": 1787753019.31,
+    "ast_hash": "22bd11342ec7c94e6b968961c1b30132",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/SKILL.md": {
+    "mtime": 1787149168.019,
+    "ast_hash": "293538580570317b4df6232fe3564de2",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/paper-writer/references/citation-style.md": {
+    "mtime": 1787149168.021,
+    "ast_hash": "41222fa3b6cda4e0c749644f44335045",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/vibe-research-workflow/references/behavior-guidelines.md": {
+    "mtime": 1787149168.033,
+    "ast_hash": "f1fe81c3520accf7a847515d4c857421",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2024_comprehensive_review_GHG_rice_paddies.txt": {
+    "mtime": 1787498897.481,
+    "ast_hash": "97841ccd8d482b8b633f192f2b0f9f51",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_chunks/2025_Arif_NN_GHG_irrigated_paddy.txt": {
+    "mtime": 1787498897.528,
+    "ast_hash": "48cf6253fa23298df2ba4f66cfe1f390",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2024_comprehensive_review_GHG_rice_paddies_p1-8.txt": {
+    "mtime": 1787498963.56,
+    "ast_hash": "3e9eceac10828537c58a0e29d8284b50",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_pages/2025_Arif_NN_GHG_irrigated_paddy_p1-9.txt": {
+    "mtime": 1787498964.42,
+    "ast_hash": "f6264b890aa98446219d8c958b01b553",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2024_comprehensive_review_GHG_rice_paddies.txt": {
+    "mtime": 1787498846.557,
+    "ast_hash": "dd8a2a88795629cd1a388de750b06fdd",
+    "semantic_hash": ""
+  },
+  "_tmp_paperqa_sections/2025_Arif_NN_GHG_irrigated_paddy.txt": {
+    "mtime": 1787498846.596,
+    "ast_hash": "8ad7e7aa21f54a4cb33ae2dce221c137",
+    "semantic_hash": ""
+  },
+  "_tmp_pdf_extract/2024_comprehensive_review_GHG_rice_paddies.txt": {
+    "mtime": 1787498754.262,
+    "ast_hash": "3fc701db7e1e4570e9cbfb6ed807fa0e",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/2026_Othman_extract.md": {
+    "mtime": 1787319823.309,
+    "ast_hash": "473ed89c177025fd53d0197eff76fa54",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2012_Eugster_TGS2600_ambient_methane_humidity.pdf": {
+    "mtime": 1787152508.203,
+    "ast_hash": "ca999077344cc26dec633f0742924197",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2015_Minamikawa_MIRSA_closed_chamber_rice_guidelines.pdf": {
+    "mtime": 1787152477.511,
+    "ast_hash": "de0f493e31502f2201213ff5050974b9",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2015_Oo_within_field_CH4_Myanmar.pdf": {
+    "mtime": 1787152697.043,
+    "ast_hash": "884075c014b4a5eb2ec706e6e400fde8",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2018_CollierOxandale_TGS2600_field_quantification.pdf": {
+    "mtime": 1787152528.673,
+    "ast_hash": "6be486fca4023ed6b305854d7fd944ea",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2018_Wassmann_nighttime_closed_chamber_rice.pdf": {
+    "mtime": 1787152482.878,
+    "ast_hash": "700ef93ee07da63b7f69240687f13a33",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2019_IPCC_refinement_vol4_ch5_cropland_rice.pdf": {
+    "mtime": 1787152479.313,
+    "ast_hash": "d7fc790df0fba57f1f94ca9b85882769",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2020_Bastviken_lowcost_CH4_sensors_flux_chambers.pdf": {
+    "mtime": 1784791416.461,
+    "ast_hash": "9c3fc612a30360627fadc6920e5ecf3a",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2020_Conrad_methane_production_soil_environments.pdf": {
+    "mtime": 1787151856.562,
+    "ast_hash": "c1f21fd206f3293474f1e5b9eaeedec7",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2020_Jorgensen_TGS2611E00_humidity_field.pdf": {
+    "mtime": 1787152511.876,
+    "ast_hash": "097d87f13b5ec5eb25fd5033f8e7fa72",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2020_Zhang_fingerprint_rice_XCH4_monsoon_Asia.pdf": {
+    "mtime": 1787152497.465,
+    "ast_hash": "70f277f734296eb3e8eca59276617256",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2021_RiveraMartinez_TGS_H2O_CO_crosssensitivity_ML.pdf": {
+    "mtime": 1787152531.779,
+    "ast_hash": "c6543427da998c87ea3619f3a229f428",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2021_Tokida_modified_closed_chamber_rice_methane.pdf": {
+    "mtime": 1784791480.038,
+    "ast_hash": "00dfb776e21bfe1c36ee189c4348b4a3",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2021_Ye_smart_eNose_machine_learning_review.pdf": {
+    "mtime": 1787151849.683,
+    "ast_hash": "96e8603c09b38a6ae5b980a2a5937386",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2022_Furuta_inexpensive_MOx_trace_methane.pdf": {
+    "mtime": 1784791409.111,
+    "ast_hash": "931e3a6f0bff5d3e1b216df75eb67ad5",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2022_IPCC_AR6_WGIII_Chapter07_AFOLU.pdf": {
+    "mtime": 1787151755.211,
+    "ast_hash": "1554c93d0b76dd13941962b677179133",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2022_LowCost_GC-FID_methane_rice_cultivation.pdf": {
+    "mtime": 1784791459.772,
+    "ast_hash": "b4cc6357de603a28c491db736fd1a7b2",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2022_Rajasekar_GHG_sensing_rice_fields_near_field.pdf": {
+    "mtime": 1787151848.545,
+    "ast_hash": "f31f5b0fa6b2544f250c1fa464297dae",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2023_Andrews_ML_calibrating_gas_sensors_methane_emissions.pdf": {
+    "mtime": 1787151851.806,
+    "ast_hash": "86a3e02a8d765e0b9dba5fb04a29fa49",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2023_Fu_MOS_chemiresistive_methane_sensor_review.pdf": {
+    "mtime": 1787151850.828,
+    "ast_hash": "4c70ccd2640d128167d1689b90dd7c86",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2023_Nguyen_carbon_footprint_rice_yield_gaps_mitigation.pdf": {
+    "mtime": 1778746017.731,
+    "ast_hash": "5e29bd9decceef16e95ea5a3a7744f78",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2023_Shah_TGS2611-E00_methane_environmental_response.pdf": {
+    "mtime": 1784791395.828,
+    "ast_hash": "4404f81c157c555664020c3681bab30c",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Domenech-Gil_eNose_environmental_methane_monitoring.pdf": {
+    "mtime": 1787151872.265,
+    "ast_hash": "0a4bf6e04839853b40060b4112af97f3",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Kiplimo_ML_calibration_lowcost_methane_TGS.pdf": {
+    "mtime": 1784791568.497,
+    "ast_hash": "2baa76516afece9a6a6548ecb70e6886",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Lakhmi_linear_nonlinear_gas_sensor_array_CH4.pdf": {
+    "mtime": 1787151855.975,
+    "ast_hash": "b06cdf762969aa7b0a6bea804a32cc55",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Liang_TROPOMI_China_rice_methane.pdf": {
+    "mtime": 1787152503.453,
+    "ast_hash": "fce37de4e34b2f50ca5e1c64b86379b6",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Mazengo_closed_chamber_crop_GHG.pdf": {
+    "mtime": 1787152485.868,
+    "ast_hash": "a5ef8d0ca59c6499d08d9288d62490ef",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2024_Mitchell_Figaro_lowcost_methane_ML_calibration.pdf": {
+    "mtime": 1787151855.028,
+    "ast_hash": "020855fdc817631f04378d91701534d1",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2025_Chen_Jacob_GRPI_rice_paddy_methane_inventory.pdf": {
+    "mtime": 1787151960.235,
+    "ast_hash": "87e98aa8589f89d1f8f53b77c835ee9b",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2025_Saunois_Global_Methane_Budget_2000-2020.pdf": {
+    "mtime": 1787151751.013,
+    "ast_hash": "65619727c0f857ec0f4220d75bbaf51f",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2025_Vo_TGA_vs_GC_methane_rice.pdf": {
+    "mtime": 1787151733.269,
+    "ast_hash": "7a9a5bfebf09ee276a7c8f093b776f12",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2026_Othman_SVM_eNose_methane_paddy_ecosystems.pdf": {
+    "mtime": 1787226092.599,
+    "ast_hash": "facf4cb641bdb9186fcf485a584cf3f6",
+    "semantic_hash": ""
+  },
+  "docs/literature-review-4.2/pdf/2026_Vo_rice_GHG_measurement_approaches_I.pdf": {
+    "mtime": 1787152488.93,
+    "ast_hash": "9de8eea035859ed7e0e22cede21d4dab",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2015_Minamikawa_GRA_chamber_guidelines_rice.pdf": {
+    "mtime": 1788074573.583,
+    "ast_hash": "de0f493e31502f2201213ff5050974b9",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2021_Zaman_GHG_measurement_agricultural_soils_methodology.pdf": {
+    "mtime": 1788074579.675,
+    "ast_hash": "18f0c9d5cccdc559d3f4130bbcb13209",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2022_Rajasekar_GHG_sensing_rice_fields_near_field.pdf": {
+    "mtime": 1788074492.306,
+    "ast_hash": "f31f5b0fa6b2544f250c1fa464297dae",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2023_Andrews_ML_calibrating_gas_sensors_methane_emissions.pdf": {
+    "mtime": 1788074506.735,
+    "ast_hash": "86a3e02a8d765e0b9dba5fb04a29fa49",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2024_Domenech-Gil_eNose_environmental_methane_monitoring.pdf": {
+    "mtime": 1788074568.905,
+    "ast_hash": "0a4bf6e04839853b40060b4112af97f3",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2024_Lakhmi_linear_nonlinear_gas_sensor_array_CH4.pdf": {
+    "mtime": 1788074662.172,
+    "ast_hash": "b06cdf762969aa7b0a6bea804a32cc55",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/direct/2024_Mitchell_Figaro_lowcost_methane_ML_calibration.pdf": {
+    "mtime": 1788074544.909,
+    "ast_hash": "3c2b02d5a2fa8b2b6c2b26cdb4e8c213",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/oa-fetch/2018_Collier-Oxandale_AMT_lowcost_methane.pdf": {
+    "mtime": 1787902456.181,
+    "ast_hash": "6be486fca4023ed6b305854d7fd944ea",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/oa-fetch/2020_Saunois_Global_Methane_Budget.pdf": {
+    "mtime": 1787902468.248,
+    "ast_hash": "6135468b1a539630f37ba4a3e1d22ee3",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/oa-fetch/essd-17-1873-2025.pdf": {
+    "mtime": 1787902898.146,
+    "ast_hash": "65619727c0f857ec0f4220d75bbaf51f",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/supporting/2020_Conrad_methane_production_soil_flooding.pdf": {
+    "mtime": 1788074581.452,
+    "ast_hash": "c1f21fd206f3293474f1e5b9eaeedec7",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/supporting/2021_Ye_smart_eNose_machine_learning_review.pdf": {
+    "mtime": 1788074498.15,
+    "ast_hash": "2528c08547631ca3128d3173205eac09",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/supporting/2023_MOS_chemiresistive_methane_sensor_review.pdf": {
+    "mtime": 1788074555.198,
+    "ast_hash": "4c70ccd2640d128167d1689b90dd7c86",
+    "semantic_hash": ""
+  },
+  "docs/paper/screened/supporting/2023_Yin_eNose_CH4_CO_mixed_gas_identification.pdf": {
+    "mtime": 1788074559.313,
+    "ast_hash": "c9b2ef71abedaf2537b88316f4aaa9db",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_lake_drawio.png": {
+    "mtime": 1787149167.91,
+    "ast_hash": "3b86d72bd6fa56e5e62e07cd8fb64df5",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_lake_original.png": {
+    "mtime": 1787149167.919,
+    "ast_hash": "2f9407c9836617d19490dcb33a84e45c",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_man_drawio.png": {
+    "mtime": 1787149167.924,
+    "ast_hash": "bece3b9fa3295d1c13f4c81417185269",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_man_original.png": {
+    "mtime": 1787149167.935,
+    "ast_hash": "9bbf4ad4fb5f5c54afc032c4ed80f624",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_sci2_drawio.png": {
+    "mtime": 1787149167.94,
+    "ast_hash": "b584ff2669a122965077525dd2e2353d",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/assets/cases/data_sci2_original.png": {
+    "mtime": 1787149167.95,
+    "ast_hash": "c83cc135d5266a3b4beef953c2e1f916",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/examples/data_lake.png": {
+    "mtime": 1787149167.962,
+    "ast_hash": "2f9407c9836617d19490dcb33a84e45c",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/examples/data_man.png": {
+    "mtime": 1787149167.981,
+    "ast_hash": "9bbf4ad4fb5f5c54afc032c4ed80f624",
+    "semantic_hash": ""
+  },
+  ".claude/skills/supervisor-skills/drawio-reconstruction/examples/data_sci2.png": {
+    "mtime": 1787149167.996,
+    "ast_hash": "c83cc135d5266a3b4beef953c2e1f916",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig01_minamikawa_CH4_pathways.png": {
+    "mtime": 1787155696.747,
+    "ast_hash": "27b84caafafd85cdefdf45a9714aeb33",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig02_oo_within_field_flux.png": {
+    "mtime": 1787155696.811,
+    "ast_hash": "3f70930769a2ddf45557fab1f41fb13c",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig03_bastviken_chamber_humidity.png": {
+    "mtime": 1787155696.849,
+    "ast_hash": "394946a5761fb89daab6916814fa5de2",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig04_vo_TGA_vs_GC_schematic.png": {
+    "mtime": 1787155776.245,
+    "ast_hash": "0ffba3863e6dcf5830e6c55be1bbaa2c",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig05_rajasekar_GAQU_rice.png": {
+    "mtime": 1787155697.013,
+    "ast_hash": "978968cd27a49433c54ae838c1439cde",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig06_domenech_PLSR_field.png": {
+    "mtime": 1787155697.104,
+    "ast_hash": "6d5781ab4efc75d4e3cf0e9c209c9247",
+    "semantic_hash": ""
+  },
+  "docs/draft/figures/ch42/fig07_eugster_TGS2600_TH.png": {
+    "mtime": 1787155697.125,
+    "ast_hash": "4236a24c589d8f72a02222f4f7173430",
     "semantic_hash": ""
   }
 }

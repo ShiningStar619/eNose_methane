@@ -1,0 +1,437 @@
+[
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=4B4F9C6E]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=4830F417]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8535]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=1910DED0]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8538]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=37409DD7]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC853B]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=44F4177F]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC851A]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=78CEF94B]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC853E]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=0DBC9C13]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8541]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8544]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=48609948]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=42AB4A95]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8547]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=12DAE55D]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC854A]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=2E23C626]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=406190BA]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC854D]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=31349A10]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=27F7DFB4]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8550]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=6B4DD10F]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8553]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=5125C5D1]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    },
+    {
+        "command":  "set",
+        "path":  "/body/p[@paraId=7FFC8556]",
+        "props":  {
+                      "lineSpacing":  "1.15x",
+                      "align":  "both",
+                      "firstLineIndent":  "1cm",
+                      "spaceAfterAuto":  "false",
+                      "spaceBeforeAuto":  "false",
+                      "indent":  "0pt",
+                      "spaceAfter":  "6pt",
+                      "spaceBefore":  "6pt",
+                      "lineRule":  "auto"
+                  }
+    }
+]

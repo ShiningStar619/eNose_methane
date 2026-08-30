@@ -4,7 +4,9 @@ title: 'Full article: Methodological progress in the measurement of agricultural
 id: full-article-methodological-progress-in-the-measurement-of-agricultural-greenhou
 tags:
 - chamber
+- ch5-theory-foundations-05eb4d
 created: '2026-08-03T07:06:20.034085Z'
+updated: '2026-08-16T13:54:53.881929Z'
 source: https://www.tandfonline.com/doi/full/10.1080/17583004.2024.2366527
 source_domain: www.tandfonline.com
 fetched_at: '2026-08-03T07:06:19.903430Z'
