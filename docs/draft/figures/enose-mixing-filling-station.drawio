@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2026-09-09T15:32:00.000Z" agent="Cursor" version="24.7.17" type="device">
+  <diagram id="mix-fill" name="ผสมแก๊สและสถานีบรรจุ">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1840" pageHeight="860" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Tahoma;fontSize=18;fontStyle=1;fontColor=#000000;whiteSpace=wrap;" value="ชุดผสมแก๊สและสถานีบรรจุ C10 — แผนผังอุปกรณ์ [1]–[15]" vertex="1">
+          <mxGeometry x="40" y="12" width="1760" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Tahoma;fontSize=12;fontColor=#333333;whiteSpace=wrap;" value="สองชุดคนละหน้าที่ · วาล์วสามทางตัวแรกเลือกระบายทิ้งหรือส่งต่อ · ตัวที่สองเลือกดูดสุญญากาศหรือเติม · เกจอยู่บนท่อร่วมเข้าถัง" vertex="1">
+          <mxGeometry x="40" y="40" width="1760" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_mix" parent="1" style="swimlane;startSize=36;rounded=1;arcSize=6;fillColor=#F7FBFA;strokeColor=#0B7A5B;strokeWidth=1.5;fontFamily=Tahoma;fontSize=14;fontStyle=1;fontColor=#0B7A5B;html=1;whiteSpace=wrap;container=1;collapsible=0;pointerEvents=0;" value="ส่วนผสมแก๊ส (Gas Mixing Section)  [1]–[10]" vertex="1">
+          <mxGeometry x="40" y="72" width="1080" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_fill" parent="1" style="swimlane;startSize=36;rounded=1;arcSize=6;fillColor=#FBF6F9;strokeColor=#7A2E5A;strokeWidth=1.5;fontFamily=Tahoma;fontSize=14;fontStyle=1;fontColor=#7A2E5A;html=1;whiteSpace=wrap;container=1;collapsible=0;pointerEvents=0;" value="สถานีบรรจุ (Filling Station)  [11]–[15]" vertex="1">
+          <mxGeometry x="1140" y="72" width="660" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="hdr_ch4" parent="lane_mix" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Tahoma;fontSize=12;fontStyle=1;fontColor=#0072B2;" value="สายมีเทน" vertex="1">
+          <mxGeometry x="16" y="48" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="lane_mix" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#56B4E9;strokeColor=#0072B2;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;size=12;" value="[1] ถัง CH4&lt;br&gt;บริสุทธิ์ 99.5%" vertex="1">
+          <mxGeometry x="24" y="80" width="130" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#56B4E9;strokeColor=#0072B2;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[2] Regulator" vertex="1">
+          <mxGeometry x="186" y="90" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#56B4E9;strokeColor=#0072B2;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[3] Flow Controller&lt;br&gt;CH4" vertex="1">
+          <mxGeometry x="348" y="84" width="150" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="lane_mix" style="verticalLabelPosition=bottom;align=center;html=1;verticalAlign=top;pointerEvents=1;dashed=0;shape=mxgraph.pid2valves.valve;valveType=check;fillColor=#56B4E9;strokeColor=#0072B2;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#0072B2;" value="[4] Check Valve" vertex="1">
+          <mxGeometry x="530" y="90" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hdr_air" parent="lane_mix" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Tahoma;fontSize=12;fontStyle=1;fontColor=#8A5A00;" value="สายอากาศ" vertex="1">
+          <mxGeometry x="16" y="380" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E69F00;strokeColor=#8A5A00;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[5] Air pump" vertex="1">
+          <mxGeometry x="24" y="420" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E69F00;strokeColor=#8A5A00;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[6] Filter&lt;br&gt;คาร์บอน + ดูดความชื้น" vertex="1">
+          <mxGeometry x="186" y="412" width="150" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E69F00;strokeColor=#8A5A00;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[7] Flow Controller&lt;br&gt;Air" vertex="1">
+          <mxGeometry x="368" y="420" width="150" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="lane_mix" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#D7F0E8;strokeColor=#009E73;strokeWidth=2;fontFamily=Tahoma;fontSize=12;fontStyle=1;fontColor=#000000;align=center;" value="[8] T-Joint /&lt;br&gt;Mixing Chamber" vertex="1">
+          <mxGeometry x="680" y="250" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="lane_mix" style="verticalLabelPosition=bottom;align=center;html=1;verticalAlign=top;pointerEvents=1;dashed=0;shape=mxgraph.pid2valves.valve;valveType=threeWay;actuator=man;fillColor=#D7F0E8;strokeColor=#009E73;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#0B7A5B;" value="[9] 3-Way Valve 1" vertex="1">
+          <mxGeometry x="890" y="240" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="lane_mix" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#666666;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[10] Exhaust / Vent" vertex="1">
+          <mxGeometry x="860" y="80" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="lane_fill" style="verticalLabelPosition=bottom;align=center;html=1;verticalAlign=top;pointerEvents=1;dashed=0;shape=mxgraph.pid2valves.valve;valveType=threeWay;actuator=man;fillColor=#F3E4EE;strokeColor=#7A2E5A;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#7A2E5A;" value="[11] 3-Way Valve 2" vertex="1">
+          <mxGeometry x="40" y="240" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="lane_fill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#666666;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[12] Vacuum Pump" vertex="1">
+          <mxGeometry x="20" y="460" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="lane_fill" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E4EE;strokeColor=#7A2E5A;strokeWidth=2;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[13] Compound&lt;br&gt;Gauge" vertex="1">
+          <mxGeometry x="220" y="250" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="lane_fill" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CC79A7;strokeColor=#882D5A;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;" value="[14] หัวแปลง&lt;br&gt;เกลียว C10" vertex="1">
+          <mxGeometry x="360" y="260" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="lane_fill" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#CC79A7;strokeColor=#882D5A;strokeWidth=1.5;fontFamily=Tahoma;fontSize=11;fontStyle=1;fontColor=#000000;align=center;size=12;" value="[15] ถังเป้า&lt;br&gt;C10" vertex="1">
+          <mxGeometry x="516" y="245" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0072B2;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0072B2;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0072B2;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e48" edge="1" parent="1" source="n4" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0072B2;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e56" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#E69F00;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e67" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#E69F00;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e78" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#E69F00;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e89" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#009E73;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e910" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;dashPattern=8 8;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontFamily=Tahoma;fontSize=11;fontColor=#666666;" value="ระบายทิ้ง">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e911" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#009E73;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontFamily=Tahoma;fontSize=11;fontColor=#009E73;" value="ส่งต่อ">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1112" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;dashPattern=8 8;strokeColor=#666666;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontFamily=Tahoma;fontSize=11;fontColor=#666666;" value="ดูด">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1113" edge="1" parent="1" source="n11" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#882D5A;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontFamily=Tahoma;fontSize=11;fontColor=#882D5A;" value="ท่อเข้าถัง">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1314" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#882D5A;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1415" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#882D5A;strokeWidth=2;endArrow=block;endFill=1;endSize=8;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#666666;dashed=1;dashPattern=8 8;fontFamily=Tahoma;fontSize=12;fontColor=#333333;align=left;spacingLeft=10;spacingRight=8;" value="แผนผังอุปกรณ์ตามที่ติดตั้ง — ไม่ใช่ SOP เติมความดันสูง&lt;br&gt;เช็ควาล์วมีบนสายมีเทนตามรายการ สายอากาศยังไม่มีตัวกันไหลย้อน · เกจ compound อยู่บนท่อเข้าถังเพื่ออ่านทั้งสุญญากาศและแรงดันต่ำ · ความเข้มข้นตั้งที่ Flow Controller สองเครื่อง ไม่ตั้งที่ความดันถังเป้า" vertex="1">
+          <mxGeometry x="40" y="728" width="1760" height="72" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
