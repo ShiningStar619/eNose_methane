@@ -65,9 +65,32 @@ BME_SAMPLE_INTERVAL_SEC = 0.1  # 1/0.1 = 10 Hz
 BME_I2C_ADDRESS = 0x76         # อาจเปลี่ยนเป็น 0x77 ตาม jumper ของบอร์ด
 BME_INITIAL_BUFFER_SIZE = 1000  # ~100 วินาทีของข้อมูลที่ 10 Hz
 
+# Soft calibration (เทียบกับเซ็นเซอร์อ้างอิง) — ค่าเริ่มต้น = ไม่แก้
+# T:  แบบที่ 1  offset  →  T_corr  = T_raw + BME_T_OFFSET
+# RH: แบบมาตรฐาน linear →  RH_corr = clip(BME_RH_SCALE * RH_raw + BME_RH_OFFSET, 0, 100)
+BME_T_OFFSET = 0.0    # b_T  (°C); ตัวอย่าง ref−BME เฉลี่ย
+BME_RH_SCALE = 1.0    # a_RH (ไม่มีหน่วย)
+BME_RH_OFFSET = 0.0   # b_RH (%RH)
+
 # คอลัมน์ของข้อมูล: [elapsed_time, temperature_c, humidity_pct, pressure_hpa]
 BME_COLUMN_NAMES = ['elapsed_time_sec', 'temperature_c', 'humidity_pct', 'pressure_hpa']
 BME_NUM_CHANNELS = 3  # T, H, P
+
+
+def apply_bme_calibration(temperature_c, humidity_pct, pressure_hpa):
+    """แก้ค่าดิบ BME280 ด้วยสมการ soft-calibration
+
+    T_corr  = T_raw + BME_T_OFFSET
+    RH_corr = clip(BME_RH_SCALE * RH_raw + BME_RH_OFFSET, 0, 100)
+    P       = ไม่แก้ (ส่งต่อค่าดิบ)
+    """
+    t_corr = float(temperature_c) + BME_T_OFFSET
+    rh_corr = BME_RH_SCALE * float(humidity_pct) + BME_RH_OFFSET
+    if rh_corr < 0.0:
+        rh_corr = 0.0
+    elif rh_corr > 100.0:
+        rh_corr = 100.0
+    return [t_corr, rh_corr, float(pressure_hpa)]
 
 
 class BMESensorDataCollector:
@@ -161,13 +184,13 @@ def run_bme_collection(stop_event: threading.Event, simulate: Optional[bool] = N
             elapsed_time = loop_start - start_time
 
             try:
-                values = [
-                    float(sensor.temperature),
-                    float(sensor.humidity),
-                    float(sensor.pressure),
-                ]
+                values = apply_bme_calibration(
+                    sensor.temperature,
+                    sensor.humidity,
+                    sensor.pressure,
+                )
             except Exception as e:
-                # ถ้าอ่านพลาด ใช้ค่าเดิมแทน 0 เพื่อไม่ให้กราฟกระโดด
+                # ถ้าอ่านพลาด ใช้ค่าเดิม (ที่ calibrate แล้ว) แทน 0 เพื่อไม่ให้กราฟกระโดด
                 print(f"BME280 read error: {e}")
                 if collector.index > 0:
                     last = collector.data[collector.index - 1, 1:]
@@ -226,4 +249,7 @@ def main():
 
 
 if __name__ == "__main__":
+    # ponytail: sanity check สมการ calibrate (default coeffs = identity)
+    _t, _rh, _p = apply_bme_calibration(25.0, 55.0, 1013.25)
+    assert abs(_t - 25.0) < 1e-9 and abs(_rh - 55.0) < 1e-9 and abs(_p - 1013.25) < 1e-9
     main()
