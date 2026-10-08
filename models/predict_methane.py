@@ -18,9 +18,11 @@ from typing import Any, Optional
 import numpy as np
 import pandas as pd
 
-MODEL_PATH = Path(__file__).parent / "models" / "methane_linreg_model.joblib"
-METRICS_PATH = Path(__file__).parent / "models" / "methane_linreg_metrics.json"
-DEFAULT_BATCH_DIR = "BuildML_PC\build_dataset\testdata"
+MODELS_DIR = Path(__file__).parent
+PROJECT_ROOT = MODELS_DIR.parent
+MODEL_PATH = MODELS_DIR / "methane_linreg_model.joblib"
+METRICS_PATH = MODELS_DIR / "methane_linreg_metrics.json"
+DEFAULT_BATCH_DIR = PROJECT_ROOT / "BuildML_PC" / "build_dataset" / "testdata"
 _bundle = None
 _pipe = None
 _selected_features: list[str] = []
@@ -482,7 +484,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--processed-dir",
         type=Path,
-        default=Path(__file__).parent / "acquisition" / "processed_data",
+        default=PROJECT_ROOT / "acquisition" / "processed_data",
         help="โฟลเดอร์ processed CSV (ใช้กับ --latest)",
     )
     parser.add_argument(

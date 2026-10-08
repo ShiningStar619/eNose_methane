@@ -17,7 +17,7 @@
 **ขั้นตอนสั้นๆ (แนะนำ — ใช้ XDG เหมือนเดิม):**
 
 1. วางโปรเจกต์ให้ path ตรงกับ `Exec=` ใน `program/enose-gui.desktop` หรือแก้ `Exec=` ให้ตรง path จริงบน Pi  
-2. สร้าง/รีเฟรช venv และติดตั้งแพ็กเกจตามหัวข้อ **Prerequisites** ด้านล่าง (`requirements-pi.txt`, `x11-xserver-utils`, ฯลฯ)  
+2. สร้าง/รีเฟรช venv และติดตั้งแพ็กเกจตามหัวข้อ **Prerequisites** ด้านล่าง (`requirements.txt`, `x11-xserver-utils`, ฯลฯ)  
 3. (ถ้าแก้ไฟล์ `.sh` / `.desktop` บน Windows) ตรวจและแก้ **CRLF → LF** ตามหัวข้อ **แก้ปัญหา CRLF**  
 4. รันติดตั้ง autostart อีกครั้ง — จะคัดลอก `enose-gui.desktop` จาก repo ทับใน `~/.config/autostart/` และปิด systemd `enose-gui` เดิมถ้ามี (กันสองที่รันซ้อน):
 
@@ -135,7 +135,7 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 
 .venv/bin/python -m ensurepip --upgrade
-.venv/bin/python -m pip install -r requirements-pi.txt
+.venv/bin/python -m pip install -r requirements.txt
 
 deactivate
 ```
@@ -393,7 +393,7 @@ python -c "import pandas as pd; import numpy as np; print('OK', pd.__version__, 
 ถ้ายัง error ให้ลองติดตั้งชุดเต็มใหม่จาก repo:
 
 ```bash
-.venv/bin/python -m pip install -r requirements-pi.txt
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
 ### มี autostart 2 ที่รันซ้อนกัน

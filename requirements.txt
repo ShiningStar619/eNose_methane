@@ -1,0 +1,26 @@
+# eNose Methane — dependencies ทั้งหมดบน Raspberry Pi
+#   .venv/bin/python -m ensurepip --upgrade
+#   .venv/bin/python -m pip install -r requirements.txt
+
+# Hardware: GPIO / SPI (ADS1263) / I2C (BME280)
+RPi.GPIO
+spidev
+typing-extensions
+adafruit-blinka
+adafruit-circuitpython-typing
+adafruit-circuitpython-busdevice
+adafruit-circuitpython-bme280
+
+# Data processing + กราฟ GUI
+# ปักเวอร์ชันขั้นต่ำเพื่อลดอาการเสียหายของ wheel บน Python 3.12/3.13 + ARM
+# (เช่น AttributeError: _pandas_datetime_CAPI หลังติดตั้งค้าง/อัปเกรดครึ่งๆ กลางๆ)
+numpy>=2.1.0
+pandas>=2.2.3
+matplotlib>=3.9.0
+
+# ML prediction (predict_methane.py) — ต้องตรงกับเวอร์ชันที่ใช้บันทึก models/methane_linreg_model.joblib
+scikit-learn==1.6.1
+joblib
+
+# Optional: เร่ง low-pass filter ใน acquisition/ (ไม่ติดตั้งก็ทำงานได้ด้วย fallback)
+# scipy

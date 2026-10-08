@@ -22,6 +22,7 @@ _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(_project_root)
 sys.path.append(str(Path(_project_root) / "reading"))
 sys.path.append(str(Path(_project_root) / "acquisition"))
+sys.path.append(str(Path(_project_root) / "models"))
 
 # Import Hardware Controller
 from hardware_control.hardware import HardwareController, is_raspberry_pi, DEFAULT_GPIO_PINS
