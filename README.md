@@ -62,6 +62,16 @@ cd program && python3 gui.py
 
 ต้องมีจอ Desktop / VNC (`$DISPLAY`) — ดูรายละเอียดในเอกสารด้านล่าง
 
+### Browser simulation
+
+ลำดับ Auto 7 ขั้น พร้อมสัญญาณเซ็นเซอร์และค่ามีเทนจำลอง เปิดจากโฟลเดอร์ `simulation/` (ไม่ใช้ GPIO)
+
+```bash
+python3 -m http.server 8000 --bind 127.0.0.1 --directory simulation
+```
+
+จากนั้นเปิด http://127.0.0.1:8000
+
 ## Project structure
 
 ```

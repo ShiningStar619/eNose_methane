@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eNose Methane — simulation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1>eNose Methane</h1>
+        <p class="sub">แบบจำลองลำดับวัดก๊าซมีเทนในเบราว์เซอร์</p>
+      </div>
+      <span class="badge">SIMULATION</span>
+    </header>
+
+    <p class="banner">
+      สัญญาณ MOS สี่ช่อง อุณหภูมิ ความชื้น ความดัน และค่า ppm บนหน้านี้เป็นค่าจากแบบจำลอง
+      คำนวณจากส่วนต่างแรงดันช่วง Baseline กับ Measure
+      ใช้สาธิตลำดับการทำงานของเครื่อง eNose
+    </p>
+
+    <nav class="nav" aria-label="หน้า">
+      <button type="button" id="tab-control" data-page="control" aria-selected="true">Control</button>
+      <button type="button" id="tab-display" data-page="display" aria-selected="false">Display</button>
+      <button type="button" id="tab-settings" data-page="settings" aria-selected="false">Settings</button>
+    </nav>
+
+    <section id="page-control" class="page">
+      <div class="card">
+        <h2>Control Mode</h2>
+        <div class="mode">
+          <button type="button" id="mode-manual" data-mode="manual" aria-pressed="false">Manual</button>
+          <button type="button" id="mode-auto" data-mode="auto" aria-pressed="true">Auto</button>
+        </div>
+        <p class="hint" id="mode-hint">ตั้งค่าเวลาแล้วกด Start เพื่อรันลำดับอัตโนมัติ</p>
+        <div class="devices" id="devices"></div>
+        <p class="manual-only" id="manual-timer-row">
+          <label>ระยะเวลาเก็บข้อมูล (วินาที)
+            <input id="manual-seconds" type="number" min="1" max="30" step="1" value="8">
+          </label>
+        </p>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>Operation Sequence</h2>
+          <p class="flow">Heat → BL → Vac → Mix → Meas → VR → Rec</p>
+          <div class="chips" id="op-chips"></div>
+          <p class="progress" id="progress">Ready to start</p>
+          <p class="timer" id="timer">--:--</p>
+          <p id="cycle">Current Cycle: 0</p>
+          <div class="actions">
+            <button type="button" id="stop-btn">Stop</button>
+            <button type="button" id="start-btn">Start Auto Sequence</button>
+          </div>
+          <p class="status" id="status" aria-live="polite">Status: Ready</p>
+        </section>
+
+        <section class="card ppm-card">
+          <h2>Methane</h2>
+          <p class="ppm" id="ppm" aria-live="polite">----</p>
+          <p class="unit">ppm</p>
+          <p class="ppm-note" id="ppm-note">รอรอบ Auto ที่มี Baseline และ Measure</p>
+        </section>
+      </div>
+
+      <section class="card">
+        <h2>Live sensors</h2>
+        <div class="readings" id="live-sensors"></div>
+        <div class="env" id="live-env"></div>
+      </section>
+    </section>
+
+    <section id="page-display" class="page" hidden>
+      <section class="card">
+        <h2 id="chart-title">Display (Process Data)</h2>
+        <canvas id="chart" width="960" height="360" aria-label="กราฟแรงดันเซ็นเซอร์จำลอง"></canvas>
+        <div class="legend">
+          <span><i class="swatch s1"></i>sensor_1</span>
+          <span><i class="swatch s2"></i>sensor_2</span>
+          <span><i class="swatch s3"></i>sensor_3</span>
+          <span><i class="swatch s4"></i>sensor_4</span>
+        </div>
+        <p class="chart-note">แกนตั้งเป็นแรงดันจำลอง (V) แกนนอนเป็นเวลาตั้งแต่เริ่มบันทึก (s)</p>
+        <p class="ppm" id="display-ppm">----</p>
+        <p class="unit">ppm</p>
+      </section>
+    </section>
+
+    <section id="page-settings" class="page" hidden>
+      <section class="card">
+        <h2>Auto Mode Parameters</h2>
+        <p class="hint">เวลาเป็นวินาทีของรอบสาธิต อ่านค่านี้ตอนกด Start รอบถัดไป ฮีตเตอร์ในแบบจำลองไม่ร้อนจริง</p>
+        <div class="settings-grid" id="duration-fields"></div>
+        <div class="settings-grid" style="margin-top: 12px">
+          <label class="full">ความเข้มมีเทนของตัวอย่างจำลอง
+            <select id="sample-ppm">
+              <option value="0">0 ppm — อากาศสะอาด</option>
+              <option value="5">5 ppm</option>
+              <option value="12" selected>12 ppm</option>
+              <option value="25">25 ppm</option>
+            </select>
+          </label>
+          <label>จำนวนรอบ
+            <input id="loop-count" type="number" min="1" max="3" step="1" value="1">
+          </label>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="model.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
